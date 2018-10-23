@@ -1,0 +1,38 @@
+/* layui布局设置  */
+
+.layui-nav-tree,
+.layui-side-scroll {
+    width: 100%;
+}
+
+.layui-layout-admin .layui-side {
+    width: 19%;
+}
+
+.aside {
+    background-image: linear-gradient(0deg, #53C2FB 0%, #298FF5 100%);
+}
+
+.layui-nav {
+    background: transparent;
+}
+
+.layui-body,
+.layui-layout-admin .layui-footer {
+    left: 19%;
+}
+
+
+/* 头部 */
+
+.header {
+    height: 100px;
+    background: red;
+}
+
+
+/* 身体 */
+
+.body {
+    background: blue;
+}
