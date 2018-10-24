@@ -22,17 +22,71 @@
     left: 19%;
 }
 
+.layui-nav .layui-nav-item a {
+    padding: 0 20%;
+}
+
+
+/* 侧边栏 */
+
+.logo {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.title {
+    font-family: PingFangSC-Semibold;
+    font-size: 32px;
+    color: #FFFFFF;
+    margin: 10px 0;
+}
+
+.submenu {
+    margin-left: 10px;
+}
+
 
 /* 头部 */
 
 .header {
-    height: 100px;
-    background: red;
+    height: 100%;
+    padding: 15px 0;
+    color: #738595;
+    background: #F3F3F4;
+    overflow: hidden;
+}
+
+.admin {
+    /* border: 1px solid red; */
+    padding-left: 70px;
+    /* width: 200px; */
+    height: 60px;
+    background: url('../../img/administrator.png ') no-repeat center left;
+    margin-bottom: 15px;
+}
+
+.exit {
+    /* border: 1px solid red; */
+    padding-top: 35px;
+    width: 35px;
+    text-align: center;
+    /* height: 50px; */
+    background: url('../../img/exit.png ') no-repeat 0px 4px;
+    margin: 0 20px 15px;
+}
+
+.select {
+    margin-left: -3px;
+    color: #7C8D9E;
+    background: #F3F3F4;
 }
 
 
 /* 身体 */
 
 .body {
-    background: blue;
+    background: #FFF;
+    margin: 0 auto;
+    width: 95%;
+    padding: 10px;
 }

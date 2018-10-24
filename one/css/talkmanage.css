@@ -1,0 +1,26 @@
+.addtalk {
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #fff;
+    background: #3199F7;
+    border: 1px solid #4597E0;
+    border-radius: 5px;
+}
+
+.talktop {
+    font-size: 28px;
+    color: #333333;
+    margin: 20px;
+}
+
+
+/* layui表格样式修改 */
+
+.layui-table {
+    color: #4D4F50;
+}
+
+.layui-table-view .layui-table td,
+.layui-table-view .layui-table th {
+    background: #F7F9FB;
+}

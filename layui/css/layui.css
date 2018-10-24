@@ -891,8 +891,9 @@ a cite {
 }
 
 .layui-layout-admin .layui-body {
+    overflow: hidden;
     /* top: 60px; */
-    bottom: 44px
+    /* bottom: 44px */
 }
 
 .layui-layout-admin .layui-main {
@@ -2230,7 +2231,7 @@ hr {
 }
 
 .layui-form-select dl dd.layui-this {
-    background-color: #5FB878;
+    background-color: #2182E2;
     color: #fff
 }
 
@@ -3697,7 +3698,8 @@ body .layui-table-tips .layui-layer-content {
     top: 0;
     width: 0;
     height: 5px;
-    background-color: #5FB878;
+    background-color: #2182E2;
+    ;
     transition: all .2s;
     -webkit-transition: all .2s
 }
@@ -3760,7 +3762,7 @@ body .layui-table-tips .layui-layer-content {
     padding: 5px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
     border: 1px solid #d2d2d2;
-    background-color: #fff;
+    /* background-color: #fff; */
     z-index: 100;
     border-radius: 2px;
     white-space: nowrap
@@ -3781,7 +3783,8 @@ body .layui-table-tips .layui-layer-content {
 
 .layui-nav .layui-nav-child dd.layui-this a,
 .layui-nav-child dd.layui-this {
-    background-color: #5FB878;
+    background-color: #2182E2;
+    ;
     color: #fff
 }
 
@@ -3810,13 +3813,13 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav-tree .layui-nav-item a:hover {
-    background-color: #4E5465
+    background-color: transparent;
 }
 
 .layui-nav-tree .layui-nav-bar {
     width: 5px;
     height: 0;
-    background-color: #009688
+    background-color: #2182E2;
 }
 
 .layui-nav-tree .layui-nav-child dd.layui-this,
@@ -3824,7 +3827,8 @@ body .layui-table-tips .layui-layer-content {
 .layui-nav-tree .layui-this,
 .layui-nav-tree .layui-this>a,
 .layui-nav-tree .layui-this>a:hover {
-    background-color: #009688;
+    background-color: #2182E2;
+    ;
     color: #fff
 }
 
@@ -3855,7 +3859,7 @@ body .layui-table-tips .layui-layer-content {
 
 .layui-nav-tree .layui-nav-child,
 .layui-nav-tree .layui-nav-child a:hover {
-    background: 0 0;
+    /* background: 0 0; */
     color: #fff
 }
 
@@ -3866,7 +3870,7 @@ body .layui-table-tips .layui-layer-content {
 .layui-nav-itemed>.layui-nav-child {
     display: block;
     padding: 0;
-    background-color: rgba(0, 0, 0, .3)!important
+    /* background-color: rgba(0, 0, 0, .3)!important */
 }
 
 .layui-nav-itemed>.layui-nav-child>.layui-this>.layui-nav-child {
