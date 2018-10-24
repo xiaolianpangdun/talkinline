@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>在线访谈后台管理系统</title>
+
+  <!-- 引入jquery2.0以下的版本 -->
+  <script src="js/jquery.js"></script>
+
+  <!-- 引入layui -->
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <script src="../layui/layui.all.js"></script>
+  <!-- <script src="../layui/layui.js"></script>
+  <script src="../layui/lay/modules/laydate.js"></script> -->
+
+  <!-- 引入页面css、js-->
+  <link rel="stylesheet" href="css/TwoMenu.css">
+  <script src="js/TwoMenu.js"></script>
+</head>
+
+<body>
+
+
+  <!-- 二级页面  start -->
+
+  <div class="container">
+
+    <!-- 左侧导航   start -->
+    <div>
+      <ul class="nav">
+        <li><a href="javascript:;">直播详情</a></li>
+        <li><a href="javascript:;">用户管理</a></li>
+        <li><a href="javascript:;">互动设置</a></li>
+        <li><a href="javascript:;">现场图片</a></li>
+        <li><a href="javascript:;">文字实录</a></li>
+        <li><a href="javascript:;">视频下载</a></li>
+      </ul>
+    </div>
+    <!-- 左侧导航   end -->
+
+    <!-- 右边内容   start -->
+    <div class="content">
+
+      <!-- 直播详情  start -->
+      <div class="menu">
+        <!-- 标题 -->
+        <div class="title">
+          <p>直播详情</p>
+        </div>
+        <!-- 信息 -->
+        <div class="main">
+          <ul>
+            <li>
+              <p>会议名称</p>
+              <div><span>国家税务总局第二季度税收政策解读详情</span>
+                <p>修改</p>
+              </div>
+            </li>
+            <li>
+              <p>访谈序号</p>
+              <div><span>09</span></div>
+            </li>
+            <li>
+              <p>访谈场景</p>
+              <div><span>在线视频访谈</span>
+                <p>修改</p>
+              </div>
+            </li>
+            <li>
+              <p>主持人</p>
+              <div><span>无名人</span></div>
+            </li>
+            <li style="line-height: 35px;margin-bottom: 18px">
+              <p>访谈时间</p>
+              <div><div class="time" id="time">请选择时间</div></div>
+            </li>
+            <li style="margin-bottom: 18px;">
+              <p style="line-height: 35px;">本期嘉宾</p>
+              <div><p class="guest">国家税务总局司长王思宇</p>
+                <div class="add">添加嘉宾</div>
+              </div>
+            </li>
+            <li style="height: 50px;margin-bottom: 40px;">
+              <p>会议简介</p>
+              <div><span>简
+                  介：2018年4月27日上午8:30，劳人税收递劳务税副司长林枫人税收递延型商业养老保险试点政策、税收协定有关税收政策四项主题进行深入讲解。</span></div>
+            </li>
+            <li>
+              <p>推流地址</p>
+              <div><span id="link">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2044</span>
+                <p style="margin-left: 54px;" onclick="oCopy()">复制地址</p>
+              </div>
+            </li>
+            <li>
+              <p>访问地址</p>
+              <div><span>http://zxft.hntax.gov.cn/onfront</span>
+                <p style="margin-left: 54px;">复制地址</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 点击确定修改 -->
+        <!-- <div class="sure">
+          <p>确定修改</p>
+        </div> -->
+      </div>
+      <!-- 直播详情  end -->
+
+
+    </div>
+    <!-- 右边内容   end -->
+
+  </div>
+
+
+
+  <!-- 二级页面  end -->
+
+</body>
+
+</html>
+
+
+<script>
+  /**
+   * 设置左边导航的高度
+  */
+  // $(document).ready(function(){
+  //   var height = document.documentElement.clientHeight;
+  //   console.log(height);
+  //   $(".nav").height(height-27 + 'px');
+  // });  
+  
+    
+
+</script>

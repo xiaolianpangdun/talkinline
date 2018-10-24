@@ -1,0 +1,148 @@
+/* 全局样式   start */
+body,div,aside,p,span,ul,li,a,form{
+  margin: 0;
+  padding: 0;
+}
+
+ul,li{
+  list-style: none;
+}
+
+img{
+  border: 0;
+}
+
+a{
+  text-decoration: none;
+}
+/* 全局样式   end */
+
+
+
+/* 二级页面样式  start */
+.container{
+  width: 81%;
+  height: 918px;
+  margin: 20px auto;
+}
+
+.nav{
+  width: 17%;
+  height: 891px;
+  background: #DEE1E6;
+  padding-top: 27px;
+  float: left;
+}
+
+.nav li{
+  height: 44px;
+  line-height: 44px;
+  padding-left: 28px;
+  font-size: 14px;
+}
+
+.nav a{
+  color: #333333;
+}
+
+.content{
+  width: 83%;
+  height: 100%;
+  float: right;
+  /* background: #f60; */
+}
+.menu{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #E6EEF5;
+  box-sizing: border-box;
+}
+.title{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 60px;
+}
+.title p{
+  width: 95%;
+  border-bottom: 1px solid #E6EEF5;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  font-size: 24px;
+}
+.main{
+  width: 100%;
+  
+}
+.main ul li{
+  width: 100%;
+  height: 44px;
+  /* display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start; */
+  font-size: 13px;
+}
+.main ul li p{
+  display: inline-block;
+}
+.main ul li>p{
+  margin-left: 67px;
+  /* margin-right: 62px; */
+  width: 8%;
+  height: 44px;
+  color: #888888;
+  float: left;
+}
+.main ul li>div{
+  width: 80%;
+  margin-right: 72px;
+  float: right;
+}
+.time{
+  text-align: center;
+  width: 193px;
+  height: 32px;
+  line-height: 32px;
+  border: 1px solid #CDCDCD;
+  /* margin-bottom: 30px;
+  margin-top: -10px; */
+}
+.main ul li>div>p{
+  color: #3199F7;
+  margin-left: 32px;
+  cursor: pointer;
+}
+.main ul li>div>.guest{
+  padding: 9px 12px;
+  background: #E6EEF5;
+  margin-right: 20px;
+  margin-left: 0;
+  color: #000;
+  cursor: none;
+}
+.add{
+  display: inline-block;
+  width: 82px;
+  height: 32px;
+  border: 1px solid #3199F7;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 32px;
+  color: #3199F7;
+  font-size: 14px;
+  cursor: pointer;
+}
+.sure{
+  width: 200px;
+  height: 46px;
+  line-height: 46px;
+  color: rgba(255,255,255,.5);
+  background: #3199F7;
+  margin: 0 auto;
+  margin-top: 134px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* 二级页面样式  end */
