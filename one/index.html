@@ -22,30 +22,26 @@
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" lay-href="./pages/talkmanage.html">
+                        <a class="jumpTo" data-link="talkmanage" href="javascript:;">
                             <img src="../img/not_index.png" alt="">
-                            <span class="submenu">访谈管理</span>
+                            <span class="submenu">访谈管理台</span>
                         </a>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">
+                        <a class="jumpTo" data-link="historytalk" href="javascript:;">
                             <img src="../img/not_interviews.png" alt="">
-                            <span class="submenu">访谈管理</span>
+                            <span class="submenu">历史访谈</span>
                         </a>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">
                             <img src="../img/not_set_up.png" alt="">
-                            <span class="submenu">访谈管理</span>
+                            <span class="submenu">通用设置</span>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd><a class="aaa" href="javascript:;">列表一</a></dd>
-                            <dd><a href="javascript:;">列表二</a></dd>
-                            <dd><a href="">超链接</a></dd>
+                            <dd><a class="jumpTo" data-link="forbidden" href="javascript:;" style="padding:0 37%;">严禁词</a></dd>
+                            <dd><a class="jumpTo" data-link="blacklist" href="javascript:;" style="padding:0 37%;">黑名单</a></dd>
                         </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">黑名单</a>
                     </li>
                 </ul>
             </div>
@@ -73,6 +69,7 @@
 
                 <!-- 页面身体  -->
                 <div class='body'>内容主体区域</div>
+
             </div>
 
 
@@ -83,64 +80,35 @@
             ! function() {
                 //无需再执行layui.use()方法加载模块，直接使用即可
                 var form = layui.form,
-                    layer = layui.layer;
-                var $ = layui.$;
-                var table = layui.table;
-                $.ajax({
-                    url: './pages/talkmanage.html',
-                    success: function(data) {
-                        console.log(123);
-                        $(".body").html(data);
-                        table.render({
-                            elem: '#test',
-                            url: '',
-                            cols: [
-                                [{
-                                    field: 'id',
-                                    width: 80,
-                                    title: 'ID',
-                                    sort: true
-                                }, {
-                                    field: 'username',
-                                    width: 80,
-                                    title: '用户名'
-                                }, {
-                                    field: 'sex',
-                                    width: 80,
-                                    title: '性别',
-                                    sort: true
-                                }, {
-                                    field: 'city',
-                                    width: 80,
-                                    title: '城市'
-                                }, {
-                                    field: 'sign',
-                                    title: '签名',
-                                    minWidth: 150
-                                }, {
-                                    field: 'experience',
-                                    width: 80,
-                                    title: '积分',
-                                    sort: true
-                                }, {
-                                    field: 'score',
-                                    width: 80,
-                                    title: '评分',
-                                    sort: true
-                                }, {
-                                    field: 'classify',
-                                    width: 80,
-                                    title: '职业'
-                                }, {
-                                    field: 'wealth',
-                                    width: 135,
-                                    title: '财富',
-                                    sort: true
-                                }]
-                            ],
-                            page: true
-                        });
+                    layer = layui.layer,
+                    $ = layui.$,
+                    link = window.localStorage.getItem("link");
+
+                // 刷新之后 导航背景颜色还在
+                (function() {
+                    if (link != null) {
+                        var html = "<iframe width=100% height=800px src='./pages/" + link + ".html' frameborder='0'></iframe>"
+                        $(".body").html(html);
+
+                    } else {
+                        var html = "<iframe width=100% height=800px src='./pages/" + "talkmanage" + ".html' frameborder='0'></iframe>"
+                        $(".body").html(html);
+                        $($(".jumpTo")[0]).addClass("layui-this");
                     }
+                    var n = $(".jumpTo").length;
+                    for (var i = 0; i < n; i++) {
+                        var $i = $($(".jumpTo")[i]);
+                        if ($i.attr("data-link") == link) {
+                            $i.addClass("layui-this");
+                        }
+                    }
+                })();
+                //导航跳转
+                $(".jumpTo").click(function(event) {
+                    var that = this;
+                    window.localStorage.setItem("link", $(that).attr("data-link"));
+                    var html = "<iframe width=100% height=800px src='./pages/" + window.localStorage.getItem("link") + ".html' frameborder='0'></iframe>"
+                    $(".body").html(html);
                 });
             }();
         </script>

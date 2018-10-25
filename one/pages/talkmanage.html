@@ -1,37 +1,82 @@
-<!-- <link rel="stylesheet" href="../css/talkmanage.css"> -->
+<link rel="stylesheet" href="../css/talkmanage.css">
+<link rel="stylesheet" href="../../common.css">
+<link rel="stylesheet" href="../../layui/css/layui.css">
 <div class="talktop">
     <span>访谈管理台</span>
     <button class="addtalk right">+ &nbsp;&nbsp;新建访谈</button>
 </div>
 
-<table class="layui-table" style="color:#4D4F50;">
-    <colgroup>
-        <col width="150">
-        <col width="200">
-        <col>
-    </colgroup>
-    <thead>
-        <tr style="background:#F7F9FB;">
-            <th>序号</th>
-            <th>访谈名称</th>
-            <th>访谈状态</th>
-            <th>类型</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="color: #4D4F50;">01</td>
-            <td>20188aslhdfsldkjfhlsdhlfsd</td>
-            <td>fasfdsdfs</td>
-            <td>sdfsdf</td>
-            <td>sfsf</td>
-        </tr>
-    </tbody>
+<table class="layui-table" width=100% id="test" lay-filter="test">
 </table>
+<!-- 分页器 -->
+<div id="page" style="text-align:center;"></div>
 
-<table class="layui-hide" id="test"></table>
+<script src="../../layui/layui.all.js"></script>
 
-
+<!-- 访谈状态颜色变化 -->
+<script type="text/html" id="talk">
+    {{# if(d.status=="正在访谈"){ }}
+    <span style="color:#0EB65C;">{{d.status}}</span> {{# }else{}}
+    <span>{{d.status}}</span>{{#}}}
+</script>
+<!-- 访谈操作按钮模板 -->
+<script type="text/html" id="handle">
+    <a href="javascript:;" class="layui-table-link">
+        <img src="../../img/edit.png" alt=""> 设置访谈详情
+    </a>
+    {{# if(d.status=="正在访谈"){ }}
+    <a href="javascript:;" class="layui-table-link  endtalk hover">结束访谈</a> {{# }else{ }}
+    <span class="endtalk" style="color:#999999;">结束访谈</span> {{# }}}
+    <a href="javascript:;" class="layui-table-link " style="color:#FF5500;">
+        <img src="../../img/delete.png" alt=""> 删除
+    </a>
+</script>
 <script>
+    ;
+    ! function() {
+        // 表格
+        var table = layui.table;
+        table.render({
+            elem: '#test',
+            skin: 'line',
+            url: '../data.json',
+            cols: [
+                [ //表头
+                    {
+                        field: 'number',
+                        title: '序号',
+                        width: 100
+                    }, {
+                        field: 'name',
+                        title: '访谈名称',
+                    }, {
+                        field: 'status',
+                        title: '访谈状态',
+                        width: 120,
+                        templet: '#talk'
+                    }, {
+                        field: 'kind',
+                        title: '类型',
+                        wdith: 150
+                    }, {
+                        field: 'as',
+                        title: '操作',
+                        width: 360,
+                        templet: '#handle'
+                    }
+                ]
+            ],
+        });
+        // 分页器
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'page',
+            count: 50,
+            prev: "<<上一页",
+            next: "下一页>>",
+            theme: '#4597E0'
+        });
+    }();
 </script>

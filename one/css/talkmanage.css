@@ -1,6 +1,7 @@
 .addtalk {
     font-size: 14px;
     padding: 5px 10px;
+    margin-top: 6px;
     color: #fff;
     background: #3199F7;
     border: 1px solid #4597E0;
@@ -20,7 +21,22 @@
     color: #4D4F50;
 }
 
-.layui-table-view .layui-table td,
 .layui-table-view .layui-table th {
     background: #F7F9FB;
+    color: #424547;
+}
+
+.layui-table-view .layui-table td {
+    background: #fff;
+    color: #4D4F50;
+}
+
+.hover:hover {
+    background: #E2EDF8;
+    border-radius: 2px;
+}
+
+.endtalk {
+    padding: 5px 15px;
+    margin: 0 25px;
 }
