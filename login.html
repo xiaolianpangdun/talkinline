@@ -5,13 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>在线访谈后台登录</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
     <link rel="stylesheet" href="./common.css">
     <link rel="stylesheet" href="./login.css">
 </head>
 
 <body>
-    <div class="login"></div>
+    <div class="login">
+        <div class="lg-body">
+            <div class="left">
+                <img class="lg-img" src="./img/Illustrations.png" alt="">
+            </div>
+            <div class="right layui-form-item">
+                <p class="lg-title">在线访谈后台系统</p>
+                <div class="layui-input-block">
+                    <input class="uname" type="text" placeholder="请输入用户名">
+                </div>
+                <div class="layui-input-block">
+                    <input class="upwd" type="text" placeholder="请输入密码">
+                </div>
+                <div class="layui-input-block remember">
+                    <input id="color-cb" class="color-cb" type="checkbox" value="123">
+                    <label for="color-cb"> 记住用户名</label>
+                </div>
+                <button class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./layui/layui.all.js"></script>
+    <script>
+        ;
+        ! function() {
+            var $ = layui.$;
+            $(".uname,.upwd").focus(function(event) {
+                $(this).css({
+                    "border-bottom": "1px solid #4F93FE"
+                });
+            }).blur(function(event) {
+                $(this).css({
+                    "border-bottom": "1px solid #eee"
+                });
+            });
+        }();
+    </script>
 </body>
 
 </html>
