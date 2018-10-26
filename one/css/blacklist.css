@@ -1,0 +1,46 @@
+    /* 顶部 */
+    
+    button.right {
+        font-size: 14px;
+        padding: 5px 20px;
+        color: #fff;
+        background: #3199F7;
+        border: 1px solid #4597E0;
+        border-radius: 2px;
+    }
+    
+    button.lead {
+        padding: 5px 30px;
+        margin-left: 30px;
+    }
+    
+    .talktop .right {
+        margin-top: 4px;
+    }
+    
+    .talktop {
+        font-size: 28px;
+        color: #333333;
+        padding: 20px 0 30px;
+        border-bottom: 1px solid #E6EEF5;
+    }
+    
+    input.search {
+        font-size: 14px;
+        padding-left: 15px;
+        margin: 0 5px;
+        height: 30px;
+        color: #999999;
+        border: 1px solid #E7EAEC;
+    }
+    
+    .layui-table tbody tr:hover,
+    .layui-table-click,
+    .layui-table-header,
+    .layui-table-hover,
+    .layui-table-mend,
+    .layui-table-patch,
+    .layui-table-tool,
+    .layui-table[lay-even] tr:nth-child(even) {
+        background-color: transparent;
+    }

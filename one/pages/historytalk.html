@@ -1,1 +1,69 @@
-<div>historytalk</div>
+<link rel="stylesheet" href="../css/blacklist.css">
+<link rel="stylesheet" href="../../common.css">
+<link rel="stylesheet" href="../../layui/css/layui.css">
+<div class="talktop">
+    <span>历史访谈管理台</span>
+</div>
+
+<table class="layui-table" width=100% id="historytalk" lay-filter="test">
+</table>
+<!-- 分页器 -->
+<div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
+
+<script src="../../layui/layui.all.js"></script>
+<!-- 操作按钮模板 -->
+<script type="text/html" id="edit">
+    <a href="javascript:;" class="layui-table-link">
+        <img src="../../img/edit.png" alt="">编辑
+    </a>
+</script>
+<script>
+    ;
+    ! function() {
+        // 表格
+        var table = layui.table;
+        table.render({
+            elem: '#historytalk',
+            skin: 'line',
+            url: '../historytalk.json',
+            cols: [
+                [ //表头
+                    {
+                        field: 'number',
+                        title: '序号',
+                        width: 150,
+                        unresize: true
+                    }, {
+                        field: 'name',
+                        title: '访谈名称',
+                        unresize: true
+                    }, {
+                        field: 'status',
+                        title: '访问状态',
+                        unresize: true
+                    }, {
+                        field: 'kind',
+                        title: '类型',
+                        unresize: true
+                    }, {
+                        field: 'as',
+                        title: '操作',
+                        templet: '#edit',
+                        unresize: true
+                    }
+                ]
+            ],
+        });
+        // 分页器
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'page',
+            count: 50,
+            prev: "<<上一页",
+            next: "下一页>>",
+            theme: '#4597E0'
+        });
+    }();
+</script>

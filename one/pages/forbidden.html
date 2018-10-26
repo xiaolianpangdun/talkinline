@@ -7,13 +7,136 @@
     <button class="search right">搜索</button>
     <input type="text" class="right search" placeholder="搜入关键词搜索">
 </div>
+<!-- 严禁词为空的时候 -->
+<div class="none">
+    <img src="../../img/noforbidden.png" alt=""><br>
+    <div class="tip">暂无严禁词，您可手动添加会议严禁词</div>
+    <button class="addforbidden">新增违禁词</button>
+</div>
 
-<table class="layui-table" width=100% id="test" lay-filter="test">
-</table>
+<!-- 有违禁词时 -->
+<div class="had">
+    <div class="forbidword">
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>傻逼</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>啦啦啦</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>傻逼</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>啦啦啦</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>傻逼</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>啦啦啦</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>傻逼</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>啦啦啦</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>傻逼</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>啦啦啦</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>傻逼</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <div>
+            <span>啦啦啦</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+        <button class="left">新增违禁词</button>
+    </div>
+    <div class="clear"></div>
+    <div id="forbidpage" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
+</div>
 
+<!-- 搜索违禁词时 -->
+<div class="had">
+    <div class="forbidden">
+        <div>
+            <span>中国共产党统治</span>
+            <img class="del" src="../../img/del.png" alt="">
+        </div>
+    </div>
+</div>
+
+
+<script src="../../layui/layui.all.js"></script>
 <script>
     ;
     ! function() {
+        // 分页器
+        var laypage = layui.laypage,
+            $ = layui.$;
 
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'forbidpage',
+            count: 50,
+            prev: "<<上一页",
+            next: "下一页>>",
+            theme: '#4597E0'
+        });
     }();
 </script>

@@ -1,32 +1,80 @@
-button.right {
-    font-size: 14px;
-    padding: 5px 20px;
-    color: #fff;
-    background: #3199F7;
-    border: 1px solid #4597E0;
-    border-radius: 2px;
-}
-
-button.lead {
-    padding: 5px 30px;
-    margin-left: 30px;
-}
-
-.talktop .right {
-    margin-top: 4px;
-}
-
-.talktop {
-    font-size: 28px;
-    color: #333333;
-    margin: 20px;
-}
-
-input.search {
-    font-size: 14px;
-    padding-left: 15px;
-    margin: 0 5px;
-    height: 30px;
-    color: #999999;
-    border: 1px solid #E7EAEC;
-}
+    /* 顶部 */
+    
+    button.right {
+        font-size: 14px;
+        padding: 5px 20px;
+        color: #fff;
+        background: #3199F7;
+        border: 1px solid #4597E0;
+        border-radius: 2px;
+    }
+    
+    button.lead {
+        padding: 5px 30px;
+        margin-left: 30px;
+    }
+    
+    .talktop .right {
+        margin-top: 4px;
+    }
+    
+    .talktop {
+        font-size: 28px;
+        color: #333333;
+        padding: 20px 0 30px;
+        border-bottom: 1px solid #E6EEF5;
+    }
+    
+    input.search {
+        font-size: 14px;
+        padding-left: 15px;
+        margin: 0 5px;
+        height: 30px;
+        color: #999999;
+        border: 1px solid #E7EAEC;
+    }
+    /* 没有违禁词时 */
+    
+    .none {
+        text-align: center;
+        margin-top: 200px;
+    }
+    
+    .tip {
+        font-family: PingFangSC-Regular;
+        font-size: 13px;
+        color: #9FADC7;
+    }
+    
+    .addforbidden {
+        color: #FFFFFF;
+        background: #3199F7;
+        border: 1px solid #4597E0;
+        border-radius: 2px;
+        padding: 10px 25px;
+        margin-top: 40px;
+    }
+    /* 有违禁词时 */
+    
+    .forbidword>div,
+    .forbidword>button.left {
+        float: left;
+        margin-right: 20px;
+        background: #E6EEF5;
+        padding: 10px 25px;
+        margin-top: 20px;
+        color: #FF5500;
+        border-radius: 3px;
+    }
+    
+    img.del {
+        position: relative;
+        top: -1px;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+    
+    .forbidword>button.left {
+        background: #3199F7;
+        color: #fff;
+    }

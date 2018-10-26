@@ -40,3 +40,49 @@
     padding: 5px 15px;
     margin: 0 25px;
 }
+
+
+/* 弹出框样式修改 */
+
+body .demo-class .layui-layer-btn {
+    margin-bottom: 40px;
+}
+
+body .demo-class .layui-layer-btn a {
+    border: 1px solid #4597E0;
+    color: #4597E0;
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px 40px;
+    margin-bottom: 40px;
+}
+
+body .demo-class .layui-layer-btn .layui-layer-btn1 {
+    margin-left: 40px;
+}
+
+.addtype {
+    margin-top: 40px;
+    text-align: center;
+    font-family: PingFangSC-Semibold;
+    font-size: 26px;
+    color: #4B4E50;
+    text-align: center;
+    line-height: 26px;
+}
+
+
+/* 新建在线访谈样式 */
+
+.addinlinetalk {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #676A6C;
+}
+
+div.textleft {
+    float: left;
+    width: 100px;
+    border: 1px solid red;
+    text-align: right;
+}

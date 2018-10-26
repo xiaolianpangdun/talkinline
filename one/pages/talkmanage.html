@@ -3,13 +3,13 @@
 <link rel="stylesheet" href="../../layui/css/layui.css">
 <div class="talktop">
     <span>访谈管理台</span>
-    <button class="addtalk right">+ &nbsp;&nbsp;新建访谈</button>
+    <button class="addtalk right layui-btn layui-btn-normal" data-method="offset" data-type="auto">+ &nbsp;&nbsp;新建访谈</button>
 </div>
 
 <table class="layui-table" width=100% id="test" lay-filter="test">
 </table>
 <!-- 分页器 -->
-<div id="page" style="text-align:center;"></div>
+<div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
 
 <script src="../../layui/layui.all.js"></script>
 
@@ -31,38 +31,127 @@
         <img src="../../img/delete.png" alt=""> 删除
     </a>
 </script>
+<!-- 新建在线访谈模板 -->
+<div id="addinlinetalk" style="border:1px solid red;">
+    <div>新建在线访谈</div>
+    <div>
+        <div class="textleft">*访谈名称</div>
+        <input type="text" placeholder="请输入类别名称">
+    </div>
+    <div>
+        <div class="textleft">*访谈时间</div>
+        <input type="text" placeholder="请输入时间" id="starttime">至
+        <input type="text" placeholder="请输入时间" id="endtime">
+    </div>
+    <div>
+        <div class="textleft">*本期嘉宾</div>
+        <div>
+            <div class='left'>某某某</div>
+            <div class='left'>某某某</div>
+            <div class='left'>某某某某</div>
+            <button class='left'>添加嘉宾</button>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div>
+        <div class="textleft">主持人</div>
+        <input type="text" placeholder="请输入主持人">
+    </div>
+    <div>
+        <div class="textleft">会议简介</div>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+    </div>
+</div>
+
 <script>
     ;
     ! function() {
+        var $ = layui.$;
+        // 弹出新建框
+        $(".addtalk").click(function() {
+            layer.open({
+                type: 1,
+                area: ['500px', '250px'],
+                title: ['', "background:#fff;border:0"], //'在线调试',
+                content: '<div class="addtype">请选择所要新建的类型</div>',
+                shade: [0.2, '#393D49'],
+                skin: 'demo-class',
+                shadeClose: true,
+                btnAlign: 'c', //按钮居中显示
+                btn: ['在线访谈', '在线预告'],
+                yes: function(index, layero) {
+                    //按钮【按钮一】的回调
+                    layer.close(index);
+                    layer.open({
+                        type: 1,
+                        area: ['700px', '600px'],
+                        title: ['', "background:#fff;border:0"], //'在线调试',
+                        content: $("#addinlinetalk"),
+                        shade: [0.2, '#393D49'],
+                        skin: 'demo-class',
+                        shadeClose: true,
+                        btnAlign: 'c', //按钮居中显示
+                        btn: ['在线访谈', '在线预告'],
+                        yes: function(index, layero) {}
+                    });
+                },
+                btn2: function(index, layero) {
+                    //按钮【按钮二】的回调
+
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                cancel: function() {
+                    //右上角关闭回调
+
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function() {
+                    // 无论是确认还是取消，只要层被销毁了，end都会执行，不携带任何参数。
+                }
+            });
+        });
+        // 新建访谈时间
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#starttime'
+        });
+        laydate.render({
+            elem: '#endtime'
+        });
         // 表格
         var table = layui.table;
         table.render({
             elem: '#test',
             skin: 'line',
-            url: '../data.json',
+            url: '../data1.json',
             cols: [
                 [ //表头
                     {
                         field: 'number',
                         title: '序号',
-                        width: 100
+                        width: 100,
+                        unresize: true
                     }, {
                         field: 'name',
                         title: '访谈名称',
+                        unresize: true
                     }, {
                         field: 'status',
                         title: '访谈状态',
                         width: 120,
-                        templet: '#talk'
+                        templet: '#talk',
+                        unresize: true
                     }, {
                         field: 'kind',
                         title: '类型',
-                        wdith: 150
+                        wdith: 150,
+                        unresize: true
                     }, {
                         field: 'as',
                         title: '操作',
                         width: 360,
-                        templet: '#handle'
+                        templet: '#handle',
+                        unresize: true
                     }
                 ]
             ],

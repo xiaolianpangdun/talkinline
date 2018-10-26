@@ -1,1 +1,72 @@
-<div>blacklist</div>
+<link rel="stylesheet" href="../css/blacklist.css">
+<link rel="stylesheet" href="../../common.css">
+<link rel="stylesheet" href="../../layui/css/layui.css">
+<div class="talktop">
+    <span>黑名单</span>
+    <button class="search right">搜索</button>
+    <input type="text" class="right search" placeholder="搜入关键词搜索">
+</div>
+
+<table class="layui-table" width=100% id="blacklist" lay-filter="test">
+</table>
+<!-- 分页器 -->
+<div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
+
+<script src="../../layui/layui.all.js"></script>
+
+<!-- 用户IP颜色变化 -->
+<script type="text/html" id="ip">
+    <span style="color:#3199F7;">{{d.ip}}</span>
+</script>
+<!-- 操作按钮模板 -->
+<script type="text/html" id="remove">
+    <a href="javascript:;" class="layui-table-link" style="color:#FF5C0B;">
+        移除
+    </a>
+</script>
+<script>
+    ;
+    ! function() {
+        // 表格
+        var table = layui.table;
+        table.render({
+            elem: '#blacklist',
+            skin: 'line',
+            url: '../blacklist.json',
+            cols: [
+                [ //表头
+                    {
+                        field: 'uname',
+                        title: '用户名称',
+                        unresize: true
+                    }, {
+                        field: 'ip',
+                        title: '用户IP',
+                        templet: '#ip',
+                        unresize: true
+                    }, {
+                        field: 'time',
+                        title: '访问时间',
+                        unresize: true
+                    }, {
+                        field: 'as',
+                        title: '操作',
+                        templet: '#remove',
+                        unresize: true
+                    }
+                ]
+            ],
+        });
+        // 分页器
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'page',
+            count: 50,
+            prev: "<<上一页",
+            next: "下一页>>",
+            theme: '#4597E0'
+        });
+    }();
+</script>
