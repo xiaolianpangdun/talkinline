@@ -20,10 +20,19 @@ a{
 
 
 /* 二级页面样式  start */
+html{
+  width: 100%;
+  height: 100%;
+}
+body{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 .container{
   width: 81%;
   height: 918px;
-  margin: 20px auto;
+  margin: 0px auto;
 }
 
 .nav{
@@ -39,6 +48,7 @@ a{
   line-height: 44px;
   padding-left: 28px;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .nav a{
@@ -56,6 +66,7 @@ a{
   height: 100%;
   border: 1px solid #E6EEF5;
   box-sizing: border-box;
+  display: none;
 }
 .title{
   width: 100%;
@@ -77,10 +88,6 @@ a{
 .main ul li{
   width: 100%;
   height: 44px;
-  /* display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: flex-start;
-  align-items: flex-start; */
   font-size: 13px;
 }
 .main ul li p{
@@ -88,7 +95,6 @@ a{
 }
 .main ul li>p{
   margin-left: 67px;
-  /* margin-right: 62px; */
   width: 8%;
   height: 44px;
   color: #888888;
@@ -103,10 +109,10 @@ a{
   text-align: center;
   width: 193px;
   height: 32px;
-  line-height: 32px;
+  /* line-height: 32px; */
   border: 1px solid #CDCDCD;
-  /* margin-bottom: 30px;
-  margin-top: -10px; */
+  /* display: inline-block; */
+  float: left;
 }
 .main ul li>div>p{
   color: #3199F7;
@@ -119,7 +125,7 @@ a{
   margin-right: 20px;
   margin-left: 0;
   color: #000;
-  cursor: none;
+  /* cursor: none; */
 }
 .add{
   display: inline-block;
@@ -145,4 +151,116 @@ a{
   font-size: 16px;
 }
 
+.active{
+  background: #3199F7;
+  color: #fff;
+}
+
+
+/* 用户管理 */
+.title span{
+  float: right;
+  margin-right: 34px;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.tab{
+  width: 90%;
+  height: 686px;
+  margin-left: 30px;
+}
+.black_list{
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 13px;
+  color: #3199F7;
+  margin-left: -10px;
+  cursor: pointer;
+  text-align: center;
+}
+.black_list:hover{
+  background: #E2EDF8;
+}
+.layui-table tbody tr:hover, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table[lay-even] tr:nth-child(even) { background-color: transparent; }
+
+
+
+/* 互动设置 */
+.interaction{
+  width: 364px;
+  height: 38px;
+  margin: 0 auto;
+}
+.interaction ul li{
+  width: 180px;
+  height: 36px;
+  border: 1px solid #4597E0;
+  text-align: center;
+  line-height: 36px;
+  float: left
+}
+.item3_active{
+  background: #4597E0;
+  color: #fff;
+}
+
+.item3{
+  width: 91%;
+  height: 560px;
+  /* background: #000; */
+  margin-left: 55px;
+  margin-top: 20px;
+}
+
+.edit{
+  width: 92px;
+  height: 30px;
+  color: #2390F3;
+  border: 1px solid #D0E8FF;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+/* 弹框 */
+.modify_name,.modify_scene,#add_guest,.brief_introduction{
+  text-align: center;
+}
+.name_title{
+  font-size: 26px;
+  color: #676A6C;
+  margin-bottom: 54.5px
+}
+.modify_name input,#add_guest input{
+  width: 415px;
+  height: 45px;
+  margin-bottom: 26px;
+  padding-left: 10px;
+}
+#add_guest input{
+  width: 290px;
+  height: 44px;
+}
+.tips,.tips_2,.tips_3{
+  color: #FF5500
+}
+.my-skin .layui-layer-btn a {
+  width: 180px;
+  height: 46px;
+  line-height: 46px;
+  font-size: 18px;
+  margin-top: -20px;
+}
+.brief_introduction textarea{
+  width: 600px;
+  height: 145px;
+  margin-bottom: 26px;
+  padding: 10px;
+  resize: none;
+  outline: none;
+}
 /* 二级页面样式  end */

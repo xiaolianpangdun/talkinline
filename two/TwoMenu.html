@@ -13,8 +13,10 @@
   <!-- 引入layui -->
   <link rel="stylesheet" href="../layui/css/layui.css">
   <script src="../layui/layui.all.js"></script>
-  <!-- <script src="../layui/layui.js"></script>
-  <script src="../layui/lay/modules/laydate.js"></script> -->
+
+  <!-- 引入jedate.js时间控件 -->
+  <link rel="stylesheet" href="css/jedate.css">
+  <script src="js/jeDate.js"></script>
 
   <!-- 引入页面css、js-->
   <link rel="stylesheet" href="css/TwoMenu.css">
@@ -31,12 +33,12 @@
     <!-- 左侧导航   start -->
     <div>
       <ul class="nav">
-        <li><a href="javascript:;">直播详情</a></li>
-        <li><a href="javascript:;">用户管理</a></li>
-        <li><a href="javascript:;">互动设置</a></li>
-        <li><a href="javascript:;">现场图片</a></li>
-        <li><a href="javascript:;">文字实录</a></li>
-        <li><a href="javascript:;">视频下载</a></li>
+        <li class="active">直播详情</li>
+        <li>用户管理</li>
+        <li>互动设置</li>
+        <li>现场图片</li>
+        <li>文字实录</li>
+        <li>视频下载</li>
       </ul>
     </div>
     <!-- 左侧导航   end -->
@@ -45,7 +47,7 @@
     <div class="content">
 
       <!-- 直播详情  start -->
-      <div class="menu">
+      <div class="menu" style="display: block">
         <!-- 标题 -->
         <div class="title">
           <p>直播详情</p>
@@ -55,8 +57,8 @@
           <ul>
             <li>
               <p>会议名称</p>
-              <div><span>国家税务总局第二季度税收政策解读详情</span>
-                <p>修改</p>
+              <div><span id="TalkName">国家税务总局第二季度税收政策解读详情</span>
+                <p onclick="ModifyName()">修改</p>
               </div>
             </li>
             <li>
@@ -66,7 +68,7 @@
             <li>
               <p>访谈场景</p>
               <div><span>在线视频访谈</span>
-                <p>修改</p>
+                <p onclick="ModifyScene()">修改</p>
               </div>
             </li>
             <li>
@@ -75,23 +77,30 @@
             </li>
             <li style="line-height: 35px;margin-bottom: 18px">
               <p>访谈时间</p>
-              <div><div class="time" id="time">请选择时间</div></div>
+              <div>
+                <div class="time" id="time1"></div>
+                <span style="float: left;margin: 0 10px;">至</span>
+                <div class="time" id="time2"></div>
+              </div>
             </li>
             <li style="margin-bottom: 18px;">
               <p style="line-height: 35px;">本期嘉宾</p>
-              <div><p class="guest">国家税务总局司长王思宇</p>
-                <div class="add">添加嘉宾</div>
+              <div>
+                <p class="guest">国家税务总局司长王思宇</p>
+                <div class="add" onclick="AddGuests()">添加嘉宾</div>
               </div>
             </li>
             <li style="height: 50px;margin-bottom: 40px;">
               <p>会议简介</p>
-              <div><span>简
-                  介：2018年4月27日上午8:30，劳人税收递劳务税副司长林枫人税收递延型商业养老保险试点政策、税收协定有关税收政策四项主题进行深入讲解。</span></div>
+              <div>
+                <span id="text_brief">简介：2018年4月27日上午8:30，劳人税收递劳务税副司长林枫人税收递延型商业养老保险试点政策、税收协定有关税收政策四项主题进行深入讲解。</span>
+                <p onclick="BriefIntroduction()">编辑</p>
+              </div>
             </li>
             <li>
               <p>推流地址</p>
-              <div><span id="link">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2044</span>
-                <p style="margin-left: 54px;" onclick="oCopy()">复制地址</p>
+              <div><span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2044</span>
+                <p style="margin-left: 54px;" onclick="copyUrl2()">复制地址</p>
               </div>
             </li>
             <li>
@@ -103,11 +112,101 @@
           </ul>
         </div>
         <!-- 点击确定修改 -->
-        <!-- <div class="sure">
+        <div class="sure">
           <p>确定修改</p>
-        </div> -->
+        </div>
       </div>
       <!-- 直播详情  end -->
+
+
+
+      <!-- 用户管理  start -->
+      <div class="menu">
+        <!-- 标题 -->
+        <div class="title" style="margin-bottom:0">
+          <p style="border: 0;padding-bottom: 20px;">用户管理<span>观看人数：<span style="color: #3199F7;margin-top: 2px">100000</span></span></p>
+        </div>
+        <!-- 用户表格 -->
+        <div class="tab">
+          <table class="layui-table" id="user" style="margin: 0 0;"></table>
+          <script type="text/html" id="Blacklist">
+            <p class="black_list">加入黑名单</p>
+          </script>
+
+        </div>
+        <div id="page" style="text-align:center;"></div>
+
+      </div>
+      <!-- 用户管理  end -->
+
+
+
+      <!-- 互动设置   start -->
+      <div class="menu">
+        <!-- 标题 -->
+        <div class="title" style="margin-bottom: 20px;">
+          <p>互动设置</p>
+        </div>
+
+        <!-- 菜单切换 -->
+        <div class="interaction">
+          <ul>
+            <li class="item3_active">网友提问</li>
+            <li>审核回复</li>
+          </ul>
+        </div>
+
+        <!-- 提问和回复 -->
+        <div class="item3">
+          <div class="questions">
+            <table id="Questions" lay-filter="test"></table>
+            <script type="text/html" id="Edit">
+              <p class="edit" style="margin-left: 10px">屏蔽</p>
+              <p class="edit">审核回复</p>
+            </script>
+            <!-- <div class="questions_top">
+              <div class="batch_management"><span>批量管理</span></div>
+              <div class="tool">
+                <p>全选本页</p>
+                <p>屏蔽</p>
+                <p>删除</p>
+                <p>取消</p>
+              </div>
+            </div>
+            <div></div> -->
+          </div>
+          <div class="reply">
+
+          </div>
+        </div>
+
+      </div>
+      <!-- 互动设置   end-->
+
+
+
+      <!-- 现场图片   start -->
+      <div class="menu">
+
+      </div>
+      <!-- 现场图片   end -->
+
+
+
+      <!-- 文字实录  start -->
+      <div class="menu">
+
+      </div>
+      <!-- 文字实录  end -->
+
+
+
+      <!-- 视频下载  start -->
+      <div class="menu">
+
+      </div>
+      <!-- 视频下载  end -->
+
 
 
     </div>
@@ -116,24 +215,105 @@
   </div>
 
 
+   <!-- 直播详情里的四个弹框 -->
+  <div class="modify_name" style="display: none">
+    <p class="name_title">修改会议名称</p>
+    <input type="text" value="请输入会议名称" id="Name">
+    <p class="tips" style="display: none">提示：最多只能输入25个字符</p>
+  </div>
+
+  <div class="modify_scene" style="display: none">
+    <p class="name_title">修改会议场景</p>
+    <div class="layui-input-block">
+      <input type="radio" name="preview" value="video"><label for="">视频预告</label>
+      <input type="radio" name="preview" value="imageortext"><label for="">图文预告</label>
+    </div>
+  </div>
+
+  <div id="add_guest" style="display: none">
+    <p class="name_title">添加嘉宾</p>
+    <input type="text" value="请输入嘉宾姓名" id="Adds">
+    <p class="tips_2" style="display: none">提示：最多只能输入20个字符</p>
+  </div>
+
+  <div class="brief_introduction" style="display: none">
+    <p class="name_title">编辑会议简介</p>
+    <textarea name="" id="brief" cols="30" rows="10"></textarea>
+    <p class="tips_3" style="display: none">提示：最多只能输入50个字符</p>
+  </div>
+
+
+  
+  
+
 
   <!-- 二级页面  end -->
 
 </body>
+
+  
 
 </html>
 
 
 <script>
   /**
-   * 设置左边导航的高度
+   * 切换页面
+   * 左边的导航
   */
-  // $(document).ready(function(){
-  //   var height = document.documentElement.clientHeight;
-  //   console.log(height);
-  //   $(".nav").height(height-27 + 'px');
-  // });  
-  
-    
+  var index;
+  $(".nav li").click(function(){
+    $(this).addClass('active').siblings().removeClass('active');
+    index = $(this).index();
+    $(".menu").hide().eq(index).show();
+  });
+
+  /**
+  * 用户表格
+  */
+  ; !function () {
+    var table = layui.table;
+    console.log(table);
+    //用户表格
+    table.render({
+      elem: '#user'
+      , url: "json/user.json" //数据接口
+      , skin: 'line'
+      , width: 1130
+      , cols: [[ //表头
+        { field: 'username', title: '用户名', width: 25 + '%', height: 50, }
+        , { field: 'ip', title: '用户IP', width: 25 + '%', height: 50, }
+        , { field: 'time', title: '访问时间', width: 25 + '%', height: 50, }
+        , { field: 'operation', title: '操作', width: 25 + '%', height: 50, templet: '#Blacklist' }
+      ]]
+    });
+
+    //网友提问
+    table.render({
+      elem: '#Questions'
+      , url: "json/question.json" //数据接口
+      , skin: 'line'
+      , width: 1130
+      , cols: [[ //表头
+        { field: 'questions', width: 76 + '%', unresize: true }
+        , { field: 'edit', width: 24 + '%', templet: '#Edit', unresize: true, }
+      ]]
+    });
+
+    /**
+     * 分页
+     */
+    var laypage = layui.laypage;
+
+    //执行一个laypage实例
+    laypage.render({
+      elem: 'page',
+      count: 50,
+      prev: "<<上一页",
+      next: "下一页>>",
+      theme: '#4597E0'
+    });
+  }();
+
 
 </script>

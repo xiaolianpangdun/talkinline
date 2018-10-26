@@ -83,7 +83,7 @@ body {
 }
 
 .color-cb:checked {
-    background: url("./img/checked.png") no-repeat center;
+    background-image: url(./img/checked.png);
 }
 
 .layui-btn {
