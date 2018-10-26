@@ -204,6 +204,21 @@
       <!-- 视频下载  start -->
       <div class="menu">
 
+        <!-- 标题 -->
+        <div class="title" style="margin-bottom: 0">
+            <p style="border: 0">访谈视频文件</p>
+          </div>
+
+        <div class="operation">
+          <p>上传视频</p>
+        </div>
+        <div class="vedio">
+          <P style="margin: 0"><img src="../img/vedio.png" alt=""><span>2018年度居民所得税汇算清缴专题</span></p>
+          <p>302M</p>
+          <p>2018-10-16 16:38</p>
+          <p class="download">下载视频</p>
+        </div>
+
       </div>
       <!-- 视频下载  end -->
 
@@ -224,9 +239,9 @@
 
   <div class="modify_scene" style="display: none">
     <p class="name_title">修改会议场景</p>
-    <div class="layui-input-block">
-      <input type="radio" name="preview" value="video"><label for="">视频预告</label>
-      <input type="radio" name="preview" value="imageortext"><label for="">图文预告</label>
+    <div class="radio">
+      <input type="radio" name="preview" value="video" class="select_1"><label for="">视频预告</label>
+      <input type="radio" name="preview" value="imageortext" class="select_2" style="margin-left: 60px;"><label for="">图文预告</label>
     </div>
   </div>
 
@@ -258,22 +273,12 @@
 
 <script>
   /**
-   * 切换页面
-   * 左边的导航
-  */
-  var index;
-  $(".nav li").click(function(){
-    $(this).addClass('active').siblings().removeClass('active');
-    index = $(this).index();
-    $(".menu").hide().eq(index).show();
-  });
-
-  /**
   * 用户表格
   */
   ; !function () {
     var table = layui.table;
     console.log(table);
+
     //用户表格
     table.render({
       elem: '#user'

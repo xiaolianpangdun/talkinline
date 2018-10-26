@@ -209,7 +209,6 @@ body{
 .item3{
   width: 91%;
   height: 560px;
-  /* background: #000; */
   margin-left: 55px;
   margin-top: 20px;
 }
@@ -233,20 +232,23 @@ body{
 .name_title{
   font-size: 26px;
   color: #676A6C;
-  margin-bottom: 54.5px
+  margin-bottom: 54.5px;
+  margin-top: 10px;
 }
 .modify_name input,#add_guest input{
   width: 415px;
   height: 45px;
   margin-bottom: 26px;
   padding-left: 10px;
+  line-height: 45px;
 }
 #add_guest input{
   width: 290px;
   height: 44px;
+  line-height: 44px;
 }
 .tips,.tips_2,.tips_3{
-  color: #FF5500
+  color: #FF5500;
 }
 .my-skin .layui-layer-btn a {
   width: 180px;
@@ -263,4 +265,63 @@ body{
   resize: none;
   outline: none;
 }
+.radio{
+  font-size: 24px;
+  margin-top: 22.5px;
+  line-height: 24px;
+}
+.radio input[type='radio']{
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  -webkit-appearance: none;
+  border: 1px solid #DEE1E6;
+  cursor: pointer;
+  border-radius: 2px;
+  outline: none;
+}
+.image{
+  background-image: url(../../img/se.png)
+}
+
+/* 视频下载 */
+.operation{
+  width: 95%;
+  height: 52px;
+  border-top: 1px solid #E6EEF5;
+  border-bottom: 1px solid #E6EEF5;
+  margin-left: 30px;
+}
+.operation p{
+  width: 92px;
+  height: 28px;
+  background: #3199F7;
+  text-align: center;
+  line-height: 28px;
+  color: #fff;
+  border-radius: 2px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.vedio{
+  width: 95%;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 30px;
+}
+.vedio img{
+  margin-left: 19px;
+  margin-right: 18px;
+}
+.vedio p{
+  float: left;
+  margin-left: 192px;
+}
+.vedio:hover{
+  background: #E7EAEC
+}
+.download{
+  color: #3199F7;
+}
+
 /* 二级页面样式  end */

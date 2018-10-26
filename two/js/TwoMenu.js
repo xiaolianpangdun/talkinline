@@ -1,8 +1,9 @@
-/**
- * 日期选择器
- */
+
 $(function(){
 
+  /**
+   * 日期选择器
+   */
     var start = {
         format: 'YYYY-MM-DD hh:mm:ss',
         minDate: $.nowDate(0), //设定最小日期为当前日期
@@ -26,6 +27,25 @@ $(function(){
 
     $('#time1').jeDate(start);
     $('#time2').jeDate(end);
+
+
+    /**
+     * 切换页面
+     * 左边的导航
+    */
+    var index;
+    $(".nav li").click(function(){
+      $(this).addClass('active').siblings().removeClass('active');
+      index = $(this).index();
+      $(".menu").hide().eq(index).show();
+    });
+
+    /**
+     * 单选框
+     */
+    $('.radio input').click(function(){
+      $(this).addClass('image').siblings().removeClass('image');
+    });
 
 })
 
