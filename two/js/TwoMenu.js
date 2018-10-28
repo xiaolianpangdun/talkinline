@@ -5,20 +5,24 @@ $(function(){
    * 日期选择器
    */
     var start = {
-        format: 'YYYY-MM-DD hh:mm:ss',
+        format: 'YYYY/MM/DD hh:mm:ss',
         minDate: $.nowDate(0), //设定最小日期为当前日期
         isinitVal:true,
         festival:true,
         ishmsVal:false,
+        festival:false,
         maxDate: '2099-06-30 23:59:59', //最大日期
+        format: 'YYYY/MM/DD hh:mm:ss',
+        theme:{ bgcolor:"#228EF0",pnColor:"#228EF0"},
         choosefun: function(elem,datas){
             end.minDate = datas; //开始日选好后，重置结束日的最小日期
         }
     };
     var end = {
-        format: 'YYYY年MM月DD日 hh:mm:ss',
+        format: 'YYYY/MM/DD hh:mm:ss',
         minDate: $.nowDate(0), //设定最小日期为当前日期
-        festival:true,
+        festival: false,
+        theme:{ bgcolor:"#228EF0",pnColor:"#228EF0"},
         maxDate: '2099-06-16 23:59:59', //最大日期
         choosefun: function(elem,datas){
             start.maxDate = datas; //将结束日的初始值设定为开始日的最大日期
@@ -41,10 +45,29 @@ $(function(){
     });
 
     /**
+     * 修改会议场景
+     * 
      * 单选框
      */
     $('.radio input').click(function(){
       $(this).addClass('image').siblings().removeClass('image');
+    });
+
+    /**
+     * 互动设置
+     * 
+     * 编辑切换
+     */
+    $('.batch_management').click(function(){
+      $('.batch_management').css('display','none');
+      $('.tool').css('display','block');
+      $('.questions_radio').css('display','block')
+    });
+
+    $('#questions_cancel').click(function(){
+      $('.batch_management').css('display','block');
+      $('.tool').css('display','none');
+      $('.questions_radio').css('display','none')
     });
 
 })

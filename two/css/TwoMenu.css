@@ -101,7 +101,7 @@ body{
   float: left;
 }
 .main ul li>div{
-  width: 80%;
+  width: 75%;
   margin-right: 72px;
   float: right;
 }
@@ -170,6 +170,28 @@ body{
   height: 686px;
   margin-left: 30px;
 }
+.tab table{
+  width: 100%;
+  font-size: 14px;
+}
+.tab table tr{
+  width: 100%;
+  border-bottom: 1px solid #E7EAEC;
+  border-left: 1px solid #E7EAEC;
+  border-right: 1px solid #E7EAEC;
+  /* height: 50px; */
+}
+.tab table tr th{
+  text-align: left;
+  font-weight: normal;
+  background: #F7F9FB;
+  padding-left: 32px;
+  height: 39px;
+}
+.tab table tr td{
+  padding-left: 32px;
+  height: 50px;
+}
 .black_list{
   width: 80px;
   height: 30px;
@@ -225,6 +247,86 @@ body{
   font-size: 14px;
 }
 
+.questions_top{
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #DEE1E6;
+  border-bottom: 1px solid #DEE1E6;
+}
+.batch_management,.tool p{
+  width: 92px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 11px;
+  color: #fff;
+  background: #3199F7;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.tool{
+  display: inline-block;
+  display: none;
+}
+.tool p{
+  width: 62px;
+}
+.questions_main{
+  width: 100%;
+  border-bottom: 1px solid #DEE1E6;
+  padding: 20px 0;
+}
+.questions_left{
+  width: 70%;
+  margin-right: 28px;
+  display: inline-block;
+}
+.questions_right{
+  float: right;
+  margin-top: 30px;
+}
+.questions_right p{
+  display: inline-block;
+  width: 92px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #D0E8FF;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.questions_right p:hover{
+  color: #fff;
+  background: #3199F7
+}
+.questions_left p{
+  font-size: 13px;
+}
+.questions_left p span{
+  font-size: 12px;
+  color: #888888;
+  margin-left: 28px;
+}
+.questions_radio{
+  float: left;
+  margin-left: 10px;
+  margin-right: 22px;
+  margin-top: 30px;
+}
+.questions_radio input[type='radio']{
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+  -webkit-appearance: none;
+  border: 1px solid #DEE1E6;
+  cursor: pointer;
+  border-radius: 2px;
+  outline: none;
+}
 /* 弹框 */
 .modify_name,.modify_scene,#add_guest,.brief_introduction{
   text-align: center;
@@ -302,6 +404,7 @@ body{
   border-radius: 2px;
   margin-top: 12px;
   font-size: 14px;
+  cursor: pointer;
 }
 .vedio{
   width: 95%;
@@ -314,8 +417,8 @@ body{
   margin-right: 18px;
 }
 .vedio p{
-  float: left;
-  margin-left: 192px;
+  display: inline-block;
+  width: 18%;
 }
 .vedio:hover{
   background: #E7EAEC

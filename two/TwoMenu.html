@@ -128,10 +128,24 @@
         </div>
         <!-- 用户表格 -->
         <div class="tab">
-          <table class="layui-table" id="user" style="margin: 0 0;"></table>
+          <!-- <table class="layui-table" id="user" style="margin: 0 0;"></table>
           <script type="text/html" id="Blacklist">
             <p class="black_list">加入黑名单</p>
-          </script>
+          </script> -->
+          <table>
+            <tr style="border-top: 1px solid #E7EAEC;">
+              <th>用户名</th>
+              <th>用户IP</th>
+              <th>访问时间</th>
+              <th>操作</th>
+            </tr>
+            <tr>
+              <td>芝麻球</td>
+              <td>123.234.345.45</td>
+              <td>2018/10/25 15:28</td>
+              <td><p class="black_list">加入黑名单</p></td>
+            </tr>
+          </table>
 
         </div>
         <div id="page" style="text-align:center;"></div>
@@ -159,21 +173,33 @@
         <!-- 提问和回复 -->
         <div class="item3">
           <div class="questions">
-            <table id="Questions" lay-filter="test"></table>
+            <!-- <table id="Questions" lay-filter="test"></table>
             <script type="text/html" id="Edit">
               <p class="edit" style="margin-left: 10px">屏蔽</p>
               <p class="edit">审核回复</p>
-            </script>
-            <!-- <div class="questions_top">
-              <div class="batch_management"><span>批量管理</span></div>
+            </script> -->
+            <div class="questions_top">
+              <div class="batch_management">批量管理</div>
               <div class="tool">
-                <p>全选本页</p>
+                <p style="width: 92px;">全选本页</p>
                 <p>屏蔽</p>
-                <p>删除</p>
-                <p>取消</p>
+                <p style="background: #FF5500;">删除</p>
+                <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
             </div>
-            <div></div> -->
+            <div class="questions_main">
+              <div class="questions_radio" style="display: none;">
+                <input type="radio" class="questions_select">
+              </div>
+              <div class="questions_left">
+                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
+                <p>谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
+              </div>
+              <div class="questions_right">
+                <p>屏蔽</p>
+                <p style="margin-right: 0;">审核回复</p>
+              </div>
+            </div>
           </div>
           <div class="reply">
 
@@ -213,10 +239,10 @@
           <p>上传视频</p>
         </div>
         <div class="vedio">
-          <P style="margin: 0"><img src="../img/vedio.png" alt=""><span>2018年度居民所得税汇算清缴专题</span></p>
+          <P style="margin: 0;width: 42%"><img src="../img/vedio.png" alt=""><span>2018年度居民所得税汇算清缴专题</span></p>
           <p>302M</p>
-          <p>2018-10-16 16:38</p>
-          <p class="download">下载视频</p>
+          <p style="width: 28%">2018-10-16 16:38</p>
+          <p class="download" style="width: 10%;cursor: pointer;">下载视频</p>
         </div>
 
       </div>
@@ -280,30 +306,29 @@
     console.log(table);
 
     //用户表格
-    table.render({
-      elem: '#user'
-      , url: "json/user.json" //数据接口
-      , skin: 'line'
-      , width: 1130
-      , cols: [[ //表头
-        { field: 'username', title: '用户名', width: 25 + '%', height: 50, }
-        , { field: 'ip', title: '用户IP', width: 25 + '%', height: 50, }
-        , { field: 'time', title: '访问时间', width: 25 + '%', height: 50, }
-        , { field: 'operation', title: '操作', width: 25 + '%', height: 50, templet: '#Blacklist' }
-      ]]
-    });
+    // table.render({
+    //   elem: '#user'
+    //   , url: "json/user.json" //数据接口
+    //   , skin: 'line'
+    //   , cols: [[ //表头
+    //     { field: 'username', title: '用户名',unresize: true,}
+    //     , { field: 'ip', title: '用户IP'}
+    //     , { field: 'time', title: '访问时间'}
+    //     , { field: 'operation', title: '操作',templet: '#Blacklist' }
+    //   ]]
+    // });
 
     //网友提问
-    table.render({
-      elem: '#Questions'
-      , url: "json/question.json" //数据接口
-      , skin: 'line'
-      , width: 1130
-      , cols: [[ //表头
-        { field: 'questions', width: 76 + '%', unresize: true }
-        , { field: 'edit', width: 24 + '%', templet: '#Edit', unresize: true, }
-      ]]
-    });
+    // table.render({
+    //   elem: '#Questions'
+    //   , url: "json/question.json" //数据接口
+    //   , skin: 'line'
+    //   , width: 1130
+    //   , cols: [[ //表头
+    //     { field: 'questions', width: 76 + '%', unresize: true }
+    //     , { field: 'edit', width: 24 + '%', templet: '#Edit', unresize: true, }
+    //   ]]
+    // });
 
     /**
      * 分页
