@@ -57,23 +57,29 @@
           <ul>
             <li>
               <p>会议名称</p>
-              <div><span id="TalkName">国家税务总局第二季度税收政策解读详情</span>
+              <div>
+                <span id="TalkName">国家税务总局第二季度税收政策解读详情</span>
                 <p onclick="ModifyName()">修改</p>
               </div>
             </li>
             <li>
               <p>访谈序号</p>
-              <div><span>09</span></div>
+              <div>
+                <span>09</span>
+              </div>
             </li>
             <li>
               <p>访谈场景</p>
-              <div><span>在线视频访谈</span>
+              <div>
+                <span>在线视频访谈</span>
                 <p onclick="ModifyScene()">修改</p>
               </div>
             </li>
             <li>
               <p>主持人</p>
-              <div><span>无名人</span></div>
+              <div>
+                <span>无名人</span>
+              </div>
             </li>
             <li style="line-height: 35px;margin-bottom: 18px">
               <p>访谈时间</p>
@@ -99,13 +105,15 @@
             </li>
             <li>
               <p>推流地址</p>
-              <div><span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2044</span>
+              <div>
+                <span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2044</span>
                 <p style="margin-left: 54px;" onclick="copyUrl2()">复制地址</p>
               </div>
             </li>
             <li>
               <p>访问地址</p>
-              <div><span>http://zxft.hntax.gov.cn/onfront</span>
+              <div>
+                <span>http://zxft.hntax.gov.cn/onfront</span>
                 <p style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
@@ -124,7 +132,11 @@
       <div class="menu">
         <!-- 标题 -->
         <div class="title" style="margin-bottom:0">
-          <p style="border: 0;padding-bottom: 20px;">用户管理<span>观看人数：<span style="color: #3199F7;margin-top: 2px">100000</span></span></p>
+          <p style="border: 0;padding-bottom: 20px;">用户管理
+            <span>观看人数：
+              <span style="color: #3199F7;margin-top: 2px">100000</span>
+            </span>
+          </p>
         </div>
         <!-- 用户表格 -->
         <div class="tab">
@@ -175,11 +187,6 @@
         <!-- 提问和回复 -->
         <div class="item3">
           <div class="questions nav_questions" style="display: block;">
-            <!-- <table id="Questions" lay-filter="test"></table>
-            <script type="text/html" id="Edit">
-              <p class="edit" style="margin-left: 10px">屏蔽</p>
-              <p class="edit">审核回复</p>
-            </script> -->
             <div class="questions_top">
               <div class="batch_management">批量管理</div>
               <div class="tool">
@@ -194,7 +201,9 @@
                 <input id="color-cb" class="color-cb" type="checkbox" value="123">
               </div>
               <div class="questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
+                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
+                  <span>[2018-10-16 16:39]</span>
+                </p>
                 <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="questions_right">
@@ -208,7 +217,9 @@
                 <input id="color-cb" class="color-cb" type="checkbox" value="123">
               </div>
               <div class="questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
+                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
+                  <span>[2018-10-16 16:39]</span>
+                </p>
                 <p>谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="questions_right">
@@ -223,7 +234,9 @@
                 <input id="color-cb" class="color-cb" type="checkbox" value="123">
               </div>
               <div class="questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
+                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
+                  <span>[2018-10-16 16:39]</span>
+                </p>
                 <p>谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="questions_right">
@@ -234,39 +247,50 @@
           </div>
 
           <div class="reply nav_questions">
+            <div class="reply_top" style="border-bottom: 0;display: none">
+              <div class="reply_management">批量管理</div>
+              <div class="reply_tool">
+                <p style="width: 92px;">全选本页</p>
+                <p style="background: #FF5500;" id="ReplyDelece">删除</p>
+                <p style="background: #9FB1C0" id="ReplyCancel">取消</p>
+              </div>
+            </div>
+
             <div class="reply_main" style="border-top: 1px solid #DEE1E6;">
               <div class="reply_main_top questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
+                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
+                  <span>[2018-10-16 16:39]</span>
+                </p>
                 <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="reply_main_bottom questions_left">
-                <p style="color: #3199F7;font-size: 16px;"><span class="administrators">[芝麻球]</span> 回复 <span class="net_friend">现场观众</span><span>[2018-10-16
-                    16:39]</span></p>
+                <p style="color: #3199F7;font-size: 16px;">
+                  <span class="administrators">[芝麻球]</span> 回复
+                  <span class="net_friend">现场观众</span>
+                  <span>[2018-10-16 16:39]
+                  </span>
+                </p>
                 <p>谢谢你的提问。对于设立在境外的合伙企业，除非协定另有规定，否则，只有在合伙企业本身是缔约对方居民的情况下，才可以在我国享受协定待遇。如果合伙企业不是对方居民，即使合伙人是缔约对方居民，也不能享受协定待遇。</p>
+                <p class="reply_editor"><img src="../img/edit.png" alt="">编辑</p>
               </div>
             </div>
 
             <div class="reply_main">
               <div class="reply_main_top questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
+                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
+                  <span>[2018-10-16 16:39]</span>
+                </p>
                 <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="reply_main_bottom questions_left">
-                <p style="color: #3199F7;font-size: 16px;"><span class="administrators">[芝麻球]</span> 回复 <span class="net_friend">现场观众</span><span>[2018-10-16
-                    16:39]</span></p>
+                <p style="color: #3199F7;font-size: 16px;">
+                  <span class="administrators">[芝麻球]</span> 回复
+                  <span class="net_friend">现场观众</span>
+                  <span>[2018-10-16 16:39]
+                  </span>
+                </p>
                 <p>谢谢你的提问。对于设立在境外的合伙企业，除非协定另有规定，否则，只有在合伙企业本身是缔约对方居民的情况下，才可以在我国享受协定待遇。如果合伙企业不是对方居民，即使合伙人是缔约对方居民，也不能享受协定待遇。</p>
-              </div>
-            </div>
-
-            <div class="reply_main">
-              <div class="reply_main_top questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众<span>[2018-10-16 16:39]</span></p>
-                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
-              </div>
-              <div class="reply_main_bottom questions_left">
-                <p style="color: #3199F7;font-size: 16px;"><span class="administrators">[芝麻球]</span> 回复 <span class="net_friend">现场观众</span><span>[2018-10-16
-                    16:39]</span></p>
-                <p>谢谢你的提问。对于设立在境外的合伙企业，除非协定另有规定，否则，只有在合伙企业本身是缔约对方居民的情况下，才可以在我国享受协定待遇。如果合伙企业不是对方居民，即使合伙人是缔约对方居民，也不能享受协定待遇。</p>
+                <p class="reply_editor"><img src="../img/edit.png" alt="">编辑</p>
               </div>
             </div>
           </div>
@@ -378,14 +402,19 @@
               <input type="radio">
             </div>
             <div class="record_right">
-              <p class="record_name">国家税务总局政策法规司司长<span>芝麻球</span></p>
+              <p class="record_name">国家税务总局政策法规司司长
+                <span>芝麻球</span>
+              </p>
               <p class="record_time">2018-07-04 23:32:48</p>
-              <p class="record_comtent">尊敬的各位纳税人、同志们，大家上午好！欢迎大家参加国家税务总局举办的2018年第二季度税收政策解读视频会。 税收政策解读视频会是税务总局为贯彻落实党的十九大精神，进一步优化营商环境，提高税收政策确定性和透明度而搭建的常态化政策解读平台。 解读视频会每季度至少举办一次，由税务总局相关业务司局负责同志结合新出台的税收政策，针对基层税务机关和纳税人反映的热点难点问题，集中进行政策解读，着力解决好基层税务机关和纳税人关心的政策执行口径问题，激活和规范纳税人享受税收利好，进一步推进基层不折不扣地落实税收政策。</p>
-              <p class="record_edit"><img src="../img/edit.png" alt="">编辑</p>
+              <p class="record_comtent">尊敬的各位纳税人、同志们，大家上午好！欢迎大家参加国家税务总局举办的2018年第二季度税收政策解读视频会。 税收政策解读视频会是税务总局为贯彻落实党的十九大精神，进一步优化营商环境，提高税收政策确定性和透明度而搭建的常态化政策解读平台。
+                解读视频会每季度至少举办一次，由税务总局相关业务司局负责同志结合新出台的税收政策，针对基层税务机关和纳税人反映的热点难点问题，集中进行政策解读，着力解决好基层税务机关和纳税人关心的政策执行口径问题，激活和规范纳税人享受税收利好，进一步推进基层不折不扣地落实税收政策。
+              </p>
+              <p class="record_edit">
+                <img src="../img/edit.png" alt="">编辑</p>
             </div>
           </div>
         </div>
-        
+
 
       </div>
       <!-- 文字实录  end -->
@@ -404,7 +433,10 @@
           <p>上传视频</p>
         </div>
         <div class="vedio">
-          <P style="margin: 0;width: 42%"><img src="../img/vedio.png" alt=""><span>2018年度居民所得税汇算清缴专题</span></p>
+          <P style="margin: 0;width: 42%">
+            <img src="../img/vedio.png" alt="">
+            <span>2018年度居民所得税汇算清缴专题</span>
+          </p>
           <p>302M</p>
           <p style="width: 28%">2018-10-16 16:38</p>
           <p class="download" style="width: 10%;cursor: pointer;">下载视频</p>
@@ -421,28 +453,40 @@
   </div>
 
 
+
+  <!-- 二级页面  end -->
+
+</body>
+
+<!-- 弹框 -->
+<div class="projectile_frame">
+
   <!-- 直播详情里的四个弹框 -->
-  <div class="modify_name" style="display: none">
+  <div class="modify_name">
     <p class="name_title">修改会议名称</p>
     <input type="text" value="请输入会议名称" id="Name">
     <p class="tips" style="display: none">提示：最多只能输入25个字符</p>
   </div>
 
-  <div class="modify_scene" style="display: none">
+  <div class="modify_scene">
     <p class="name_title">修改会议场景</p>
     <div class="radio">
-      <input type="radio" name="preview" value="video" class="select_1"><label for="">视频预告</label>
-      <input type="radio" name="preview" value="imageortext" class="select_2" style="margin-left: 60px;"><label for="">图文预告</label>
+      <div class="radio_item" style="margin-right: 60px;">
+        <p></p><span>视频预告</span>
+      </div>
+      <div class="radio_item">
+        <p></p><span>图文预告</span>
+      </div>
     </div>
   </div>
 
-  <div id="add_guest" style="display: none">
+  <div id="add_guest">
     <p class="name_title">添加嘉宾</p>
     <input type="text" value="请输入嘉宾姓名" id="Adds">
     <p class="tips_2" style="display: none">提示：最多只能输入20个字符</p>
   </div>
 
-  <div class="brief_introduction" style="display: none">
+  <div class="brief_introduction">
     <p class="name_title">编辑会议简介</p>
     <textarea name="" id="brief" cols="30" rows="10"></textarea>
     <p class="tips_3" style="display: none">提示：最多只能输入50个字符</p>
@@ -450,17 +494,17 @@
 
 
   <!-- 互动设置里面的弹框 -->
-  <div class="interaction_delete" style="display: none">
+  <div class="interaction_delete">
     <img src="../img/warning.png" alt="">
     <p>是否确认删除所选提问，删除后不可恢复？</p>
   </div>
 
-  <div class="interaction_shield" style="display: none">
+  <div class="interaction_shield">
     <img src="../img/warning.png" alt="">
     <p>是否确认屏蔽该用户？</p>
   </div>
 
-  <div class="review_response" style="display: none">
+  <div class="review_response">
 
     <div class="review" id="review">
       <p class="name_title">审核回复</p>
@@ -481,19 +525,19 @@
 
 
   <!-- 现场图片里面的弹框 -->
-  <div class="picture_delece" style="display: none">
+  <div class="picture_delece">
     <img src="../img/warning.png" alt="">
     <p>是否确认删除所选图片，删除后不可恢复？</p>
   </div>
 
 
   <!-- 文字实录里面的弹框 -->
-  <div class="text_delece" style="display: none">
+  <div class="text_delece">
     <img src="../img/warning.png" alt="">
     <p>是否确认删除所选文字，删除后不可恢复？</p>
   </div>
 
-  <div class="text_record_edit" style="display: none">
+  <div class="text_record_edit">
     <p class="name_title">编辑会议内容</p>
     <div class="text_select">
       <select name="" id="">
@@ -506,7 +550,7 @@
   </div>
 
   <div class="real_time">
-    <p class="name_title">编辑会议内容</p>
+    <p class="name_title" style="text-align: center;">编辑会议内容</p>
     <div class="text_select">
       <span>*请选择会议人 </span>
       <select name="" id="">
@@ -515,16 +559,22 @@
         <option value="">总局</option>
       </select>
     </div>
-    <span>*会议内容 </span><textarea name="" id="RealTime" cols="30" rows="10"></textarea>
+    <div class="real_time_">
+      <p>*会议内容 </p>
+      <textarea name="" id="RealTime" cols="30" rows="10"></textarea>
+    </div>
   </div>
 
-  <!-- 二级页面  end -->
 
-</body>
+</div>
+
+
 
 
 
 </html>
+
+
 
 
 <script>

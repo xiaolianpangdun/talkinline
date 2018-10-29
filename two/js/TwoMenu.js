@@ -45,10 +45,19 @@ $(function(){
     });
 
     /**
-     * 修改会议场景
-     * 
      * 单选框
+     * 
+     * 直播详情 ===== 访谈场景
      */
+
+    $('.radio_item').click(function(){
+
+      $(this).addClass('image').siblings().removeClass('image');
+
+    });
+
+
+
     $('.radio input').click(function(){
       $(this).addClass('image').siblings().removeClass('image');
     });
@@ -56,7 +65,9 @@ $(function(){
     /**
      * 互动设置
      * 
-     * 编辑切换
+     * 网友提问编辑切换
+     * 
+     * 审核回复编辑切换
      */
     $('.batch_management').click(function(){
       $('.batch_management').css('display','none');
@@ -68,6 +79,18 @@ $(function(){
       $('.batch_management').css('display','block');
       $('.tool').css('display','none');
       $('.questions_radio').css('display','none')
+    });
+
+    $('.reply_management').click(function(){
+      $('.reply_management').css('display','none');
+      $('.reply_tool').css('display','block');
+      // $('.questions_radio').css('display','block')
+    });
+
+    $('#ReplyCancel').click(function(){
+      $('.reply_management').css('display','block');
+      $('.reply_tool').css('display','none');
+      // $('.questions_radio').css('display','none')
     });
 
     /**
