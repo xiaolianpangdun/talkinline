@@ -70,8 +70,312 @@ $(function(){
       $('.questions_radio').css('display','none')
     });
 
-})
+    /**
+     * 互动设置的弹框
+     * 
+     * 点击删除
+     * 
+     * 点击屏蔽
+     * 
+     * 审核回复(编辑提问)
+     * 
+     * 导航切换
+     */
 
+    $('#InteractionDelete').click(function(){
+      $('.interaction_delete').css("display","block");
+      layer.open({
+        type: 1,
+        area: ['480px', '360px'],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['确定','取消'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('.interaction_delete'),
+        cancel: function(index, layero){
+          $('.interaction_delete').css("display","none");
+        },
+        yes: function(index, layero){
+            layer.close(index);
+            $('.interaction_delete').css("display","none");
+        },
+        btn2: function(index, layero){
+            // 取消
+          layer.close(index);
+          $('.interaction_delete').css("display","none");
+        },
+      });
+
+    });
+
+    $('.InteractionShield').click(function(){
+      $('.interaction_shield').css("display","block");
+      layer.open({
+        type: 1,
+        area: ['480px', '360px'],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['确定','取消'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('.interaction_shield'),
+        cancel: function(index, layero){
+          $('.interaction_shield').css("display","none");
+        },
+        yes: function(index, layero){
+            layer.close(index);
+            $('.interaction_shield').css("display","none");
+        },
+        btn2: function(index, layero){
+            // 取消
+          layer.close(index);
+          $('.interaction_shield').css("display","none");
+        },
+      });
+    });
+
+    $('#ReviewResponse').click(function(){
+
+      $('.review_response').css("display","block");
+      // 把问题渲染到审核回复
+      var questions = $('.questions_bottom').text();
+      $('.review_questions span').text(questions);
+      
+
+      layer.open({
+        type: 1,
+        area: ['700px', ''],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['确定','取消'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('#review'),
+        cancel: function(index, layero){
+          $('#review').css("display","none");
+        },
+        yes: function(index, layero){
+
+          layer.close(index);
+          $('#review').css("display","none");
+
+        },
+        btn2: function(index, layero){
+          // 取消按钮
+          layer.close(index);
+          $('#review').css("display","none");
+
+          
+        },
+      });
+
+      $('.editor_question').click(function(){
+        $('#response_main').val(questions);
+        layer.open({
+          type: 1,
+          area: ['700px', ''],
+          title: ['', 'background: #fff;border:0'],
+          btn: ['确定','取消'],
+          skin: 'my-skin',
+          btnAlign: 'c',
+          content: $('#response'),
+          cancel: function(index, layero){
+            $('#response').css("display","none");
+          },
+          yes: function(index, layero){
+
+            var Modified = $('#response_main').val();
+
+            $('.questions_bottom').text(Modified);
+
+            $('.review_questions span').text(Modified);
+  
+            layer.close(index);
+            $('#response').css("display","none");
+  
+          },
+          btn2: function(index, layero){
+            // 取消按钮
+            layer.close(index);
+            $('#response').css("display","none");
+  
+           
+          },
+        });
+  
+      });
+
+
+
+    });
+
+    var idx;
+    $(".interaction ul li").click(function(){
+      $(this).addClass('item3_active').siblings().removeClass('item3_active');
+      idx = $(this).index();
+      $(".item3>div").hide().eq(idx).show();
+    });
+
+
+    /**
+     * 现场图片
+     * 
+     * 取消
+     * 
+     * 删除
+     * 
+     * 
+     */
+    $('.picture_management').click(function(){
+      $('.picture_management').css("display","none");
+      $('.picture_tool').css("display","block");
+    });
+
+    $('#PictureCancel').click(function(){
+      $('.picture_management').css("display","block");
+      $('.picture_tool').css("display","none");
+    });
+
+    $('#PictureDelece').click(function(){
+
+      $('.picture_delece').css("display","block");
+      layer.open({
+        type: 1,
+        area: ['480px', '360px'],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['确定','取消'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('.picture_delece'),
+        cancel: function(index, layero){
+          $('.picture_delece').css("display","none");
+        },
+        yes: function(index, layero){
+            layer.close(index);
+            $('.picture_delece').css("display","none");
+        },
+        btn2: function(index, layero){
+            // 取消
+          layer.close(index);
+          $('.picture_delece').css("display","none");
+        },
+      });
+
+    });
+
+    $('#PictureCancel').click(function(){
+      $('.batch_management').css('display','block');
+      $('.tool').css('display','none');
+    });
+
+    /**
+     * 文字实录
+     * 
+     * 点击操作
+     * 
+     * 取消
+     * 
+     * 删除
+     * 
+     * 编辑现有的会议内容
+     * 
+     * 实时录入会议内容
+     * 
+     */
+
+    $('.text_management').click(function(){
+      $('.text_management').css("display","none");
+      $('.text_tool').css("display","block");
+    });
+
+    $('#TextCancel').click(function(){
+      $('.text_management').css("display","block");
+      $('.text_tool').css("display","none");
+    });
+
+    $('#TextDelece').click(function(){
+
+      $('.text_delece').css("display","block");
+      layer.open({
+        type: 1,
+        area: ['480px', '360px'],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['确定','取消'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('.text_delece'),
+        cancel: function(index, layero){
+          $('.text_delece').css("display","none");
+        },
+        yes: function(index, layero){
+            layer.close(index);
+            $('.text_delece').css("display","none");
+        },
+        btn2: function(index, layero){
+            // 取消
+          layer.close(index);
+          $('.text_delece').css("display","none");
+        },
+      });
+
+    });
+    
+    $('.record_edit').click(function(){
+
+      var record_comtent = $('.record_comtent').text();
+
+      $('#TextSelect').val(record_comtent);
+      
+
+      $('.text_record_edit').css("display","block");
+      layer.open({
+        type: 1,
+        area: ['700px', '520px'],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['完成'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('.text_record_edit'),
+        cancel: function(index, layero){
+          $('.text_record_edit').css("display","none");
+        },
+        yes: function(index, layero){
+          $('.record_comtent').text($('#TextSelect').val())
+            layer.close(index);
+            $('.text_record_edit').css("display","none");
+        }
+      });
+
+    });
+
+    $('.conference').click(function(){
+
+      $('.real_time').css("display","block");
+
+      layer.open({
+        type: 1,
+        area: ['700px', '520px'],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['完成'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('.real_time'),
+        cancel: function(index, layero){
+          $('.real_time').css("display","none");
+        },
+        yes: function(index, layero){
+          //$('.real_time').text($('#TextSelect').val())
+            layer.close(index);
+            $('.real_time').css("display","none");
+        }
+      });
+
+    });
+
+
+
+
+
+
+  });
 
 
 /**
