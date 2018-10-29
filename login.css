@@ -83,6 +83,9 @@ body {
 }
 
 .color-cb:checked {
+    outline: none;
+    border: none;
+    background: #4F93FE;
     background-image: url(./img/checked.png);
 }
 

@@ -44,3 +44,30 @@
     .layui-table[lay-even] tr:nth-child(even) {
         background-color: transparent;
     }
+    
+    body .removeblacklist .layui-layer-btn a {
+        width: 140px;
+        height: 34px;
+        line-height: 34px;
+        color: #fff;
+        /* border-top: 1px solid #E7EAEC; */
+    }
+    
+    body .removeblacklist .layui-layer-btn a.layui-layer-btn1 {
+        background: #9FB1C0;
+        margin-left: 30px;
+    }
+    
+    .center {
+        text-align: center;
+    }
+    
+    .comfirmdo {
+        margin-top: 50px;
+        font-family: PingFangSC-Regular;
+        font-size: 24px;
+        color: #676A6C;
+        text-align: center;
+        line-height: 30px;
+        padding: 0 50px;
+    }

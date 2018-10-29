@@ -20,15 +20,24 @@
 </script>
 <!-- 操作按钮模板 -->
 <script type="text/html" id="remove">
-    <a href="javascript:;" class="layui-table-link" style="color:#FF5C0B;">
+    <a href="javascript:;" class="layui-table-link" lay-event="remove" style="color:#FF5C0B;">
         移除
     </a>
 </script>
+<!-- 移除黑名单弹框 -->
+<div id="removeblacklist" class='center' style="display:none;">
+    <div>
+        <img src="../../img/warning.png" alt="">
+    </div>
+    <div class="comfirmdo">是否确认删除"<span>asd</span>"这个黑名单</div>
+</div>
 <script>
     ;
     ! function() {
         // 表格
-        var table = layui.table;
+        var table = layui.table,
+            $ = layui.$,
+            layer = layui.layer;
         table.render({
             elem: '#blacklist',
             skin: 'line',
@@ -51,11 +60,33 @@
                     }, {
                         field: 'as',
                         title: '操作',
-                        templet: '#remove',
+                        toolbar: '#remove',
                         unresize: true
                     }
                 ]
             ],
+        });
+
+        // 移除事件
+        table.on('tool(test)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if (layEvent === 'remove') { //查看
+                layer.open({
+                    type: 1,
+                    area: ['480px', '360px'],
+                    title: ['', "background:#fff;border:0"], //'在线调试',
+                    content: $("#removeblacklist"),
+                    shade: [0.2, '#393D49'],
+                    skin: 'removeblacklist',
+                    shadeClose: true,
+                    btnAlign: 'c', //按钮居中显示
+                    btn: ['确定', '取消'],
+                    yes: function(index, layero) {}
+                });
+            }
         });
         // 分页器
         var laypage = layui.laypage;

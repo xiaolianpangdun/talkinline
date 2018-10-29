@@ -86,7 +86,10 @@
 
                 // 刷新之后 导航背景颜色还在
                 (function() {
-                    if (link != null) {
+                    if (link == "two") {
+                        var html = "<iframe width=100% height=800px src='../two/TwoMenu.html' frameborder='0'></iframe>"
+                        $(".body").html(html);
+                    } else if (link != null) {
                         var html = "<iframe width=100% height=800px src='./pages/" + link + ".html' frameborder='0'></iframe>"
                         $(".body").html(html);
 

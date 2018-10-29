@@ -22,19 +22,19 @@
     </script>
     <!-- 访谈操作按钮模板 -->
     <script type="text/html" id="handle">
-        <a href="javascript:;" class="layui-table-link">
+        <a href="javascript:;" lay-event="talkdetail" class="layui-table-link">
             <img src="../../img/edit.png" alt=""> 设置访谈详情
         </a>
         {{# if(d.status=="正在访谈"){ }}
-        <a href="javascript:;" class="layui-table-link  endtalk hover">结束访谈</a> {{# }else{ }}
+        <a href="javascript:;" lay-event="endtalk" class="layui-table-link   endtalk hover">结束访谈</a> {{# }else{ }}
         <span class="endtalk" style="color:#999999;">结束访谈</span> {{# }}}
-        <a href="javascript:;" class="layui-table-link " style="color:#FF5500;">
+        <a href="javascript:;" lay-event="delete" class="layui-table-link " style="color:#FF5500;">
             <img src="../../img/delete.png" alt=""> 删除
         </a>
     </script>
 
-    <!-- 新建在线访谈模板 -->
-    <div id="addinlinetalk" style="border:1px solid red;display:none;">
+    <!-- 新建在线访谈弹框 模板 -->
+    <div id="addinlinetalk" style="display:none;">
         <div class="title">新建在线访谈</div>
         <div class="line">
             <div class="textleft">*访谈名称</div>
@@ -53,34 +53,12 @@
         </div>
         <div class="line">
             <div class="textleft">*本期嘉宾</div>
-            <div class="left" style="border:1px solid red;float:left;width:450px;">
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
-                </div>
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
-                </div>
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
-                </div>
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
-                </div>
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
-                </div>
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
-                </div>
-                <div class='left guest'>
-                    <span>嘉宾1 &nbsp;&nbsp;</span>
-                    <img src="../../img/cancel_02.png" alt="">
+            <div class="left guests" style="float:left;width:450px;">
+                <div class="html">
+                    <div class='left guest'>
+                        <span>嘉宾1 &nbsp;&nbsp;</span>
+                        <img src="../../img/cancel_02.png" alt="">
+                    </div>
                 </div>
                 <button class='left addguest'>添加嘉宾</button>
                 <div class="clear"></div>
@@ -97,45 +75,132 @@
         <div class="line">
             <div class="textleft">会议简介</div>
             <div class="left">
-                <textarea class="talkintro" name="" id="" cols="30" rows="10"></textarea>
+                <textarea class="talkintro" name="" id="" cols="30" rows="8"></textarea>
             </div>
             <div class="clear"></div>
         </div>
         <div class="line">
             <div class="textleft">*访谈场景</div>
             <div class="left select">
-                <input type="radio" id="s1" name="selecttype" class="selecttype"><label for="s1">在线访谈视频</label>
-                <input type="radio" id="s2" name="selecttype" class="selecttype"><label for="s2">图文实录访谈</label>
+                <input type="radio" id="s1" name="selecttype" class="selecttype color-cb"><label for="s1">在线访谈视频</label>
+                <input type="radio" id="s2" name="selecttype" class="selecttype color-cb"><label for="s2">图文实录访谈</label>
             </div>
         </div>
     </div>
-    <!-- 添加嘉宾 -->
-    <div id="addguest" style="border:1px solid red;">
+    <!-- 新建在线预告 模板 -->
+    <div id="addadvance" style="display:none;">
+        <div class="title">新建访谈预告</div>
+        <div class="line">
+            <div class="textleft">*本期嘉宾</div>
+            <div class="left guests" style="float:left;width:450px;">
+                <div class="html">
+                    <div class='left guest'>
+                        <span>嘉宾1 &nbsp;&nbsp;</span>
+                        <img src="../../img/cancel_02.png" alt="">
+                    </div>
+                </div>
+                <button class='left addguest'>添加嘉宾</button>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">主持人</div>
+            <div class="left">
+                <input type="text" class="talk" placeholder="请输入主持人">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">会议简介</div>
+            <div class="left">
+                <textarea class="talkintro" name="" id="" cols="30" rows="8"></textarea>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">*访谈场景</div>
+            <div class="left select">
+                <!-- <span class="radio-select "></span> -->
+                <input type="radio" id="s1" value="视频预告" name="selectadvance" class="selectvideo color-cb">
+
+                <label for="s1">视频预告</label>
+                <!-- <span class="radio-select"></span> -->
+                <input type="radio" id="s2" value="图文预告" name="selectadvance" class="selectimg color-cb">
+                <label for="s2">图文预告</label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft"></div>
+            <div class="left">
+                <img class="upfile upimg" src="../../img/upimg.png" alt="">
+                <img class="upfile upvideo" src="../../img/upvideo.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- 添加嘉宾的弹框 -->
+    <div id="addguest" style="display:none;">
         <div class="add-guest">添加嘉宾</div>
         <input type="text" class="guestname" placeholder="嘉宾姓名20字以内">
     </div>
+    <!-- 结束访谈的弹框 -->
+    <div id="endtalkpopup" class='center' style="display:none;">
+        <div class='center'>
+            <img src="../../img/warning.png" alt="">
+        </div>
+        <div class="comfirmdo">是否确认结束当前访谈？</div>
+    </div>
+    <div id="cannotdel" class='center' style="display:none;">
+        <div>
+            <img src="../../img/warning.png" alt="">
+        </div>
+        <div class="comfirmdo">不能删除当前访谈，请确定访谈结束后，才能删除访谈</div>
+    </div>
+    <div id="candel" class='center' class="comfirmdo" style="display:none;">
+        <div>
+            <img src="../../img/warning.png" alt="">
+        </div>
+        <div class="comfirmdo">是否确认删除当前访谈</div>
+    </div>
 </div>
+<!-- 
+    `<div class='left guest'>
+                        <span>${name}&nbsp;&nbsp;</span>
+                        <img src="../../img/cancel_02.png" alt="">
+                    </div>`
+ -->
 <script>
     ;
     ! function() {
         var $ = layui.$;
+        // 点击弹出结束访谈弹框
+        $(".endtalk").click(function() {
+            console.log(123);
+            alert(12);
+        });
+        // 点击添加嘉宾
         $("button.addguest").click(function() {
             layer.open({
                 type: 1,
-                area: ['400px', '300px'],
+                area: ['480px', '360px'],
                 title: ['', "background:#fff;border:0"], //'在线调试',
                 content: $("#addguest"),
                 shade: [0.8, '#393D49'],
-                skin: 'demo-class2',
+                skin: 'addguest',
                 shadeClose: true,
                 btnAlign: 'c', //按钮居中显示
                 btn: ['确定', '取消'],
                 yes: function(index, layero) {
-                    console.log($("input.guestname").val());
+                    var name = $("input.guestname").val();
+                    var html = "";
+                    $(".html").html($('.html').html() + html);
+                    $("input.guestname").val("");
+                    layer.close(index);
                 }
             });
         });
-        // 弹出新建框
+        // 点击弹出新建访谈弹框
         $(".addtalk").click(function() {
             layer.open({
                 type: 1,
@@ -143,7 +208,7 @@
                 title: ['', "background:#fff;border:0"], //'在线调试',
                 content: '<div class="addtype">请选择所要新建的类型</div>',
                 shade: [0.2, '#393D49'],
-                skin: 'demo-class',
+                skin: 'addkind',
                 shadeClose: true,
                 btnAlign: 'c', //按钮居中显示
                 btn: ['在线访谈', '在线预告'],
@@ -156,7 +221,7 @@
                         title: ['', "background:#fff;border:0"], //'在线调试',
                         content: $("#addinlinetalk"),
                         shade: [0.2, '#393D49'],
-                        skin: 'demo-class2',
+                        skin: 'addkind1',
                         shadeClose: true,
                         btnAlign: 'c', //按钮居中显示
                         btn: ['确定'],
@@ -164,6 +229,18 @@
                     });
                 },
                 btn2: function(index, layero) {
+                    layer.open({
+                        type: 1,
+                        area: ['700px', '600px'],
+                        title: ['', "background:#fff;border:0"], //'在线调试',
+                        content: $("#addadvance"),
+                        shade: [0.2, '#393D49'],
+                        skin: 'addkind1',
+                        shadeClose: true,
+                        btnAlign: 'c', //按钮居中显示
+                        btn: ['确定'],
+                        yes: function(index, layero) {}
+                    });
                     //按钮【按钮二】的回调
 
                     //return false 开启该代码可禁止点击该按钮关闭
@@ -178,7 +255,7 @@
                 }
             });
         });
-        // 新建访谈时间
+        // 新建访谈开始与时间
         var laydate = layui.laydate;
         laydate.render({
             elem: '#starttime',
@@ -220,11 +297,70 @@
                         field: 'as',
                         title: '操作',
                         width: 360,
-                        templet: '#handle',
+                        toolbar: '#handle',
                         unresize: true
                     }
                 ]
             ],
+        });
+        // 表格点击事件
+        table.on('tool(test)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if (layEvent === 'endtalk') { //查看
+                layer.open({
+                    type: 1,
+                    area: ['480px', '360px'],
+                    title: ['', "background:#fff;border:0"], //'在线调试',
+                    content: $("#endtalkpopup"),
+                    shade: [0.2, '#393D49'],
+                    skin: 'end',
+                    shadeClose: true,
+                    btnAlign: 'c', //按钮居中显示
+                    btn: ['确定', '取消'],
+                    yes: function(index, layero) {}
+                });
+            } else if (layEvent === 'delete') { //删除
+                console.log(data);
+                if (data.status == "正在访谈") {
+                    layer.open({
+                        type: 1,
+                        area: ['480px', '360px'],
+                        title: ['', "background:#fff;border:0"], //'在线调试',
+                        content: $("#cannotdel"),
+                        shade: [0.2, '#393D49'],
+                        skin: 'end',
+                        shadeClose: true,
+                        btnAlign: 'c', //按钮居中显示
+                        btn: [],
+                        yes: function(index, layero) {}
+                    });
+                } else {
+                    layer.open({
+                        type: 1,
+                        area: ['480px', '360px'],
+                        title: ['', "background:#fff;border:0"], //'在线调试',
+                        content: $("#candel"),
+                        shade: [0.2, '#393D49'],
+                        skin: 'end',
+                        shadeClose: true,
+                        btnAlign: 'c', //按钮居中显示
+                        btn: ['确定', '取消'],
+                        yes: function(index, layero) {}
+                    });
+                }
+            } else if (layEvent === 'talkdetail') { //编辑
+                //do something
+                window.localStorage.setItem("link", "two");
+                parent.location.reload();
+                //同步更新缓存对应的值
+                // obj.update({
+                //     username: '123',
+                //     title: 'xxx'
+                // });
+            }
         });
         // 分页器
         var laypage = layui.laypage;
@@ -236,6 +372,19 @@
             prev: "<<上一页",
             next: "下一页>>",
             theme: '#4597E0'
+        });
+
+        // 点击切换视频 图片
+        $("input[name='selectadvance']").click(function() {
+            var val = $("input[name='selectadvance']:checked").val();
+            console.log(val);
+            if (val == "图文预告") {
+                $("img.upimg").show();
+                $("img.upvideo").hide();
+            } else {
+                $("img.upimg").hide();
+                $("img.upvideo").show();
+            }
         });
     }();
 </script>

@@ -11,125 +11,118 @@
 <div class="none">
     <img src="../../img/noforbidden.png" alt=""><br>
     <div class="tip">暂无严禁词，您可手动添加会议严禁词</div>
-    <button class="addforbidden">新增违禁词</button>
+    <button class="addforbidden addforbidword">新增违禁词</button>
 </div>
 
 <!-- 有违禁词时 -->
 <div class="had">
     <div class="forbidword">
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
+        <div class="forbidwords" style="">
+            <div class="left">
+                <span>中国共产党统治</span>
+                <img class="del" src="../../img/del.png" alt="">
+            </div>
         </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>傻逼</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>啦啦啦</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>傻逼</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>啦啦啦</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>傻逼</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>啦啦啦</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>傻逼</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>啦啦啦</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>傻逼</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>啦啦啦</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>傻逼</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <div>
-            <span>啦啦啦</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-        <button class="left">新增违禁词</button>
+        <button class="left addforbidword">新增违禁词</button>
     </div>
     <div class="clear"></div>
     <div id="forbidpage" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
 </div>
 
 <!-- 搜索违禁词时 -->
-<div class="had">
+<!-- <div class="had">
     <div class="forbidden">
         <div>
             <span>中国共产党统治</span>
             <img class="del" src="../../img/del.png" alt="">
         </div>
     </div>
+</div> -->
+
+<!-- 添加违禁词弹出框模板 -->
+<div id="addforbidword" style="display:none;">
+    <div class="title">添加违禁词</div>
+    <input class="content" type="text" placeholder="请输入内容" maxlength="10">
+    <div class="warn">输入的内容不超过10个字</div>
 </div>
-
-
+<!-- 删除违禁词弹框模板 -->
+<div id="delforbidword" class='center' style="display:none;">
+    <div>
+        <img src="../../img/warning.png" alt="">
+    </div>
+    <div class="comfirmdo">是否确认删除"<span>asd</span>"违禁词</div>
+</div>
 <script src="../../layui/layui.all.js"></script>
 <script>
     ;
     ! function() {
         // 分页器
         var laypage = layui.laypage,
+            layer = layui.layer,
             $ = layui.$;
+        // $(".content").bind('input propertychange', function() {
+        //     console.log($(this).val().length);
+        // });
 
+        //判断有无违禁词
+        (function() {
+            var a = 0;
+            if (a) {
+                $(".none").hide();
+                $(".had").show();
+            } else {
+                $(".none").show();
+                $(".had").hide();
+            }
+        })();
+        // 添加违禁词弹框
+        $(".addforbidword").click(function() {
+            layer.open({
+                type: 1,
+                area: ['650px', '320px'],
+                title: ['', "background:#fff;border:0"], //'在线调试',
+                content: $("#addforbidword"),
+                shade: [0.2, '#393D49'],
+                skin: 'addforbidword',
+                shadeClose: true,
+                btnAlign: 'c', //按钮居中显示
+                btn: ['确定', '取消'],
+                yes: function(index, layero) {
+                    var word = $(".content").val();
+                    if (word == "") {
+                        layer.close(index);
+                        return;
+                    }
+                    var html = $(".forbidwords").html();
+                    // $(".forbidwords").html(html + `<div class="left">
+                    //         <span>${word}</span>
+                    //             <img class="del" src="../../img/del.png" alt="">
+                    //         </div>`);
+                    $(".content").val("");
+                    layer.close(index);
+                    $(".none").hide();
+                    $(".had").show();
+                }
+            });
+        });
+        // 删掉一个违禁词
+        $("img.del").click(function() {
+            layer.open({
+                type: 1,
+                area: ['480px', '360px'],
+                title: ['', "background:#fff;border:0"], //'在线调试',
+                content: $("#delforbidword"),
+                shade: [0.2, '#393D49'],
+                skin: 'addforbidword',
+                shadeClose: true,
+                btnAlign: 'c', //按钮居中显示
+                btn: ['确定', '取消'],
+                yes: function(index, layero) {
+
+                    layer.close(index);
+                }
+            });
+        });
         //执行一个laypage实例
         laypage.render({
             elem: 'forbidpage',
@@ -138,5 +131,5 @@
             next: "下一页>>",
             theme: '#4597E0'
         });
-    }();
+    }()
 </script>
