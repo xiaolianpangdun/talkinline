@@ -37,8 +37,8 @@ body{
 
 .nav{
   width: 17%;
-  height: 1000px;
-  /* height: 891px; */
+  /* height: 1000px; */
+  height: 891px;
   background: #F7F9FB;
   padding-top: 27px;
   float: left;
@@ -126,6 +126,7 @@ body{
   margin-right: 20px;
   margin-left: 0;
   color: #000;
+  display: inline-block
   /* cursor: none; */
 }
 .add{
@@ -139,6 +140,7 @@ body{
   color: #3199F7;
   font-size: 14px;
   cursor: pointer;
+  display: inline-block
 }
 .sure{
   width: 200px;
@@ -317,22 +319,22 @@ body{
   color: #888888;
   margin-left: 28px;
 }
-.questions_radio{
+.questions_chexbox{
   float: left;
   margin-left: 10px;
   margin-right: 22px;
   margin-top: 30px;
 }
-.questions_radio input[type='radio']{
-  width: 16px;
-  height: 16px;
-  background-color: #fff;
-  -webkit-appearance: none;
-  border: 1px solid #4F93FE;
-  cursor: pointer;
-  border-radius: 2px;
-  outline: none;
+.checkbox{
+  width: 14px;
+  height: 14px;
+  border: 1px solid #DEE1E6;
+  background: #fff;
 }
+.chexbox_img{
+  background: url(../../img/selected.png)
+}
+
 .reply_main_top{
   width: 100%;
   margin-bottom: 18px;
@@ -348,6 +350,7 @@ body{
 .reply_editor{
   color: #3199F7;
   margin-top: 8px;
+  cursor: pointer;
 }
 
 /* 现场图片 */
@@ -398,7 +401,7 @@ body{
 }
 
 /* 弹框 */
-.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time{
+.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor{
   display: none;
 }
 .modify_name,.modify_scene,#add_guest,.brief_introduction,.text_record_edit{
@@ -432,7 +435,10 @@ body{
   font-size: 18px;
   margin-top: -20px;
 }
-.brief_introduction textarea,.review_response textarea,.text_record_edit textarea,.real_time textarea{
+.layui-layer-btn a{
+  margin-bottom: 25px;
+}
+.brief_introduction textarea,.review_response textarea,.text_record_edit textarea,.real_time textarea,.namess textarea{
   width: 600px;
   height: 145px;
   margin-bottom: 26px;
@@ -456,16 +462,6 @@ body{
   cursor: pointer;
   margin-right: 10px;
 }
-/* .radio input[type='radio']{
-  width: 24px;
-  height: 24px;
-  background-color: #fff;
-  /* -webkit-appearance: none; */
-  /* 
-  cursor: pointer;
-  border-radius: 2px;
-  outline: none;
-} */ 
 .image{
   background-image: url(../../img/se.png);
 }
@@ -527,6 +523,14 @@ body{
 .real_time_>p{
   float: left;
   margin-right: 33px;
+}
+.namess{
+  margin-left: 30px;
+}
+.namess p{
+  font-size: 16px;
+  color: #3199F7;
+  margin-bottom: 10px;
 }
 
 /* 视频下载 */

@@ -21,6 +21,9 @@
   <!-- 引入页面css、js-->
   <link rel="stylesheet" href="css/TwoMenu.css">
   <script src="js/TwoMenu.js"></script>
+
+  <!-- 引入复制功能需要的JS -->
+  <script src="js/clipboard.min.js"></script>
 </head>
 
 <body>
@@ -58,27 +61,27 @@
             <li>
               <p>会议名称</p>
               <div>
-                <span id="TalkName">国家税务总局第二季度税收政策解读详情</span>
+                <span id="TalkName"></span>
                 <p onclick="ModifyName()">修改</p>
               </div>
             </li>
             <li>
-              <p>访谈序号</p>
+              <p>访谈编号</p>
               <div>
-                <span>09</span>
+                <span id="TalkNumber">09</span>
               </div>
             </li>
             <li>
               <p>访谈场景</p>
               <div>
-                <span>在线视频访谈</span>
+                <span id="TalkScene"></span>
                 <p onclick="ModifyScene()">修改</p>
               </div>
             </li>
             <li>
               <p>主持人</p>
               <div>
-                <span>无名人</span>
+                <span id="compere"></span>
               </div>
             </li>
             <li style="line-height: 35px;margin-bottom: 18px">
@@ -91,8 +94,8 @@
             </li>
             <li style="margin-bottom: 18px;">
               <p style="line-height: 35px;">本期嘉宾</p>
-              <div>
-                <p class="guest">国家税务总局司长王思宇</p>
+              <div id="speakerList">
+                <!-- <p class="guest">国家税务总局司长王思宇</p> -->
                 <div class="add" onclick="AddGuests()">添加嘉宾</div>
               </div>
             </li>
@@ -106,8 +109,9 @@
             <li>
               <p>推流地址</p>
               <div>
-                <span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2044</span>
-                <p style="margin-left: 54px;" onclick="copyUrl2()">复制地址</p>
+                <span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2</span>
+                <!-- <input value="044" id="links"> -->
+                <p style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
             <li>
@@ -190,15 +194,15 @@
             <div class="questions_top">
               <div class="batch_management">批量管理</div>
               <div class="tool">
-                <p style="width: 92px;">全选本页</p>
+                <p style="width: 92px;" class="AllSelct">全选本页</p>
                 <p class="InteractionShield">屏蔽</p>
                 <p style="background: #FF5500;" id="InteractionDelete">删除</p>
                 <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
             </div>
             <div class="questions_main">
-              <div class="questions_radio" style="display: none;">
-                <input id="color-cb" class="color-cb" type="checkbox" value="123">
+              <div class="questions_chexbox" style="display: none;">
+                <p class="checkbox"></p>
               </div>
               <div class="questions_left">
                 <p style="font-size: 16px;margin-bottom: 6px;">现场观众
@@ -213,37 +217,38 @@
             </div>
 
             <div class="questions_main">
-              <div class="questions_radio" style="display: none;">
-                <input id="color-cb" class="color-cb" type="checkbox" value="123">
+              <div class="questions_chexbox" style="display: none;">
+                <p class="checkbox"></p>
               </div>
               <div class="questions_left">
                 <p style="font-size: 16px;margin-bottom: 6px;">现场观众
                   <span>[2018-10-16 16:39]</span>
                 </p>
-                <p>谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
+                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="questions_right">
-                <p>屏蔽</p>
-                <p style="margin-right: 0;">审核回复</p>
+                <p class="InteractionShield">屏蔽</p>
+                <p style="margin-right: 0;" id="ReviewResponse">审核回复</p>
               </div>
             </div>
-
 
             <div class="questions_main">
-              <div class="questions_radio" style="display: none;">
-                <input id="color-cb" class="color-cb" type="checkbox" value="123">
+              <div class="questions_chexbox" style="display: none;">
+                <p class="checkbox"></p>
               </div>
               <div class="questions_left">
                 <p style="font-size: 16px;margin-bottom: 6px;">现场观众
                   <span>[2018-10-16 16:39]</span>
                 </p>
-                <p>谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
+                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
               </div>
               <div class="questions_right">
-                <p>屏蔽</p>
-                <p style="margin-right: 0;">审核回复</p>
+                <p class="InteractionShield">屏蔽</p>
+                <p style="margin-right: 0;" id="ReviewResponse">审核回复</p>
               </div>
             </div>
+
+
           </div>
 
           <div class="reply nav_questions">
@@ -406,7 +411,8 @@
                 <span>芝麻球</span>
               </p>
               <p class="record_time">2018-07-04 23:32:48</p>
-              <p class="record_comtent">尊敬的各位纳税人、同志们，大家上午好！欢迎大家参加国家税务总局举办的2018年第二季度税收政策解读视频会。 税收政策解读视频会是税务总局为贯彻落实党的十九大精神，进一步优化营商环境，提高税收政策确定性和透明度而搭建的常态化政策解读平台。
+              <p class="record_comtent">尊敬的各位纳税人、同志们，大家上午好！欢迎大家参加国家税务总局举办的2018年第二季度税收政策解读视频会。
+                税收政策解读视频会是税务总局为贯彻落实党的十九大精神，进一步优化营商环境，提高税收政策确定性和透明度而搭建的常态化政策解读平台。
                 解读视频会每季度至少举办一次，由税务总局相关业务司局负责同志结合新出台的税收政策，针对基层税务机关和纳税人反映的热点难点问题，集中进行政策解读，着力解决好基层税务机关和纳税人关心的政策执行口径问题，激活和规范纳税人享受税收利好，进一步推进基层不折不扣地落实税收政策。
               </p>
               <p class="record_edit">
@@ -472,10 +478,10 @@
     <p class="name_title">修改会议场景</p>
     <div class="radio">
       <div class="radio_item" style="margin-right: 60px;">
-        <p></p><span>视频预告</span>
+        <p class="check_out"></p><span>视频预告</span>
       </div>
       <div class="radio_item">
-        <p></p><span>图文预告</span>
+        <p class="check_out"></p><span>图文预告</span>
       </div>
     </div>
   </div>
@@ -519,6 +525,22 @@
     <div class="response" id="response">
       <p class="name_title">编辑提问</p>
       <textarea name="" id="response_main" cols="30" rows="10"></textarea>
+    </div>
+
+  </div>
+
+  <div class="ReplyEditor">
+
+    <p class="name_title" style="text-align: center;">编辑内容</p>
+
+    <div class="namess">
+      <p>现场那网友</p>
+      <textarea name="" id="" cols="30" rows="10"></textarea>
+    </div>
+
+    <div class="namess">
+      <p>国税局</p>
+      <textarea name="" id="" cols="30" rows="10" style="margin-bottom: 80px;"></textarea>
     </div>
 
   </div>
@@ -578,54 +600,26 @@
 
 
 <script>
-  /**
-  * 用户表格
-  */
-  // ; !function () {
-  //   var table = layui.table;
-  //   console.log(table);
 
-  //   //用户表格
-  //   // table.render({
-  //   //   elem: '#user'
-  //   //   , url: "json/user.json" //数据接口
-  //   //   , skin: 'line'
-  //   //   , cols: [[ //表头
-  //   //     { field: 'username', title: '用户名',unresize: true,}
-  //   //     , { field: 'ip', title: '用户IP',unresize: true,}
-  //   //     , { field: 'time', title: '访问时间',unresize: true,}
-  //   //     , { field: 'operation', title: '操作',templet: '#Blacklist',unresize: true,}
-  //   //   ]]
-  //   // });
+  // var clipboard = new ClipboardJS('#links');
 
-  //   //网友提问
-  //   // table.render({
-  //   //   elem: '#Questions'
-  //   //   , url: "json/question.json" //数据接口
-  //   //   , skin: 'line'
-  //   //   , width: 1130
-  //   //   , cols: [[ //表头
-  //   //     { field: 'questions', width: 76 + '%', unresize: true }
-  //   //     , { field: 'edit', width: 24 + '%', templet: '#Edit', unresize: true, }
-  //   //   ]]
-  //   // });
+  // clipboard.on('success', function(e) {
+  //   console.log(e)
+  //     console.log('Action:', e.action);
+  //     console.log('Text:', e.text);
+  //     console.log('Trigger:', e.trigger);
 
-  //   /**
-  //    * 分页
-  //    */
-  //   var laypage = layui.laypage;
+  //     e.clearSelection();
+  // });
 
-  //   //执行一个laypage实例
-  //   laypage.render({
-  //     elem: 'page',
-  //     count: 50,
-  //     prev: "<<上一页",
-  //     next: "下一页>>",
-  //     theme: '#4597E0'
-  //   });
-  // }();
+  // clipboard.on('error', function(e) {
+  //     console.log('Action:', e.action);
+  //     console.log('Trigger:', e.trigger);
+  // });
 
-
+  // var clipboard = new Clipboard('#btn1'); 
+  // clipboard.on('success', function (e) { alert('复制成功！'); }); 
+  // clipboard.on('error', function (e) { alert('复制失败！'); });
 
 
 
