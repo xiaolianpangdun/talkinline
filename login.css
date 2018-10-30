@@ -68,7 +68,8 @@ body {
     color: #999;
 }
 
-.color-cb {
+
+/* .color-cb {
     width: 16px;
     height: 16px;
     background-color: #fff;
@@ -80,14 +81,15 @@ body {
     position: relative;
     top: 3px;
     margin-right: 7px;
-}
+} */
 
-.color-cb:checked {
+
+/* .color-cb:checked {
     outline: none;
     border: none;
     background: #4F93FE;
     background-image: url(./img/checked.png);
-}
+} */
 
 .layui-btn {
     width: 350px;
@@ -109,4 +111,31 @@ body {
 
 .layui-form-item {
     clear: right;
+}
+
+input[type="checkbox"] {
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    position: relative;
+    left: -17px;
+}
+
+.ddd {
+    box-sizing: border-box;
+    position: relative;
+    top: 3px;
+    margin-right: 7px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    border: 1px solid #4F93FE;
+}
+
+.checked {
+    background: #4F93FE;
+    background-image: url(./img/checked.png);
 }
