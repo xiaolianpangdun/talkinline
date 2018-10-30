@@ -7,7 +7,7 @@
         <button class="addtalk right layui-btn layui-btn-normal" data-method="offset" data-type="auto">+ &nbsp;&nbsp;新建访谈</button>
     </div>
 
-    <table class="layui-table" width=100% id="test" lay-filter="test">
+    <table class="layui-table" width=100% id="tbtalkmanage" lay-filter="tbtalkmanage">
     </table>
     <!-- 分页器 -->
     <div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
@@ -16,16 +16,23 @@
 
     <!-- 访谈状态颜色变化 -->
     <script type="text/html" id="talk">
-        {{# if(d.status=="正在访谈"){ }}
-        <span style="color:#0EB65C;">{{d.status}}</span> {{# }else{}}
-        <span>{{d.status}}</span>{{#}}}
+        {{# if(d.status=="0"){ }}
+        <span style="color:#FF9E00;">访谈未开始</span> {{# }else if(d.status=="1"){}}
+        <span style="color:#0EB65C;">正在访谈...</span> {{# }else if(d.status=="2"){}}
+        <span>访谈结束</span>{{#}}}
+    </script>
+    <!-- 访谈类型 -->
+    <script type="text/html" id="talktype">
+        {{# if(d.type=="0"){ }}
+        <span>视频直播</span> {{# }else if(d.type=="1"){}}
+        <span>图文直播</span>{{#}}}
     </script>
     <!-- 访谈操作按钮模板 -->
     <script type="text/html" id="handle">
         <a href="javascript:;" lay-event="talkdetail" class="layui-table-link">
             <img src="../../img/edit.png" alt=""> 设置访谈详情
         </a>
-        {{# if(d.status=="正在访谈"){ }}
+        {{# if(d.status=="0"){ }}
         <a href="javascript:;" lay-event="endtalk" class="layui-table-link   endtalk hover">结束访谈</a> {{# }else{ }}
         <span class="endtalk" style="color:#999999;">结束访谈</span> {{# }}}
         <a href="javascript:;" lay-event="delete" class="layui-table-link " style="color:#FF5500;">

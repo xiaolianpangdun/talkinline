@@ -24,9 +24,12 @@
 .layui-table-view .layui-table th {
     background: #F7F9FB;
     color: #424547;
+    height: 36px;
+    font-weight: bold;
 }
 
 .layui-table-view .layui-table td {
+    height: 50px;
     background: #fff;
     color: #4D4F50;
 }

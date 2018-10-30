@@ -3,11 +3,11 @@
 <link rel="stylesheet" href="../../layui/css/layui.css">
 <div class="talktop">
     <span>黑名单</span>
-    <button class="search right">搜索</button>
-    <input type="text" class="right search" placeholder="搜入关键词搜索">
+    <!-- <button class="search right">搜索</button> -->
+    <!-- <input type="text" class="right search" placeholder="搜入关键词搜索"> -->
 </div>
 
-<table class="layui-table" width=100% id="blacklist" lay-filter="test">
+<table class="layui-table" width=100% id="blacklist" lay-filter="blacklist">
 </table>
 <!-- 分页器 -->
 <div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
@@ -29,7 +29,7 @@
     <div>
         <img src="../../img/warning.png" alt="">
     </div>
-    <div class="comfirmdo">是否确认删除"<span>asd</span>"这个黑名单</div>
+    <div class="comfirmdo">是否确认删除"<span id="blackname">asd</span>"这个黑名单</div>
 </div>
 <script src="../js/blacklist.js">
 </script>

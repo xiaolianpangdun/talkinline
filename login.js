@@ -25,15 +25,16 @@
     $(".loginsubmit").click(function() {
         var username = $(".uname").val();
         var password = $(".upwd").val();
+        console.log(username);
+        console.log(password);
         $.ajax({
             type: "post",
-            dataType: "jsonp",
-            jsonp: "callbackparam", //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
-            jsonpCallback: "success_jsonpCallback", //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+            // dataType: "json",
             url: ' http://192.168.0.71:8080/user/login',
             data: { username: username, password: password },
-            success: function() {
+            success: function(data) {
                 alert("提交成功");
+                console.log(data);
             },
             error: function() {
                 alert("抱歉");
