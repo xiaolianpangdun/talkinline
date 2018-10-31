@@ -306,6 +306,7 @@ body{
   font-size: 14px;
   cursor: pointer;
   margin-right: 10px;
+  color: #3199F7;
 }
 .questions_right p:hover{
   color: #fff;
@@ -401,7 +402,7 @@ body{
 }
 
 /* 弹框 */
-.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor{
+.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response{
   display: none;
 }
 .modify_name,.modify_scene,#add_guest,.brief_introduction,.text_record_edit{
@@ -531,6 +532,14 @@ body{
   font-size: 16px;
   color: #3199F7;
   margin-bottom: 10px;
+}
+.select_guest select{
+  width: 640px;
+  height: 30px;
+  /* margin: 25px 0; */
+  margin-top: 15px;
+  margin-bottom: 10px;
+
 }
 
 /* 视频下载 */

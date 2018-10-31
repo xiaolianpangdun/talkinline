@@ -37,7 +37,7 @@
     <div>
       <ul class="nav">
         <li class="active">直播详情</li>
-        <li>用户管理</li>
+        <li>用户监控</li>
         <li>互动设置</li>
         <li>现场图片</li>
         <li>文字实录</li>
@@ -68,7 +68,7 @@
             <li>
               <p>访谈编号</p>
               <div>
-                <span id="TalkNumber">09</span>
+                <span id="TalkNumber"></span>
               </div>
             </li>
             <li>
@@ -102,7 +102,7 @@
             <li style="height: 50px;margin-bottom: 40px;">
               <p>会议简介</p>
               <div>
-                <span id="text_brief">简介：2018年4月27日上午8:30，劳人税收递劳务税副司长林枫人税收递延型商业养老保险试点政策、税收协定有关税收政策四项主题进行深入讲解。</span>
+                <span id="text_brief"></span>
                 <p onclick="BriefIntroduction()">编辑</p>
               </div>
             </li>
@@ -190,7 +190,7 @@
 
         <!-- 提问和回复 -->
         <div class="item3">
-          <div class="questions nav_questions" style="display: block;">
+          <div class="questions nav_questions" style="display: block;" id="questions">
             <div class="questions_top">
               <div class="batch_management">批量管理</div>
               <div class="tool">
@@ -200,7 +200,7 @@
                 <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
             </div>
-            <div class="questions_main">
+            <!-- <div class="questions_main">
               <div class="questions_chexbox" style="display: none;">
                 <p class="checkbox"></p>
               </div>
@@ -212,47 +212,14 @@
               </div>
               <div class="questions_right">
                 <p class="InteractionShield">屏蔽</p>
-                <p style="margin-right: 0;" id="ReviewResponse">审核回复</p>
+                <p style="margin-right: 0;" class="ReviewResponse">审核回复</p>
               </div>
-            </div>
-
-            <div class="questions_main">
-              <div class="questions_chexbox" style="display: none;">
-                <p class="checkbox"></p>
-              </div>
-              <div class="questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
-                  <span>[2018-10-16 16:39]</span>
-                </p>
-                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
-              </div>
-              <div class="questions_right">
-                <p class="InteractionShield">屏蔽</p>
-                <p style="margin-right: 0;" id="ReviewResponse">审核回复</p>
-              </div>
-            </div>
-
-            <div class="questions_main">
-              <div class="questions_chexbox" style="display: none;">
-                <p class="checkbox"></p>
-              </div>
-              <div class="questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
-                  <span>[2018-10-16 16:39]</span>
-                </p>
-                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
-              </div>
-              <div class="questions_right">
-                <p class="InteractionShield">屏蔽</p>
-                <p style="margin-right: 0;" id="ReviewResponse">审核回复</p>
-              </div>
-            </div>
-
+            </div> -->
 
           </div>
 
           <div class="reply nav_questions">
-            <div class="reply_top" style="border-bottom: 0;display: none">
+            <div class="reply_top" style="border-bottom: 0">
               <div class="reply_management">批量管理</div>
               <div class="reply_tool">
                 <p style="width: 92px;">全选本页</p>
@@ -261,12 +228,12 @@
               </div>
             </div>
 
-            <div class="reply_main" style="border-top: 1px solid #DEE1E6;">
+            <!-- <div class="reply_main" style="border-top: 1px solid #DEE1E6;">
               <div class="reply_main_top questions_left">
                 <p style="font-size: 16px;margin-bottom: 6px;">现场观众
                   <span>[2018-10-16 16:39]</span>
                 </p>
-                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
+                <p class="questions_bottom">.......</p>
               </div>
               <div class="reply_main_bottom questions_left">
                 <p style="color: #3199F7;font-size: 16px;">
@@ -278,26 +245,9 @@
                 <p>谢谢你的提问。对于设立在境外的合伙企业，除非协定另有规定，否则，只有在合伙企业本身是缔约对方居民的情况下，才可以在我国享受协定待遇。如果合伙企业不是对方居民，即使合伙人是缔约对方居民，也不能享受协定待遇。</p>
                 <p class="reply_editor"><img src="../img/edit.png" alt="">编辑</p>
               </div>
-            </div>
+            </div> -->
 
-            <div class="reply_main">
-              <div class="reply_main_top questions_left">
-                <p style="font-size: 16px;margin-bottom: 6px;">现场观众
-                  <span>[2018-10-16 16:39]</span>
-                </p>
-                <p class="questions_bottom">谢谢，我是来自北京……国际教育科技有限公司的……。我们是一家商贸企业，之前并没有达到一年80万元的销售额标准，但为了方便开票，我们自愿选择登记成了一般纳税人。请问林司长，像我们公司这种情况，这次能否转登记成小规模纳税人？</p>
-              </div>
-              <div class="reply_main_bottom questions_left">
-                <p style="color: #3199F7;font-size: 16px;">
-                  <span class="administrators">[芝麻球]</span> 回复
-                  <span class="net_friend">现场观众</span>
-                  <span>[2018-10-16 16:39]
-                  </span>
-                </p>
-                <p>谢谢你的提问。对于设立在境外的合伙企业，除非协定另有规定，否则，只有在合伙企业本身是缔约对方居民的情况下，才可以在我国享受协定待遇。如果合伙企业不是对方居民，即使合伙人是缔约对方居民，也不能享受协定待遇。</p>
-                <p class="reply_editor"><img src="../img/edit.png" alt="">编辑</p>
-              </div>
-            </div>
+            
           </div>
 
         </div>
@@ -478,10 +428,10 @@
     <p class="name_title">修改会议场景</p>
     <div class="radio">
       <div class="radio_item" style="margin-right: 60px;">
-        <p class="check_out"></p><span>视频预告</span>
+        <p class="check_out"></p><span>视频直播</span>
       </div>
       <div class="radio_item">
-        <p class="check_out"></p><span>图文预告</span>
+        <p class="check_out"></p><span>图文直播</span>
       </div>
     </div>
   </div>
@@ -516,9 +466,14 @@
       <p class="name_title">审核回复</p>
       <p class="review_questions">
         回复
-        <span style="color: #000;"></span>
+        <span style="color: #000;" class="edit_q"></span>
       </p>
       <p class="editor_question">编辑提问</p>
+      <div class="select_guest">
+        <select name="" id="select_guest">
+          <!-- <option value="">请选择回复人</option> -->
+        </select>
+      </div>
       <textarea name="" id="" cols="30" rows="10" placeholder="请输入内容..."></textarea>
     </div>
 
