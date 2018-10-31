@@ -104,7 +104,7 @@
                 yes: function(index, layero) {
                     $.ajax({
                         type: 'get',
-                        url: 'http://192.168.0.71:8080/blacklist?id=' + id,
+                        url: 'http://192.168.0.71:8080/blacklist/remove/' + id,
                         success: function(data) {
                             console.log(data);
                             layer.close(index);

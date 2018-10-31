@@ -7,11 +7,11 @@
         background: #3199F7;
         border: 1px solid #4597E0;
         border-radius: 2px;
+        cursor: pointer;
     }
     
-    button.lead {
-        padding: 5px 30px;
-        margin-left: 30px;
+    button.addforbidword {
+        margin: 0 30px;
     }
     
     .talktop .right {
@@ -32,6 +32,10 @@
         height: 30px;
         color: #999999;
         border: 1px solid #E7EAEC;
+    }
+    
+    span.keyword {
+        color: #359BF6;
     }
     /* 没有违禁词时 */
     
@@ -62,12 +66,13 @@
     }
     /* 有违禁词时 */
     
-    .forbidwords>div.left,
-    .forbidword>button.left {
+    .forbidwords>.left {
         float: left;
+        height: 40px;
+        line-height: 40px;
         margin-right: 20px;
         background: #E6EEF5;
-        padding: 10px 25px;
+        padding: 0px 25px;
         margin-top: 20px;
         color: #FF5500;
         border-radius: 3px;
@@ -80,11 +85,7 @@
         cursor: pointer;
     }
     
-    .forbidword>button.left {
-        background: #3199F7;
-        color: #fff;
-        cursor: pointer;
-    }
+    span.addforbidword {}
     /* 添加违禁词弹框 */
     
     .addforbidword {

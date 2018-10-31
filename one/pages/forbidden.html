@@ -4,6 +4,7 @@
 <div class="talktop">
     <span>严禁词设置</span>
     <button class="lead right">导入</button>
+    <button class="right addforbidword">新增违禁词</button>
     <button class="search right">搜索</button>
     <input type="text" class="right search" placeholder="搜入关键词搜索">
 </div>
@@ -11,33 +12,23 @@
 <div class="none">
     <img src="../../img/noforbidden.png" alt=""><br>
     <div class="tip">暂无严禁词，您可手动添加会议严禁词</div>
-    <button class="addforbidden addforbidword">新增违禁词</button>
+    <!-- <button class="addforbidden addforbidword">新增违禁词</button> -->
 </div>
 
 <!-- 有违禁词时 -->
 <div class="had">
     <div class="forbidword">
-        <div class="forbidwords" style="">
-            <div class="left">
+        <div class="forbidwords">
+            <!-- <div class="left">
                 <span>中国共产党统治</span>
                 <img class="del" src="../../img/del.png" alt="">
-            </div>
+            </div> -->
         </div>
-        <button class="left addforbidword">新增违禁词</button>
+
     </div>
     <div class="clear"></div>
     <div id="forbidpage" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
 </div>
-
-<!-- 搜索违禁词时 -->
-<!-- <div class="had">
-    <div class="forbidden">
-        <div>
-            <span>中国共产党统治</span>
-            <img class="del" src="../../img/del.png" alt="">
-        </div>
-    </div>
-</div> -->
 
 <!-- 添加违禁词弹出框模板 -->
 <div id="addforbidword" style="display:none;">

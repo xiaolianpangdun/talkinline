@@ -17,6 +17,10 @@
 
 /* layui表格样式修改 */
 
+.layui-layer-page {
+    z-index: 1000 !important;
+}
+
 .layui-table {
     color: #4D4F50;
 }

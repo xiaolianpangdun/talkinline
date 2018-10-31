@@ -29,9 +29,10 @@
         console.log(password);
         $.ajax({
             type: "post",
+            contentType: "application/json;charset=utf-8",
             // dataType: "json",
             url: ' http://192.168.0.71:8080/user/login',
-            data: { username: username, password: password },
+            data: JSON.stringify({ username: username, password: password }),
             success: function(data) {
                 alert("提交成功");
                 console.log(data);

@@ -75,6 +75,7 @@
             shadeClose: true,
             btnAlign: 'c', //按钮居中显示
             btn: ['在线访谈', '在线预告'],
+            zIndex: 1000, //层优先级
             yes: function(index, layero) {
                 //按钮【按钮一】的回调
                 layer.close(index);
@@ -107,6 +108,11 @@
                 //按钮【按钮二】的回调
 
                 //return false 开启该代码可禁止点击该按钮关闭
+            },
+            success: function(layero, index) {
+                console.log(window);
+                var mask = $(".layui-layer-shade");
+                mask.appendTo(parent.window.document.body);
             },
             cancel: function() {
                 //右上角关闭回调

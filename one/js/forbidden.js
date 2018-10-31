@@ -1,107 +1,121 @@
 ;
 ! function() {
     // 分页器
-    var laypage = layui.laypage,
-        layer = layui.layer,
+    var layer = layui.layer,
+        keyWord = '',
         $ = layui.$;
-    // $(".content").bind('input propertychange', function() {
-    //     console.log($(this).val().length);
-    // });
-    (function() {
+    var update = function(num, keyWord) {
         $.ajax({
             type: "get",
-            url: ' http://192.168.0.71:8080/prohibit/list?pageNum=1&pageSize=20',
+            url: ' http://192.168.0.71:8080/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
                 console.log(data);
                 var lists = data.result.list;
-                if (lists[0] != null) {
+                if (lists.length > 0) {
                     $(".none").hide();
                     $(".had").show();
                     var html = '';
                     for (var i = 0; i < lists.length; i++) {
-                        html += " <div class='left'><span>" + lists[i].word + "</span><img data-id='" + lists[i].wordId + "' class='del' src='../../img/del.png'></div>";
+                        if (keyWord) {
+                            var array = lists[i].word.split(keyWord);
+                            var kw = "<span class='keyword'>" + keyWord + "</span>"
+                            var word = array[0] + kw + array[1];
+                        } else { word = lists[i].word }
+                        html += " <div class='left'><span>" + word + "</span><img data-id='" + lists[i].wordId + "' class='del' src='../../img/del.png'></div>";
                     }
                     $(".forbidwords").html(html);
-                    // 删掉一个违禁词
-                    $("img.del").click(function() {
-                        var that = $(this);
-                        var name = that.prev().html();
-                        var id = that.attr("data-id");
-                        console.log(id);
-                        $("#wordname").html(name);
-                        layer.open({
-                            type: 1,
-                            area: ['480px', '360px'],
-                            title: ['', "background:#fff;border:0"], //'在线调试',
-                            content: $("#delforbidword"),
-                            shade: [0.2, '#393D49'],
-                            skin: 'addforbidword',
-                            shadeClose: true,
-                            btnAlign: 'c', //按钮居中显示
-                            btn: ['确定', '取消'],
-                            yes: function(index, layero) {
-                                $.ajax({
-                                    type: 'post',
-                                    url: 'http://192.168.0.71:8080/prohibit/remove',
-                                    data: { "ids": id },
-                                    success: function(res) {
-                                        window.location.reload();
-                                        layer.close(index);
-                                    }
-                                });
-
-                            }
-                        });
-                    });
                 } else {
                     $(".none").show();
                     $(".had").hide();
                 }
-                console.log(lists);
-                var count = data.result.total;
-                // 分页器
-                var laypage = layui.laypage;
-
-                //执行一个laypage实例
-                laypage.render({
-                    elem: 'page',
-                    count: count,
-                    prev: "<<上一页",
-                    next: "下一页>>",
-                    theme: '#4597E0',
-                    limit: 10,
-                    jump: function(obj, first) {
-                        //obj包含了当前分页的所有参数，比如：
-                        var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
-                            limit = obj.limit; //得到每页显示的条数
-                        //首次不执行
-                        if (!first) {
-                            //do something
-                        }
-                    }
-                });
             },
             error: function() {
                 alert("抱歉");
             }
         });
-    })();
-    //判断有无违禁词
-    // (function() {
-    //     var a = 0;
-    //     if (a) {
-    //         $(".none").hide();
-    //         $(".had").show();
-    //     } else {
-    //         $(".none").show();
-    //         $(".had").hide();
-    //     }
-    // })();
+    };
+
+    var pagenum = window.localStorage.getItem("pagenm");
+    if (pagenum != null) {
+        var pagenm = pagenum;
+    } else {
+        window.localStorage.setItem("pagenm", 1);
+        var pagenm = 1;
+    }
+    update(pagenm, keyWord);
+    // 分页器
+    var laypage = function(pagenm, keyWord) {
+        $.ajax({
+            type: "get",
+            url: ' http://192.168.0.71:8080/prohibit/list?pageNum=' + pagenm + '&pageSize=50&keyWord=' + keyWord + '',
+            success: function(data) {
+                var count = data.result.total;
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'forbidpage',
+                    count: count,
+                    prev: "<<上一页",
+                    next: "下一页>>",
+                    curr: location.hash.replace('#!pagenm=', pagenm),
+                    hash: 'pagenm',
+                    theme: '#4597E0',
+                    limit: 50,
+                    jump: function(obj, first) {
+                        var curr = obj.curr;
+                        //得到当前页，以便向服务端请求对应页的数据。
+                        // limit = obj.limit; //得到每页显示的条数
+                        window.localStorage.setItem("pagenm", curr);
+                        update(curr, keyWord);
+                    }
+                });
+            }
+        });
+
+    };
+    laypage(pagenm, keyWord);
+    // 利用冒泡写删除违禁词弹框
+    $(".forbidwords").on('click', 'img.del', function(event) {
+        var that = $(event.target);
+        var name = that.prev().html();
+        var id = that.attr("data-id");
+        // console.log(id);
+        $("#wordname").html(name);
+        layer.open({
+            type: 1,
+            area: ['480px', '360px'],
+            title: ['', "background:#fff;border:0"], //'在线调试',
+            content: $("#delforbidword"),
+            shade: [0.2, '#393D49'],
+            skin: 'addforbidword',
+            shadeClose: true,
+            btnAlign: 'c', //按钮居中显示
+            btn: ['确定', '取消'],
+            yes: function(index, layero) {
+                var data = { "ids": id };
+                $.ajax({
+                    url: 'http://192.168.0.71:8080/prohibit/remove',
+                    type: 'POST',
+                    contentType: "application/json;charset=utf-8",
+                    dataType: 'json',
+                    async: true, //或false,是否异步
+                    data: JSON.stringify({ "ids": id }),
+                    success: function(data) {
+                        var pagenm = window.localStorage.getItem("pagenm")
+                        update(pagenm, keyWord);
+                        layer.close(index);
+                    },
+                    error: function(xhr, textStatus) {},
+                })
+            }
+        });
+    });
+
     // 添加违禁词弹框
     $(".addforbidword").click(function() {
         layer.open({
             type: 1,
-            area: ['650px', '320px'],
+            area: ['660px', '320px'],
             title: ['', "background:#fff;border:0"], //'在线调试',
             content: $("#addforbidword"),
             shade: [0.2, '#393D49'],
@@ -115,17 +129,42 @@
                     layer.close(index);
                     return;
                 }
-                var html = $(".forbidwords").html();
-                // $(".forbidwords").html(html + `<div class="left">
-                //         <span>${word}</span>
-                //             <img class="del" src="../../img/del.png" alt="">
-                //         </div>`);
+                $.ajax({
+                    url: 'http://192.168.0.71:8080/prohibit/create',
+                    type: 'POST',
+                    contentType: "application/json;charset=utf-8",
+                    // dataType: 'json',
+                    async: true, //或false,是否异步
+                    data: JSON.stringify({ "keyWord": word }),
+                    success: function(data, textStatus, jqXHR) {
+                        $(".content").val("");
+                        var pagenm = window.localStorage.getItem("pagenm")
+                        update(pagenm, keyWord);
+                        // window.location.reload();
+                        // console.log(data);
+                        layer.close(index);
+                    },
+                    error: function(xhr, textStatus) {},
+                })
                 $(".content").val("");
                 layer.close(index);
-                $(".none").hide();
-                $(".had").show();
             }
         });
     });
 
+    // 关键词搜索违禁词
+    var searchforbid = function() {
+        keyWord = $("input.search").val();
+        update(pagenm, keyWord);
+        laypage(pagenm, keyWord);
+
+    }
+    $("button.search").click(function() {
+        searchforbid();
+    });
+    $("input.search").bind('keypress', function() {
+        if (event.keyCode == "13") {
+            searchforbid();
+        }
+    })
 }()
