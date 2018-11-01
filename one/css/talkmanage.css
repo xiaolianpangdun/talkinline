@@ -17,10 +17,6 @@
 
 /* layui表格样式修改 */
 
-.layui-layer-page {
-    z-index: 1000 !important;
-}
-
 .layui-table {
     color: #4D4F50;
 }
@@ -133,6 +129,13 @@ div.line {
     padding: 10px;
 }
 
+.freewords {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    color: #999999;
+}
+
 .guest,
 .addguest {
     height: 30px;
@@ -182,7 +185,7 @@ div.line {
 }
 
 .upfile {
-    margin-left: -10px;
+    margin-left: -6px;
     display: none;
 }
 
@@ -210,6 +213,47 @@ div.line {
     padding: 5px 15px;
     font-size: 14px;
     margin-top: 100px;
+}
+
+
+/* 上传文件样式 */
+
+.afterupcon {
+    position: relative;
+    width: 126px;
+    height: 46px;
+    cursor: pointer;
+    border: 1px solid red;
+}
+
+#afterfileUp {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    border: 1px solid red;
+    width: 126px;
+    height: 46px;
+}
+
+#beforefileUp {
+    border: 1px solid red;
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+    width: 88px;
+    height: 28px;
+}
+
+.uptip {
+    line-height: 15px;
+    font-size: 8px;
+    color: #9FADC7;
+}
+
+.refileup {
+    position: relative;
+    padding: 5px 15px;
+    /* border: 1px solid red; */
 }
 
 

@@ -43,10 +43,15 @@
     <!-- 新建在线访谈弹框 模板 -->
     <div id="addinlinetalk" style="display:none;">
         <div class="title">新建在线访谈</div>
-        <div class="line">
+        <div class="line freewordevent">
             <div class="textleft">*访谈名称</div>
-            <div class="left">
-                <input type="text" class="talk talkname" placeholder="请输入类别名称">
+            <div class="left " style="position:relative;">
+                <input type="text" class="talk talkname freewordevent" placeholder="请输入类别名称">
+                <div class="freewords" style="bottom:8px;">
+                    <span class="freespace">30</span>
+                    <span>/</span>
+                    <span class="maxleng">30</span>
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -61,13 +66,13 @@
         <div class="line">
             <div class="textleft">*本期嘉宾</div>
             <div class="left guests" style="float:left;width:450px;">
-                <div class="html">
+                <div class="guestlist">
                     <div class='left guest'>
-                        <span>嘉宾1 &nbsp;&nbsp;</span>
+                        <span guestlists>嘉宾1 &nbsp;&nbsp;</span>
                         <img src="../../img/cancel_02.png" alt="">
                     </div>
                 </div>
-                <button class='left addguest'>添加嘉宾</button>
+                <button class='left addguest tkil'>添加嘉宾</button>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -75,23 +80,28 @@
         <div class="line">
             <div class="textleft">主持人</div>
             <div class="left">
-                <input type="text" class="talk" placeholder="请输入主持人">
+                <input type="text" class="talk compere" placeholder="请输入主持人">
             </div>
             <div class="clear"></div>
         </div>
         <div class="line">
             <div class="textleft">会议简介</div>
-            <div class="left">
-                <textarea class="talkintro" name="" id="" cols="30" rows="8"></textarea>
+            <div class="left" style="position:relative;">
+                <textarea class="talkintro freewordevent" name="" id="" cols="30" rows="4"></textarea>
+                <div class="freewords">
+                    <span class="freespace">50</span>
+                    <span>/</span>
+                    <span class="maxleng">50</span>
+                </div>
             </div>
             <div class="clear"></div>
         </div>
         <div class="line">
             <div class="textleft">*访谈场景</div>
             <div class="left select">
-                <input type="radio" id="s1" name="selecttype" class="selecttype color-cb">
+                <input type="radio" id="s1" value="0" name="selecttype" class="selecttype color-cb">
                 <label for="s1"><div class="ddd"></div>在线访谈视频</label>
-                <input type="radio" id="s2" name="selecttype" class="selecttype color-cb">
+                <input type="radio" id="s2" value="1" name="selecttype" class="selecttype color-cb">
                 <label for="s2"><div class="ddd"></div>图文实录访谈</label>
             </div>
         </div>
@@ -99,16 +109,28 @@
     <!-- 新建在线预告 模板 -->
     <div id="addadvance" style="display:none;">
         <div class="title">新建访谈预告</div>
+        <div class="line freewordevent">
+            <div class="textleft">*访谈名称</div>
+            <div class="left " style="position:relative;">
+                <input type="text" class="talk talkname freewordevent" placeholder="请输入类别名称">
+                <div class="freewords" style="bottom:8px;">
+                    <span class="freespace">30</span>
+                    <span>/</span>
+                    <span class="maxleng">30</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
         <div class="line">
             <div class="textleft">*本期嘉宾</div>
             <div class="left guests" style="float:left;width:450px;">
-                <div class="html">
-                    <div class='left guest'>
-                        <span>嘉宾1 &nbsp;&nbsp;</span>
+                <div class="guestlist">
+                    <!-- <div class='left guest'>
+                        <span class="guestlists">嘉宾1 &nbsp;&nbsp;</span>
                         <img src="../../img/cancel_02.png" alt="">
-                    </div>
+                    </div> -->
                 </div>
-                <button class='left addguest'>添加嘉宾</button>
+                <button class='left addguest adil'>添加嘉宾</button>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -116,14 +138,19 @@
         <div class="line">
             <div class="textleft">主持人</div>
             <div class="left">
-                <input type="text" class="talk" placeholder="请输入主持人">
+                <input type="text" class="talk compere" placeholder="请输入主持人">
             </div>
             <div class="clear"></div>
         </div>
         <div class="line">
             <div class="textleft">会议简介</div>
-            <div class="left">
-                <textarea class="talkintro" name="" id="" cols="30" rows="8"></textarea>
+            <div class="left" style="position:relative;">
+                <textarea class="talkintro freewordevent" name="" id="" cols="30" rows="4"></textarea>
+                <div class="freewords">
+                    <span class="freespace">50</span>
+                    <span>/</span>
+                    <span class="maxleng">50</span>
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -131,21 +158,40 @@
             <div class="textleft">*访谈场景</div>
             <div class="left select">
                 <!-- <span class="radio-select "></span> -->
-                <input type="radio" id="s3" value="视频预告" name="selectadvance" class="selectvideo color-cb">
+                <input type="radio" id="s3" value="0" name="selectadvance" class="selectvideo color-cb">
 
                 <label for="s3"><div class="ddd"></div>视频预告</label>
                 <!-- <span class="radio-select"></span> -->
-                <input type="radio" id="s4" value="图文预告" name="selectadvance" class="selectimg color-cb">
+                <input type="radio" id="s4" value="1" name="selectadvance" class="selectimg color-cb">
                 <label for="s4"><div class="ddd"></div> 图文预告</label>
             </div>
             <div class="clear"></div>
         </div>
         <div class="line">
             <div class="textleft"></div>
-            <div class="left">
-                <img class="upfile upimg" src="../../img/upimg.png" alt="">
-                <img class="upfile upvideo" src="../../img/upvideo.png" alt="">
+            <div class="left afterup">
+                <div class="afterupcon">
+                    <img class="upfile upimg" src="../../img/upimg.png" alt="">
+                    <img class="upfile upvideo" src="../../img/upvideo.png" alt="">
+                    <input type="file" id="afterfileUp" name="fileUp" multiple>
+                </div>
+                <div class="left upimg uptip">
+                    图片仅支持jpg、gif、png、bmp格式<br>上传最大是100兆
+                </div>
+                <div class="left upvideo uptip">
+                    视频仅支持mp4、mvp、mpeg、mov、3gp格式<br>上传最大是100M
+                </div>
+
             </div>
+            <div class="left beforeup" style=" display:none;">
+                <span class="filename"></span>
+                <span class="filesize"></span>
+                <div class="refileup">重新上传
+                    <input type="file" id="beforefileUp" name="fileUp" multiple>
+                </div>
+
+            </div>
+            <br>
         </div>
     </div>
     <!-- 添加嘉宾的弹框 -->
