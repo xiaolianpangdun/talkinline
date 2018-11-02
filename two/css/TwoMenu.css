@@ -336,6 +336,11 @@ body{
   background: url(../../img/selected.png)
 }
 
+.reply_main-right{
+  width: 94%;
+  display: inline-block
+}
+
 .reply_main_top{
   width: 100%;
   margin-bottom: 18px;
@@ -444,7 +449,7 @@ body{
   display: inline-block;
   width: 94%;
 }
-.text_chexbox{
+.text_chexbox,.replys_chexbox{
   width: 14px;
   height: 14px;
   border: 1px solid #DEE1E6;
@@ -455,7 +460,7 @@ body{
 }
 
 /* 弹框 */
-.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response{
+.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response,.interaction_delete_2{
   display: none;
 }
 .modify_name,.modify_scene,#add_guest,.brief_introduction,.text_record_edit{
@@ -519,12 +524,12 @@ body{
 .image{
   background-image: url(../../img/se.png);
 }
-.interaction_delete,.interaction_shield,.picture_delece,.text_delece{
+.interaction_delete,.interaction_shield,.picture_delece,.text_delece,.interaction_delete_2{
   width: 100%;
   text-align: center;
   font-size: 24px;
 }
-.interaction_delete img,.interaction_shield img,.picture_delece img,.text_delece img{
+.interaction_delete img,.interaction_shield img,.picture_delece img,.text_delece img,.interaction_delete_2 img{
   margin-top: 20px;
   margin-bottom: 32px;
 }

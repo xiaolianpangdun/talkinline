@@ -52,6 +52,7 @@
                 var count = data.result.total;
                 var laypage = layui.laypage;
                 //执行一个laypage实例
+                
                 laypage.render({
                     elem: 'forbidpage',
                     count: count,
