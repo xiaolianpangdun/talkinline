@@ -72,6 +72,32 @@
             }
         });
     });
+    // 上传文件
+    var upfilename;
+    $("input[type='file']").change(function(e) {
+        var that = $(this);
+        $(".afterupcon").hide();
+        $(".beforeup").show();
+        var name = e.currentTarget.files[0].name;
+        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
+        var type = e.currentTarget.files[0].type;
+        var upfilename = e.currentTarget.files;
+        console.log(upfilename);
+        $(".filename").html(name);
+        $(".filesize").html("(" + size + ")MB");
+        // that.val("");
+        // 判断文件类型
+        // var type = (src.substr(src.lastIndexOf("."))).toLowerCase();
+        // if (type != ".jpg" && type != ".gif" && type != ".jpeg" && type != ".png") {
+        //     alert("您上传图片的类型不符合(.jpg|.jpeg|.gif|.png)！");
+        //     return false;
+        // }
+    });
+    $(".deletefile").click(function() {
+        $(".afterupcon").show();
+        $(".beforeup").hide();
+        // upfilename = "";
+    });
     // 点击弹出新建访谈弹框
     $(".addtalk").click(function() {
         $(".guestlist").html(""); //清空添加嘉宾内容
@@ -159,24 +185,9 @@
                         for (var i = 0; i < guests.length; i++) {
                             speakername.push(guests[i].innerHTML);
                         }
-                        var file = $("#addadvance #fileUp").val();
+                        var file = upfilename;
                         console.log(file);
-                        $("#afterfileUp").change(function() {
-                            var file = $(this).val();
-                            alert(111);
-                            $(".afterupcon").hide();
-                            $("beforeup").show();
-                            //alert(file);
-                            // if (file.length > 0) {
-                            //     var suffix = file.substr(file.lastIndexOf("\\") + 1);
-                            //     //alert(suffix);
-                            //     $("#fake_btn").hide();
-                            //     $("#fake_btn").after($("<span id='fileName'>" + suffix + "</span>"));
-                            //     var w = $("#fileName").width();
-                            //     var top = parseInt($('.dataTables_filter').offsetTop); //.css("right"));
-                            //     $('.dataTables_filter').css({ 'right': (top - 20 + w) + 'px' });
-                            // }
-                        });
+
                         $.ajax({
                             type: 'post',
                             // contentType: 'application/form-data;charset=utf-8',
@@ -189,7 +200,7 @@
                                 type: type,
                                 compere: compere,
                                 description: description,
-                                file: file
+                                files: file
                             },
                             success: function(data) {
                                 console.log(data);
@@ -369,17 +380,22 @@
     // 点击切换视频 图片
     $("input[name='selectadvance']").click(function() {
         var val = $("input[name='selectadvance']:checked").val();
-        console.log(val);
+        // console.log(val);
+        $(".afterupcon").show();
+        $(".beforeup").hide();
         if (val == "1") {
-            $("img.upimg").show();
-            $("img.upvideo").hide();
+            $(".upimg").show();
+            $(".deletefile").show();
+            $(".upvideo").hide();
             // $(this).next().children(".ddd").addClass("checked");
         } else {
             // $(".ddd").removeClass("checked");
-            $("img.upimg").hide();
-            $("img.upvideo").show();
+            $(".upimg").hide();
+            $(".upvideo").show();
+            $(".deletefile").hide();
         }
     });
+
     // radio标签改变样式
     $("input[type='radio']").click(function() {
         $(".ddd").removeClass("checked");

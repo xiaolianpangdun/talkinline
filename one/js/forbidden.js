@@ -2,8 +2,28 @@
 ! function() {
     // 分页器
     var layer = layui.layer,
+        upload = layui.upload,
         keyWord = '',
         $ = layui.$;
+    // 导入违禁词文件
+    upload.render({
+        elem: '#leadfile',
+        url: 'http://192.168.0.71:8080/prohibit/batchImport',
+        multiple: true,
+        accept: 'file', //普通文件
+        exts: 'txt',
+        size: 10,
+        before: function(obj) {
+            console.log(obj);
+            //预读本地文件示例，不支持ie8
+            // obj.preview(function(index, file, result) {
+            //     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+            // });
+        },
+        done: function(res) {
+            //上传完毕
+        }
+    });
     var update = function(num, keyWord) {
         $.ajax({
             type: "get",
@@ -166,5 +186,50 @@
         if (event.keyCode == "13") {
             searchforbid();
         }
-    })
+    });
+
+    // 批量导入违禁词
+    $("input[type='file']").change(function(e) {
+        // var file = $(this).val();
+        // 判断文件类型
+        var type = e.currentTarget.files[0].type;
+        var file = e.currentTarget.files[0];
+        var type = (type.substr(type.lastIndexOf("."))).toLowerCase();
+        // alert($('#fileup').serialize());
+        if (type != ".document" && type != ".gif" && type != ".jpeg" && type != ".png") {
+
+            layer.open({
+                title: '提示',
+                content: '请上传正确格式的文件',
+                time: 1500
+            });
+            return false;
+        }
+        // console.log();
+
+
+    });
+    $(".aaa").click(function() {
+        console.log($('#fileup').serialize());
+        file = $('#fileup').serialize();
+        $.ajax({
+            // cache: false,
+            // async: false,
+            type: 'post',
+            // contentType: 'application/form-data;charset=utf-8',
+            url: 'http://192.168.0.71:8080/prohibit/batchImport',
+            // traditional: true,
+            contentType: false,
+            processData: false,
+            // dataType: 'json',
+            data: file,
+            success: function(data) {
+                console.log(data);
+
+            },
+            error: function(err) {
+                alert("修改失败");
+            }
+        });
+    });
 }()

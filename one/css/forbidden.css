@@ -14,6 +14,19 @@
         margin: 0 30px;
     }
     
+    button.lead {
+        position: relative;
+    }
+    
+    input.leadfile {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
     .talktop .right {
         margin-top: 4px;
     }

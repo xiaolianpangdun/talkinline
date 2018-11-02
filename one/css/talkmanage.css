@@ -105,7 +105,6 @@ div.textleft {
     height: 30px;
     line-height: 30px;
     width: 100px;
-    /* border: 1px solid red; */
     text-align: right;
     margin-right: 20px;
 }
@@ -218,42 +217,76 @@ div.line {
 
 /* 上传文件样式 */
 
+input[type='file'] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0;
+}
+
 .afterupcon {
     position: relative;
     width: 126px;
     height: 46px;
     cursor: pointer;
-    border: 1px solid red;
+    display: none;
 }
 
 #afterfileUp {
     position: absolute;
     left: 0px;
     bottom: 0px;
-    border: 1px solid red;
     width: 126px;
     height: 46px;
 }
 
 #beforefileUp {
-    border: 1px solid red;
     left: 0px;
     bottom: 0px;
     position: absolute;
-    width: 88px;
+    width: 70px;
     height: 28px;
 }
 
+.beforeup {
+    height: 30px;
+    line-height: 30px;
+}
+
 .uptip {
-    line-height: 15px;
+    display: none;
+    margin-top: 10px;
     font-size: 8px;
     color: #9FADC7;
 }
 
+.filesize {
+    margin: 0 10px;
+}
+
 .refileup {
     position: relative;
-    padding: 5px 15px;
-    /* border: 1px solid red; */
+    padding: 5px 0px;
+    height: 20px;
+    width: 70px;
+    color: #3199F7;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.deletefile {
+    font-family: PingFangSC-Regular;
+    width: 50px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    color: #FF5500;
+}
+
+.deletefile:hover,
+.refileup:hover {
+    background: #eee;
 }
 
 
@@ -277,7 +310,6 @@ div.line {
     display: inline-block;
     width: 30px;
     height: 30px;
-    border: 1px solid red;
 }
 
 

@@ -173,8 +173,17 @@
                 <div class="afterupcon">
                     <img class="upfile upimg" src="../../img/upimg.png" alt="">
                     <img class="upfile upvideo" src="../../img/upvideo.png" alt="">
-                    <input type="file" id="afterfileUp" name="fileUp" multiple>
+                    <input type="file" id="afterfileUp" title="" name="fileUp" multiple>
                 </div>
+                <div class="left beforeup" style=" display:none;">
+                    <span class="left filename"></span>
+                    <span class="left filesize"></span>
+                    <div class="left refileup">重新上传
+                        <input type="file" id="beforefileUp" title="" name="fileUp" multiple>
+                    </div>
+                    <span class="left deletefile">删除</span>
+                </div>
+                <div class="clear"></div>
                 <div class="left upimg uptip">
                     图片仅支持jpg、gif、png、bmp格式<br>上传最大是100兆
                 </div>
@@ -183,14 +192,7 @@
                 </div>
 
             </div>
-            <div class="left beforeup" style=" display:none;">
-                <span class="filename"></span>
-                <span class="filesize"></span>
-                <div class="refileup">重新上传
-                    <input type="file" id="beforefileUp" name="fileUp" multiple>
-                </div>
 
-            </div>
             <br>
         </div>
     </div>
