@@ -62,6 +62,8 @@ $(function(){
      * 
      * 数据渲染
      * 
+     * 嘉宾列表
+     * 
      * 单选框
      * 
      * 访谈场景（单选框）
@@ -96,14 +98,6 @@ $(function(){
         $('#compere').text(data.result.compere);
         $('#time1').text(data.result.beginTime);
         $('#time2').text(data.result.endTime);
-
-        // var speakerList = data.result.speakerList;
-        // console.log(speakerList);
-        // var str = '';
-        // $.each(speakerList, function(i, obj) {
-        //   str += '<p class="guest">'+obj.name+'</P>';
-        // });
-        // $('.add').before(str);
         $('#text_brief').text(data.result.description);
 
       },
@@ -116,6 +110,43 @@ $(function(){
           // console.log('结束')
       }
     })
+
+
+    // 从本地缓存中去除访谈id
+    //var talkNum = localStorage.getItem("interviewId");
+    var talkNum = 3;
+
+
+    // 把嘉宾渲染到选择框
+    $.ajax({
+      url: TheServer + '/interview/speakers',
+      type: 'GET',
+      async: true,
+      data: {
+        interviewId: talkNum
+      },
+      success:function(data,textStatus,jqXHR){
+        console.log('获取到嘉宾的列表 ======== ',data.result)
+
+        // 网友提问的回复弹窗里面的嘉宾列表
+        var select = '';
+        
+        // 直播详情页面的嘉宾
+        var str = '';
+
+        $.each(data.result, function(i, obj) {
+          select += '<option value="">'+obj.name+'</option>';
+          str += '<p class="guest">'+obj.name+'</P>';
+        });
+        $("#select_guest").append(select);
+        $('.add').before(str);
+      },
+      error:function(xhr,textStatus){
+      },
+      complete:function(){
+      }
+    })
+
 
     // 直播详情 =========== 修改访谈场景（单选框）
     $('.radio_item').children('.check_out').click(function(){
@@ -173,12 +204,8 @@ $(function(){
             console.log(data)
         },
         error:function(xhr,textStatus){
-            // console.log('错误')
-            // console.log(xhr)
-            // console.log(textStatus)
         },
         complete:function(){
-            // console.log('结束')
         }
       })
 
@@ -191,26 +218,74 @@ $(function(){
      * 
      * 数据请求渲染
      * 
-     * 
+     * 点击加入黑名单
      */
+    $.ajax({
+      url: TheServer+'/interview/visitors',
+      type: 'GET',
+      dataType: 'json',
+      async: true,    //或false,是否异步
+      contentType: 'application/json;charset=utf-8',
+      data: {
+        interviewId: talkNum,
+        currentPage: 1,
+        pageSize: 13
+      },
+      success:function(data,textStatus,jqXHR){
+        
+        console.log('用户列表 ======== ',data.result);
+
+        // 如果请求成功的话
+        if(data.code == 200){
+
+          var users = '';
+          // 循环遍历把数据渲染到html
+          $.each(data.result,function(i,obj){
+
+            users += '<tr>';
+            users += '<td>'+obj.name+'</td>';
+            users += '<td>'+obj.ip+'</td>';
+            users += '<td>'+obj.createTime+'</td>';
+            users += '<td><p class="black_list">'+'加入黑名单'+'</p></td>'
+            users += '</tr>'
+
+          });
+          $('.addtal').append(users);
+
+          // 加入黑名单
+
+
+        }
+        
+      },
+      error:function(xhr,textStatus){
+
+      },
+      complete:function(){
+
+      }
+    });
+
 
     
     /**
      * 互动设置
      * 
-     * 数据渲染
+     * 数据渲染   =======    网友提问/审核回复
      * 
      * 网友提问编辑切换
      * 
      * 审核回复编辑切换
      * 
      * 点击全选
+     * 
+     * 点击删除
+     * 
+     * 导航切换
+     * 
      */
-
     
-    // 从本地缓存中去除访谈id
-    //var talkNum = localStorage.getItem("interviewId");
-    var talkNum = 3;
+
     // 互动设置  ===== 网友提问
     $.ajax({
       url: TheServer+'/comments/noaudit',
@@ -224,16 +299,24 @@ $(function(){
         pageSize: 5
       },
       success:function(data,textStatus,jqXHR){
-        console.log(data);
-        // 提问列表
-        var lists = data.result.list;
-        // 循环遍历
-        for(var i = 0; i < lists.length; i ++){
+        
+        console.log('网友提问 ========= ',data);
+
+        // 如果成功的话，就执行下面的代码
+        if(data.code == 200){
+
+          // 提问列表的数据列表
+          var lists = data.result.list;
+          console.log('网友提问的数据 ====== ',lists);
+
+          // 创建空数组
           var questions = '';
+
+          // 循环遍历，把数据渲染到html上面
           $.each(lists, function(i, obj) {
             questions += '<div class="questions_main">';
             questions += '<div class="questions_chexbox" style="display: none;">';
-            questions += '<p class="checkbox"></p>';
+            //questions += '<p class="checkbox"></p>';
             questions += '</div>';
             questions += '<div class="questions_left">';
             questions += '<p style="font-size: 16px;margin-bottom: 6px;">'+obj.visitor;
@@ -247,174 +330,111 @@ $(function(){
             questions += '</div>';
             questions += '</div>';
           });
-        }
-        console.log(lists);
-        // 把创建的元素添加到html上面
-        $('#questions').append(questions);
-
-
-        // 点击复选
-        $('.checkbox').click(function(){
-          if($(this).hasClass('chexbox_img')){
-            $(this).removeClass('chexbox_img')
-          }else{
-            $(this).addClass('chexbox_img');
-          }
-        });
           
-          // 点击屏蔽
-        $('.InteractionShield').click(function(){
-          // 获取到点击的是哪个
-          var nowclick = $(this).parent().parent().index();
-          console.log(nowclick);
-          $('.interaction_shield').css("display","block");
+          // 把创建的元素添加到html上面
+          $('#questions').append(questions);
 
-          // 屏蔽的弹窗
-          layer.open({
-            type: 1,
-            area: ['480px', '360px'],
-            title: ['', 'background: #fff;border:0'],
-            btn: ['确定','取消'],
-            skin: 'my-skin',
-            btnAlign: 'c',
-            content: $('.interaction_shield'),
-            cancel: function(index, layero){
-              $('.interaction_shield').css("display","none");
-            },
-            yes: function(index, layero){
 
-              var commentId =  lists[nowclick-1].commentId;
-              var interviewId =  lists[nowclick-1].interviewId;
-              var visitor =  lists[nowclick-1].visitor;
+          // 网友提问的复选框
+          $('.questions_chexbox').click(function(){
 
-              console.log('评论ID ======',commentId);
-              console.log('访谈ID ======',interviewId);
-              console.log('游客名 ======',visitor);
+            if($(this).hasClass('chexbox_img')){
 
-              // 提交屏蔽
-              $.ajax({
-                url: TheServer+'/comments/disable',
-                type: 'POST',
-                dataType: 'json',
-                async: true,
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify({
-                  commentId: commentId,
-                  interviewId: interviewId,
-                  visitor: visitor
-                }),
-                success:function(data,textStatus,jqXHR){
-                  console.log(data)
-                },
-                error:function(xhr,textStatus){
-                },
-                complete:function(){
-                }
-              })
-              
-              layer.close(index);
-              $('.interaction_shield').css("display","none");
-              $('.questions_main').eq(nowclick-1).children('.questions_right').children('p').css('color','#9FB1C0');
-            },
-            btn2: function(index, layero){
-                // 取消
-              layer.close(index);
-              $('.interaction_shield').css("display","none");
-            },
-          });
-        });
+              $(this).removeClass('chexbox_img')
 
-        //点击审核回复
-        $('.ReviewResponse').click(function(){
+            }else{
 
-          $('.review_response').css("display","block");
+              $(this).addClass('chexbox_img');
 
-          // 把嘉宾渲染到选择框
-          $.ajax({
-            url: TheServer + '/interview/speakers/'+talkNum,
-            type: 'GET',
-            async: true,
-            success:function(data,textStatus,jqXHR){
-              console.log(data.result)
-              var select = '';
-              $.each(data.result, function(i, obj) {
-                select += '<option value="">'+obj.name+'</option>';
-              });
-              $("#select_guest").append(select);
-            },
-            error:function(xhr,textStatus){
-            },
-            complete:function(){
             }
-          })
+          });
+            
+            // 点击屏蔽功能
+          $('.InteractionShield').click(function(){
 
-          // 把问题渲染到审核回复
-          var questionsnow = $(this).parent().parent().index();
-          var questions_text = $('.questions_main').eq(questionsnow-1).children('.questions_left').children('.questions_bottom').text();
-          console.log(questions_text)
-          $('.edit_q').text(questions_text);
+            // 获取当前被点击元素的下标
+            var nowclick = $(this).parent().parent().index();
+            console.log('网友提问，当前点击的下标 ========' ,nowclick);
 
-          layer.open({
-            type: 1,
-            area: ['700px', ''],
-            title: ['', 'background: #fff;border:0'],
-            btn: ['确定','取消'],
-            skin: 'my-skin',
-            btnAlign: 'c',
-            content: $('#review'),
-            cancel: function(index, layero){
-              $('#review').css("display","none");
-            },
-            yes: function(index, layero){
+            // 屏蔽弹框的内容部分  出现
+            $('.interaction_shield').css("display","block");
 
-              var commentId = lists[questionsnow-1].commentId;
-              var commentContent = $('.edit_q').text();
-              var replyContent = $('#review textarea').val();
-              var speakerId = $("#select_guest").get(0).selectedIndex;
-              console.log('评论ID =======',commentId);
-              console.log('评论内容 =======',commentContent);
-              console.log('回复内容 =======',replyContent);
-              console.log('回复者嘉宾ID =======',speakerId);
-
-              //点击确定把数据上传
-              $.ajax({
-                url: TheServer+'/comments/audit',
-                type: 'POST',
-                dataType: 'json',
-                async: true,
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify({
-                  commentId: commentId,
-                  commentContent: commentContent,
-                  replyContent: replyContent,
-                  speakerId: speakerId
-                }),
-                success:function(data,textStatus,jqXHR){
-                  console.log(data);
-                  //$('.questions_bottom').text(commentContent);
-                  $('.questions_main').eq(questionsnow-1).children('.questions_left').children('.questions_bottom').text(commentContent);
+              // 屏蔽的弹窗
+              layer.open({
+                type: 1,
+                area: ['480px', '360px'],
+                title: ['', 'background: #fff;border:0'],
+                btn: ['确定','取消'],
+                skin: 'my-skin',
+                btnAlign: 'c',
+                content: $('.interaction_shield'),
+                cancel: function(index, layero){  // 点击右上角
+                  $('.interaction_shield').css("display","none");
                 },
-                error:function(xhr,textStatus){
+                yes: function(index, layero){  // 点击确定
+
+                  // 获取要传给后台的值
+                  var commentId =  lists[nowclick-1].commentId;
+                  var interviewId =  lists[nowclick-1].interviewId;
+                  var visitor =  lists[nowclick-1].visitor;
+
+                  console.log('网友评论，评论ID ======',commentId);
+                  console.log('网友评论，访谈ID ======',interviewId);
+                  console.log('网友评论，游客名 ======',visitor);
+
+                  // 提交屏蔽
+                  $.ajax({
+                    url: TheServer+'/comments/disable',
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({
+                      commentId: commentId,
+                      interviewId: interviewId,
+                      visitor: visitor
+                    }),
+                    success:function(data,textStatus,jqXHR){
+                      console.log(data)
+                    },
+                    error:function(xhr,textStatus){
+                    },
+                    complete:function(){
+                    }
+                  })
+                  
+                  // 关闭弹窗
+                  layer.close(index);
+                  // 隐藏弹窗的内容部分
+                  $('.interaction_shield').css("display","none");
+                  // 给设置了屏蔽的信息的屏蔽按钮改变ui样式
+                  $('.questions_main').eq(nowclick-1).children('.questions_right').children('p').css('color','#9FB1C0');
                 },
-                complete:function(){
-                }
-              })
+                btn2: function(index, layero){// 取消
 
-              layer.close(index);
-              $('#review').css("display","none");
+                  layer.close(index);
+                  $('.interaction_shield').css("display","none");
+                  
+                },
+              });
 
-            },
-            btn2: function(index, layero){
-              // 取消按钮
-              layer.close(index);
-              $('#review').css("display","none");
-
-              
-            },
           });
 
-          $('.editor_question').click(function(){
-            $('#response_main').val($('.edit_q').text());
+          //点击审核回复
+          $('.ReviewResponse').click(function(){
+
+            // 审核回复弹窗的内容部分
+            $('.review_response').css("display","block");
+
+            // 把网友的提问在打开弹窗的时候就渲染到弹窗上面
+            var questionsnow = $(this).parent().parent().index();
+            var questions_text = $('.questions_main').eq(questionsnow-1).children('.questions_left').children('.questions_bottom').text();
+            // 渲染到弹框上面
+            $('.edit_q').text(questions_text);
+
+            console.log('获取到的网友提问 ========= ',questions_text)
+
+            // 网友提问页面的审核回复
             layer.open({
               type: 1,
               area: ['700px', ''],
@@ -422,38 +442,110 @@ $(function(){
               btn: ['确定','取消'],
               skin: 'my-skin',
               btnAlign: 'c',
-              content: $('#response'),
+              content: $('#review'),
               cancel: function(index, layero){
-                $('#response').css("display","none");
+                $('#review').css("display","none");
               },
               yes: function(index, layero){
+                
+                var commentId = lists[questionsnow-1].commentId;
+                var commentContent = $('.edit_q').text();
+                var replyContent = $('#review textarea').val();
+                var speakerId = $("#select_guest").get(0).selectedIndex;
+                console.log('评论ID =======',commentId);
+                console.log('评论内容 =======',commentContent);
+                console.log('回复内容 =======',replyContent);
+                console.log('回复者嘉宾ID =======',speakerId);
 
-                var Modified = $('#response_main').val();
-                $('.edit_q').text(Modified)
-                //$('.questions_bottom').text(Modified);
-      
+                //点击确定把数据上传
+                $.ajax({
+                  url: TheServer+'/comments/audit',
+                  type: 'POST',
+                  dataType: 'json',
+                  async: true,
+                  contentType: 'application/json;charset=utf-8',
+                  data: JSON.stringify({
+                    commentId: commentId,
+                    commentContent: commentContent,
+                    replyContent: replyContent,
+                    speakerId: speakerId
+                  }),
+                  success:function(data,textStatus,jqXHR){
+                    console.log(data);
+
+                    // 如果请求成功，修改页面上的问题
+                    if(data.code == 200){
+                      $('.questions_main').eq(questionsnow-1).children('.questions_left').children('.questions_bottom').text(commentContent);
+                    }
+
+                    
+                  },
+                  error:function(xhr,textStatus){
+                  },
+                  complete:function(){
+                  }
+                })
+
+                // 关闭弹框
                 layer.close(index);
-                $('#response').css("display","none");
-      
+                $('#review').css("display","none");
+
               },
-              btn2: function(index, layero){
-                // 取消按钮
-                layer.close(index);
-                $('#response').css("display","none");
-      
-              
+              btn2: function(index, layero){// 取消按钮
+
+              layer.close(index);
+              $('#review').css("display","none");
+                
               },
+
             });
-      
+
+            // 编辑网友提问的弹框
+            $('.editor_question').click(function(){
+
+              $('#response_main').val($('.edit_q').text());
+
+              layer.open({
+                type: 1,
+                area: ['700px', ''],
+                title: ['', 'background: #fff;border:0'],
+                btn: ['确定','取消'],
+                skin: 'my-skin',
+                btnAlign: 'c',
+                content: $('#response'),
+                cancel: function(index, layero){
+                  $('#response').css("display","none");
+                },
+                yes: function(index, layero){
+
+                  // 获取修改后的问题，重新渲染到上一个弹框
+                  var Modified = $('#response_main').val();
+                  $('.edit_q').text(Modified)
+                  //$('.questions_bottom').text(Modified);
+        
+                  layer.close(index);
+                  $('#response').css("display","none");
+        
+                },
+                btn2: function(index, layero){
+                  // 取消按钮
+                  layer.close(index);
+                  $('#response').css("display","none");
+        
+                
+                },
+              });
+        
+            });
+
           });
-
-
-
-        });
+          
+        }
+        
 
       },
       
-    })
+    });
 
     // 互动设置  ===== 审核回复
     $.ajax({
@@ -471,31 +563,49 @@ $(function(){
         
         var replyList = data.result.list;
         console.log(replyList);
-        var reply = '';
-        $.each(replyList,function(i,obj){
+        console.log(replyList[0].reply.speakerId);
+        console.log(replyList[0].reply.updateTime);
+        console.log(replyList[0].reply.content);
+        var replys = '';
 
-          reply += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
-          reply += '<div class="reply_main_top questions_left">';
-          reply += '<p style="font-size: 16px;margin-bottom: 6px;">'+obj.comment.visitor;
-          reply += '<span>'+obj.comment.updateTime+'</span>';
-          reply += '</p>'
-          reply += '<p class="questions_bottom">'+obj.comment.content+'</p>';
-          reply += '</div>';
-          reply += '<div class="reply_main_bottom questions_left">';
-          reply += '<p style="color: #3199F7;font-size: 16px;">';
-          reply += '<span class="administrators">'+obj.reply.speakerId+'</span>'+'回复';
-          reply += '<span class="net_friend">'+obj.comment.visitor+'</span>';
-          reply += '<span>'+obj.reply.updateTime+'</span>';
-          reply += '</p>';
-          reply += '<p>'+obj.reply.content+'</p>';
-          reply += '<p class="reply_editor"><img src="'+'../img/edit.png'+'" alt="">'+'编辑'+'</p>';
-          reply += '</div>';
-          reply += '</div>';
+        $.each(replyList,function(i,obj){
+          console.log(replyList)
+
+          replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
+          replys += '<div class="reply_main_top questions_left">';
+          replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">'+obj.comment.visitor;
+          replys += '<span>'+obj.comment.updateTime+'</span>';
+          replys += '</p>'
+          replys += '<p class="questions_bottom">'+obj.comment.content+'</p>';
+          replys += '</div>';
+          replys += '<div class="reply_main_bottom questions_left">';
+          replys += '<p style="color: #3199F7;font-size: 16px;">';
+          replys += '<span class="administrators">'+obj.reply.speakerId+'</span>'+'回复';
+          replys += '<span class="net_friend">'+obj.comment.visitor+'</span>';
+          replys += '<span>'+obj.reply.updateTime+'</span>';
+          replys += '</p>';
+          replys += '<p class="reply_bottom_content">'+obj.reply.content+'</p>';
+          replys += '<p class="reply_editor"><img src="'+'../img/edit.png'+'" alt="">'+'编辑'+'</p>';
+          replys += '</div>';
+          replys += '</div>';
         });
-        $('.reply').append(reply);
+        $('.reply').append(replys);
 
         // 点击编辑
         $('.reply_editor').click(function(){
+          // 获取现在点击的元素的序号
+          var nowreply = $(this).parent().parent().index();
+          // 通过下标找到当前的数据
+          var nowlist = replyList[nowreply-1];
+          console.log('当前下标 =========',nowreply);
+          console.log('当前下标对应的数据 ==========',nowlist);
+          // 渲染到刚打开的弹框
+          $('.001 p').text(nowlist.comment.visitor);
+          $('#names_01').val(nowlist.comment.content);
+
+          $('.002 p').text(nowlist.reply.speakerId);
+          $('#names_02').val(nowlist.reply.content);
+
 
           $('.ReplyEditor').css("display","block");
     
@@ -511,6 +621,48 @@ $(function(){
               $('.ReplyEditor').css("display","none");
             },
             yes: function(index, layero){
+
+              var commentId = nowlist.comment.commentId;
+              var commentContent = $('#names_01').val();
+              var replyId = nowlist.reply.replyId;
+              var replyContent = $('#names_02').val();
+
+              console.log('评论ID =========',commentId);
+              console.log('评论内容 =========',commentContent);
+              console.log('回复ID =========',replyId);
+              console.log('回复内容 =========',replyContent);
+
+              $.ajax({
+                url: TheServer+'/comments/edit',
+                type: 'POST',
+                dataType: 'json',
+                async: true,    //或false,是否异步
+                contentType: 'application/json;charset=utf-8',
+                data:JSON.stringify({
+                  commentId: commentId,
+                  commentContent: commentContent,
+                  replyId: replyId,
+                  replyContent: replyContent
+                }),
+                success:function(data,textStatus,jqXHR){
+                  
+                  console.log(data);
+
+                  if(data.code == 200){
+                    $('.reply_main').eq(nowreply-1).children('.reply_main_top').children('.questions_bottom').text(commentContent);
+                    $('.reply_main').eq(nowreply-1).children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
+                  }
+                  
+                },
+                error:function(xhr,textStatus){
+                    // console.log('错误')
+                    // console.log(xhr)
+                    // console.log(textStatus)
+                },
+                complete:function(){
+                    // console.log('结束')
+                }
+              })
     
               layer.close(index);
               $('.ReplyEditor').css("display","none");
@@ -536,49 +688,42 @@ $(function(){
       complete:function(){
           // console.log('结束')
       }
-    })
+    });
 
-
+    // 网友提问 ==== 打开编辑
     $('.batch_management').click(function(){
       $('.batch_management').css('display','none');
       $('.tool').css('display','block');
       $('.questions_chexbox').css('display','block')
     });
 
+    // 网友提问 ==== 关掉编辑
     $('#questions_cancel').click(function(){
       $('.batch_management').css('display','block');
       $('.tool').css('display','none');
-      $('.questions_chexbox').css('display','none')
+      $('.questions_chexbox').css('display','none');
+      $('.questions_chexbox').removeClass('chexbox_img');
     });
 
+    // 审核回复 ==== 打开编辑
     $('.reply_management').click(function(){
       $('.reply_management').css('display','none');
       $('.reply_tool').css('display','block');
-      // $('.questions_radio').css('display','block')
     });
 
+    // 审核回复 ==== 关掉编辑
     $('#ReplyCancel').click(function(){
       $('.reply_management').css('display','block');
       $('.reply_tool').css('display','none');
-      // $('.questions_radio').css('display','none')
     });
 
+    // 互动设置的全选按钮
     $('.AllSelct').click(function(){
-      var input = $('.checkbox');
-      $('.checkbox').addClass('chexbox_img');
+      $('.questions_chexbox').addClass('chexbox_img');
 
     });
 
-    /**
-     * 互动设置的弹框
-     * 
-     * 点击删除
-     * 
-     * 导航切换
-     * 
-     * 审核回复子页面里面的编辑
-     */
-
+    // 网友提问 ===== 删除按钮
     $('#InteractionDelete').click(function(){
       $('.interaction_delete').css("display","block");
       layer.open({
@@ -593,8 +738,55 @@ $(function(){
           $('.interaction_delete').css("display","none");
         },
         yes: function(index, layero){
-            layer.close(index);
-            $('.interaction_delete').css("display","none");
+
+          // 点击确定删除的时候
+          var Questions = $('.questions_chexbox');
+
+          var QuestionsStr = [];
+
+          for(var i = 0; i < Questions.length; i ++){
+
+            if(Questions[i].classList.contains('chexbox_img')){
+
+              QuestionsStr.push(i)
+
+            }
+            
+          }
+          $.ajax({
+            url: TheServer+'/interview/images',
+            type: 'POST',
+            dataType: 'json',
+            async: true,    //或false,是否异步
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify({
+              interviewId: 1,
+              pageNum: 1,
+              pageSize: 20
+            }),
+            success:function(data,textStatus,jqXHR){
+              // 如果请求成功的话
+              
+              
+              console.log(data.result)
+              
+            },
+            error:function(xhr,textStatus){
+                // console.log('错误')
+                // console.log(xhr)
+                // console.log(textStatus)
+            },
+            complete:function(){
+                // console.log('结束')
+            }
+          })
+      
+          //console.log(QuestionsStr)
+
+
+
+          layer.close(index);
+          $('.interaction_delete').css("display","none");
         },
         btn2: function(index, layero){
             // 取消
@@ -605,6 +797,7 @@ $(function(){
 
     });
 
+    // 互动设置 ===== 导航切换
     var idx;
     $(".interaction ul li").click(function(){
       $(this).addClass('item3_active').siblings().removeClass('item3_active');
@@ -612,214 +805,108 @@ $(function(){
       $(".item3>div").hide().eq(idx).show();
     });
 
-    
-
-    // 点击屏蔽
-    // $('.InteractionShield').click(function(){
-    //   // 获取到点击的是哪个
-    //   var nowclick = $(this).parent().parent().index();
-    //   console.log(nowclick);
-    //   $('.interaction_shield').css("display","block");
-
-    //   // 屏蔽的弹窗
-    //   layer.open({
-    //     type: 1,
-    //     area: ['480px', '360px'],
-    //     title: ['', 'background: #fff;border:0'],
-    //     btn: ['确定','取消'],
-    //     skin: 'my-skin',
-    //     btnAlign: 'c',
-    //     content: $('.interaction_shield'),
-    //     cancel: function(index, layero){
-    //       $('.interaction_shield').css("display","none");
-    //     },
-    //     yes: function(index, layero){
-
-    //       var commentId =  lists[nowclick-1].commentId;
-    //       var interviewId =  lists[nowclick-1].interviewId;
-    //       var visitor =  lists[nowclick-1].visitor;
-
-    //       console.log('评论ID ======',commentId);
-    //       console.log('访谈ID ======',interviewId);
-    //       console.log('游客名 ======',visitor);
-
-    //       // 提交屏蔽
-    //       $.ajax({
-    //         url: TheServer+'/comments/disable',
-    //         type: 'POST',
-    //         dataType: 'json',
-    //         async: true,
-    //         contentType: 'application/json;charset=utf-8',
-    //         data: JSON.stringify({
-    //           commentId: commentId,
-    //           interviewId: interviewId,
-    //           visitor: visitor
-    //         }),
-    //         success:function(data,textStatus,jqXHR){
-    //           console.log(data)
-    //         },
-    //         error:function(xhr,textStatus){
-    //         },
-    //         complete:function(){
-    //         }
-    //       })
-          
-    //       layer.close(index);
-    //       $('.interaction_shield').css("display","none");
-    //        $('.questions_main').eq(nowclick-1).children('.questions_right').children('p').css('color','#9FB1C0');
-    //     },
-    //     btn2: function(index, layero){
-    //         // 取消
-    //       layer.close(index);
-    //       $('.interaction_shield').css("display","none");
-    //     },
-    //   });
-    // });
-
-    //点击审核回复
-    // $('.ReviewResponse').click(function(){
-
-    //   $('.review_response').css("display","block");
-
-    //   // 把嘉宾渲染到选择框
-    //   $.ajax({
-    //     url: TheServer + '/interview/speakers/'+talkNum,
-    //     type: 'GET',
-    //     async: true,
-    //     success:function(data,textStatus,jqXHR){
-    //       console.log(data.result)
-    //       var select = '';
-    //       $.each(data.result, function(i, obj) {
-    //         select += '<option value="">'+obj.name+'</option>';
-    //       });
-    //       $("#select_guest").append(select);
-    //     },
-    //     error:function(xhr,textStatus){
-    //     },
-    //     complete:function(){
-    //     }
-    //   })
-
-    //   // 把问题渲染到审核回复
-    //   var questionsnow = $(this).parent().parent().index();
-    //   var questions_text = $('.questions_main').eq(questionsnow-1).children('.questions_left').children('.questions_bottom').text();
-    //   console.log(questions_text)
-    //   $('.edit_q').text(questions_text);
-
-    //   layer.open({
-    //     type: 1,
-    //     area: ['700px', ''],
-    //     title: ['', 'background: #fff;border:0'],
-    //     btn: ['确定','取消'],
-    //     skin: 'my-skin',
-    //     btnAlign: 'c',
-    //     content: $('#review'),
-    //     cancel: function(index, layero){
-    //       $('#review').css("display","none");
-    //     },
-    //     yes: function(index, layero){
-
-    //       var commentId = lists[questionsnow-1].commentId;
-    //       var commentContent = $('.edit_q').text();
-    //       var replyContent = $('#review textarea').val();
-    //       //var speakerId = $("#select_guest").get(0).selectedIndex;
-    //       console.log('评论ID =======',commentId);
-    //       console.log('评论内容 =======',commentContent);
-    //       console.log('回复内容 =======',commentContent);
-    //       //console.log('回复者嘉宾ID =======',commentContent);
-
-    //       //点击确定把数据上传
-    //       // $.ajax({
-    //       //   url: TheServer+'/comments/audit',
-    //       //   type: 'POST',
-    //       //   dataType: 'json',
-    //       //   async: true,
-    //       //   contentType: 'application/json;charset=utf-8',
-    //       //   data: JSON.stringify({
-              
-    //       //   }),
-    //       //   success:function(data,textStatus,jqXHR){
-    //       //     console.log(data)
-    //       //   },
-    //       //   error:function(xhr,textStatus){
-    //       //   },
-    //       //   complete:function(){
-    //       //   }
-    //       // })
-
-
-
-    //       layer.close(index);
-    //       $('#review').css("display","none");
-
-    //     },
-    //     btn2: function(index, layero){
-    //       // 取消按钮
-    //       layer.close(index);
-    //       $('#review').css("display","none");
-
-          
-    //     },
-    //   });
-
-    //   $('.editor_question').click(function(){
-    //     $('#response_main').val(questions_text);
-    //     layer.open({
-    //       type: 1,
-    //       area: ['700px', ''],
-    //       title: ['', 'background: #fff;border:0'],
-    //       btn: ['确定','取消'],
-    //       skin: 'my-skin',
-    //       btnAlign: 'c',
-    //       content: $('#response'),
-    //       cancel: function(index, layero){
-    //         $('#response').css("display","none");
-    //       },
-    //       yes: function(index, layero){
-
-    //         var Modified = $('#response_main').val();
-
-    //         $('.questions_bottom').text(Modified);
-  
-    //         layer.close(index);
-    //         $('#response').css("display","none");
-  
-    //       },
-    //       btn2: function(index, layero){
-    //         // 取消按钮
-    //         layer.close(index);
-    //         $('#response').css("display","none");
-  
-           
-    //       },
-    //     });
-  
-    //   });
-
-
-
-    // });
-
 
     /**
      * 现场图片
      * 
-     * 取消
+     * 数据渲染
      * 
-     * 删除
+     * 编辑状态切换
      * 
+     * 点击全选
      * 
+     * 上传图片
      */
+
+    // 现场图片  ====== 数据渲染
+    $.ajax({
+      url: TheServer+'/interview/images',
+      type: 'POST',
+      dataType: 'json',
+      async: true,    //或false,是否异步
+      contentType: 'application/json;charset=utf-8',
+      data: JSON.stringify({
+        interviewId: 1,
+        pageNum: 1,
+        pageSize: 20
+      }),
+      success:function(data,textStatus,jqXHR){
+        // 如果请求成功的话
+        if(data.code == 200){
+
+          var ImgList = data.result;
+
+          console.log(ImgList);
+
+          var Img = '';
+
+          console.log(ImgList[0].picUrl);
+
+          $.each(ImgList,function(i,obj){
+
+            Img += '<div class="picture_img">';
+            Img += '<div class="picture_chexbox" data-id="'+ImgList[i].picId+'">';
+            Img += '</div>';
+            Img += '<div class="imagess">';
+            Img += '<div class="imagess_main" style="background:url('+TheServer+obj.picUrl+'">'
+            Img += '</div>';
+            Img += '</div>';
+            Img += '<p>'+obj.updateTime+'</p>';
+            Img += '</div>';
+
+            console.log(ImgList[0].picId);
+
+          });
+          $('.picture_content').append(Img);
+
+          // 复选框
+          $('.picture_chexbox').click(function(){
+
+            if($(this).hasClass('chexbox_img')){
+              
+              $(this).removeClass('chexbox_img');
+
+            }else{
+
+              $(this).addClass('chexbox_img');
+            }
+          });
+
+          // 点击删除
+
+          
+
+        }
+        
+        console.log(data.result)
+        
+      },
+      error:function(xhr,textStatus){
+          // console.log('错误')
+          // console.log(xhr)
+          // console.log(textStatus)
+      },
+      complete:function(){
+          // console.log('结束')
+      }
+    });
+
+    // 打开编辑
     $('.picture_management').click(function(){
       $('.picture_management').css("display","none");
       $('.picture_tool').css("display","block");
+      $('.picture_chexbox').css("display","block");
     });
 
+    // 关闭编辑
     $('#PictureCancel').click(function(){
       $('.picture_management').css("display","block");
       $('.picture_tool').css("display","none");
+      $('.picture_chexbox').css("display","none");
+      $('.picturecheck').removeClass('chexbox_img');
     });
-
+    
+    // 点击删除
     $('#PictureDelece').click(function(){
 
       $('.picture_delece').css("display","block");
@@ -835,8 +922,61 @@ $(function(){
           $('.picture_delece').css("display","none");
         },
         yes: function(index, layero){
-            layer.close(index);
-            $('.picture_delece').css("display","none");
+
+          // 点击确定删除的时候
+          var deletions = $('.picture_chexbox');
+
+          console.log(deletions)
+
+          var DeletionsStr = [];
+
+          for(var i = 0; i < deletions.length; i ++){
+
+            if(deletions[i].classList.contains('chexbox_img')){
+
+              DeletionsStr.push(i.attr('id'));
+              //DeletionsStr += i;
+              console.log(DeletionsStr);
+            }
+            
+          }
+
+          $.ajax({
+            url: TheServer+'/interview/removePic',
+            type: 'POST',
+            dataType: 'json',
+            async: true,    //或false,是否异步
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify({
+              "picIds": DeletionsStr
+            }),
+            success:function(data,textStatus,jqXHR){
+              // 如果请求成功的话
+              console.log(data);
+
+              if(data.code == 200){
+
+
+
+              }
+              
+            },
+            error:function(xhr,textStatus){
+                // console.log('错误')
+                // console.log(xhr)
+                // console.log(textStatus)
+            },
+            complete:function(){
+                // console.log('结束')
+            }
+          })
+
+
+          console.log(DeletionsStr)
+
+
+          layer.close(index);
+          $('.picture_delece').css("display","none");
         },
         btn2: function(index, layero){
             // 取消
@@ -846,14 +986,33 @@ $(function(){
       });
 
     });
-
-    $('#PictureCancel').click(function(){
-      $('.batch_management').css('display','block');
-      $('.tool').css('display','none');
+    
+    // 全选本页
+    $('.imgall').click(function(){
+      $('.picture_chexbox').addClass('chexbox_img');
     });
+
+
+    // 上传图片
+    $('.updata').click(function(){
+
+
+
+    });
+
+
+
+
+
+
+
+    
+
 
     /**
      * 文字实录
+     * 
+     * 数据渲染
      * 
      * 点击操作
      * 
@@ -866,15 +1025,19 @@ $(function(){
      * 实时录入会议内容
      * 
      */
-
+    
+    // 打开编辑
     $('.text_management').click(function(){
       $('.text_management').css("display","none");
       $('.text_tool').css("display","block");
+      $('.text_chexbox').css("display","block");
     });
 
+    // 关闭编辑
     $('#TextCancel').click(function(){
       $('.text_management').css("display","block");
       $('.text_tool').css("display","none");
+      $('.text_chexbox').css("display","none");
     });
 
     $('#TextDelece').click(function(){
@@ -954,6 +1117,24 @@ $(function(){
         }
       });
 
+    });
+
+    // 复选框
+    $('.text_chexbox').click(function(){
+
+      if($(this).hasClass('chexbox_img')){
+        
+        $(this).removeClass('chexbox_img');
+
+      }else{
+
+        $(this).addClass('chexbox_img');
+      }
+    });
+
+    // 全选本页
+    $('.textall').click(function(){
+      $('.text_chexbox').addClass('chexbox_img');
     });
 
 
