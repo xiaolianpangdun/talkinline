@@ -138,35 +138,32 @@
         <div class="title" style="margin-bottom:0">
           <p style="border: 0;padding-bottom: 20px;">用户管理
             <span>观看人数：
-              <span style="color: #3199F7;margin-top: 2px">100000</span>
+              <span style="color: #3199F7;margin-top: 2px" class="viewing_number"></span>
             </span>
           </p>
         </div>
         <!-- 用户表格 -->
         <div class="tab">
-          <!-- <table class="layui-table" id="user" style="margin: 0 0;"></table>
-          <script type="text/html" id="Blacklist">
-            <p class="black_list">加入黑名单</p>
-          </script> -->
-          <table>
+          <table class="addtal">
             <tr style="border-top: 1px solid #E7EAEC;">
               <th>用户名</th>
               <th>用户IP</th>
               <th>访问时间</th>
               <th>操作</th>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>芝麻球</td>
               <td>123.234.345.45</td>
               <td>2018/10/25 15:28</td>
               <td>
                 <p class="black_list">加入黑名单</p>
               </td>
-            </tr>
+            </tr> -->
           </table>
 
         </div>
-        <div id="page" style="text-align:center;"></div>
+
+        <div id="UserPage" style="text-align:center;"></div>
 
       </div>
       <!-- 用户管理  end -->
@@ -195,7 +192,7 @@
               <div class="batch_management">批量管理</div>
               <div class="tool">
                 <p style="width: 92px;" class="AllSelct">全选本页</p>
-                <p class="InteractionShield">屏蔽</p>
+                <!-- <p class="InteractionShield">屏蔽</p> -->
                 <p style="background: #FF5500;" id="InteractionDelete">删除</p>
                 <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
@@ -215,14 +212,14 @@
                 <p style="margin-right: 0;" class="ReviewResponse">审核回复</p>
               </div>
             </div> -->
-
+            <div id="QuestionPage" style="position: absolute; right: 30%;bottom: -50px;"></div>
           </div>
 
           <div class="reply nav_questions">
             <div class="reply_top" style="border-bottom: 0">
               <div class="reply_management">批量管理</div>
               <div class="reply_tool">
-                <p style="width: 92px;">全选本页</p>
+                <p style="width: 92px;" class="replyAll">全选本页</p>
                 <p style="background: #FF5500;" id="ReplyDelece">删除</p>
                 <p style="background: #9FB1C0" id="ReplyCancel">取消</p>
               </div>
@@ -269,63 +266,23 @@
           <div class="picture_top">
             <div class="picture_management">批量管理</div>
             <div class="picture_tool">
-              <p style="width: 92px;">全选本页</p>
+              <p style="width: 92px;" class="imgall">全选本页</p>
               <p style="background: #FF5500;" id="PictureDelece">删除</p>
               <p style="background: #9FB1C0" id="PictureCancel">取消</p>
             </div>
-            <div class="updata">上传图片</div>
           </div>
           <div class="picture_content">
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
+            <!-- <div class="picture_img">
+
+              <div class="picture_chexbox">
+                <p class="picturecheck"></p>
+              </div>
+              <div class="imagess">
+                <div class="imagess_main">
+                </div>
+              </div>
               <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
-            <div class="picture_img">
-              <input type="radio" style="display: none;">
-              <img src="../img/image.png" alt="">
-              <p>2018-10-29 14:52</p>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -346,16 +303,14 @@
           <div class="text_record_top">
             <div class="text_management">批量管理</div>
             <div class="text_tool">
-              <p style="width: 92px;">全选本页</p>
+              <p style="width: 92px;" class="textall">全选本页</p>
               <p style="background: #FF5500;" id="TextDelece">删除</p>
               <p style="background: #9FB1C0" id="TextCancel">取消</p>
             </div>
             <div class="conference" style="width: 148px;">实时录入会议内容</div>
           </div>
           <div class="record">
-            <div class="record_left">
-              <input type="radio">
-            </div>
+            <div class="text_chexbox"></div>
             <div class="record_right">
               <p class="record_name">国家税务总局政策法规司司长
                 <span>芝麻球</span>
@@ -455,6 +410,11 @@
     <p>是否确认删除所选提问，删除后不可恢复？</p>
   </div>
 
+  <div class="interaction_delete_2">
+    <img src="../img/warning.png" alt="">
+    <p>是否确认删除所选回复，删除后不可恢复？</p>
+  </div>
+
   <div class="interaction_shield">
     <img src="../img/warning.png" alt="">
     <p>是否确认屏蔽该用户？</p>
@@ -488,14 +448,14 @@
 
     <p class="name_title" style="text-align: center;">编辑内容</p>
 
-    <div class="namess">
+    <div class="namess 001">
       <p>现场那网友</p>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
+      <textarea name="" id="names_01" cols="30" rows="10"></textarea>
     </div>
 
-    <div class="namess">
+    <div class="namess 002">
       <p>国税局</p>
-      <textarea name="" id="" cols="30" rows="10" style="margin-bottom: 80px;"></textarea>
+      <textarea name="" id="names_02" cols="30" rows="10" style="margin-bottom: 80px;"></textarea>
     </div>
 
   </div>
@@ -555,27 +515,6 @@
 
 
 <script>
-
-  // var clipboard = new ClipboardJS('#links');
-
-  // clipboard.on('success', function(e) {
-  //   console.log(e)
-  //     console.log('Action:', e.action);
-  //     console.log('Text:', e.text);
-  //     console.log('Trigger:', e.trigger);
-
-  //     e.clearSelection();
-  // });
-
-  // clipboard.on('error', function(e) {
-  //     console.log('Action:', e.action);
-  //     console.log('Trigger:', e.trigger);
-  // });
-
-  // var clipboard = new Clipboard('#btn1'); 
-  // clipboard.on('success', function (e) { alert('复制成功！'); }); 
-  // clipboard.on('error', function (e) { alert('复制失败！'); });
-
 
 
 </script>
