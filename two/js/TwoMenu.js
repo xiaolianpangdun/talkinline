@@ -43,32 +43,35 @@ $(function(){
 
     /**
      * 切换页面
-     * 左边的导航
+     * 
+     * 左边导航切换
+     * 
+     * 刷新，不改变页面内容
     */
-    //var NavIndex;
-    var NowNav = localStorage.getItem("nav");
-
-    if(NowNav == '' || NowNav == undefined){
-
-      NowNav = 1;
-
-    }else{
-
-      NowNav = NowNav;
-
-    }
-
-    var index;
-    localStorage.setItem("nav",index);
+    
     $(".nav li").click(function(){
+      var index;
 
       $(this).addClass('active').siblings().removeClass('active');
 
       index = $(this).index();
 
+      sessionStorage.setItem("nav",index);
+
       $(".menu").hide().eq(index).show();
 
     });
+
+    window.onload = function () {
+
+      var index = sessionStorage.getItem("nav");
+
+      var li = $(".nav li").eq(index);
+
+      li.addClass("active").siblings().removeClass("active");
+
+      $(".menu").hide().eq(index).show();
+    }
 
 
      
@@ -347,6 +350,8 @@ $(function(){
     
 
     // 互动设置  ===== 网友提问
+    var currentPage;
+    var pageSize;
     $.ajax({
       url: TheServer+'/comments/noaudit',
       type: 'GET',
@@ -416,9 +421,6 @@ $(function(){
               }
             });
           });
-
-          
-          
 
 
           // 网友提问的复选框
