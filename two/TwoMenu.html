@@ -96,7 +96,7 @@
               <p style="line-height: 35px;">本期嘉宾</p>
               <div id="speakerList">
                 <!-- <p class="guest">国家税务总局司长王思宇</p> -->
-                <div class="add" onclick="AddGuests()">添加嘉宾</div>
+                <div class="add" id="AddGuests">添加嘉宾</div>
               </div>
             </li>
             <li style="height: 50px;margin-bottom: 40px;">
@@ -145,12 +145,15 @@
         <!-- 用户表格 -->
         <div class="tab">
           <table class="addtal">
-            <tr style="border-top: 1px solid #E7EAEC;">
-              <th>用户名</th>
-              <th>用户IP</th>
-              <th>访问时间</th>
-              <th>操作</th>
-            </tr>
+            <thead>
+              <tr style="border-top: 1px solid #E7EAEC;">
+                <th>用户名</th>
+                <th>用户IP</th>
+                <th>访问时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            
             <!-- <tr>
               <td>芝麻球</td>
               <td>123.234.345.45</td>
@@ -159,6 +162,9 @@
                 <p class="black_list">加入黑名单</p>
               </td>
             </tr> -->
+            <tbody class="tab_tr">
+
+            </tbody>
           </table>
 
         </div>
@@ -197,6 +203,7 @@
                 <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
             </div>
+            <div id="aaaa"></div>
             <!-- <div class="questions_main">
               <div class="questions_chexbox" style="display: none;">
                 <p class="checkbox"></p>
@@ -224,7 +231,7 @@
                 <p style="background: #9FB1C0" id="ReplyCancel">取消</p>
               </div>
             </div>
-
+            <div id="bbbb"></div>
             <!-- <div class="reply_main" style="border-top: 1px solid #DEE1E6;">
               <div class="reply_main_top questions_left">
                 <p style="font-size: 16px;margin-bottom: 6px;">现场观众
@@ -243,7 +250,7 @@
                 <p class="reply_editor"><img src="../img/edit.png" alt="">编辑</p>
               </div>
             </div> -->
-
+            <div id="ReplyPage" style="position: absolute; right: 30%;bottom: -50px;"></div>
             
           </div>
 
@@ -270,6 +277,9 @@
               <p style="background: #FF5500;" id="PictureDelece">删除</p>
               <p style="background: #9FB1C0" id="PictureCancel">取消</p>
             </div>
+            <button type="button" class="layui-btn" id="updata" style="float: right;width: 92px;height: 28px;margin-top: 11px;background: #3199F7;line-height: 28px;">
+              上传图片
+            </button>
           </div>
           <div class="picture_content">
             <!-- <div class="picture_img">
@@ -285,6 +295,7 @@
             </div> -->
 
           </div>
+          <div id="ImagePage" style="position: absolute; right: 30%;bottom: -50px;"></div>
         </div>
 
       </div>
@@ -393,7 +404,7 @@
 
   <div id="add_guest">
     <p class="name_title">添加嘉宾</p>
-    <input type="text" value="请输入嘉宾姓名" id="Adds">
+    <input type="text" value="请输入嘉宾姓名" id="Adds" maxlength="20">
     <p class="tips_2" style="display: none">提示：最多只能输入20个字符</p>
   </div>
 

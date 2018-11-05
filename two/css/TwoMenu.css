@@ -405,16 +405,10 @@ body{
   margin-top: 11px;
   margin-right: 10px;
   
-  /* width: 92px;
-  height: 28px;
-  line-height: 28px;
-  text-align: center;
-  
-  color: #fff;
-  
-  font-size: 14px;
-  border-radius: 2px;
-  cursor: pointer; */
+}
+.picture_content{
+  height: 550px;
+  overflow-y: scroll;
 }
 
 /* 文字实录 */
