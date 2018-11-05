@@ -82,7 +82,7 @@
         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
         var type = e.currentTarget.files[0].type;
         var upfilename = e.currentTarget.files;
-        console.log(upfilename);
+        // console.log(upfilename);
         $(".filename").html(name);
         $(".filesize").html("(" + size + ")MB");
         // that.val("");
@@ -177,38 +177,41 @@
                     btn: ['确定'],
                     yes: function(index, layero) {
                         var status = 0;
-                        var type = parseInt($("input[name='selectadvance']:checked").val());
+                        var name = $("#addadvance .talkname").val();
+                        var type = parseInt($("input[name='type']:checked").val());
                         var compere = $("#addadvance input.compere").val();
                         var description = $("#addadvance .talkintro").val();
                         var guests = document.getElementsByClassName("guestlists");
+                        var file = $("#addadvance input[type=file]")[0].files[0];
                         var speakername = [];
                         for (var i = 0; i < guests.length; i++) {
                             speakername.push(guests[i].innerHTML);
                         }
-                        var file = upfilename;
-                        console.log(file);
+                        // var file = upfilename;
 
-                        $.ajax({
-                            type: 'post',
-                            // contentType: 'application/form-data;charset=utf-8',
-                            url: 'http://192.168.0.71:8080/interview/create',
-                            traditional: true,
-                            data: {
-                                name: 'aaa',
-                                speakername: speakername,
-                                status: status,
-                                type: type,
-                                compere: compere,
-                                description: description,
-                                files: file
-                            },
-                            success: function(data) {
-                                console.log(data);
-                            },
-                            error: function(err) {
-                                alert("修改失败");
-                            }
-                        });
+                        var data = $("#formfile").serialize();
+                        console.log(data);
+                        // $.ajax({
+                        //     type: 'post',
+                        //     // contentType: 'application/form-data;charset=utf-8',
+                        //     url: 'http://192.168.0.71:8080/interview/create',
+                        //     traditional: true,
+                        //     data: {
+                        //         name: name,
+                        //         speakername: speakername,
+                        //         status: status,
+                        //         type: type,
+                        //         compere: compere,
+                        //         description: description,
+                        //         files: file
+                        //     },
+                        //     success: function(data) {
+                        //         console.log(data);
+                        //     },
+                        //     error: function(err) {
+                        //         alert("修改失败");
+                        //     }
+                        // });
                     }
                 });
                 //按钮【按钮二】的回调
@@ -378,8 +381,8 @@
 
 
     // 点击切换视频 图片
-    $("input[name='selectadvance']").click(function() {
-        var val = $("input[name='selectadvance']:checked").val();
+    $("input[name='type']").click(function() {
+        var val = $("input[name='type']:checked").val();
         // console.log(val);
         $(".afterupcon").show();
         $(".beforeup").hide();
