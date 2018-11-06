@@ -27,7 +27,7 @@
     var update = function(num, keyWord) {
         $.ajax({
             type: "get",
-            url: ' http://192.168.0.71:8080/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
+            url: 'http://192.168.0.71:8080/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
                 console.log(data);
                 var lists = data.result.list;
@@ -72,7 +72,7 @@
                 var count = data.result.total;
                 var laypage = layui.laypage;
                 //执行一个laypage实例
-                
+
                 laypage.render({
                     elem: 'forbidpage',
                     count: count,
@@ -197,7 +197,7 @@
         var file = e.currentTarget.files[0];
         var type = (type.substr(type.lastIndexOf("."))).toLowerCase();
         // alert($('#fileup').serialize());
-        if (type != ".document" && type != ".gif" && type != ".jpeg" && type != ".png") {
+        if (type != ".txt" && type != ".gif" && type != ".jpeg" && type != ".png") {
 
             layer.open({
                 title: '提示',

@@ -222,6 +222,7 @@ input[type='file'] {
     text-overflow: ellipsis;
     white-space: nowrap;
     opacity: 0;
+    border: 1px solid red;
 }
 
 .afterupcon {
@@ -232,7 +233,7 @@ input[type='file'] {
     display: none;
 }
 
-#afterfileUp {
+#beforefileUp {
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -240,7 +241,7 @@ input[type='file'] {
     height: 46px;
 }
 
-#beforefileUp {
+#afterfileUp {
     left: 0px;
     bottom: 0px;
     position: absolute;

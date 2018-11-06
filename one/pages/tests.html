@@ -10,15 +10,17 @@
 </head>
 
 <body>
-    <form class="layui-form" lay-filter="test2" enctype='multipart/form-data'>
+    <form id="fileform" method="post" enctype='multipart/form-data'>
         <!-- <input type="file" lay-filter="fileup"> -->
         <!-- <input type="submit" lay-type="file" class="layui-btn" name="file" lay-submit="" lay-filter="file"> -->
-        <input type="file" lay-type="file" id="xxxxx" name="file" class="layui-upload-file" value="tijiao">
+        <input type="text" name="name">
+        <input type="file" id="xxxxx" name="file">
+        <input type="submit" class="submit" value="提交">
     </form>
-    <div class="layui-upload">
+    <!-- <div class="layui-upload">
         <button class="layui-btn layui-btn-normal" id="test8" type="button">选择文件</button>
         <input type="file" name="file" id="test9" type="button">
-    </div>
+    </div> -->
 
     <script src="../../layui/layui.all.js"></script>
     <script>
@@ -26,24 +28,30 @@
         ! function() {
             var upload = layui.upload;
             var $ = layui.$;
-            upload.render({
-                elem: '#test9',
-                url: 'http://192.168.0.71:8080/prohibit/batchImport',
-                multiple: true,
-                accept: 'file', //普通文件
-                exts: 'txt',
-                size: 10,
-                before: function(obj) {
-                    console.log(obj);
-                    //预读本地文件示例，不支持ie8
-                    // obj.preview(function(index, file, result) {
-                    //     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
-                    // });
-                },
-                done: function(res) {
-                    //上传完毕
-                }
+            $(".submit").click(function(event) {
+                event.preventDefault();
+                var data = $("#fileform").serialize();
+                var formData = new FormData($("#xxxxx"));
+                console.log(formData);
             });
+            // upload.render({
+            //     elem: '#test9',
+            //     url: 'http://192.168.0.71:8080/prohibit/batchImport',
+            //     multiple: true,
+            //     accept: 'file', //普通文件
+            //     exts: 'txt',
+            //     size: 10,
+            //     before: function(obj) {
+            //         console.log(obj);
+            //         //预读本地文件示例，不支持ie8
+            //         // obj.preview(function(index, file, result) {
+            //         //     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+            //         // });
+            //     },
+            //     done: function(res) {
+            //         //上传完毕
+            //     }
+            // });
 
             // layui.upload({
             //     url: 'http://192.168.0.71:8080/prohibit/batchImport',

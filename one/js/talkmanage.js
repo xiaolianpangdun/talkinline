@@ -1,6 +1,7 @@
 ;
 ! function() {
-    var $ = layui.$;
+    var $ = layui.$,
+        upload = layui.upload;
     (function() {
         $.ajax({
             type: "get",
@@ -43,7 +44,7 @@
     })();
 
     // 点击添加嘉宾弹框
-    $("button.addguest").click(function() {
+    $(".addguest").click(function() {
         var that = $(this);
         layer.open({
             type: 1,
@@ -71,6 +72,61 @@
                 layer.close(index);
             }
         });
+    });
+    upload.render({
+        elem: '#beforefileUp',
+        url: 'http://192.168.0.71:8080/interview/create',
+        accept: 'file', //普通文件
+        auto: false, //选择文件后不自动上传
+        bindAction: '#submitfff',
+        exts: 'txt',
+        size: 10,
+        data: {
+            // var status = 0;
+            // var name = $("#addadvance .talkname").val();
+            // var type = parseInt($("input[name='type']:checked").val());
+            // var compere = $("#addadvance input.compere").val();
+            // var description = $("#addadvance .talkintro").val();
+            // var guests = document.getElementsByClassName("guestlists");
+            // var file = $("#addadvance input[type=file]")[0].files[0];
+            // var speakername = [];
+            // console.log(file);
+            // for (var i = 0; i < guests.length; i++) {
+            //     speakername.push(guests[i].innerHTML);
+            // }
+            name: function() {
+                name = $("#addadvance .talkname").val();
+                if (name == "") { alert("姓名不能为空") }
+                return name = $("#addadvance .talkname").val();
+            },
+            status: 0,
+            type: function() {
+                return parseInt($("input[name='type']:checked").val());
+            },
+            compere: function() {
+                return $("#addadvance input.compere").val();
+            },
+            description: function() {
+                return $("#addadvance .talkintro").val();
+            },
+            speakername: function() {
+                var guests = document.getElementsByClassName("guestlists");
+                var speakername = [];
+                for (var i = 0; i < guests.length; i++) {
+                    speakername.push(guests[i].innerHTML);
+                }
+                return speakername;
+            }
+        },
+        before: function(obj) {
+            console.log(obj);
+        },
+        done: function(res) {
+            layer.close();
+        }
+    });
+    $("#submitfff").click(function() {
+        // layer.closeAll();
     });
     // 上传文件
     var upfilename;
@@ -127,7 +183,6 @@
                     yes: function(index, layero) {
                         var status = 1;
                         var type = parseInt($("input[name='selecttype']:checked").val());
-                        console.log(type);
                         var name = $("#addinlinetalk input.talkname").val();
                         var beginTime = $("#addinlinetalk #starttime").val();
                         var endTime = $("#addinlinetalk #endtime").val();
@@ -184,32 +239,63 @@
                         var guests = document.getElementsByClassName("guestlists");
                         var file = $("#addadvance input[type=file]")[0].files[0];
                         var speakername = [];
+                        console.log($("#addadvance input[type=file]")[0].files);
                         for (var i = 0; i < guests.length; i++) {
                             speakername.push(guests[i].innerHTML);
                         }
                         // var file = upfilename;
 
-                        var data = $("#formfile").serialize();
+                        var data = $("#formfile").serializeArray();
+                        // var formData = new FormData($("#formfile")[0]);
+                        // formData.append('speakername', speakername);
                         console.log(data);
+                        $.ajax({
+                            type: 'post',
+                            // contentType: 'application/form-data;charset=utf-8',
+                            url: 'http://192.168.0.71:8080/interview/create',
+                            traditional: true,
+                            contentType: 'multipart/form-data',
+                            data: {
+                                name: name,
+                                speakername: speakername,
+                                status: status,
+                                type: type,
+                                compere: compere,
+                                description: description,
+                                files: file
+                            },
+                            success: function(data) {
+                                console.log(data);
+                            },
+                            error: function(err) {
+                                alert("修改失败");
+                            }
+                        });
                         // $.ajax({
                         //     type: 'post',
-                        //     // contentType: 'application/form-data;charset=utf-8',
                         //     url: 'http://192.168.0.71:8080/interview/create',
+                        //     // secureuri: false,
+                        //     // fileElementId: 'fileup',
+                        //     // dataType: 'JSON',
+                        //     // contentType: false,
                         //     traditional: true,
+                        //     // async: false,
+                        //     // cache: false,
+                        //     processData: false,
                         //     data: {
-                        //         name: name,
-                        //         speakername: speakername,
                         //         status: status,
+                        //         name: name,
                         //         type: type,
                         //         compere: compere,
                         //         description: description,
-                        //         files: file
+                        //         files: file,
+                        //         speakername: speakername
                         //     },
                         //     success: function(data) {
                         //         console.log(data);
                         //     },
                         //     error: function(err) {
-                        //         alert("修改失败");
+                        //         alert("新增失败");
                         //     }
                         // });
                     }
@@ -230,6 +316,30 @@
             },
             end: function() {
                 // 无论是确认还是取消，只要层被销毁了，end都会执行，不携带任何参数。
+            }
+        });
+    });
+    $("button.submit").click(function(event) {
+        event.preventDefault();
+        window.event.returnValue = false;
+        var data = $("#formfile").serialize();
+        console.log(data);
+        var formData = new FormData($("#formfile")[0]);
+        $.ajax({
+            type: 'post',
+            url: 'http://192.168.0.71:8080/interview/create',
+            dataType: 'json',
+            contentType: 'multipart/form-data',
+            traditional: true,
+            async: false,
+            cache: false,
+            processData: false,
+            data: data,
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(err) {
+                alert("新增失败");
             }
         });
     });
@@ -262,28 +372,29 @@
                 {
                     field: 'interviewId',
                     title: '序号',
-                    width: 100,
+                    width: '10%',
                     unresize: true
                 }, {
                     field: 'name',
                     title: '访谈名称',
+                    width: '20%',
                     unresize: true
                 }, {
                     field: 'status',
                     title: '访谈状态',
-                    width: 150,
+                    width: '15%',
                     templet: '#talk',
                     unresize: true
                 }, {
                     field: 'type',
                     title: '类型',
-                    width: 150,
+                    width: '15%',
                     templet: '#talktype',
                     unresize: true
                 }, {
                     field: 'as',
                     title: '操作',
-                    width: 360,
+                    // width: 360,
                     toolbar: '#handle',
                     unresize: true
                 }
