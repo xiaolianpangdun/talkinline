@@ -121,11 +121,21 @@
                 <p style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
+            <li>
+              <p> &nbsp; 视频</p>
+              <div style="display: none">
+                <span>http://zxft.hntax.gov.cn/onfront</span>
+                <p>重新上传</p>
+                <p style="color: #FF5500">删除</p>
+              </div>
+              <div>无文件/<p style="margin-left: 0;">请上传视频文件</p></div>
+            </li>
           </ul>
         </div>
         <!-- 点击确定修改 -->
         <div class="sure">
           <p>确定修改</p>
+          <p>转为在线访谈</p>
         </div>
       </div>
       <!-- 直播详情  end -->
@@ -272,14 +282,19 @@
         <div class="picture">
           <div class="picture_top">
             <div class="picture_management">批量管理</div>
+
             <div class="picture_tool">
               <p style="width: 92px;" class="imgall">全选本页</p>
               <p style="background: #FF5500;" id="PictureDelece">删除</p>
               <p style="background: #9FB1C0" id="PictureCancel">取消</p>
             </div>
-            <button type="button" class="layui-btn" id="updata" style="float: right;width: 92px;height: 28px;margin-top: 11px;background: #3199F7;line-height: 28px;">
+            <!-- <button type="button" class="layui-btn" id="updata" style="float: right;width: 92px;height: 28px;margin-top: 11px;background: #3199F7;line-height: 28px;">
               上传图片
-            </button>
+            </button> -->
+            <div class="upimage">
+              <input type="file" name="files" id="updata">上传图片
+            </div>
+            
           </div>
           <div class="picture_content">
             <!-- <div class="picture_img">
@@ -320,7 +335,8 @@
             </div>
             <div class="conference" style="width: 148px;">实时录入会议内容</div>
           </div>
-          <div class="record">
+          <div id="TextList" style="height: 580px;overflow-y: scroll"></div>
+          <!-- <div class="record">
             <div class="text_chexbox"></div>
             <div class="record_right">
               <p class="record_name">国家税务总局政策法规司司长
@@ -332,9 +348,11 @@
                 解读视频会每季度至少举办一次，由税务总局相关业务司局负责同志结合新出台的税收政策，针对基层税务机关和纳税人反映的热点难点问题，集中进行政策解读，着力解决好基层税务机关和纳税人关心的政策执行口径问题，激活和规范纳税人享受税收利好，进一步推进基层不折不扣地落实税收政策。
               </p>
               <p class="record_edit">
-                <img src="../img/edit.png" alt="">编辑</p>
+                <img src="../img/edit.png" alt="">编辑
+              </p>
             </div>
-          </div>
+          </div> -->
+          <div id="TextPage" style="text-align:center; margin-top: 60px"></div>
         </div>
 
 
@@ -352,7 +370,10 @@
         </div>
 
         <div class="operation">
-          <p>上传视频</p>
+          <!-- <button type="button" class="layui-btn" id="VedioUpdata">
+            <i class="layui-icon">&#xe67c;</i>上传图片
+          </button> -->
+          <input type="file" id="VedioUpdata" name="files">
         </div>
         <div class="vedio">
           <P style="margin: 0;width: 42%">
@@ -488,10 +509,10 @@
   <div class="text_record_edit">
     <p class="name_title">编辑会议内容</p>
     <div class="text_select">
-      <select name="" id="">
-        <option value="">国家</option>
+      <select name="" id="text_ss">
+        <!-- <option value="">国家</option>
         <option value="">税务</option>
-        <option value="">总局</option>
+        <option value="">总局</option> -->
       </select>
     </div>
     <textarea name="" id="TextSelect" cols="30" rows="10"></textarea>
@@ -501,10 +522,10 @@
     <p class="name_title" style="text-align: center;">编辑会议内容</p>
     <div class="text_select">
       <span>*请选择会议人 </span>
-      <select name="" id="">
-        <option value="">国家</option>
+      <select name="" id="text_s">
+        <!-- <option value="">国家</option>
         <option value="">税务</option>
-        <option value="">总局</option>
+        <option value="">总局</option> -->
       </select>
     </div>
     <div class="real_time_">

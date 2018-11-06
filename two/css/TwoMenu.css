@@ -95,7 +95,7 @@ body{
   display: inline-block;
 }
 .main ul li>p{
-  margin-left: 67px;
+  margin-left: 6%;
   width: 8%;
   height: 44px;
   color: #888888;
@@ -103,7 +103,7 @@ body{
 }
 .main ul li>div{
   width: 75%;
-  margin-right: 72px;
+  margin-right: 6%;
   float: right;
 }
 .time{
@@ -142,16 +142,21 @@ body{
   cursor: pointer;
   display: inline-block
 }
-.sure{
+.sure p{
   width: 200px;
   height: 46px;
   line-height: 46px;
   color: rgba(255,255,255,.5);
   background: #3199F7;
-  margin: 0 auto;
-  margin-top: 134px;
+  margin-left: 36px;
   text-align: center;
   font-size: 16px;
+  display: inline-block;
+}
+.sure{
+  position: fixed;
+  bottom: 10px;
+  right: 20%;
 }
 
 .active{
@@ -364,7 +369,7 @@ body{
 }
 
 /* 现场图片 */
-#updata,.conference{
+.upimage,.conference{
   float: right;
 }
 .picture_img{
@@ -399,12 +404,26 @@ body{
   left: 5px;
   top: 5px;
 }
-#updata{
+.upimage{
+  position: relative;
+  display: inline-block;
+  background: #3199F7;
+  overflow: hidden;
+  color: #fff;
   width: 92px;
   height: 28px;
+  text-decoration: none;
+  line-height: 28px;
   margin-top: 11px;
-  margin-right: 10px;
-  
+  text-align: center;
+}
+#updata{
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+
 }
 .picture_content{
   height: 550px;
@@ -602,10 +621,10 @@ body{
   border-bottom: 1px solid #E6EEF5;
   margin-left: 30px;
 }
-.operation p{
+.operation input{
   width: 92px;
   height: 28px;
-  background: #3199F7;
+  background-color: #3199F7;
   text-align: center;
   line-height: 28px;
   color: #fff;
@@ -613,6 +632,9 @@ body{
   margin-top: 12px;
   font-size: 14px;
   cursor: pointer;
+  /* opacity: 1;
+  -ms-filter: 'alpha(opacity=0)'; */
+
 }
 .vedio{
   width: 95%;
