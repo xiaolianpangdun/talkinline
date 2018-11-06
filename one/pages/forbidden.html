@@ -1,50 +1,52 @@
 <link rel="stylesheet" href="../css/forbidden.css">
 <link rel="stylesheet" href="../../common.css">
 <link rel="stylesheet" href="../../layui/css/layui.css">
-<div class="talktop">
-    <span>严禁词设置</span>
-    <button class="lead right">
+<div style='overflow:hidden;'>
+    <div class="talktop">
+        <span>严禁词设置</span>
+        <button class="lead right">
         <input type="file" id="leadfile" name="file" class="leadfile"> 导入
     </button>
-    <span class="aaa">1111</span>
-    <button class="right addforbidword">新增违禁词</button>
-    <button class="search right">搜索</button>
-    <input type="text" class="right search" placeholder="搜入关键词搜索">
-</div>
-<!-- 严禁词为空的时候 -->
-<div class="none">
-    <img src="../../img/noforbidden.png" alt=""><br>
-    <div class="tip">暂无严禁词，您可手动添加会议严禁词</div>
-    <!-- <button class="addforbidden addforbidword">新增违禁词</button> -->
-</div>
+        <span class="aaa">1111</span>
+        <button class="right addforbidword">新增违禁词</button>
+        <button class="search right">搜索</button>
+        <input type="text" class="right search" placeholder="搜入关键词搜索">
+    </div>
+    <!-- 严禁词为空的时候 -->
+    <div class="none">
+        <img src="../../img/noforbidden.png" alt=""><br>
+        <div class="tip">暂无严禁词，您可手动添加会议严禁词</div>
+        <!-- <button class="addforbidden addforbidword">新增违禁词</button> -->
+    </div>
 
-<!-- 有违禁词时 -->
-<div class="had">
-    <div class="forbidword">
-        <div class="forbidwords">
-            <!-- <div class="left">
+    <!-- 有违禁词时 -->
+    <div class="had">
+        <div class="forbidword">
+            <div class="forbidwords">
+                <!-- <div class="left">
                 <span>中国共产党统治</span>
                 <img class="del" src="../../img/del.png" alt="">
             </div> -->
+            </div>
+
         </div>
-
+        <div class="clear"></div>
+        <div id="forbidpage" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
     </div>
-    <div class="clear"></div>
-    <div id="forbidpage" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
-</div>
 
-<!-- 添加违禁词弹出框模板 -->
-<div id="addforbidword" style="display:none;">
-    <div class="title">添加违禁词</div>
-    <input class="content" type="text" placeholder="请输入内容" maxlength="10">
-    <div class="warn">输入的内容不超过10个字</div>
-</div>
-<!-- 删除违禁词弹框模板 -->
-<div id="delforbidword" class='center' style="display:none;">
-    <div>
-        <img src="../../img/warning.png" alt="">
+    <!-- 添加违禁词弹出框模板 -->
+    <div id="addforbidword" style="display:none;">
+        <div class="title">添加违禁词</div>
+        <input class="content" type="text" placeholder="请输入内容" maxlength="10">
+        <div class="warn">输入的内容不超过10个字</div>
     </div>
-    <div class="comfirmdo">是否确认删除"<span id="wordname">asd</span>"违禁词</div>
+    <!-- 删除违禁词弹框模板 -->
+    <div id="delforbidword" class='center' style="display:none;">
+        <div>
+            <img src="../../img/warning.png" alt="">
+        </div>
+        <div class="comfirmdo">是否确认删除"<span id="wordname">asd</span>"违禁词</div>
+    </div>
 </div>
 <script src="../../layui/layui.all.js"></script>
 <script src="../js/forbidden.js"></script>

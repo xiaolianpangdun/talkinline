@@ -67,10 +67,10 @@
             <div class="textleft">*本期嘉宾</div>
             <div class="left guests" style="float:left;width:450px;">
                 <div class="guestlist">
-                    <div class='left guest'>
+                    <!-- <div class='left guest'>
                         <span guestlists>嘉宾1 &nbsp;&nbsp;</span>
                         <img src="../../img/cancel_02.png" alt="">
-                    </div>
+                    </div> -->
                 </div>
                 <div class='left addguest tkil'>添加嘉宾</div>
                 <div class="clear"></div>
@@ -107,97 +107,97 @@
         </div>
     </div>
     <!-- 新建在线预告 模板 -->
-    <div id="addadvance" style="display:none;">
-        <form action="" method="post" id="formfile" enctype="multipart/form-data">
-            <div class="title">新建访谈预告</div>
-            <div class="line freewordevent">
-                <div class="textleft">*访谈名称</div>
-                <div class="left " style="position:relative;">
-                    <input type="text" name="name" class="talk talkname freewordevent" placeholder="请输入类别名称">
-                    <div class="freewords" style="bottom:8px;">
-                        <span class="freespace">30</span>
-                        <span>/</span>
-                        <span class="maxleng">30</span>
-                    </div>
+    <div id="addadvance">
+        <!-- <form action="" method="post" id="formfile" enctype="multipart/form-data"> -->
+        <div class="title">新建访谈预告</div>
+        <div class="line freewordevent">
+            <div class="textleft">*访谈名称</div>
+            <div class="left " style="position:relative;">
+                <input type="text" name="name" class="talk talkname freewordevent" placeholder="请输入类别名称">
+                <div class="freewords" style="bottom:8px;">
+                    <span class="freespace">30</span>
+                    <span>/</span>
+                    <span class="maxleng">30</span>
                 </div>
-                <div class="clear"></div>
             </div>
-            <div class="line">
-                <div class="textleft">*本期嘉宾</div>
-                <div class="left guests" style="float:left;width:450px;">
-                    <div class="guestlist">
-                        <!-- <div class='left guest'>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">*本期嘉宾</div>
+            <div class="left guests" style="float:left;width:450px;">
+                <div class="guestlist">
+                    <!-- <div class='left guest'>
                         <span class="guestlists">嘉宾1 &nbsp;&nbsp;</span>
                         <img src="../../img/cancel_02.png" alt="">
                     </div> -->
-                    </div>
-                    <div class='left addguest adil'>添加嘉宾</div>
-                    <div class="clear"></div>
                 </div>
+                <div class='left addguest adil'>添加嘉宾</div>
                 <div class="clear"></div>
             </div>
-            <div class="line">
-                <div class="textleft">主持人</div>
-                <div class="left">
-                    <input type="text" name="compere" class="talk compere" placeholder="请输入主持人">
-                </div>
-                <div class="clear"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">主持人</div>
+            <div class="left">
+                <input type="text" name="compere" class="talk compere" placeholder="请输入主持人">
             </div>
-            <div class="line">
-                <div class="textleft">会议简介</div>
-                <div class="left" style="position:relative;">
-                    <textarea class="talkintro freewordevent" name="description" id="" cols="30" rows="4"></textarea>
-                    <div class="freewords">
-                        <span class="freespace">50</span>
-                        <span>/</span>
-                        <span class="maxleng">50</span>
-                    </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">会议简介</div>
+            <div class="left" style="position:relative;">
+                <textarea class="talkintro freewordevent" name="description" id="" cols="30" rows="4"></textarea>
+                <div class="freewords">
+                    <span class="freespace">50</span>
+                    <span>/</span>
+                    <span class="maxleng">50</span>
                 </div>
-                <div class="clear"></div>
             </div>
-            <div class="line">
-                <div class="textleft">*访谈场景</div>
-                <div class="left select">
-                    <!-- <span class="radio-select "></span> -->
-                    <input type="radio" id="s3" value="0" name="type" class="selectvideo color-cb">
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">*访谈场景</div>
+            <div class="left select">
+                <!-- <span class="radio-select "></span> -->
+                <input type="radio" id="s3" value="0" name="type" class="selectvideo color-cb">
 
-                    <label for="s3"><div class="ddd"></div>视频预告</label>
-                    <!-- <span class="radio-select"></span> -->
-                    <input type="radio" id="s4" value="1" name="type" class="selectimg color-cb">
-                    <label for="s4"><div class="ddd"></div> 图文预告</label>
+                <label for="s3"><div class="ddd"></div>视频预告</label>
+                <!-- <span class="radio-select"></span> -->
+                <input type="radio" id="s4" value="1" name="type" class="selectimg color-cb">
+                <label for="s4"><div class="ddd"></div> 图文预告</label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft"></div>
+            <div class="left afterup">
+                <div class="afterupcon">
+                    <img class="upfile upimg" src="../../img/upimg.png" alt="">
+                    <img class="upfile upvideo" src="../../img/upvideo.png" alt="">
+                    <input type="file" id="beforefileUp" name="files">
+                </div>
+                <div class="left beforeup" style=" display:none;">
+                    <span class="left filename"></span>
+                    <span class="left filesize"></span>
+                    <div class="left refileup">重新上传
+                        <input type="file" capture="camera" id="afterfileUp" name="files">
+                    </div>
+                    <span class="left deletefile">删除</span>
                 </div>
                 <div class="clear"></div>
-            </div>
-            <div class="line">
-                <div class="textleft"></div>
-                <div class="left afterup">
-                    <div class="afterupcon">
-                        <img class="upfile upimg" src="../../img/upimg.png" alt="">
-                        <img class="upfile upvideo" src="../../img/upvideo.png" alt="">
-                        <input type="file" id="beforefileUp" name="files">
-                    </div>
-                    <div class="left beforeup" style=" display:none;">
-                        <span class="left filename"></span>
-                        <span class="left filesize"></span>
-                        <div class="left refileup">重新上传
-                            <input type="file" id="afterfileUp">
-                        </div>
-                        <span class="left deletefile">删除</span>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="left upimg uptip">
-                        图片仅支持jpg、gif、png、bmp格式<br>上传最大是100兆
-                    </div>
-                    <div class="left upvideo uptip">
-                        视频仅支持mp4、mvp、mpeg、mov、3gp格式<br>上传最大是100M
-                    </div>
-
+                <div class="left upimg uptip">
+                    图片仅支持jpg、gif、png、bmp格式<br>上传最大是100兆
+                </div>
+                <div class="left upvideo uptip">
+                    视频仅支持mp4、mvp、mpeg、mov、3gp格式<br>上传最大是100M
                 </div>
 
-                <br>
             </div>
-            <a id="submitfff">提交</a>
-        </form>
+
+            <br>
+        </div>
+        <a id="submitfff">提交</a>
+        <!-- </form> -->
     </div>
     <!-- 添加嘉宾的弹框 -->
     <div id="addguest" style="display:none;">
@@ -230,6 +230,8 @@
                         <img src="../../img/cancel_02.png" alt="">
                     </div>`
  -->
-<!-- <script src="../js/ajaxfileupload.js"></script> -->
+<script src="../js/jquery-1.7.1.js"></script>
+<script src="../js/ajaxfileupload1.js"></script>
+
 <script src="../js/talkmanage.js">
 </script>

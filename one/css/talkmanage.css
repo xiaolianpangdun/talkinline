@@ -1,3 +1,7 @@
+#addadvance {
+    display: none;
+}
+
 .addtalk {
     font-size: 14px;
     padding: 5px 10px;
@@ -227,8 +231,6 @@ input[type='file'] {
 
 .afterupcon {
     position: relative;
-    width: 126px;
-    height: 46px;
     cursor: pointer;
     display: none;
 }
