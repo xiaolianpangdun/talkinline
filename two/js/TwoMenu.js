@@ -1,4 +1,19 @@
 $(function () {
+
+  /**
+   * 服务器
+   * 
+   * 访谈id
+   * 
+   */
+  var TheServer = 'http://192.168.0.71:8080';
+
+  var talkNum = localStorage.getItem("interviewId");
+  
+  console.log('访谈ID ======' ,talkNum);
+  
+
+
   /**
    * 日期选择器
    */
@@ -31,13 +46,7 @@ $(function () {
   $('#time2').jeDate(end);
 
 
-  /**
-   * 服务器
-   * 访谈id
-   * 访谈编号
-   */
-  var TheServer = 'http://192.168.0.71:8080';
-  var ids = 1;
+  
 
 
 
@@ -100,7 +109,7 @@ $(function () {
     dataType: 'json',
     async: true,    //或false,是否异步
     data: {
-      id: 12
+      id: talkNum
     },
     success: function (data, textStatus, jqXHR) {
 
@@ -111,7 +120,7 @@ $(function () {
 
       // 访谈id  缓存到本地
       var interviewId = data.result.interviewId;
-      localStorage.setItem("interviewId", interviewId);
+      //localStorage.setItem("interviewId", interviewId);
 
 
       if (data.result.type == 0) {
@@ -135,17 +144,13 @@ $(function () {
     }
   })
 
-  // 从本地缓存中去除访谈id
-  //var talkNum = localStorage.getItem("interviewId");
-  var talkNum = 3;
-
   // 把嘉宾渲染到选择框
   $.ajax({
     url: TheServer + '/interview/speakers',
     type: 'GET',
     async: true,
     data: {
-      interviewId: 22
+      interviewId: talkNum
     },
     success: function (data, textStatus, jqXHR) {
       console.log('获取到嘉宾的列表 ======== ', data.result)
@@ -340,7 +345,7 @@ $(function () {
       async: true,    //或false,是否异步
       contentType: 'application/json;charset=utf-8',
       data: {
-        interviewId: 12,
+        interviewId: talkNum,
         currentPage: UserNow,
         pageSize: 12
       },
@@ -484,7 +489,7 @@ $(function () {
       contentType: 'application/json;charset=utf-8',
       async: true,    //或false,是否异步
       data: {
-        interviewId: 12,
+        interviewId: talkNum,
         currentPage: currentPage,
         pageSize: 5
       },
@@ -781,7 +786,7 @@ $(function () {
       dataType: 'json',
       async: true,    //或false,是否异步
       data: {
-        interviewId: 12,
+        interviewId: talkNum,
         currentPage: ReplyCurr,
         pageSize: 5
       },
@@ -1254,7 +1259,7 @@ $(function () {
       async: true,    //或false,是否异步
       contentType: 'application/json;charset=utf-8',
       data: JSON.stringify({
-        interviewId: 1,
+        interviewId: talkNum,
         pageNum: ImageCurr,
         pageSize: 12
       }),
@@ -1271,7 +1276,7 @@ $(function () {
   
           var Img = '';
   
-          console.log(ImgList[0].picUrl);
+          //console.log(ImgList[0].picUrl);
   
           $.each(ImgList, function (i, obj) {
   
@@ -1464,7 +1469,7 @@ $(function () {
       url: TheServer + '/interview/uploadImages',//上传接口
       accept: 'images',
       data: {
-        interviewId: 5,
+        interviewId: talkNum,
       },
       before: function(obj){
         
@@ -1511,7 +1516,7 @@ $(function () {
       type: 'GET',
       async: true,
       data: {
-        interviewId: 22,
+        interviewId: talkNum,
         currentPage: TextCurr,
         pageSize: 5,
       },
@@ -1596,7 +1601,7 @@ $(function () {
                 async: true,
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify({
-                  interviewId: 12,
+                  interviewId: talkNum,
                   speakerId: speakerId,
                   content: content,
                   opinionId: opinionId
@@ -1728,7 +1733,7 @@ $(function () {
           async: true,    //或false,是否异步
           contentType: 'application/json;charset=utf-8',
           data: JSON.stringify({
-            interviewId: 22,
+            interviewId: talkNum,
             ids: intTDelece
           }),
           success: function (data, textStatus, jqXHR) {
@@ -1808,7 +1813,7 @@ $(function () {
           async: true,    //或false,是否异步
           contentType: 'application/json;charset=utf-8',
           data: JSON.stringify({
-            interviewId: 22,
+            interviewId: talkNum,
             speakerId: speakerId,
             content: content
 

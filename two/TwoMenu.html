@@ -36,12 +36,12 @@
     <!-- 左侧导航   start -->
     <div>
       <ul class="nav">
-        <li class="active">直播详情</li>
-        <li>用户监控</li>
+        <li class="active status_0_li">直播详情</li>
+        <li class="status_0 status_2">用户监控</li>
         <li>互动设置</li>
-        <li>现场图片</li>
-        <li>文字实录</li>
-        <li>视频下载</li>
+        <li class="status_0">现场图片</li>
+        <li class="status_0">文字实录</li>
+        <li class="status_0 status_1">视频下载</li>
       </ul>
     </div>
     <!-- 左侧导航   end -->
@@ -62,7 +62,7 @@
               <p>会议名称</p>
               <div>
                 <span id="TalkName"></span>
-                <p onclick="ModifyName()">修改</p>
+                <p onclick="ModifyName()" class="status_2">修改</p>
               </div>
             </li>
             <li>
@@ -75,7 +75,7 @@
               <p>访谈场景</p>
               <div>
                 <span id="TalkScene"></span>
-                <p onclick="ModifyScene()">修改</p>
+                <p onclick="ModifyScene()" class="status_2">修改</p>
               </div>
             </li>
             <li>
@@ -96,7 +96,7 @@
               <p style="line-height: 35px;">本期嘉宾</p>
               <div id="speakerList">
                 <!-- <p class="guest">国家税务总局司长王思宇</p> -->
-                <div class="add" id="AddGuests">添加嘉宾</div>
+                <div class="add" id="AddGuests" class="status_2">添加嘉宾</div>
               </div>
             </li>
             <li style="height: 50px;margin-bottom: 40px;">
@@ -121,7 +121,7 @@
                 <p style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
-            <li>
+            <li class="status_1 status_2">
               <p> &nbsp; 视频</p>
               <div style="display: none">
                 <span>http://zxft.hntax.gov.cn/onfront</span>
@@ -135,7 +135,7 @@
         <!-- 点击确定修改 -->
         <div class="sure">
           <p>确定修改</p>
-          <p>转为在线访谈</p>
+          <p class="status_1 status_2">转为在线访谈</p>
         </div>
       </div>
       <!-- 直播详情  end -->
@@ -143,7 +143,7 @@
 
 
       <!-- 用户管理  start -->
-      <div class="menu">
+      <div class="menu status_0 status_2">
         <!-- 标题 -->
         <div class="title" style="margin-bottom:0">
           <p style="border: 0;padding-bottom: 20px;">用户管理
@@ -272,7 +272,7 @@
 
 
       <!-- 现场图片   start -->
-      <div class="menu">
+      <div class="menu status_0">
 
         <!-- 标题 -->
         <div class="title" style="margin-bottom: 0px;">
@@ -319,7 +319,7 @@
 
 
       <!-- 文字实录  start -->
-      <div class="menu">
+      <div class="menu status_0">
 
         <!-- 标题 -->
         <div class="title" style="margin-bottom: 0px;">
@@ -362,7 +362,7 @@
 
 
       <!-- 视频下载  start -->
-      <div class="menu">
+      <div class="menu status_0">
 
         <!-- 标题 -->
         <div class="title" style="margin-bottom: 0">
@@ -539,6 +539,51 @@
 
 
 
+<script>
+
+  var TheServer = 'http://192.168.0.71:8080';
+  var talkNum = localStorage.getItem("interviewId");
+  var status = localStorage.getItem("status");
+
+  
+  /**
+   * 访谈状态
+  */
+  
+  console.log('访谈状态 ======' ,status);
+
+  /**
+   * 根据不同的访谈状态，切换页面
+   */
+  if(status == 0){ // 访谈预告
+
+    $('.status_0').css('display','none');
+    
+    $('.status_0_li').text('预告详情设置');
+    var qq = $('.reply_editor');
+
+    for(var i = 0; i < qq.length; i ++){
+
+      qq.eq(i).css('display','none')
+
+    }
+
+
+  }else if(status == 1){ // 访谈直播中
+
+    $('.status_1').css('display','none');
+
+
+  }else if(status == 2){ // 访谈结束
+
+    $('.status_2').css('display','none');
+
+  }
+
+
+
+</script>
+
 
 
 </html>
@@ -546,7 +591,3 @@
 
 
 
-<script>
-
-
-</script>
