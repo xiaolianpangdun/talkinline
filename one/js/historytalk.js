@@ -76,11 +76,24 @@
                 }, {
                     field: 'as',
                     title: '操作',
-                    templet: '#edit',
+                    toolbar: '#edit',
                     unresize: true
                 }
             ]
         ],
     });
 
+
+    table.on('tool(historytalk)', function(obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+        var interviewId = obj.data.interviewId;
+        var status = obj.data.status;
+        if (layEvent === 'historytalkdetail') { //查看
+            window.localStorage.setItem("link", "two");
+            window.localStorage.setItem("interviewId", interviewId);
+            window.localStorage.setItem("status", status);
+            parent.location.reload();
+        }
+    });
 }();

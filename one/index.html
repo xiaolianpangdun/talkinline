@@ -83,7 +83,13 @@
                     layer = layui.layer,
                     $ = layui.$,
                     link = window.localStorage.getItem("link");
-
+                isLogin = window.localStorage.getItem("isLogin");
+                (function() {
+                    if (!isLogin) {
+                        layer.msg("您还没登录");
+                        window.location.href = "../login.html";
+                    }
+                })();
                 // 刷新之后 导航背景颜色还在
                 (function() {
                     if (link == "two") {

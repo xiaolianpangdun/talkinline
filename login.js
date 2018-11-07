@@ -2,6 +2,14 @@
 ! function() {
     var $ = layui.$,
         form = layui.form;
+    var name = window.localStorage.getItem("tkilname");
+    var upwd = window.localStorage.getItem("tkilupwd");
+    $(".uname").val(name);
+    $(".upwd").val(upwd);
+    if (upwd) {
+        $("#color-cb").prop("checked", true);
+        $(".ddd").addClass("checked");
+    }
     $(".uname,.upwd").focus(function(event) {
         $(this).css({
             "border-bottom": "1px solid #4F93FE"
@@ -15,7 +23,7 @@
     $("input[type='checkbox']").click(function() {
         var val = $("input[type='checkbox']:checked").val();
         console.log(val);
-        if (val == "123") {
+        if (val == "1") {
             $(".ddd").addClass("checked");
         } else {
             $(".ddd").removeClass("checked");
@@ -34,7 +42,20 @@
             url: ' http://192.168.0.71:8080/user/login',
             data: JSON.stringify({ username: username, password: password }),
             success: function(data) {
-                alert("提交成功");
+                // alert("提交成功");
+                if (data.code == "200") {
+                    layer.msg("登录成功");
+                    var val = $("input[type='checkbox']:checked").val();
+                    if (val == "1") {
+                        window.localStorage.setItem("tkilname", username);
+                        window.localStorage.setItem("tkilupwd", password);
+                    } else {
+                        window.localStorage.setItem("tkilname", username);
+                        window.localStorage.setItem("tkilupwd", "");
+                    }
+                } else {
+                    layer.msg("用户名或密码错误");
+                }
                 console.log(data);
             },
             error: function() {

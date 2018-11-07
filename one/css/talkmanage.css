@@ -158,6 +158,10 @@ div.line {
     color: #3199F7;
 }
 
+img.deleteguest {
+    cursor: pointer;
+}
+
 .select {
     height: 30px;
     line-height: 30px;
