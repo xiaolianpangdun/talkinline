@@ -545,6 +545,8 @@
    * 访谈状态
   */
 
+ var kind = localStorage.getItem("kind");
+
   var status = localStorage.getItem("status");
 
   console.log('访谈状态 ======' ,status);
@@ -553,24 +555,38 @@
   /**
    * 根据不同的访谈状态，切换页面
    */
-  if(status == 0){ // 访谈预告
+  if(kind == "talkmanage"){
 
-    $('.status_0').css('display','none');
-    
-    $('.status_0_li').text('预告详情设置');
-    var qq = $('.reply_editor');
+    if(status == 0){ // 访谈预告
 
-    for(var i = 0; i < qq.length; i ++){
+      $('.status_0').css('display','none');
 
-      qq.eq(i).css('display','none')
+      $('.status_0_li').text('预告详情设置');
+      var qq = $('.reply_editor');
+
+      for(var i = 0; i < qq.length; i ++){
+
+        qq.eq(i).css('display','none')
+
+      }
+
+    }else if(status == 1){ // 访谈直播中
+
+      $('.status_1').css('display','none');
+
+    }else if(status == 2 ){ // 访谈结束
+
+      $('.status_2').css('display','none');
+
+      $('#time1').removeAttr('id');
+      $('#time2').removeAttr('id');
+      $('.add').removeAttr('id');
+      $('.add').css('border','1px solid #CFCFCF');
+      $('.add').css('color','#CFCFCF');
 
     }
 
-  }else if(status == 1){ // 访谈直播中
-
-    $('.status_1').css('display','none');
-
-  }else if(status == 2){ // 访谈结束
+  }else if(kind == "history"){
 
     $('.status_2').css('display','none');
 
@@ -580,7 +596,8 @@
     $('.add').css('border','1px solid #CFCFCF');
     $('.add').css('color','#CFCFCF');
 
-  }
+  };
+  
 
 
 

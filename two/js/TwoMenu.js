@@ -13,6 +13,8 @@ $(function () {
   var talkNum = localStorage.getItem("interviewId");
 
   var status = localStorage.getItem("status");
+
+  var kind = localStorage.getItem("kind");
   
   console.log('访谈ID ======' ,talkNum);
 
@@ -757,11 +759,16 @@ $(function () {
   };
 
   // 判断访谈状态 只有在预告和直播中的时候才运行
-  if(status == 0 || status == 1){
+  if(kind == "talkmanage"){
 
-    GetList(currentPage);
+    if(status == 0 || status == 1){
 
-  }
+      GetList(currentPage);
+  
+    }
+
+  };
+  
 
   layui.use('laypage', function(){
     var laypage = layui.laypage;
@@ -816,55 +823,57 @@ $(function () {
           var speak = localStorage.getItem("Speak");
           var speaker = JSON.parse(speak);
           
-          if(status == 2){
-            replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
-            replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
-            replys += '</div>';
-            replys += '<div class="reply_main-right">'
-            replys += '<div class="reply_main_top questions_left">';
-            replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
-            replys += '<span>' + obj.comment.updateTime + '</span>';
-            replys += '</p>'
-            replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
-            replys += '</div>';
-            replys += '<div class="reply_main_bottom questions_left">';
-            replys += '<p style="color: #3199F7;font-size: 16px;">';
-            replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
-            replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
-            replys += '<span>' + obj.reply.updateTime + '</span>';
-            replys += '</p>';
-            replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
-            replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
-            replys += '</div>';
-            replys += '</div>';
-            replys += '</div>';
-          }else{
+          if(kind == "history"){
 
-            replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
-            replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
-            replys += '</div>';
-            replys += '<div class="reply_main-right">'
-            replys += '<div class="reply_main_top questions_left">';
-            replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
-            replys += '<span>' + obj.comment.updateTime + '</span>';
-            replys += '</p>'
-            replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
-            replys += '</div>';
-            replys += '<div class="reply_main_bottom questions_left">';
-            replys += '<p style="color: #3199F7;font-size: 16px;">';
-            replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
-            replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
-            replys += '<span>' + obj.reply.updateTime + '</span>';
-            replys += '</p>';
-            replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
-            //replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
-            replys += '</div>';
-            replys += '</div>';
-            replys += '</div>';
+            if(status == 2){
+              replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
+              replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
+              replys += '</div>';
+              replys += '<div class="reply_main-right">'
+              replys += '<div class="reply_main_top questions_left">';
+              replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
+              replys += '<span>' + obj.comment.updateTime + '</span>';
+              replys += '</p>'
+              replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
+              replys += '</div>';
+              replys += '<div class="reply_main_bottom questions_left">';
+              replys += '<p style="color: #3199F7;font-size: 16px;">';
+              replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
+              replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
+              replys += '<span>' + obj.reply.updateTime + '</span>';
+              replys += '</p>';
+              replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
+              replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
+              replys += '</div>';
+              replys += '</div>';
+              replys += '</div>';
+            }else{
+  
+              replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
+              replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
+              replys += '</div>';
+              replys += '<div class="reply_main-right">'
+              replys += '<div class="reply_main_top questions_left">';
+              replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
+              replys += '<span>' + obj.comment.updateTime + '</span>';
+              replys += '</p>'
+              replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
+              replys += '</div>';
+              replys += '<div class="reply_main_bottom questions_left">';
+              replys += '<p style="color: #3199F7;font-size: 16px;">';
+              replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
+              replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
+              replys += '<span>' + obj.reply.updateTime + '</span>';
+              replys += '</p>';
+              replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
+              //replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
+              replys += '</div>';
+              replys += '</div>';
+              replys += '</div>';
+  
+            }
 
           }
-          
-
           
 
           //console.log(speak[0].name);
@@ -1758,6 +1767,9 @@ $(function () {
         console.log('选中的id ========= ',intTDelece);
         console.log('选中的下标 ========= ',DeleceInx);
 
+        
+
+
         // for(var i = 0;i < DeleceInx.length; i ++){
 
         //   $('.record').eq(i).css('display','none')
@@ -1779,15 +1791,11 @@ $(function () {
             console.log(data);
             if(data.code == 200){
 
-              console.log('执行了');
-
-              console.log( $('.record'));
-
-              for(var i = 0;i < DeleceInx.length; i ++){
+              $.each(DeleceInx,function(i,obj){
 
                 $('.record').eq(i).css('display','none')
-
-              }
+      
+              });
 
             }
 
