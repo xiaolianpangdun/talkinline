@@ -19,15 +19,15 @@
     //     })
     //     return false;
     // }
-    (function() {
+    function pagecurrent(pagenum) {
         $.ajax({
             type: "get",
             // dataType: "json",
-            url: ' http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10',
+            url: ' http://192.168.0.71:8080/interview/list?currentPage=' + pagenum + '&pageSize=10',
             // data: { username: username, password: password },
             success: function(data) {
                 // alert("提交成功");
-                console.log(data);
+                // console.log(data);
                 var count = data.result.total;
                 // 分页器
                 var laypage = layui.laypage;
@@ -38,12 +38,15 @@
                     count: count,
                     prev: "<<上一页",
                     next: "下一页>>",
+                    curr: location.hash.replace('#!pagenum=', pagenum),
+                    hash: 'pagenum',
                     theme: '#4597E0',
                     limit: 10,
                     jump: function(obj, first) {
                         //obj包含了当前分页的所有参数，比如：
                         var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
                             limit = obj.limit; //得到每页显示的条数
+                        window.localStorage.setItem("pagenum", curr);
                         table.reload('tbtalkmanage', {
                                 url: 'http://192.168.0.71:8080/interview/list?currentPage=' + curr + '&pageSize=10'
                             })
@@ -55,11 +58,11 @@
                 });
             },
             error: function() {
-                alert("抱歉");
+                layer.msg("服务器繁忙,请刷新重试！");
             }
         });
-    })();
-
+    };
+    pagecurrent(1);
     // 点击添加嘉宾弹框
     $(".addguest").click(function() {
         var that = $(this);
@@ -88,6 +91,9 @@
                 $("input.guestname").val("");
                 $("#addguest").hide();
                 layer.close(index);
+            },
+            end: function() {
+                $("#addguest").hide();
             }
         });
     });
@@ -191,9 +197,18 @@
                         var description = $("#addinlinetalk .talkintro").val();
                         var guests = document.getElementsByClassName("guestlists");
                         var speakername = [];
-                        for (var i = 0; i < guests.length; i++) {
+                        var length = guests.length;
+                        console.log(length);
+                        for (var i = 0; i < length; i++) {
                             speakername.push(guests[i].innerHTML);
                         }
+                        if (!name) { layer.msg("请输入访谈名称"); return false; }
+                        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
+                        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
+                        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
+                        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
+                        if (!description) { layer.msg("请输入访谈简介"); return false; }
+                        if (!type) { layer.msg("请选择访谈场景"); return false; }
                         $.ajax({
                             type: 'post',
                             // contentType: 'application/form-data;charset=utf-8',
@@ -219,7 +234,6 @@
                     },
                     end: function() {
                         $("#addinlinetalk").hide();
-                        // 无论是确认还是取消，只要层被销毁了，end都会执行，不携带任何参数。
                     }
                 });
             },
@@ -242,15 +256,20 @@
                         var compere = $("#addadvance input.compere").val();
                         var description = $("#addadvance .talkintro").val();
                         var guests = document.getElementsByClassName("guestlists");
+                        var length = guests.length;
                         var file1 = $("#addadvance input[id='beforefileUp']")[0].files[0];
                         var file2 = $("#addadvance input[id='afterfileUp']")[0].files[0];
                         var speakername = [];
-                        console.log($("#addadvance input[type=file]")[0].files);
-                        for (var i = 0; i < guests.length; i++) {
+                        console.log(file1, file2);
+                        for (var i = 0; i < length; i++) {
                             speakername.push(guests[i].innerHTML);
                         }
-                        console.log(file1, file2);
-                        // var file = upfilename;
+                        if (!name) { layer.msg("请输入访谈名称"); return false; }
+                        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
+                        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
+                        if (!description) { layer.msg("请输入访谈简介"); return false; }
+                        if (!type) { layer.msg("请选择访谈场景"); return false; }
+                        if (type == 1 && file == "") { layer.msg("请上传访谈视频"); return false; }
                         var data = {
                             speakername: speakername,
                             status: 0,
@@ -510,6 +529,8 @@
                             url: 'http://192.168.0.71:8080/interview/remove?id=' + interviewId,
                             success: function() {
                                 table.reload('tbtalkmanage');
+                                var pagenum = window.localStorage.getItem("pagenum");
+                                pagecurrent(pagenum);
                                 layer.close(index);
                             },
                             error: function() {

@@ -4,7 +4,8 @@
         form = layui.form;
     var name = window.localStorage.getItem("tkilname");
     var upwd = window.localStorage.getItem("tkilupwd");
-    $(".uname").val(name);
+    if (name)
+        $(".uname").val(name);
     $(".upwd").val(upwd);
     if (upwd) {
         $("#color-cb").prop("checked", true);
@@ -53,13 +54,15 @@
                         window.localStorage.setItem("tkilname", username);
                         window.localStorage.setItem("tkilupwd", "");
                     }
+                    window.localStorage.setItem("isLogin", true);
+                    window.location.href = "./one/index.html";
                 } else {
                     layer.msg("用户名或密码错误");
                 }
-                console.log(data);
+                // console.log(data);
             },
             error: function() {
-                alert("抱歉");
+                layer.msg("服务器繁忙，请稍后再试");
             }
         });
     });
