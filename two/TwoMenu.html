@@ -53,7 +53,7 @@
       <div class="menu" style="display: block">
         <!-- 标题 -->
         <div class="title">
-          <p>直播详情</p>
+          <p class="title_0">直播详情</p>
         </div>
         <!-- 信息 -->
         <div class="main">
@@ -106,7 +106,7 @@
                 <p onclick="BriefIntroduction()">编辑</p>
               </div>
             </li>
-            <li>
+            <li class="status_0">
               <p>推流地址</p>
               <div>
                 <span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2</span>
@@ -114,7 +114,7 @@
                 <p style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
-            <li>
+            <li class="status_0">
               <p>访问地址</p>
               <div>
                 <span>http://zxft.hntax.gov.cn/onfront</span>
@@ -122,8 +122,8 @@
               </div>
             </li>
             <li class="status_1 status_2">
-              <p> &nbsp; 视频</p>
-              <div style="display: none">
+              <p class="video_0"></p>
+              <div>
                 <span>http://zxft.hntax.gov.cn/onfront</span>
                 <p>重新上传</p>
                 <p style="color: #FF5500">删除</p>
@@ -370,10 +370,7 @@
         </div>
 
         <div class="operation">
-          <!-- <button type="button" class="layui-btn" id="VedioUpdata">
-            <i class="layui-icon">&#xe67c;</i>上传图片
-          </button> -->
-          <input type="file" id="VedioUpdata" name="files">
+          <input type="file" id="VedioUpdata" name="files">上传视频
         </div>
         <div class="vedio">
           <P style="margin: 0;width: 42%">
@@ -547,7 +544,7 @@
 
  var kind = localStorage.getItem("kind");
 
-  var status = localStorage.getItem("status");
+var status = localStorage.getItem("status");
 
   console.log('访谈状态 ======' ,status);
   
@@ -561,6 +558,8 @@
 
       $('.status_0').css('display','none');
 
+      $('.title_0').text('预告详情');
+
       $('.status_0_li').text('预告详情设置');
       var qq = $('.reply_editor');
 
@@ -568,6 +567,13 @@
 
         qq.eq(i).css('display','none')
 
+      }
+
+      // 通过选择的是哪个直播方式，改变文字
+      if($('#TalkScene').text('图文直播')){
+        $('.video_0').text('图片');
+      }else if($('#TalkScene').text('视频直播')){
+        $('.video_0').text('视频');
       }
 
     }else if(status == 1){ // 访谈直播中
@@ -595,6 +601,8 @@
     $('.add').removeAttr('id');
     $('.add').css('border','1px solid #CFCFCF');
     $('.add').css('color','#CFCFCF');
+
+    
 
   };
   

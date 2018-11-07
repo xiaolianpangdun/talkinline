@@ -391,10 +391,10 @@ body{
   background: #E8EFF1;
 }
 .imagess_main{
-  width: 100%;
-  height: 100%;
-  background: url('../../img/image.png');
-  background-size: 100% 100%;
+  width: 210px;
+  height: 120px;
+  /* background: url('../../img/image.png'); */
+  background-size: 100%;
 }
 .picture_img{
   position: relative;
@@ -405,7 +405,7 @@ body{
   left: 5px;
   top: 5px;
 }
-.upimage{
+.upimage,.operation{
   position: relative;
   display: inline-block;
   background: #3199F7;
@@ -418,7 +418,7 @@ body{
   margin-top: 11px;
   text-align: center;
 }
-#updata{
+#updata,#VedioUpdata{
   position: absolute;
   font-size: 100px;
   right: 0;
@@ -616,26 +616,7 @@ body{
 
 /* 视频下载 */
 .operation{
-  width: 95%;
-  height: 52px;
-  border-top: 1px solid #E6EEF5;
-  border-bottom: 1px solid #E6EEF5;
   margin-left: 30px;
-}
-.operation input{
-  width: 92px;
-  height: 28px;
-  background-color: #3199F7;
-  text-align: center;
-  line-height: 28px;
-  color: #fff;
-  border-radius: 2px;
-  margin-top: 12px;
-  font-size: 14px;
-  cursor: pointer;
-  /* opacity: 1;
-  -ms-filter: 'alpha(opacity=0)'; */
-
 }
 .vedio{
   width: 95%;
