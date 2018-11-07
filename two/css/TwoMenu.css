@@ -146,17 +146,18 @@ body{
   width: 200px;
   height: 46px;
   line-height: 46px;
-  color: rgba(255,255,255,.5);
+  color: rgb(255,255,255);
   background: #3199F7;
   margin-left: 36px;
   text-align: center;
   font-size: 16px;
   display: inline-block;
+  cursor: pointer;
 }
 .sure{
   position: fixed;
   bottom: 10px;
-  right: 20%;
+  right: 30%;
 }
 
 .active{

@@ -87,16 +87,16 @@
             <li style="line-height: 35px;margin-bottom: 18px">
               <p>访谈时间</p>
               <div>
-                <div class="time" id="time1"></div>
+                <div class="time time1" id="time1"></div>
                 <span style="float: left;margin: 0 10px;">至</span>
-                <div class="time" id="time2"></div>
+                <div class="time time2" id="time2"></div>
               </div>
             </li>
             <li style="margin-bottom: 18px;">
               <p style="line-height: 35px;">本期嘉宾</p>
               <div id="speakerList">
                 <!-- <p class="guest">国家税务总局司长王思宇</p> -->
-                <div class="add" id="AddGuests" class="status_2">添加嘉宾</div>
+                <div class="add" id="AddGuests">添加嘉宾</div>
               </div>
             </li>
             <li style="height: 50px;margin-bottom: 40px;">
@@ -194,7 +194,7 @@
         </div>
 
         <!-- 菜单切换 -->
-        <div class="interaction">
+        <div class="interaction status_2">
           <ul>
             <li class="item3_active">网友提问</li>
             <li>审核回复</li>
@@ -333,7 +333,7 @@
               <p style="background: #FF5500;" id="TextDelece">删除</p>
               <p style="background: #9FB1C0" id="TextCancel">取消</p>
             </div>
-            <div class="conference" style="width: 148px;">实时录入会议内容</div>
+            <div class="conference status_2" style="width: 148px;">实时录入会议内容</div>
           </div>
           <div id="TextList" style="height: 580px;overflow-y: scroll"></div>
           <!-- <div class="record">
@@ -541,16 +541,14 @@
 
 <script>
 
-  var TheServer = 'http://192.168.0.71:8080';
-  var talkNum = localStorage.getItem("interviewId");
-  var status = localStorage.getItem("status");
-
-  
   /**
    * 访谈状态
   */
-  
+
+  var status = localStorage.getItem("status");
+
   console.log('访谈状态 ======' ,status);
+  
 
   /**
    * 根据不同的访谈状态，切换页面
@@ -568,15 +566,19 @@
 
     }
 
-
   }else if(status == 1){ // 访谈直播中
 
     $('.status_1').css('display','none');
 
-
   }else if(status == 2){ // 访谈结束
 
     $('.status_2').css('display','none');
+
+    $('#time1').removeAttr('id');
+    $('#time2').removeAttr('id');
+    $('.add').removeAttr('id');
+    $('.add').css('border','1px solid #CFCFCF');
+    $('.add').css('color','#CFCFCF');
 
   }
 

@@ -5,12 +5,18 @@ $(function () {
    * 
    * 访谈id
    * 
+   * 访谈状态
+   * 
    */
   var TheServer = 'http://192.168.0.71:8080';
 
   var talkNum = localStorage.getItem("interviewId");
+
+  var status = localStorage.getItem("status");
   
   console.log('访谈ID ======' ,talkNum);
+
+  console.log('访谈状态 ======' ,status);
   
 
 
@@ -129,8 +135,8 @@ $(function () {
         $('#TalkScene').text('图文直播');
       }
       $('#compere').text(data.result.compere);
-      $('#time1').text(data.result.beginTime);
-      $('#time2').text(data.result.endTime);
+      $('.time1').text(data.result.beginTime);
+      $('.time2').text(data.result.endTime);
       $('#text_brief').text(data.result.description);
 
     },
@@ -479,6 +485,8 @@ $(function () {
 
 
   // 互动设置  ===== 网友提问
+
+  
   var currentPage = 1;
 
   var GetList = function(currentPage){
@@ -748,7 +756,12 @@ $(function () {
     });
   };
 
-  GetList(currentPage);
+  // 判断访谈状态 只有在预告和直播中的时候才运行
+  if(status == 0 || status == 1){
+
+    GetList(currentPage);
+
+  }
 
   layui.use('laypage', function(){
     var laypage = layui.laypage;
@@ -773,8 +786,6 @@ $(function () {
       }
     });
   });
-  
-  
 
   
   // 互动设置  ===== 审核回复
@@ -798,10 +809,6 @@ $(function () {
         console.log(replyList);
         var replys = '';
 
-        
-        // console.log(speak[0]);
-        // console.log(speaker);
-
         $.each(replyList, function (i, obj) {
           console.log('审核回复的数据 ============ ', replyList)
 
@@ -809,28 +816,54 @@ $(function () {
           var speak = localStorage.getItem("Speak");
           var speaker = JSON.parse(speak);
           
-  
-          replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
-          replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
-          replys += '</div>';
-          replys += '<div class="reply_main-right">'
-          replys += '<div class="reply_main_top questions_left">';
-          replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
-          replys += '<span>' + obj.comment.updateTime + '</span>';
-          replys += '</p>'
-          replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
-          replys += '</div>';
-          replys += '<div class="reply_main_bottom questions_left">';
-          replys += '<p style="color: #3199F7;font-size: 16px;">';
-          replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
-          replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
-          replys += '<span>' + obj.reply.updateTime + '</span>';
-          replys += '</p>';
-          replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
-          replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
-          replys += '</div>';
-          replys += '</div>';
-          replys += '</div>';
+          if(status == 2){
+            replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
+            replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
+            replys += '</div>';
+            replys += '<div class="reply_main-right">'
+            replys += '<div class="reply_main_top questions_left">';
+            replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
+            replys += '<span>' + obj.comment.updateTime + '</span>';
+            replys += '</p>'
+            replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
+            replys += '</div>';
+            replys += '<div class="reply_main_bottom questions_left">';
+            replys += '<p style="color: #3199F7;font-size: 16px;">';
+            replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
+            replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
+            replys += '<span>' + obj.reply.updateTime + '</span>';
+            replys += '</p>';
+            replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
+            replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
+            replys += '</div>';
+            replys += '</div>';
+            replys += '</div>';
+          }else{
+
+            replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
+            replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
+            replys += '</div>';
+            replys += '<div class="reply_main-right">'
+            replys += '<div class="reply_main_top questions_left">';
+            replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
+            replys += '<span>' + obj.comment.updateTime + '</span>';
+            replys += '</p>'
+            replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
+            replys += '</div>';
+            replys += '<div class="reply_main_bottom questions_left">';
+            replys += '<p style="color: #3199F7;font-size: 16px;">';
+            replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
+            replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
+            replys += '<span>' + obj.reply.updateTime + '</span>';
+            replys += '</p>';
+            replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
+            //replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
+            replys += '</div>';
+            replys += '</div>';
+            replys += '</div>';
+
+          }
+          
 
           
 
@@ -860,98 +893,103 @@ $(function () {
           }
   
         });
-  
-  
-        // 点击编辑
-        $('.reply_editor').click(function () {
-  
-          // 获取现在点击的元素的序号
-          var nowreply = $(this).parent().parent().parent().index();
-  
-          // 通过下标找到当前的数据
-          var nowlist = replyList[nowreply];
-          console.log('当前下标 =========', nowreply);
-          console.log('当前下标对应的数据 ==========', nowlist);
-  
-          // 渲染到刚打开的弹框
-          $('.001 p').text(nowlist.comment.visitor);
-          $('#names_01').val(nowlist.comment.content);
-  
-          $('.002 p').text(nowlist.reply.speakerId);
-          $('#names_02').val(nowlist.reply.content);
-  
-  
-          $('.ReplyEditor').css("display", "block");
-  
-          layer.open({
-            type: 1,
-            area: ['700px', ''],
-            title: ['', 'background: #fff;border:0'],
-            btn: ['确定', '取消'],
-            skin: 'my-skin',
-            btnAlign: 'c',
-            content: $('.ReplyEditor'),
-            cancel: function (index, layero) {
-              $('.ReplyEditor').css("display", "none");
-            },
-            yes: function (index, layero) {
-  
-              var commentId = nowlist.comment.commentId;
-              var commentContent = $('#names_01').val();
-              var replyId = nowlist.reply.replyId;
-              var replyContent = $('#names_02').val();
-  
-              console.log('评论ID =========', commentId);
-              console.log('评论内容 =========', commentContent);
-              console.log('回复ID =========', replyId);
-              console.log('回复内容 =========', replyContent);
-  
-              $.ajax({
-                url: TheServer + '/comments/edit',
-                type: 'POST',
-                dataType: 'json',
-                async: true,    //或false,是否异步
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify({
-                  commentId: commentId,
-                  commentContent: commentContent,
-                  replyId: replyId,
-                  replyContent: replyContent
-                }),
-                success: function (data, textStatus, jqXHR) {
-  
-                  console.log(data);
-  
-                  if (data.code == 200) {
-                    $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
-                    $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
+        
+        // 访谈状态  是历史访谈的时候才执行
+        if(status == 2){
+
+          // 点击编辑
+          $('.reply_editor').click(function () {
+    
+            // 获取现在点击的元素的序号
+            var nowreply = $(this).parent().parent().parent().index();
+    
+            // 通过下标找到当前的数据
+            var nowlist = replyList[nowreply];
+            console.log('当前下标 =========', nowreply);
+            console.log('当前下标对应的数据 ==========', nowlist);
+    
+            // 渲染到刚打开的弹框
+            $('.001 p').text(nowlist.comment.visitor);
+            $('#names_01').val(nowlist.comment.content);
+    
+            $('.002 p').text(nowlist.reply.speakerId);
+            $('#names_02').val(nowlist.reply.content);
+    
+    
+            $('.ReplyEditor').css("display", "block");
+    
+            layer.open({
+              type: 1,
+              area: ['700px', ''],
+              title: ['', 'background: #fff;border:0'],
+              btn: ['确定', '取消'],
+              skin: 'my-skin',
+              btnAlign: 'c',
+              content: $('.ReplyEditor'),
+              cancel: function (index, layero) {
+                $('.ReplyEditor').css("display", "none");
+              },
+              yes: function (index, layero) {
+    
+                var commentId = nowlist.comment.commentId;
+                var commentContent = $('#names_01').val();
+                var replyId = nowlist.reply.replyId;
+                var replyContent = $('#names_02').val();
+    
+                console.log('评论ID =========', commentId);
+                console.log('评论内容 =========', commentContent);
+                console.log('回复ID =========', replyId);
+                console.log('回复内容 =========', replyContent);
+    
+                $.ajax({
+                  url: TheServer + '/comments/edit',
+                  type: 'POST',
+                  dataType: 'json',
+                  async: true,    //或false,是否异步
+                  contentType: 'application/json;charset=utf-8',
+                  data: JSON.stringify({
+                    commentId: commentId,
+                    commentContent: commentContent,
+                    replyId: replyId,
+                    replyContent: replyContent
+                  }),
+                  success: function (data, textStatus, jqXHR) {
+    
+                    console.log(data);
+    
+                    if (data.code == 200) {
+                      $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
+                      $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
+                    }
+    
+                  },
+                  error: function (xhr, textStatus) {
+                    // console.log('错误')
+                    // console.log(xhr)
+                    // console.log(textStatus)
+                  },
+                  complete: function () {
+                    // console.log('结束')
                   }
-  
-                },
-                error: function (xhr, textStatus) {
-                  // console.log('错误')
-                  // console.log(xhr)
-                  // console.log(textStatus)
-                },
-                complete: function () {
-                  // console.log('结束')
-                }
-              })
-  
-              layer.close(index);
-              $('.ReplyEditor').css("display", "none");
-  
-            },
-            btn2: function (index, layero) {
-              // 取消按钮
-              layer.close(index);
-              $('.ReplyEditor').css("display", "none");
-  
-  
-            },
+                })
+    
+                layer.close(index);
+                $('.ReplyEditor').css("display", "none");
+    
+              },
+              btn2: function (index, layero) {
+                // 取消按钮
+                layer.close(index);
+                $('.ReplyEditor').css("display", "none");
+    
+    
+              },
+            });
+    
           });
-  
-        });
+
+        }
+        
   
       },
       error: function (xhr, textStatus) {
