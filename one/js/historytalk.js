@@ -93,6 +93,7 @@
             window.localStorage.setItem("link", "two");
             window.localStorage.setItem("interviewId", interviewId);
             window.localStorage.setItem("status", status);
+            window.localStorage.setItem("kind", "history");
             parent.location.reload();
         }
     });

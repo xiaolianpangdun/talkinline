@@ -55,6 +55,7 @@
                         window.localStorage.setItem("tkilupwd", "");
                     }
                     window.localStorage.setItem("isLogin", true);
+                    window.localStorage.setItem("link", "talkmanage");
                     window.location.href = "./one/index.html";
                 } else {
                     layer.msg("用户名或密码错误");
