@@ -120,7 +120,7 @@ body{
   margin-left: 32px;
   cursor: pointer;
 }
-.main ul li>div>.guest{
+.main ul li>div>.guest_list>.guest{
   padding: 9px 12px;
   background: #E6EEF5;
   margin-right: 20px;
@@ -128,6 +128,9 @@ body{
   color: #000;
   display: inline-block
   /* cursor: none; */
+}
+.guest_list{
+  display: inline-block;
 }
 .add{
   display: inline-block;
@@ -474,7 +477,7 @@ body{
 }
 
 /* 弹框 */
-.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response,.interaction_delete_2{
+.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response,.interaction_delete_2,.conversion{
   display: none;
 }
 .modify_name,.modify_scene,#add_guest,.brief_introduction,.text_record_edit{
@@ -538,12 +541,12 @@ body{
 .image{
   background-image: url(../../img/se.png);
 }
-.interaction_delete,.interaction_shield,.picture_delece,.text_delece,.interaction_delete_2{
+.interaction_delete,.interaction_shield,.picture_delece,.text_delece,.interaction_delete_2,.conversion{
   width: 100%;
   text-align: center;
   font-size: 24px;
 }
-.interaction_delete img,.interaction_shield img,.picture_delece img,.text_delece img,.interaction_delete_2 img{
+.interaction_delete img,.interaction_shield img,.picture_delece img,.text_delece img,.interaction_delete_2 img,.conversion img{
   margin-top: 20px;
   margin-bottom: 32px;
 }

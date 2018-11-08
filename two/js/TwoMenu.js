@@ -54,9 +54,6 @@ $(function () {
   $('#time2').jeDate(end);
 
 
-  
-
-
 
   /**
    * 切换页面
@@ -89,11 +86,6 @@ $(function () {
 
     $(".menu").hide().eq(index).show();
   }
-
-
-
-
-
 
   /**
    * 
@@ -133,40 +125,77 @@ $(function () {
           // 直播详情的数据渲染
           $('#TalkName').text(data.result.name);
           $('#TalkNumber').text(data.result.interviewId);
-    
-          // 访谈id  缓存到本地
-          var interviewId = data.result.interviewId;
-          //localStorage.setItem("interviewId", interviewId);
-    
-    
-          if (data.result.type == 0) {
-            $('#TalkScene').text('视频直播');
-          } else if (data.result.type == 1) {
-            $('#TalkScene').text('图文直播');
+
+          if (data.result.status == 0) {
+
+            if(data.result.type == 0){
+              $('#TalkScene').text('视频预告');
+              $('#conversion').text('转为在线视频访谈');
+            }else if(data.result.type == 1){
+              $('#TalkScene').text('图文预告');
+              $('#conversion').text('转为在线图文访谈');
+            }
+            
+          } else if (data.result.status == 1) {
+
+            if (data.result.type == 0) {
+              $('#TalkScene').text('视频直播');
+            } else if (data.result.type == 1) {
+              $('#TalkScene').text('图文直播');
+            }
+            
+          }else if(data.result.status == 2){
+
+            if (data.result.type == 0) {
+              $('#TalkScene').text('视频直播');
+            } else if (data.result.type == 1) {
+              $('#TalkScene').text('图文直播');
+            }
+
           }
+          
           $('#compere').text(data.result.compere);
           $('.time1').text(data.result.beginTime);
           $('.time2').text(data.result.endTime);
           $('#text_brief').text(data.result.description);
 
-          
+          // 预告详情里面的 上传图文和视频
+          if( $('.video_0').text('图片') ){
 
-          if(data.result.prePicUrl == null || data.result.preVideoUrl == null){
+            if(data.result.prePicUrl != null){
+
+              $('.vedio_link').text(data.result.prePicUrl);
+
+              $('.uplink').text('重新上传');
+
+            }else if(data.result.prePicUrl == null){
+
+              $('.vedio_link').text('无文件/');
+
+              $('.uplink').text('请上传图片文件');
+
+            }
 
             
+          }else if( $('.video_0').text('视频') ){
 
-          }else{
 
-            if( $('.video_0').text('图片') ){
+            if(data.result.preVideoUrl != null){
 
-              
+              $('.vedio_link').text(data.result.preVideoUrl);
+              $('.uplink').text('重新上传');
 
-            }else if( $('.video_0').text('视频') ){
+            }else if(data.result.preVideoUrl == null){
 
-            };
+              $('.vedio_link').text('无文件/');
 
-          }
-    
+              $('.uplink').text('请上传视频文件');
+
+
+            }
+
+          };
+
 
         }
   
@@ -210,7 +239,10 @@ $(function () {
         $.each(data.result, function (i, obj) {
           select += '<option value="">' + obj.name + '</option>';
           
-          str += '<p class="guest">' + obj.name + '</P>';
+          str += '<p class="guest">';
+          str += '<span>'+obj.name+'</span>';
+          str += '<img src="'+'../img/cancel_02.png'+'" alt="" style="margin-left: 10px;margin-top: -3px;" class="removes"></p>'
+
   
           TextSe += '<option value="'+obj.speakerId+'">' + obj.name + '</option>';
   
@@ -219,9 +251,20 @@ $(function () {
         });
   
         $("#select_guest").append(select);
-        $('.add').before(str);
+        $('.guest_list').html(str);
         $("#text_s").html(TextSe);
         $("#text_ss").html(Test);
+
+        $('.removes').click(function(){
+
+          var remove_inx = $(this).parent().index();
+
+          console.log(remove_inx);
+
+          $('.guest').eq(remove_inx).remove();
+
+        });
+
       },
       error: function (xhr, textStatus) {
       },
@@ -246,14 +289,39 @@ $(function () {
 
     //console.log(detail);
 
-    if (type_num == 0) {
-      $('#TalkScene').text('视频直播');
-      $('.video_0').text('视频');
+    if(kind == "talkmanage"){
 
-    } else if (type_num == 1) {
-      $('#TalkScene').text('图文直播');
-      $('.video_0').text('图片');
+      if(status == 0){
+
+        if (type_num == 0) {
+          $('#TalkScene').text('视频预告');
+          $('.video_0').text('视频');
+          $('#conversion').text('转为在线视频访谈');
+    
+        } else if (type_num == 1) {
+          $('#TalkScene').text('图文预告');
+          $('.video_0').text('图片');
+          $('#conversion').text('转为在线图文访谈');
+        }
+
+      }else if(status == 1){
+
+        if (type_num == 0) {
+          $('#TalkScene').text('视频直播');
+          $('.video_0').text('视频');
+    
+        } else if (type_num == 1) {
+          $('#TalkScene').text('图文直播');
+          $('.video_0').text('图片');
+        }
+
+      }
+
+      
+
     }
+
+    
 
 
   });
@@ -292,10 +360,24 @@ $(function () {
 
           // 添加到html上面
           var guests = '';
-          guests += '<p class="guest">' + speakername + '</P>'
-          $('.add').before(guests);
+
+          guests += '<p class="guest">';
+          guests += '<span>'+speakername+'</span>';
+          guests += '<img src="'+'../img/cancel_02.png'+'" alt="" style="margin-left: 10px;margin-top: -3px;" class="removes"></p>'
+
+          $('.guest_list').append(guests);
 
           $('#Adds').val('');
+
+          $('.removes').click(function(){
+
+            var remove_inx = $(this).parent().index();
+
+            console.log(remove_inx);
+
+            $('.guest').eq(remove_inx).remove();
+
+          });
 
         }
 
@@ -311,7 +393,7 @@ $(function () {
   });
 
   // 直播详情 =========== 修改里面的内容 （会议名称、访谈场景、访谈时间、会议简介）
-  $('.sure').click(function () {
+  $('.ascertaining_modification').click(function () {
 
     var talkname = $('#TalkName').text();
     var talktype = $('#TalkScene').text();
@@ -332,8 +414,17 @@ $(function () {
 
     for(var i = 0; i < AddText.length; i ++){
 
-      AddSpeaker.push(AddText[i].innerHTML);
+      var guest_text = AddText.eq(i).children('span');
+      console.log(guest_text);
 
+      for(var o = 0; o < guest_text.length; o ++){
+
+        AddSpeaker.push(guest_text[o].innerHTML);
+
+
+      }
+
+      
     };
 
     console.log("会议名称 ========= ", talkname);
@@ -362,6 +453,8 @@ $(function () {
         console.log(data)
         if(data.code == 200){
           //DirectSeedingDetails();
+          // 再次调嘉宾列表
+          ADD();
         };
       },
       error: function (xhr, textStatus) {
@@ -370,6 +463,156 @@ $(function () {
       }
     })
 
+
+  });
+
+  // 直播详情 ====== 上传视频
+  $('.uplink').click(function(){
+
+
+
+  });
+
+
+  // 直播详情 ====== 转为在线访谈
+  $('#conversion').click(function(){
+
+    
+
+    if( $('#TalkScene').text() == '视频预告' ){
+
+      console.log('执行了');
+
+      var Details = localStorage.getItem("Details");
+      var detail = JSON.parse(Details);
+      console.log(detail);
+
+      if( detail.preVideoUrl != null ){
+
+        $('.conversion p').text('是否确认将访谈预告转为在线视频访谈')
+
+        $('.conversion').css("display", "block");
+
+        layer.open({
+          type: 1,
+          area: ['480px', '360px'],
+          title: ['', 'background: #fff;border:0'],
+          btn: ['确定', '取消'],
+          skin: 'my-skin',
+          btnAlign: 'c',
+          content: $('.conversion'),
+          cancel: function (index, layero) {
+            $('.conversion').css("display", "none");
+          },
+          yes: function (index, layero) {
+
+            $.ajax({
+              url: TheServer + '/interview/edit',
+              type: 'POST',
+              dataType: 'json',
+              async: true,
+              traditional: true,    //或false,是否异步
+              data: {
+                interviewId: talkNum,
+                status: 1,
+                type: 0
+              },
+              success: function (data, textStatus, jqXHR){
+                console.log(data);
+                if(data.code == 200){
+
+                  DirectSeedingDetails();
+
+                  
+                };
+              },
+            });
+
+            layer.close(index);
+            $('.conversion').css("display", "none");
+    
+          },
+          btn2: function (index, layero) {
+            // 取消
+            layer.close(index);
+            $('.conversion').css("display", "none");
+
+          },
+        });
+
+        
+
+      }else{
+
+        alert('要转为在线直播视频的话，得先上传预告视频');
+
+      }
+
+    }else if($('#TalkScene').text() == '图文预告'){
+
+      $('.conversion p').text('是否确认将访谈预告转为在线视频访谈')
+
+        $('.conversion').css("display", "block");
+
+        layer.open({
+          type: 1,
+          area: ['480px', '360px'],
+          title: ['', 'background: #fff;border:0'],
+          btn: ['确定', '取消'],
+          skin: 'my-skin',
+          btnAlign: 'c',
+          content: $('.conversion'),
+          cancel: function (index, layero) {
+            $('.conversion').css("display", "none");
+          },
+          yes: function (index, layero) {
+
+            $.ajax({
+              url: TheServer + '/interview/edit',
+              type: 'POST',
+              dataType: 'json',
+              async: true,
+              traditional: true,    //或false,是否异步
+              data: {
+                interviewId: talkNum,
+                status: 1,
+                type: 1
+              },
+              success: function (data, textStatus, jqXHR){
+                console.log(data);
+      
+                if(data.code == 200){
+      
+                  DirectSeedingDetails();
+
+                  $('#conversion').css('display','none');
+
+                  $('.nav li.status_0').removeClass('status_0').css('display','block');
+
+                  $('.ddd').css('display','none');
+
+                  $('.status_0_li').text("直播详情");
+      
+                }
+              },
+            });
+
+            layer.close(index);
+            $('.conversion').css("display", "none");
+    
+          },
+          btn2: function (index, layero) {
+            // 取消
+            layer.close(index);
+            $('.conversion').css("display", "none");
+
+          },
+        });
+
+      
+
+
+    }
 
   });
 
@@ -382,6 +625,7 @@ $(function () {
    * 点击加入黑名单
    */
   var UserNow = 1;
+
   var UserList = function(UserNow){
     $.ajax({
       url: TheServer + '/interview/visitors',
@@ -395,7 +639,7 @@ $(function () {
         pageSize: 12
       },
       success: function (data, textStatus, jqXHR) {
-        localStorage.setItem("UserTotal",data.result.total);
+        
         // 如果请求成功的话
         if (data.code == 200) {
   
@@ -404,8 +648,6 @@ $(function () {
           console.log('用户列表接口请求成功 ======== ', data.result);
   
           console.log('用户列表 ======== ', UserList);
-  
-          $('.viewing_number').text(data.result.total);
   
           var users = '';
           // 循环遍历把数据渲染到html
@@ -446,8 +688,9 @@ $(function () {
                 console.log(data)
                 if(data.code == 200){
 
-                  console.log($('tbody tr').eq(NowUser+1))
                   $('tbody tr').eq(NowUser).css('display','none');
+                  // UserList(UserNow);
+                  // UserPage(UserNow);
                 };
               },
               error: function (xhr, textStatus) {
@@ -457,11 +700,6 @@ $(function () {
   
               }
             })
-  
-  
-  
-  
-            console.log();
   
           });
   
@@ -477,31 +715,49 @@ $(function () {
     });
   };
 
-  UserList(UserNow)
+  var UserPage = function(UserNow){
 
-  layui.use('laypage', function(){
-    var laypage = layui.laypage;
-    var UserNow = localStorage.getItem("UserTotal");
-    console.log(UserNow)
-    //执行一个laypage实例
-    laypage.render({
-      elem: 'UserPage'
-      ,count: UserNow//数据总数，从服务端得到
-      ,theme: '#4597E0'
-      ,limit: 12
-      ,jump: function(obj, first){
-        // console.log(UserNow)
-        // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-        // console.log(obj.limit); //得到每页显示的条数
-        localStorage.setItem("UserNow",obj.curr);
-        
-        if(!first){
-          UserList(obj.curr)
-        }
-        
-      }
+    $.ajax({
+      url: TheServer + '/interview/visitors',
+      type: 'GET',
+      dataType: 'json',
+      async: true,    //或false,是否异步
+      contentType: 'application/json;charset=utf-8',
+      data: {
+        interviewId: talkNum,
+        currentPage: UserNow,
+        pageSize: 12
+      },
+      success: function (data, textStatus, jqXHR){
+
+        layui.use('laypage', function(){
+
+          var laypage = layui.laypage;
+
+          laypage.render({
+            elem: 'UserPage'
+            ,count: data.result.total
+            ,theme: '#4597E0'
+            ,curr: location.hash.replace('#!UserNow=', UserNow)
+            ,hash: 'UserNow'
+            ,limit: 12
+            ,jump: function(obj, first){
+
+              localStorage.setItem("UserNow",obj.curr);
+              
+              UserList(obj.curr)
+              
+            }
+          });
+        });
+
+      },
     });
-  });
+
+  };
+
+  UserPage(UserNow);
+
 
   /**
    * 互动设置
@@ -524,9 +780,9 @@ $(function () {
 
 
   // 互动设置  ===== 网友提问
-  var currentPage = 1;
+  var ProblemCurr = 1;
 
-  var GetList = function(currentPage){
+  var ProblemList = function(ProblemCurr){
     $.ajax({
       url: TheServer + '/comments/noaudit',
       type: 'GET',
@@ -535,18 +791,17 @@ $(function () {
       async: true,    //或false,是否异步
       data: {
         interviewId: talkNum,
-        currentPage: currentPage,
+        currentPage: ProblemCurr,
         pageSize: 5
       },
       success: function (data, textStatus, jqXHR) {
-        localStorage.setItem('total',data.result.total);
-        console.log(data);
+        
         // 如果成功的话，就执行下面的代码
         if (data.code == 200) {
             
           // 提问列表的数据列表
           var lists = data.result.list;
-          console.log(lists);
+          console.log('网友提问的列表 ========== ',lists);
             
           // 创建空数组
           var questions = '';
@@ -638,6 +893,9 @@ $(function () {
                      $('.questions_right').eq(nowclick).children('p').css('border','1px solid #E8EFF1');
                       
                      $('.questions_right').eq(nowclick).children('p').css('color','#E8EFF1');
+
+                    $('#InteractionShield').removeAttr("id");
+                    $('#ReviewResponse').removeClass("class");
                     }
                   },
                   error: function (xhr, textStatus) {
@@ -692,15 +950,24 @@ $(function () {
                 $('#review').css("display", "none");
               },
               yes: function (index, layero) {
+
+                var Speak = localStorage.getItem("Speak");
+
+                var speaker = JSON.parse(Speak);
   
                 var commentId = lists[questionsnow].commentId;
                 var commentContent = $('.edit_q').text();
                 var replyContent = $('#review textarea').val();
-                var speakerId = $("#select_guest").get(0).selectedIndex;
+                var speakerinx = $("#select_guest").get(0).selectedIndex;
+                var speakerId = speaker[speakerinx].speakerId;
+                var speakername = speaker[speakerinx].name;
+
+                //var speakerName = 
                 console.log('评论ID =======', commentId);
                 console.log('评论内容 =======', commentContent);
                 console.log('回复内容 =======', replyContent);
                 console.log('回复者嘉宾ID =======', speakerId);
+                console.log('回复者嘉宾名字 =======', speakername);
   
                 //点击确定把数据上传
                 $.ajax({
@@ -713,7 +980,8 @@ $(function () {
                     commentId: commentId,
                     commentContent: commentContent,
                     replyContent: replyContent,
-                    speakerId: speakerId
+                    speakerId: speakerId,
+                    speakerName: speakername
                   }),
                   success: function (data, textStatus, jqXHR) {
                     console.log(data);
@@ -792,47 +1060,68 @@ $(function () {
   
     });
   };
+  
+  var ProblemPage = function(ProblemCurr){
+
+    $.ajax({
+      url: TheServer + '/comments/noaudit',
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json;charset=utf-8',
+      async: true,    //或false,是否异步
+      data: {
+        interviewId: talkNum,
+        currentPage: ProblemCurr,
+        pageSize: 5
+      },
+      success: function (data, textStatus, jqXHR){
+
+        if(data.code == 200){
+
+          layui.use('laypage', function(){
+
+            var laypage = layui.laypage;
+
+            //执行一个laypage实例
+            laypage.render({
+              elem: 'QuestionPage'
+              ,count: data.result.total//数据总数，从服务端得到
+              ,theme: '#4597E0'
+              ,curr: location.hash.replace('#!ProblemCurr=', ProblemCurr)
+              ,hash: 'ProblemCurr'
+              ,limit: 5
+              ,jump: function(obj, first){
+                
+                localStorage.setItem("ProblemCurr",obj.curr);
+                
+                ProblemList(obj.curr)
+                
+              }
+            });
+          });
+
+        }
+
+      },
+    });
+  };
 
   // 判断访谈状态 只有在预告和直播中的时候才运行
   if(kind == "talkmanage"){
 
     if(status == 0 || status == 1){
 
-      GetList(currentPage);
+      ProblemPage(ProblemCurr);
   
     }
 
   };
   
-
-  layui.use('laypage', function(){
-    var laypage = layui.laypage;
-    var counts = localStorage.getItem("total");
-    console.log(counts)
-    //执行一个laypage实例
-    laypage.render({
-      elem: 'QuestionPage'
-      ,count: counts//数据总数，从服务端得到
-      ,theme: '#4597E0'
-      ,limit: 5
-      ,jump: function(obj, first){
-        //console.log(counts)
-        // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-        // console.log(obj.limit); //得到每页显示的条数
-        localStorage.setItem("currentPage",obj.curr);
-        
-        if(!first){
-          GetList(obj.curr)
-        }
-        
-      }
-    });
-  });
-
   
   // 互动设置  ===== 审核回复
   var ReplyCurr = 1;
-  var ReplyL = function(ReplyCurr){
+
+  var ReplyList = function(ReplyCurr){
     $.ajax({
       url: TheServer + '/comments',
       type: 'GET',
@@ -844,195 +1133,175 @@ $(function () {
         pageSize: 5
       },
       success: function (data, textStatus, jqXHR) {
-  
-        localStorage.setItem("ReplyTotal",data.result.total);
-  
-        var replyList = data.result.list;
-        console.log(replyList);
-        var replys = '';
 
-        $.each(replyList, function (i, obj) {
-          console.log('审核回复的数据 ============ ', replyList)
+        if(data.code == 200){
 
-          var speakerId = obj.reply.speakerId;
-          var speak = localStorage.getItem("Speak");
-          var speaker = JSON.parse(speak);
-          
-          if(kind == "history"){
+          var replyList = data.result.list;
+          console.log('审核回复列表 ============ ',replyList);
 
-            if(status == 2){
-              replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
-              replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
-              replys += '</div>';
-              replys += '<div class="reply_main-right">'
-              replys += '<div class="reply_main_top questions_left">';
-              replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
-              replys += '<span>' + obj.comment.updateTime + '</span>';
-              replys += '</p>'
-              replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
-              replys += '</div>';
-              replys += '<div class="reply_main_bottom questions_left">';
-              replys += '<p style="color: #3199F7;font-size: 16px;">';
-              replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
-              replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
-              replys += '<span>' + obj.reply.updateTime + '</span>';
-              replys += '</p>';
-              replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
-              replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
-              replys += '</div>';
-              replys += '</div>';
-              replys += '</div>';
-            }else{
+
+         var replys = '';
+
+          $.each(replyList, function (i, obj) {
+
+            console.log('审核回复的数据 ============ ', replyList)
+
+            // var speakerId = replyList[i].reply.speakerId;
+            // console.log(speakerId)
+            var speak = localStorage.getItem("Speak");
+            var speaker = JSON.parse(speak);
+
+            replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
+            replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
+            replys += '</div>';
+            replys += '<div class="reply_main-right">'
+            replys += '<div class="reply_main_top questions_left">';
+            replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
+            replys += '<span>' + obj.comment.updateTime + '</span>';
+            replys += '</p>'
+            replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
+            replys += '</div>';
+            replys += '<div class="reply_main_bottom questions_left">';
+            replys += '<p style="color: #3199F7;font-size: 16px;">';
+            replys += '<span class="administrators">' + obj.name + '</span>' + '回复';
+            replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
+            replys += '<span>' + obj.reply.updateTime + '</span>';
+            replys += '</p>';
+            replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
+            replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
+            replys += '</div>';
+            replys += '</div>';
+            replys += '</div>';
+
+            // var de = $('.reply_main')
+
+            // for(var i = 0; i < de.length; i ++){
+
+            //   var ddd = de[i].children('.reply_main-right').children('.reply_main_bottom').children('.reply_editor');
+            //   console.log(ddd);
+            // }
+                  
+          });
+        
+        
+
+          $('#bbbb').html(replys);
+
+        
   
-              replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
-              replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
-              replys += '</div>';
-              replys += '<div class="reply_main-right">'
-              replys += '<div class="reply_main_top questions_left">';
-              replys += '<p style="font-size: 16px;margin-bottom: 6px;" class="net_friend">' + obj.comment.visitor;
-              replys += '<span>' + obj.comment.updateTime + '</span>';
-              replys += '</p>'
-              replys += '<p class="questions_bottom">' + obj.comment.content + '</p>';
-              replys += '</div>';
-              replys += '<div class="reply_main_bottom questions_left">';
-              replys += '<p style="color: #3199F7;font-size: 16px;">';
-              replys += '<span class="administrators">' + speaker[speakerId].name + '</span>' + '回复';
-              replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
-              replys += '<span>' + obj.reply.updateTime + '</span>';
-              replys += '</p>';
-              replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
-              //replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
-              replys += '</div>';
-              replys += '</div>';
-              replys += '</div>';
-  
+          // 复选框
+          $('.replys_chexbox').click(function () {
+    
+            if ($(this).hasClass('chexbox_img')) {
+    
+              $(this).removeClass('chexbox_img');
+    
+            } else {
+    
+              $(this).addClass('chexbox_img')
+    
             }
-
-          }
-          
-
-          //console.log(speak[0].name);
-          
-          //$('.administrators').text(speak[speakerId].name);
-  
-        });
-        
-        
-
-        $('#bbbb').html(replys);
-
-        
-  
-        // 复选框
-        $('.replys_chexbox').click(function () {
-  
-          if ($(this).hasClass('chexbox_img')) {
-  
-            $(this).removeClass('chexbox_img');
-  
-          } else {
-  
-            $(this).addClass('chexbox_img')
-  
-          }
-  
-        });
-        
-        // 访谈状态  是历史访谈的时候才执行
-        if(status == 2){
-
-          // 点击编辑
-          $('.reply_editor').click(function () {
-    
-            // 获取现在点击的元素的序号
-            var nowreply = $(this).parent().parent().parent().index();
-    
-            // 通过下标找到当前的数据
-            var nowlist = replyList[nowreply];
-            console.log('当前下标 =========', nowreply);
-            console.log('当前下标对应的数据 ==========', nowlist);
-    
-            // 渲染到刚打开的弹框
-            $('.001 p').text(nowlist.comment.visitor);
-            $('#names_01').val(nowlist.comment.content);
-    
-            $('.002 p').text(nowlist.reply.speakerId);
-            $('#names_02').val(nowlist.reply.content);
-    
-    
-            $('.ReplyEditor').css("display", "block");
-    
-            layer.open({
-              type: 1,
-              area: ['700px', ''],
-              title: ['', 'background: #fff;border:0'],
-              btn: ['确定', '取消'],
-              skin: 'my-skin',
-              btnAlign: 'c',
-              content: $('.ReplyEditor'),
-              cancel: function (index, layero) {
-                $('.ReplyEditor').css("display", "none");
-              },
-              yes: function (index, layero) {
-    
-                var commentId = nowlist.comment.commentId;
-                var commentContent = $('#names_01').val();
-                var replyId = nowlist.reply.replyId;
-                var replyContent = $('#names_02').val();
-    
-                console.log('评论ID =========', commentId);
-                console.log('评论内容 =========', commentContent);
-                console.log('回复ID =========', replyId);
-                console.log('回复内容 =========', replyContent);
-    
-                $.ajax({
-                  url: TheServer + '/comments/edit',
-                  type: 'POST',
-                  dataType: 'json',
-                  async: true,    //或false,是否异步
-                  contentType: 'application/json;charset=utf-8',
-                  data: JSON.stringify({
-                    commentId: commentId,
-                    commentContent: commentContent,
-                    replyId: replyId,
-                    replyContent: replyContent
-                  }),
-                  success: function (data, textStatus, jqXHR) {
-    
-                    console.log(data);
-    
-                    if (data.code == 200) {
-                      $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
-                      $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
-                    }
-    
-                  },
-                  error: function (xhr, textStatus) {
-                    // console.log('错误')
-                    // console.log(xhr)
-                    // console.log(textStatus)
-                  },
-                  complete: function () {
-                    // console.log('结束')
-                  }
-                })
-    
-                layer.close(index);
-                $('.ReplyEditor').css("display", "none");
-    
-              },
-              btn2: function (index, layero) {
-                // 取消按钮
-                layer.close(index);
-                $('.ReplyEditor').css("display", "none");
-    
-    
-              },
-            });
     
           });
+        
+          // 访谈状态  是历史访谈的时候才执行
+          if(status == 2){
 
-        }
+            // 点击编辑
+            $('.reply_editor').click(function () {
+      
+              // 获取现在点击的元素的序号
+              var nowreply = $(this).parent().parent().parent().index();
+      
+              // 通过下标找到当前的数据
+              var nowlist = replyList[nowreply];
+              console.log('当前下标 =========', nowreply);
+              console.log('当前下标对应的数据 ==========', nowlist);
+      
+              // 渲染到刚打开的弹框
+              $('.001 p').text(nowlist.comment.visitor);
+              $('#names_01').val(nowlist.comment.content);
+      
+              $('.002 p').text(nowlist.reply.speakerId);
+              $('#names_02').val(nowlist.reply.content);
+      
+      
+              $('.ReplyEditor').css("display", "block");
+      
+              layer.open({
+                type: 1,
+                area: ['700px', ''],
+                title: ['', 'background: #fff;border:0'],
+                btn: ['确定', '取消'],
+                skin: 'my-skin',
+                btnAlign: 'c',
+                content: $('.ReplyEditor'),
+                cancel: function (index, layero) {
+                  $('.ReplyEditor').css("display", "none");
+                },
+                yes: function (index, layero) {
+      
+                  var commentId = nowlist.comment.commentId;
+                  var commentContent = $('#names_01').val();
+                  var replyId = nowlist.reply.replyId;
+                  var replyContent = $('#names_02').val();
+      
+                  console.log('评论ID =========', commentId);
+                  console.log('评论内容 =========', commentContent);
+                  console.log('回复ID =========', replyId);
+                  console.log('回复内容 =========', replyContent);
+      
+                  $.ajax({
+                    url: TheServer + '/comments/edit',
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,    //或false,是否异步
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({
+                      commentId: commentId,
+                      commentContent: commentContent,
+                      replyId: replyId,
+                      replyContent: replyContent
+                    }),
+                    success: function (data, textStatus, jqXHR) {
+      
+                      console.log(data);
+      
+                      if (data.code == 200) {
+                        $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
+                        $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
+                      }
+      
+                    },
+                    error: function (xhr, textStatus) {
+                      // console.log('错误')
+                      // console.log(xhr)
+                      // console.log(textStatus)
+                    },
+                    complete: function () {
+                      // console.log('结束')
+                    }
+                  })
+      
+                  layer.close(index);
+                  $('.ReplyEditor').css("display", "none");
+      
+                },
+                btn2: function (index, layero) {
+                  // 取消按钮
+                  layer.close(index);
+                  $('.ReplyEditor').css("display", "none");
+      
+      
+                },
+              });
+      
+            });
+
+          }
+        
+
+        };
         
   
       },
@@ -1044,30 +1313,55 @@ $(function () {
       }
     });
   };
-  ReplyL(ReplyCurr);
-  layui.use('laypage', function(){
-    var laypage = layui.laypage;
-    var ReplyTotal = localStorage.getItem("ReplyTotal");
-    console.log(ReplyTotal)
-    //执行一个laypage实例
-    laypage.render({
-      elem: 'ReplyPage'
-      ,count: ReplyTotal//数据总数，从服务端得到
-      ,theme: '#4597E0'
-      ,limit: 5
-      ,jump: function(obj, first){
-        console.log(ReplyTotal)
-        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-        console.log(obj.limit); //得到每页显示的条数
-        localStorage.setItem("ReplyCurr",obj.curr);
+  
+  var ReplyPage = function(ReplyCurr){
+
+    $.ajax({
+      url: TheServer + '/comments',
+      type: 'GET',
+      dataType: 'json',
+      async: true,    //或false,是否异步
+      data: {
+        interviewId: talkNum,
+        currentPage: ReplyCurr,
+        pageSize: 5
+      },
+      success: function (data, textStatus, jqXHR){
+
+        if(data.code == 200){
+
+          layui.use('laypage', function(){
+
+            var laypage = layui.laypage;
+  
+            //执行一个laypage实例
+            laypage.render({
+              elem: 'ReplyPage'
+              ,count: data.result.total//数据总数，从服务端得到
+              ,theme: '#4597E0'
+              ,curr: location.hash.replace('#!ReplyCurr=', ReplyCurr)
+              ,hash: 'ReplyCurr'
+              ,limit: 5
+              ,jump: function(obj, first){
+  
+                localStorage.setItem("ReplyCurr",obj.curr);
+                
+                ReplyList(obj.curr)
+                
+              }
+            });
+          });
+
+        };
+
         
-        if(!first){
-          ReplyL(obj.curr)
-        }
-        
-      }
+
+      },
     });
-  });
+  };
+
+  ReplyPage(ReplyCurr);
+  
 
   // 网友提问 ==== 打开编辑
   $('.batch_management').click(function () {
@@ -1096,17 +1390,39 @@ $(function () {
     $('.reply_management').css('display', 'block');
     $('.reply_tool').css('display', 'none');
     $(".replys_chexbox").css('display', 'none');
+    $('.replys_chexbox').removeClass('chexbox_img');
   });
 
   // 网友提问 === 全选
   $('.AllSelct').click(function () {
-    $('.questions_chexbox').addClass('chexbox_img');
+
+    if($('.questions_chexbox').hasClass('chexbox_img')){
+
+      $('.questions_chexbox').removeClass('chexbox_img');
+
+    }else{
+
+      $('.questions_chexbox').addClass('chexbox_img');
+
+    }
 
   });
 
   // 审核回复 === 全选
   $('.replyAll').click(function () {
-    $('.replys_chexbox').addClass('chexbox_img');
+
+
+    if($('.replys_chexbox').hasClass('chexbox_img')){
+
+      $('.replys_chexbox').removeClass('chexbox_img');
+
+    }else{
+
+      $('.replys_chexbox').addClass('chexbox_img');
+
+    }
+
+
   });
 
   // 网友提问 ===== 删除按钮
@@ -1131,6 +1447,7 @@ $(function () {
         var Questions = $('.questions_chexbox');
 
         var QuestionsStr = [];
+
         var Questionsinx = [];
 
         for (var i = 0; i < Questions.length; i++) {
@@ -1138,7 +1455,7 @@ $(function () {
           if (Questions.eq(i).hasClass('chexbox_img')) {
 
             QuestionsStr.push(Questions[i].getAttribute('data-id'));
-            Questionsinx.push(i);
+            Questionsinx.push(i)
           }
 
         }
@@ -1149,7 +1466,6 @@ $(function () {
           intQuestions.push(+data);
         });
 
-        console.log('选中的下标 ====== ',Questionsinx);
         console.log('选中的commentIds ====== ',intQuestions);
         
 
@@ -1170,6 +1486,9 @@ $(function () {
               for(var i = 0;i<Questionsinx.length;i++){
                 $('.questions_main').eq(i).css('display','none')
               }
+              // ProblemList(ProblemCurr);
+              //ProblemPage(ProblemCurr);
+
             }
 
 
@@ -1332,6 +1651,7 @@ $(function () {
 
   // 现场图片  ====== 数据渲染
   var ImageCurr = 1;
+  
   var GetImage = function(ImageCurr){
 
     $.ajax({
@@ -1349,6 +1669,9 @@ $(function () {
         console.log('图片 ======== ',data);
         // 如果请求成功的话
         if (data.code == 200) {
+
+          // 分页
+          //ImagePage(data.result.total);
   
           localStorage.setItem("ImageTotal",data.result.total);
   
@@ -1370,11 +1693,13 @@ $(function () {
             Img += '<p>' + obj.updateTime + '</p>';
             Img += '</div>';
   
-            console.log(ImgList[0].picId);
-            console.log(ImgList[0].picUrl);
+            // console.log(ImgList[0].picId);
+            // console.log(ImgList[0].picUrl);
   
           });
           $('.picture_content').html(Img);
+
+          
   
           // 复选框
           $('.picture_chexbox').click(function () {
@@ -1397,39 +1722,60 @@ $(function () {
   
       },
       error: function (xhr, textStatus) {
-        // console.log('错误')
-        // console.log(xhr)
-        // console.log(textStatus)
+
       },
       complete: function () {
-        // console.log('结束')
+
       }
     });
 
   };
-  GetImage(ImageCurr)
-  layui.use('laypage', function(){
-    var laypage = layui.laypage;
-    var ImageTotal = localStorage.getItem("ImageTotal");
-    console.log(ImageTotal)
-    //执行一个laypage实例
-    laypage.render({
-      elem: 'ImagePage'
-      ,count: ImageTotal//数据总数，从服务端得到
-      ,theme: '#4597E0'
-      ,jump: function(obj, first){
-        // console.log(ImageTotal)
-        // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-        // console.log(obj.limit); //得到每页显示的条数
-        localStorage.setItem("ImageCurr",obj.curr);
-        
-        if(!first){
-          GetImage(obj.curr)
-        }
-        
-      }
+ 
+  var ImagePage = function(ImageCurr){
+    $.ajax({
+      url: TheServer + '/interview/images',
+      type: 'POST',
+      dataType: 'json',
+      async: true,    //或false,是否异步
+      contentType: 'application/json;charset=utf-8',
+      data: JSON.stringify({
+        interviewId: talkNum,
+        pageNum: ImageCurr,
+        pageSize: 12
+      }),
+      success: function (data, textStatus, jqXHR){
+
+        layui.use('laypage', function(){
+
+          var laypage = layui.laypage;
+    
+          //执行一个laypage实例
+          laypage.render({
+            elem: 'ImagePage'
+            ,count: data.result.total//数据总数，从服务端得到
+            ,theme: '#4597E0'
+            ,curr: location.hash.replace('#!ImageCurr=', ImageCurr)
+            ,hash: 'ImageCurr'
+            ,limit: 12
+            ,jump: function(obj, first){
+
+              console.log(obj.curr);
+    
+              localStorage.setItem("ImageCurr",obj.curr);
+    
+              GetImage(obj.curr);
+            }
+          });
+        });
+
+      },
     });
-  });
+
+   
+
+  };
+
+  ImagePage(ImageCurr);
   // 打开编辑
   $('.picture_management').click(function () {
     $('.picture_management').css("display", "none");
@@ -1442,7 +1788,7 @@ $(function () {
     $('.picture_management').css("display", "block");
     $('.picture_tool').css("display", "none");
     $('.picture_chexbox').css("display", "none");
-    $('.picturecheck').removeClass('chexbox_img');
+    $('.picture_chexbox').removeClass('chexbox_img');
   });
 
   // 点击删除
@@ -1465,26 +1811,20 @@ $(function () {
         // 点击确定删除的时候
         var deletions = $('.picture_chexbox');
 
-        console.log(deletions)
-
         var DeletionsStr = [];
-        var DeletionsInx = [];
 
+        // 获取到选中的 picIds
         for (var i = 0; i < deletions.length; i++) {
 
           if (deletions.eq(i).hasClass('chexbox_img')) {
 
             DeletionsStr.push(deletions[i].getAttribute('data-id'));
-            DeletionsInx.push(i);
 
           }
 
         }
 
-        console.log(DeletionsStr);
-        console.log(DeletionsInx);
-
-        
+        console.log('选中图片的picIds =======' ,DeletionsStr);
 
         $.ajax({
           url: TheServer + '/interview/removePic',
@@ -1493,40 +1833,34 @@ $(function () {
           async: true,    //或false,是否异步
           contentType: 'application/json;charset=utf-8',
           data: JSON.stringify({
-            "picIds": DeletionsStr
+            picIds: DeletionsStr
           }),
           success: function (data, textStatus, jqXHR) {
             // 如果请求成功的话
-            console.log(data);
+            console.log('删除图片接口 ======= ',data);
 
             if (data.code == 200) {
 
-              for(var i = 0; i < DeletionsInx.length; i ++){
-                $('.picture_img').eq(i).css('display','none');
-              }
+              GetImage(ImageCurr);
+              ImagePage(ImageCurr);
 
             }
 
           },
           error: function (xhr, textStatus) {
-            // console.log('错误')
-            // console.log(xhr)
-            // console.log(textStatus)
+            
           },
           complete: function () {
-            // console.log('结束')
+
           }
         })
 
-
-        console.log(DeletionsStr)
-
-
+        // 删除成功后就关闭弹窗
         layer.close(index);
         $('.picture_delece').css("display", "none");
       },
       btn2: function (index, layero) {
-        // 取消
+        // 取消按钮
         layer.close(index);
         $('.picture_delece').css("display", "none");
       },
@@ -1536,9 +1870,19 @@ $(function () {
 
   // 全选本页
   $('.imgall').click(function () {
-    $('.picture_chexbox').addClass('chexbox_img');
-  });
 
+
+    if($('.picture_chexbox').hasClass('chexbox_img')){
+
+      $('.picture_chexbox').removeClass('chexbox_img');
+
+    }else{
+
+      $('.picture_chexbox').addClass('chexbox_img');
+
+    }
+
+  });
 
   // 上传图片
   layui.use('upload', function () {
@@ -1562,7 +1906,8 @@ $(function () {
         // 如果上传成功的话，就调取图片列表的接口
         if(res.code == 200){
 
-          GetImage(ImageCurr)
+          GetImage(ImageCurr);
+          ImagePage(ImageCurr);
         };
 
 
@@ -1595,6 +1940,7 @@ $(function () {
 
   // 数据渲染
   var TextCurr = 1;
+
   var GetText = function(TextCurr){
 
     $.ajax({
@@ -1724,30 +2070,53 @@ $(function () {
     })
 
   };
-  GetText(TextCurr);
-  layui.use('laypage', function(){
-    var laypage = layui.laypage;
-    var TextTotal = localStorage.getItem("TextTotal");
-    console.log(TextTotal)
-    //执行一个laypage实例
-    laypage.render({
-      elem: 'TextPage'
-      ,count: TextTotal//数据总数，从服务端得到
-      ,theme: '#4597E0'
-      ,limit: 5
-      ,jump: function(obj, first){
-        // console.log(TextTotal)
-        // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-        // console.log(obj.limit); //得到每页显示的条数
-        localStorage.setItem("TextCurr",obj.curr);
-        
-        if(!first){
-          GetText(obj.curr)
+  
+  var TextPage = function(TextCurr){
+
+    $.ajax({
+      url: TheServer + '/speakerOpinion/list',
+      type: 'GET',
+      async: true,
+      data: {
+        interviewId: talkNum,
+        currentPage: TextCurr,
+        pageSize: 5,
+      },
+      success: function (data, textStatus, jqXHR) {
+
+        if(data.code == 200){
+
+          layui.use('laypage', function(){
+
+            var laypage = layui.laypage;
+            
+            //执行一个laypage实例
+            laypage.render({
+              elem: 'TextPage'
+              ,count: data.result.total//数据总数，从服务端得到
+              ,theme: '#4597E0'
+              ,limit: 5
+              ,curr: location.hash.replace('#!TextCurr=', TextCurr)
+              ,hash: 'TextCurr'
+              ,jump: function(obj, first){
+
+                localStorage.setItem("TextCurr",obj.curr);
+                
+               
+                GetText(obj.curr)
+                
+              }
+            });
+          });
+
         }
-        
-      }
-    });
-  });
+
+      },
+    })
+  };
+
+  TextPage(TextCurr);
+  
   // 打开编辑
   $('.text_management').click(function () {
     $('.text_management').css("display", "none");
@@ -1760,6 +2129,7 @@ $(function () {
     $('.text_management').css("display", "block");
     $('.text_tool').css("display", "none");
     $('.text_chexbox').css("display", "none");
+    $('.text_chexbox').removeClass('chexbox_img');
   });
 
   // 点击删除文字实录
@@ -1817,15 +2187,14 @@ $(function () {
             ids: intTDelece
           }),
           success: function (data, textStatus, jqXHR) {
+            
+            console.log('删除文字实录接口 ========= ',data);
+
             // 如果请求成功的话
-            console.log(data);
             if(data.code == 200){
 
-              $.each(DeleceInx,function(i,obj){
-
-                $('.record').eq(i).css('display','none')
-      
-              });
+              GetText(TextCurr);
+              TextPage(TextCurr);
 
             }
 
@@ -1873,14 +2242,12 @@ $(function () {
         $('.real_time').css("display", "none");
       },
       yes: function (index, layero) {
-        //$('.real_time').text($('#TextSelect').val())
 
         var speakerId = $('#text_s option:selected').val();
         var content = $('#RealTime').val();
 
         console.log('选择的嘉宾 =======', speakerId);
         console.log('录入的内容 =======', content);
-
 
         $.ajax({
           url: TheServer + '/speakerOpinion/create',
@@ -1895,43 +2262,13 @@ $(function () {
 
           }),
           success: function (data, textStatus, jqXHR) {
-            console.log(data);
 
-            var speak = localStorage.getItem("Speak");
-            var speaker = JSON.parse(speak);
-
-            var aaa = [];
-
-            for(var i = 0; i < speaker.length; i ++){
-
-              if(speaker[i].speakerId == speakerId){
-                aaa.push(speaker[i]);
-              }
-
-            }
-            console.log(aaa);
-
-            var date1 =new Date();
-            var newtime = Date.parse(date1);
-
-            console.log(newtime);
+            console.log('实时录入文字接口 ========= ',data);
 
             if(data.code == 200){
 
-              var NewText = '';
-                  NewText += '<div class="record">';
-                  NewText += '<div class="text_chexbox"></div>';
-                  NewText += '<div class="record_right">';
-                  NewText += '<p class="record_name">'+aaa[0].name+'</p>';
-                  NewText += '<p class="record_time">'+newtime+'</p>';
-                  NewText += '<p class="record_comtent">'+content+'</p>';
-                  NewText += '<p class="record_edit">';
-                  NewText += '<img src="'+'../img/edit.png'+'" alt="">'+'编辑';
-                  NewText += '</p>';
-                  NewText += '</div>';
-                  NewText += '</div>';
-
-                $('#TextList').append(NewText);
+              GetText(TextCurr);
+              TextPage(TextCurr);
 
             }
       
@@ -1958,7 +2295,18 @@ $(function () {
   
   // 全选本页
   $('.textall').click(function () {
-    $('.text_chexbox').addClass('chexbox_img');
+
+    if($('.text_chexbox').hasClass('chexbox_img')){
+
+      $('.text_chexbox').removeClass('chexbox_img');
+
+    }else{
+
+      $('.text_chexbox').addClass('chexbox_img');
+
+    }
+
+
   });
 
 
@@ -1969,41 +2317,111 @@ $(function () {
    * 
    * 视频渲染
    */
+  var Vedio = function(){
 
-   
+    var VedioList = localStorage.getItem("Details");
+    var VedioLists = JSON.parse(VedioList);
+    console.log(VedioLists);
+
+    if(VedioLists.videoUrl != null){
+
+      var VedioStr = [];
+
+      VedioStr += '<div class="vedio">';
+      VedioStr += '<P style="margin: 0;width: 42%">';
+      VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
+      VedioStr += '<span class="vedio_title">'+VedioLists.name+'</span>';
+      VedioStr += '</p>';
+      VedioStr += '<p class="vedio_size">'+VedioLists.updateTime+'</p>';
+      VedioStr += '<p style="width: 28%" class="vedio_time">'+VedioLists.videoSize+'M'+'</p>';
+      VedioStr += '<p class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</p>';
+      VedioStr += '</div>';
+
+      $('.vedio_vedio').html(VedioStr);
+    }
+
+    //$('.download').html('<form action="'+VedioLists.videoUrl+'">'+'下载视频'+'</form>');
+
+    $('.download').click(function(){
+      window.open(VedioLists.videoUrl);
+    });
+    //$('form').submit();
+
+
+  };
+  Vedio();
+  
 
   // 视频上传
-  layui.use('upload', function () {
+  $('#VedioUpdata').change(function(e){
 
-    var upload = layui.upload;
+    var files = e.currentTarget.files[0].name;
 
-    //执行实例
-    var uploadInst = upload.render({
-      elem: '#VedioUpdata', //绑定元素
-      url: TheServer + '/interview/uploadVideo',//上传接口
-      accept: 'images',
-      data: {
+    var Size = e.currentTarget.files[0].size;
+
+    var videoSize = ((Size/1024)/1024).toFixed(2);
+
+    
+
+    console.log('选择文件的名称 ========', files);
+    console.log('选择文件的大小 ========', videoSize);
+
+    $.ajaxFileUpload({
+      url: TheServer + '/interview/uploadVideo',
+      type: 'POST',
+      secureuri: false, //一般设置为false
+      fileElementId: "VedioUpdata", //文件上传空间的id属性
+      dataType: 'JSON',
+      contentType: 'application/json;charset=utf-8',
+      data: JSON.stringify({
         interviewId: talkNum,
-      },
-      before: function(obj){
-        
-      },
-      done: function (res, file, index, upload) {
-        //上传完毕回调
-        console.log(res)
-        
-        // 如果上传成功的话，就调取图片列表的接口
-        if(res.code == 200){
+        files: files,
+        videoSize: videoSize
+      }),
+      
+      success: function(data, status){
 
-        };
-
+        if(status == 'success'){
+          DirectSeedingDetails();
+          Vedio();
+        }
 
       },
-      error: function () {
-        //请求异常回调
+      error: function(data, status, e){
+        //layer.close(index);
+        console.log(data);
+
       }
     });
+
+
+
   });
+  
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -23,7 +23,11 @@
   <script src="js/TwoMenu.js"></script>
 
   <!-- 引入复制功能需要的JS -->
-  <script src="js/clipboard.min.js"></script>
+  <!-- <script src="js/clipboard.min.js"></script> -->
+
+  <!-- 引入上传的插件 -->
+  <script src="../one/js/ajaxfileupload1.js"></script>
+
 </head>
 
 <body>
@@ -41,7 +45,7 @@
         <li>互动设置</li>
         <li class="status_0">现场图片</li>
         <li class="status_0">文字实录</li>
-        <li class="status_0 status_1">视频下载</li>
+        <li class="status_0 status_1 ddd">视频下载</li>
       </ul>
     </div>
     <!-- 左侧导航   end -->
@@ -95,9 +99,11 @@
             <li style="margin-bottom: 18px;">
               <p style="line-height: 35px;">本期嘉宾</p>
               <div id="speakerList">
+                <div class="guest_list"></div>
                 <!-- <p class="guest">国家税务总局司长王思宇</p> -->
                 <div class="add" id="AddGuests">添加嘉宾</div>
               </div>
+              
             </li>
             <li style="height: 50px;margin-bottom: 40px;">
               <p>会议简介</p>
@@ -121,21 +127,27 @@
                 <p style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
-            <li class="status_1 status_2">
+            <li class="status_2">
               <p class="video_0"></p>
-              <div>
-                <span>http://zxft.hntax.gov.cn/onfront</span>
-                <p>重新上传</p>
-                <p style="color: #FF5500">删除</p>
+              <div class="have_data">
+                <span class="vedio_link"></span>
+                <p class="uplink">
+                  <input type="file">
+                </p>
+
+                <!-- <p style="color: #FF5500">删除</p> -->
               </div>
-              <div>无文件/<p style="margin-left: 0;">请上传视频文件</p></div>
+              <!-- <div class="no_data">
+                无文件/
+                <p style="margin-left: 0;">请上传视频文件</p>
+              </div> -->
             </li>
           </ul>
         </div>
         <!-- 点击确定修改 -->
         <div class="sure">
-          <p>确定修改</p>
-          <p class="status_1 status_2">转为在线访谈</p>
+          <p class="ascertaining_modification">确定修改</p>
+          <p class="status_1 status_2" id="conversion"></p>
         </div>
       </div>
       <!-- 直播详情  end -->
@@ -372,15 +384,17 @@
         <div class="operation">
           <input type="file" id="VedioUpdata" name="files">上传视频
         </div>
-        <div class="vedio">
+
+        <div class="vedio_vedio"></div>
+        <!-- <div class="vedio">
           <P style="margin: 0;width: 42%">
             <img src="../img/vedio.png" alt="">
-            <span>2018年度居民所得税汇算清缴专题</span>
+            <span class="vedio_title">2018年度居民所得税汇算清缴专题</span>
           </p>
-          <p>302M</p>
-          <p style="width: 28%">2018-10-16 16:38</p>
+          <p class="vedio_size">302M</p>
+          <p style="width: 28%" class="vedio_time">2018-10-16 16:38</p>
           <p class="download" style="width: 10%;cursor: pointer;">下载视频</p>
-        </div>
+        </div> -->
 
       </div>
       <!-- 视频下载  end -->
@@ -411,10 +425,10 @@
   <div class="modify_scene">
     <p class="name_title">修改会议场景</p>
     <div class="radio">
-      <div class="radio_item" style="margin-right: 60px;">
+      <div class="radio_item radio_item1" style="margin-right: 60px;">
         <p class="check_out"></p><span>视频直播</span>
       </div>
-      <div class="radio_item">
+      <div class="radio_item radio_item2">
         <p class="check_out"></p><span>图文直播</span>
       </div>
     </div>
@@ -437,6 +451,11 @@
   <div class="interaction_delete">
     <img src="../img/warning.png" alt="">
     <p>是否确认删除所选提问，删除后不可恢复？</p>
+  </div>
+
+  <div class="conversion">
+    <img src="../img/warning.png" alt="">
+    <p>是否确认将访谈预告转为在线访谈</p>
   </div>
 
   <div class="interaction_delete_2">
@@ -568,11 +587,18 @@ var status = localStorage.getItem("status");
         qq.eq(i).css('display','none')
 
       }
+      
+      // 是预告的话访谈场景变成预告的
+      $('.radio_item1 span').text('视频预告');
+      $('.radio_item2 span').text('图文预告');
 
       // 通过选择的是哪个直播方式，改变文字
-      if($('#TalkScene').text('图文直播')){
+      if($('#TalkScene').text('图文预告')){
+
         $('.video_0').text('图片');
-      }else if($('#TalkScene').text('视频直播')){
+
+      }else if($('#TalkScene').text('视频预告')){
+
         $('.video_0').text('视频');
       }
 
