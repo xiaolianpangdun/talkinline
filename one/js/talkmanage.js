@@ -264,7 +264,10 @@
                         // var type2 = $("#addadvance input[id='afterfileUp']")[0].files[0].type;
                         var fileid = "beforefileUp";
                         // console.log(type1);
-                        if (file1 == "undefined") { fileid = "afterfileUp" }
+                        if (file1 == "undefined") {
+                            console.log("undefined");
+                            fileid = "afterfileUp"
+                        }
                         var speakername = [];
                         for (var i = 0; i < length; i++) {
                             speakername.push(guests[i].innerHTML);
