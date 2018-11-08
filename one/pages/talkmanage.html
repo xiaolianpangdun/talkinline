@@ -10,8 +10,9 @@
     <table class="layui-table" width=100% id="tbtalkmanage" lay-filter="tbtalkmanage">
     </table>
     <!-- 分页器 -->
-    <div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
-
+    <div style="text-align:center;width:100%;position:absolute;bottom:50px;">
+        <div id="page"></div>
+    </div>
     <script src="../../layui/layui.all.js"></script>
 
     <!-- 访谈状态颜色变化 -->
@@ -99,11 +100,34 @@
         <div class="line">
             <div class="textleft">*访谈场景</div>
             <div class="left select">
-                <input type="radio" id="s1" value="0" name="selecttype" class="selecttype color-cb">
+                <input type="radio" id="s1" value="0" name="type" class="selecttype color-cb">
                 <label for="s1"><div class="ddd"></div>在线访谈视频</label>
-                <input type="radio" id="s2" value="1" name="selecttype" class="selecttype color-cb">
+                <input type="radio" id="s2" value="1" name="type" class="selecttype color-cb">
                 <label for="s2"><div class="ddd"></div>图文实录访谈</label>
             </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft"></div>
+            <div class="left showfile">
+                <div class="afterupcon">
+                    <img class="upfile upimg" src="../../img/upimg.png" alt="">
+                    <input type="file" id="beforefileUp0" name="files">
+                </div>
+                <div class="left beforeup" style=" display:none;">
+                    <span class="left filename"></span>
+                    <span class="left filesize"></span>
+                    <div class="left refileup">重新上传
+                        <input type="file" capture="camera" id="afterfileUp0" name="files">
+                    </div>
+                    <span class="left deletefile">删除</span>
+                </div>
+                <div class="clear"></div>
+                <div class="left upimg uptip">
+                    图片仅支持jpg、gif、png、bmp格式<br>上传最大是100兆
+                </div>
+            </div>
+            <br>
         </div>
     </div>
     <!-- 新建在线预告 模板 -->
@@ -119,6 +143,14 @@
                     <span>/</span>
                     <span class="maxleng">30</span>
                 </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="textleft">*访谈时间</div>
+            <div class="left">
+                <input type="text" class="talk" placeholder="请输入时间" id="starttime1">至
+                <input type="text" class="talk" placeholder="请输入时间" id="endtime1">
             </div>
             <div class="clear"></div>
         </div>
@@ -170,7 +202,7 @@
         </div>
         <div class="line">
             <div class="textleft"></div>
-            <div class="left afterup">
+            <div class="left showfile">
                 <div class="afterupcon">
                     <img class="upfile upimg" src="../../img/upimg.png" alt="">
                     <img class="upfile upvideo" src="../../img/upvideo.png" alt="">

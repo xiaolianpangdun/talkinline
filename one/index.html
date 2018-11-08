@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="./css/talkmanage.css">
 </head>
 
-<body class="layui-layout-body">
-    <div class="layui-layout layui-layout-admin">
+<body>
+    <div class="">
         <div class="layui-side  aside">
             <div class="layui-side-scroll">
                 <div class="logo">
@@ -22,13 +22,13 @@
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="jumpTo" data-link="talkmanage" href="javascript:;">
+                        <a class="jumpTo talkmanage" data-link="talkmanage" href="javascript:;">
                             <img src="../img/not_index.png" alt="">
                             <span class="submenu">访谈管理台</span>
                         </a>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="jumpTo" data-link="historytalk" href="javascript:;">
+                        <a class="jumpTo history" data-link="historytalk" href="javascript:;">
                             <img src="../img/not_interviews.png" alt="">
                             <span class="submenu">历史访谈</span>
                         </a>
@@ -47,9 +47,10 @@
             </div>
         </div>
 
-        <div class="layui-body">
+        <div class="contain-body" style="position:absolute;left:19%;width:80%;">
             <!-- 内容头部 -->
             <div class="header">
+                <div class="return">&lt&nbsp;返回</div>
                 <div class="right exit">
                     <span>退出</span>
                 </div>
@@ -68,7 +69,7 @@
 
 
                 <!-- 页面身体  -->
-                <div class='body'>内容主体区域</div>
+                <div class='body'></div>
 
             </div>
 
@@ -95,13 +96,22 @@
                     if (link == "two") {
                         var html = "<iframe width=100% height=800px src='../two/TwoMenu.html' frameborder='0'></iframe>"
                         $(".body").html(html);
+                        $(".return").show();
+                        var linkto = window.localStorage.getItem("kind");
+                        if (linkto == "history") {
+                            $(".history").addClass("layui-this");
+                        } else {
+                            $(".talkmanage").addClass("layui-this");
+                        }
                     } else if (link != null) {
                         var html = "<iframe width=100% height=800px src='./pages/" + link + ".html' frameborder='0'></iframe>"
                         $(".body").html(html);
+                        $(".return").hide();
 
                     } else {
                         var html = "<iframe width=100% height=800px src='./pages/" + "talkmanage" + ".html' frameborder='0'></iframe>"
                         $(".body").html(html);
+                        $(".return").hide();
                         $($(".jumpTo")[0]).addClass("layui-this");
                     }
                     var n = $(".jumpTo").length;
@@ -118,8 +128,21 @@
                     window.localStorage.setItem("link", $(that).attr("data-link"));
                     var html = "<iframe width=100% height=800px src='./pages/" + window.localStorage.getItem("link") + ".html' frameborder='0'></iframe>"
                     $(".body").html(html);
+                    $(".return").hide();
                 });
-
+                // 点击返回按钮
+                $(".return").click(function() {
+                    var linkto = window.localStorage.getItem("kind");
+                    console.log(linkto);
+                    if (linkto == "history") {
+                        var html = "<iframe width=100% height=800px src='./pages/historytalk.html' frameborder='0'></iframe>"
+                        $(".body").html(html);
+                    } else {
+                        var html = "<iframe width=100% height=800px src='./pages/talkmanage.html' frameborder='0'></iframe>"
+                        $(".body").html(html);
+                    }
+                    $(".return").hide();
+                });
             }();
         </script>
     </div>

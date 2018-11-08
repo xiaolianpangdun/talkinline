@@ -116,7 +116,7 @@ div.textleft {
 div.line {
     width: 100%;
     /* height: 35px; */
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .talk {
@@ -196,6 +196,10 @@ img.deleteguest {
     display: none;
 }
 
+.showfile {
+    margin-top: -10px;
+}
+
 
 /* .selecttype {
     width: 30px;
@@ -239,7 +243,8 @@ input[type='file'] {
     display: none;
 }
 
-#beforefileUp {
+#beforefileUp,
+#beforefileUp0 {
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -247,7 +252,8 @@ input[type='file'] {
     height: 46px;
 }
 
-#afterfileUp {
+#afterfileUp,
+#afterfileUp0 {
     left: 0px;
     bottom: 0px;
     position: absolute;

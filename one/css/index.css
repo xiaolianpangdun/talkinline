@@ -57,6 +57,22 @@
     overflow: hidden;
 }
 
+.return {
+    display: none;
+    text-align: center;
+    width: 62px;
+    height: 28px;
+    margin: 30px 20px 0;
+    float: left;
+    border: 1px solid #D0E8FF;
+    line-height: 28px;
+    color: #4597E0;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+}
+
 .admin {
     /* border: 1px solid red; */
     padding-left: 70px;

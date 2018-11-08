@@ -7,6 +7,10 @@
 
 <table class="layui-table" width=100% id="historytalk" lay-filter="historytalk">
 </table>
+<!-- 分页器 -->
+<div style="text-align:center;width:100%;position:absolute;bottom:50px;">
+    <div id="page"></div>
+</div>
 <!-- 访谈状态模板 -->
 <script type="text/html" id="talk">
     {{# if(d.status=="0"){ }}
@@ -21,8 +25,6 @@
     <span>视频直播</span> {{# }else if(d.type=="1"){}}
     <span>图文直播</span>{{#}}}
 </script>
-<!-- 分页器 -->
-<div id="page" style="position:absolute;bottom:0px;left:40%;margin-left:-28px;"></div>
 
 <script src="../../layui/layui.all.js"></script>
 <!-- 操作按钮模板 -->
