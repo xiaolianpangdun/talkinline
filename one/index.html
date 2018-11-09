@@ -54,14 +54,16 @@
                 <div class="right exit">
                     <span>退出</span>
                 </div>
+                <div class="right" style="border-left:1px solid red;height:54px;border:1px solid #D8D8D8;margin-left:20px;"></div>
                 <div class="right admin">
                     <div class="right" style="margin-top:9px;">
-                        <span style="font-size:20px;">admin</span><br>
-                        <select class="select">
+                        <span style="font-size:20px;" class="adminname">admin</span><br>
+                        <span>超级管理员</span>
+                        <!-- <select class="select">
                         <option value="">超级管理员</option>
                         <option value="">1</option>
                         <option value="">2</option>
-                        </select>
+                        </select> -->
                     </div>
                 </div>
                 <div class="clear">
@@ -85,8 +87,12 @@
                     $ = layui.$,
                     link = window.localStorage.getItem("link");
                 isLogin = window.localStorage.getItem("isLogin");
+                console.log(isLogin);
                 (function() {
-                    if (!isLogin) {
+                    if (isLogin) {
+                        var adminname = window.localStorage.getItem("adminname");
+                        $("adminname").html(adminname);
+                    } else {
                         layer.msg("您还没登录");
                         window.location.href = "../login.html";
                     }
@@ -142,6 +148,12 @@
                         $(".body").html(html);
                     }
                     $(".return").hide();
+                });
+                // 退出注销
+                $(".exit").click(function() {
+                    window.localStorage.setItem("isLogin", false);
+                    console.log(window.localStorage.getItem("isLogin"));
+                    window.location.href = "../login.html";
                 });
             }();
         </script>

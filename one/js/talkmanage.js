@@ -306,7 +306,9 @@
                     },
                     end: function() {
                         $("#addinlinetalk").hide();
-                        $("#addinlinetalk input").val("");
+                        $("#addinlinetalk input[type='text'],.talkintro").val("");
+                        $("input[name='type']").prop("checked", false).next().find(".ddd").removeClass("checked");
+                        $(".showfile").hide();
                     }
                 });
             },
@@ -494,7 +496,9 @@
                     },
                     end: function() {
                         $("#addadvance").hide();
-                        $("#addadvance input").val("");
+                        $("#addadvance input[type='text'],.talkintro").val("");
+                        $("input[name='type']").prop("checked", false).next().find(".ddd").removeClass("checked");
+                        $(".showfile").hide();
                     }
                 });
             },
@@ -664,13 +668,13 @@
         }
     });
 
-
     // 点击切换访谈预告视频 图片
     $("#addadvance input[name='type']").click(function() {
         var val = $("#addadvance input[name='type']:checked").val();
         // console.log(val);
         $("#addadvance input[type='file']").val("");
         $("#addadvance .afterupcon").show();
+        $(".showfile").show();
         $("#addadvance .beforeup").hide();
         if (val == "1") {
             $("#addadvance .upimg").show();
@@ -684,6 +688,31 @@
             $("#addadvance .deletefile").hide();
         }
     });
+    // 上传文件
+    $("#addadvance input[type='file']").change(function(e) {
+        var that = $(this);
+        $("#addadvance .afterupcon").hide();
+        $("#addadvance .beforeup").show();
+        var name = e.currentTarget.files[0].name;
+        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
+        $("#addadvance .filename").html(name);
+        $("#addadvance .filesize").html("(" + size + ")MB");
+    });
+    $("input[id='afterfileUp']").change(function(e) {
+        $("#beforefileUp").val("");
+    });
+    $("input[id='afterfileUp0']").change(function(e) {
+        $("#beforefileUp0").val("");
+    });
+    $("#addinlinetalk input[type='file']").change(function(e) {
+        var that = $(this);
+        $("#addinlinetalk .afterupcon").hide();
+        $("#addinlinetalk .beforeup").show();
+        var name = e.currentTarget.files[0].name;
+        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
+        $("#addinlinetalk .filename").html(name);
+        $("#addinlinetalk .filesize").html("(" + size + ")MB");
+    });
     $("#addinlinetalk input[name='type']").click(function() {
         var val = $("#addinlinetalk input[name='type']:checked").val();
         // console.log(val);
@@ -691,6 +720,8 @@
         $("#addinlinetalk .afterupcon").show();
         $("#addinlinetalk .beforeup").hide();
         if (val == "1") {
+            $(".afterupcon").show();
+            $(".showfile").show();
             $("#addinlinetalk .upimg").show();
             $("#addinlinetalk .deletefile").show();
             // $(this).next().children(".ddd").addClass("checked");
@@ -699,20 +730,7 @@
             $("#addinlinetalk .upimg").hide();
         }
     });
-    // 上传文件
-    $("input[type='file']").change(function(e) {
-        console.log(111111);
-        var that = $(this);
-        $(".afterupcon").hide();
-        $(".beforeup").show();
-        var name = e.currentTarget.files[0].name;
-        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
-        $(".filename").html(name);
-        $(".filesize").html("(" + size + ")MB");
-    });
-    $("input[id='afterfileUp']").change(function(e) {
-        $("#beforefileUp").val("");
-    });
+
     $(".deletefile").click(function() {
         $("input[type='file']").val("");
         $(".afterupcon").show();

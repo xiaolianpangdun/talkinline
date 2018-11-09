@@ -20,8 +20,9 @@
                     for (var i = 0; i < lists.length; i++) {
                         if (keyWord) {
                             var array = lists[i].word.split(keyWord);
-                            var kw = "<span class='keyword'>" + keyWord + "</span>"
-                            var word = array[0] + kw + array[1];
+                            console.log(array);
+                            var word = array.join("<span class='keyword'>" + keyWord + "</span>");
+                            // var word = array[0] + kw + array[1];
                         } else { word = lists[i].word }
                         html += " <div class='left'><span>" + word + "</span><img data-id='" + lists[i].wordId + "' class='del' src='../../img/del.png'></div>";
                     }
@@ -126,6 +127,7 @@
             btn: ['确定', '取消'],
             yes: function(index, layero) {
                 var word = $(".content").val();
+                word = word.replace(/(^\s*)|(\s*$)/g, '');
                 if (word == "") {
                     layer.close(index);
                     return;

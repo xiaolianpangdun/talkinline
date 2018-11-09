@@ -44,6 +44,7 @@
             data: JSON.stringify({ username: username, password: password }),
             success: function(data) {
                 // alert("提交成功");
+                console.log(data);
                 if (data.code == "200") {
                     layer.msg("登录成功");
                     var val = $("input[type='checkbox']:checked").val();
@@ -56,6 +57,7 @@
                     }
                     window.localStorage.setItem("isLogin", true);
                     window.localStorage.setItem("link", "talkmanage");
+                    window.localStorage.setItem("adminname", data.result.name);
                     window.location.href = "./one/index.html";
                 } else {
                     layer.msg("用户名或密码错误");
