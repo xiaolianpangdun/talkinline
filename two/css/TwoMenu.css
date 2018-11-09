@@ -168,6 +168,12 @@ body{
   color: #fff;
 }
 
+#test,#test1{
+  width: 60px;
+  opacity: 0;
+  filter:"alpha(opacity=0)";
+}
+
 
 /* 用户管理 */
 .title span{
@@ -421,7 +427,12 @@ body{
   margin-top: 11px;
   text-align: center;
 }
-#updata,#VedioUpdata{
+.uplink{
+  position: relative;
+  overflow: hidden;
+  /* margin-top: -3px; */
+}
+#updata,#VedioUpdata,#UpPreview{
   position: absolute;
   font-size: 100px;
   right: 0;
@@ -639,6 +650,9 @@ body{
   background: #E7EAEC
 }
 .download{
+  color: #3199F7;
+}
+.download:hover{
   color: #3199F7;
 }
 

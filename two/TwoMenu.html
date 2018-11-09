@@ -47,6 +47,7 @@
         <li class="status_0">文字实录</li>
         <li class="status_0 status_1 ddd">视频下载</li>
       </ul>
+     
     </div>
     <!-- 左侧导航   end -->
 
@@ -116,15 +117,16 @@
               <p>推流地址</p>
               <div>
                 <span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2</span>
-                <!-- <input value="044" id="links"> -->
-                <p style="margin-left: 54px;">复制地址</p>
+                <input type="text" value="http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2" id="test" style="opacity: 0;">
+                <p class="Coyp_1" style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
             <li class="status_0">
               <p>访问地址</p>
               <div>
                 <span>http://zxft.hntax.gov.cn/onfront</span>
-                <p style="margin-left: 54px;">复制地址</p>
+                <input type="text" value="http://zxft.hntax.gov.cn/onfront" id="test1" style="opacity: 0;">
+                <p class="Coyp_2" style="margin-left: 54px;">复制地址</p>
               </div>
             </li>
             <li class="status_2">
@@ -132,7 +134,7 @@
               <div class="have_data">
                 <span class="vedio_link"></span>
                 <p class="uplink">
-                  <input type="file">
+                  <input type="file" id="UpPreview" name="file"><span>请上传文件</span>
                 </p>
 
                 <!-- <p style="color: #FF5500">删除</p> -->
@@ -151,7 +153,6 @@
         </div>
       </div>
       <!-- 直播详情  end -->
-
 
 
       <!-- 用户管理  start -->
@@ -382,7 +383,7 @@
         </div>
 
         <div class="operation">
-          <input type="file" id="VedioUpdata" name="files">上传视频
+          <input type="file" id="VedioUpdata" name="file">上传视频
         </div>
 
         <div class="vedio_vedio"></div>
@@ -605,6 +606,15 @@
     } else if (status == 1) { // 访谈直播中
 
       $('.status_1').css('display', 'none');
+
+      if ($('#TalkScene').text('图文预告')) {
+
+        $('.video_0').text('图片');
+
+      } else if ($('#TalkScene').text('视频预告')) {
+
+       $('.video_0').text('视频');
+      }
 
     } else if (status == 2) { // 访谈结束
 

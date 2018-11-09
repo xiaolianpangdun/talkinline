@@ -76,16 +76,16 @@ $(function () {
 
   });
 
-  window.onload = function () {
+  // window.onload = function () {
 
-    var index = sessionStorage.getItem("nav");
+  //   var index = sessionStorage.getItem("nav");
 
-    var li = $(".nav li").eq(index);
+  //   var li = $(".nav li").eq(index);
 
-    li.addClass("active").siblings().removeClass("active");
+  //   li.addClass("active").siblings().removeClass("active");
 
-    $(".menu").hide().eq(index).show();
-  }
+  //   $(".menu").hide().eq(index).show();
+  // }
 
   /**
    * 
@@ -170,24 +170,24 @@ $(function () {
           $('#text_brief').text(data.result.description);
 
           // 预告详情里面的 上传图文和视频
-          if( $('.video_0').text('图片') ){
+          if( $('.video_0').text() == '图片'){
 
             if(data.result.prePicUrl != null){
 
               $('.vedio_link').text(data.result.prePicUrl);
 
-              $('.uplink').text('重新上传');
+              $('.uplink span').text('重新上传');
 
             }else if(data.result.prePicUrl == null){
 
               $('.vedio_link').text('无文件/');
 
-              $('.uplink').text('请上传图片文件');
+              $('.uplink span').text('请上传文件');
 
             }
 
             
-          }else if( $('.video_0').text('视频') ){
+          }else if( $('.video_0').text() == '视频'){
 
 
             if(data.result.preVideoUrl != null){
@@ -478,9 +478,86 @@ $(function () {
   });
 
   // 直播详情 ====== 上传视频
-  $('.uplink').click(function(){
+  $('#UpPreview').change(function(e){
+
+    var files = e.currentTarget.files[0].name;
+
+    var talktype = $('#TalkScene').text();
+
+    if (talktype == '视频直播') {
+
+      talktype = 0;
+
+    } else if (talktype == '图文直播') {
+
+      talktype = 1;
+
+    }
+
+    $.ajaxFileUpload({
+      url: TheServer + '/interview/edit',
+      type: 'POST',
+      secureuri: false, //一般设置为false
+      fileElementId: "UpPreview", //文件上传空间的id属性
+      dataType: 'JSON',
+      traditional: true,
+      contentType: 'application/json;charset=utf-8',
+      data: {
+        interviewId: talkNum,
+        type: talktype,
+        file: files
+      },
+      
+      success: function(data, status){
+
+        console.log(status)
+
+        if(status == 'success'){
+          DirectSeedingDetails();
+          layer.msg('上传成功');
+        }
+
+      },
+      error: function(data, status, e){
+        //layer.close(index);
+        console.log(data);
+
+      }
+    });
+
+    // $.ajax({
+    //   url: TheServer + '/interview/edit',
+    //   type: 'POST',
+    //   dataType: 'json',
+    //   async: true,
+    //   traditional: true,    //或false,是否异步
+    //   data: {
+    //     interviewId: talkNum,
+    //     type: talktype,
+    //     file: files
+    //   },
+    //   success: function (data, textStatus, jqXHR) {
+    //     console.log(data)
+    //     if(data.code == 200){
+
+    //       DirectSeedingDetails();
+
+    //       // $('.vedio_link').html();
+    //       // $('.uplink span').html('重新上传');
+         
+    //       layer.msg("修改成功");
+    //     };
+    //   },
+    //   error: function (xhr, textStatus) {
+    //   },
+    //   complete: function () {
+    //   }
+    // })
 
 
+
+    
+    console.log('选择文件的名称 ========', files);
 
   });
 
@@ -617,6 +694,27 @@ $(function () {
     }
 
   });
+
+  // 直播详情 ==== 复制
+  $('.Coyp_1').click(function(e){
+
+    var content = document.getElementById('test');
+    content.select();
+    document.execCommand('Copy');
+
+    layer.msg('复制成功');
+
+  });
+  $('.Coyp_2').click(function(e){
+
+    var content = document.getElementById('test1');
+    content.select();
+    document.execCommand('Copy');
+
+    layer.msg('复制成功');
+
+  });
+
 
 
   /**
@@ -1616,24 +1714,31 @@ $(function () {
   };
 
   // 事件代理 ======= 网友提问/审核回复
-  $('#aaaa').click(function(event){
+  if(kind == "history"){
 
-    var event = event || window.event;
-　  var target = event.target || event.srcElement;
-
-    var commentId = target.getAttribute('data-id');
-    var inx = target.getAttribute('data-index');
-
-    switch(target.className){
-      case 'ReviewResponse':
-      AnswerQuestions(commentId,inx);
-      break;
+    if(status == 2){
+      $('#aaaa').click(function(event){
+  
+        var event = event || window.event;
+    　  var target = event.target || event.srcElement;
+    
+        var commentId = target.getAttribute('data-id');
+        var inx = target.getAttribute('data-index');
+    
+        switch(target.className){
+          case 'ReviewResponse':
+          AnswerQuestions(commentId,inx);
+          break;
+        }
+    
+        console.log(target)
+        console.log(commentId)
+    
+      });
     }
-
-    console.log(target)
-    console.log(commentId)
-
-  });
+  }
+  
+  
 
 
   // 网友提问 ==== 打开编辑
@@ -2642,19 +2747,12 @@ $(function () {
       VedioStr += '</p>';
       VedioStr += '<p class="vedio_size">'+VedioLists.updateTime+'</p>';
       VedioStr += '<p style="width: 28%" class="vedio_time">'+VedioLists.videoSize+'M'+'</p>';
-      VedioStr += '<p class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</p>';
+      VedioStr += '<a href="'+VedioLists.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
       VedioStr += '</div>';
 
       $('.vedio_vedio').html(VedioStr);
+      $(".download").attr("download",VedioLists.videoUrl); 
     }
-
-    //$('.download').html('<form action="'+VedioLists.videoUrl+'">'+'下载视频'+'</form>');
-
-    $('.download').click(function(){
-      window.open(VedioLists.videoUrl);
-    });
-    //$('form').submit();
-
 
   };
   Vedio();
@@ -2680,19 +2778,46 @@ $(function () {
       secureuri: false, //一般设置为false
       fileElementId: "VedioUpdata", //文件上传空间的id属性
       dataType: 'JSON',
+      traditional: true,
       contentType: 'application/json;charset=utf-8',
-      data: JSON.stringify({
+      data: {
         interviewId: talkNum,
-        files: files,
+        file: files,
         videoSize: videoSize
-      }),
+      },
       
-      success: function(data, status){
+      success: function(res, status){
+        console.log(status);
 
         if(status == 'success'){
+
           DirectSeedingDetails();
           Vedio();
+          // var VedioList = localStorage.getItem("Details");
+          // var VedioLists = JSON.parse(VedioList);
+          // console.log(VedioLists);
+
+          // if(VedioLists.videoUrl != null){
+
+          //   console.log('执行了')
+
+          //   var VedioStr = [];
+
+          //   VedioStr += '<div class="vedio">';
+          //   VedioStr += '<P style="margin: 0;width: 42%">';
+          //   VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
+          //   VedioStr += '<span class="vedio_title">'+VedioLists.name+'</span>';
+          //   VedioStr += '</p>';
+          //   VedioStr += '<p class="vedio_size">'+VedioLists.updateTime+'</p>';
+          //   VedioStr += '<p style="width: 28%" class="vedio_time">'+VedioLists.videoSize+'M'+'</p>';
+          //   VedioStr += '<a class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
+          //   VedioStr += '</div>';
+
+          //   $('.vedio_vedio').html(VedioStr);
+          // }
+
           layer.msg('上传成功');
+          //Vedio();
         }
 
       },
@@ -2707,25 +2832,6 @@ $(function () {
 
   });
   
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
