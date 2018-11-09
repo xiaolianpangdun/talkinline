@@ -23,12 +23,12 @@
                         //obj包含了当前分页的所有参数，比如：
                         var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
                             limit = obj.limit; //得到每页显示的条数
-                        table.reload('historytalk', {
+
+                        //首次不执行
+                        if (!first) {
+                            table.reload('historytalk', {
                                 url: 'http://192.168.0.71:8080/interview/list?status=2&currentPage=' + curr + '&pageSize=10'
                             })
-                            //首次不执行
-                        if (!first) {
-                            //do something
                         }
                     }
                 });

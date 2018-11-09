@@ -34,6 +34,84 @@
                 var formData = new FormData($("#xxxxx"));
                 console.log(formData);
             });
+
+            // upload插件上传代码
+            // function ajaxFileUpload(fileid, data) {
+            //     $.ajaxFileUpload({
+            //         url: 'http://192.168.0.71:8080/interview/create', //用于文件上传的服务器端请求地址
+            //         secureuri: false, //一般设置为false
+            //         fileElementId: fileid, //文件上传空间的id属性  <input type="file" id="file" name="file" />
+            //         dataType: 'JSON', //返回值类型 一般设置为json
+            //         data: data,
+            //         type: 'POST',
+            //         success: function(data, status) //服务器成功响应处理函数
+            //             {},
+            //         error: function(data, status, e) //服务器响应失败处理函数
+            //             {}
+            //     })
+            //     return false;
+            // }
+
+
+            // upload.render({
+            //     elem: '#beforefileUp',
+            //     url: 'http://192.168.0.71:8080/interview/create',
+            //     accept: 'file', //普通文件
+            //     auto: false, //选择文件后不自动上传
+            //     bindAction: '#submitfff',
+            //     exts: 'txt',
+            //     size: 10,
+            //     data: {
+            //         // var status = 0;
+            //         // var name = $("#addadvance .talkname").val();
+            //         // var type = parseInt($("input[name='type']:checked").val());
+            //         // var compere = $("#addadvance input.compere").val();
+            //         // var description = $("#addadvance .talkintro").val();
+            //         // var guests = document.getElementsByClassName("guestlists");
+            //         // var file = $("#addadvance input[type=file]")[0].files[0];
+            //         // var speakername = [];
+            //         // console.log(file);
+            //         // for (var i = 0; i < guests.length; i++) {
+            //         //     speakername.push(guests[i].innerHTML);
+            //         // }
+            //         name: function() {
+            //             name = $("#addadvance .talkname").val();
+            //             if (name == "") { alert("姓名不能为空") }
+            //             return name = $("#addadvance .talkname").val();
+            //         },
+            //         status: 0,
+            //         type: function() {
+            //             return parseInt($("input[name='type']:checked").val());
+            //         },
+            //         compere: function() {
+            //             return $("#addadvance input.compere").val();
+            //         },
+            //         description: function() {
+            //             return $("#addadvance .talkintro").val();
+            //         },
+            //         speakername: function() {
+            //             var guests = document.getElementsByClassName("guestlists");
+            //             var speakername = [];
+            //             for (var i = 0; i < guests.length; i++) {
+            //                 speakername.push(guests[i].innerHTML);
+            //             }
+            //             return speakername;
+            //         }
+            //     },
+            //     before: function(obj) {
+            //         console.log(obj);
+            //     },
+            //     done: function(res) {
+            //         layer.close();
+            //     }
+            // });
+            // $("#submitfff").click(function() {
+            //     // layer.closeAll();
+            // });
+
+
+
+
             // upload.render({
             //     elem: '#test9',
             //     url: 'http://192.168.0.71:8080/prohibit/batchImport',

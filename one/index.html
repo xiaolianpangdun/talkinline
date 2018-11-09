@@ -87,16 +87,26 @@
                     $ = layui.$,
                     link = window.localStorage.getItem("link");
                 isLogin = window.localStorage.getItem("isLogin");
-                console.log(isLogin);
+
                 (function() {
-                    if (isLogin) {
+                    if (isLogin == "true") {
                         var adminname = window.localStorage.getItem("adminname");
-                        $("adminname").html(adminname);
+                        $(".adminname").html(adminname);
                     } else {
-                        layer.msg("您还没登录");
+                        alert("您还没登录");
                         window.location.href = "../login.html";
                     }
                 })();
+                // 退出注销
+                $(".exit").click(function() {
+                    var exit = confirm("确定退出吗？");
+                    if (exit) {
+                        window.localStorage.setItem("isLogin", false);
+                        console.log(window.localStorage.getItem("isLogin"));
+                        window.location.href = "../login.html";
+                    }
+
+                });
                 // 刷新之后 导航背景颜色还在
                 (function() {
                     if (link == "two") {
@@ -148,12 +158,6 @@
                         $(".body").html(html);
                     }
                     $(".return").hide();
-                });
-                // 退出注销
-                $(".exit").click(function() {
-                    window.localStorage.setItem("isLogin", false);
-                    console.log(window.localStorage.getItem("isLogin"));
-                    window.location.href = "../login.html";
                 });
             }();
         </script>
