@@ -484,7 +484,6 @@ $(function () {
 
   });
 
-
   // 直播详情 ====== 转为在线访谈
   $('#conversion').click(function(){
     
@@ -625,8 +624,12 @@ $(function () {
    * 
    * 数据请求渲染
    * 
-   * 点击加入黑名单
+   * 分页
+   * 
+   * 加入黑名单
    */
+
+  // 用户管理 ======= 用户列表
   var UserNow = 1;
 
   var UserList = function(UserNow){
@@ -647,6 +650,8 @@ $(function () {
         if (data.code == 200) {
   
           var UserList = data.result.list;
+
+          //localStorage.setItem('UserS',JSON.stringify(data.result.list));
   
           console.log('用户列表接口请求成功 ======== ', data.result);
   
@@ -660,7 +665,7 @@ $(function () {
             users += '<td>' + obj.name + '</td>';
             users += '<td>' + obj.ip + '</td>';
             users += '<td>' + obj.createTime + '</td>';
-            users += '<td><p class="black_list">' + '加入黑名单' + '</p></td>'
+            users += '<td><p class="black_list" data-ip="'+obj.ip+'" data-name="'+obj.name+'">' + '加入黑名单' + '</p></td>'
             users += '</tr>'
   
           });
@@ -718,6 +723,7 @@ $(function () {
     });
   };
 
+  // 用户管理 ===== 分页
   var UserPage = function(UserNow){
 
     $.ajax({
@@ -761,31 +767,55 @@ $(function () {
 
   UserPage(UserNow);
 
+  // 加入黑名单的接口
+  var AddBlack = function(ip,visitor){
+
+    var iP = ip;
+    var visitor = visitor;
+
+    $.ajax({
+      url: TheServer + '/blacklist/create',
+      type: 'POST',
+      async: true,
+      data: {
+        params: '{"ip":"' + ip + '","visitor": "' + visitor + '"}'
+      },
+      success: function (data, textStatus, jqXHR) {
+        console.log(data)
+        if(data.code == 200){
+
+          //$('tbody tr').eq(NowUser).css('display','none');
+          UserList(UserNow);
+          UserPage(UserNow);
+          layer.msg(visitor + "已被加入黑名单");
+        };
+      },
+      error: function (xhr, textStatus) {
+
+      },
+      complete: function () {
+
+      }
+    })
+    
+
+  };
+
   // 用户管理 ==== 点击加入黑名单
   $('.tab_tr').click(function(event){
 
     var event = event || window.event;
 　  var target = event.target || event.srcElement;
 
-    if(target.classname == 'back_list'){
-      console.log('找到了');
-    };
+    var ip = target.getAttribute('data-ip');
+    var visitor = target.getAttribute('data-name');
 
-    // switch(target.classname){
-    //   case back_list:
-    //   break;
-    // }
+    switch(target.className){
+      case 'black_list':
+      AddBlack(ip,visitor);
+      break;
+    }
       
-    
-
-
-
-    //if(target)
-
-    //var nowclick = target.parent().parent().index();
-
-    console.log(target);
-   // console.log(index);
 
   });
 
@@ -849,8 +879,8 @@ $(function () {
             questions += '<p class="questions_bottom">' + obj.content + '</p>';
             questions += '</div>';
             questions += '<div class="questions_right">';
-            questions += '<p class="InteractionShield" data-id="' + obj.commentId + '">' + '屏蔽' + '</p>';
-            questions += '<p style="margin-right: 0;" class="ReviewResponse">' + '审核回复' + '</p>';
+            questions += '<p class="InteractionShield">' + '屏蔽' + '</p>';
+            questions += '<p style="margin-right: 0;" class="ReviewResponse" data-id="' + obj.commentId + '" data-index="' + i + '">' + '审核回复' + '</p>';
             questions += '</div>';
             questions += '</div>';
           });
@@ -909,7 +939,7 @@ $(function () {
                 // 获取要传给后台的值
                 console.log(lists);
                 var commentId = lists[nowclick].commentId;
-                var interviewId = lists[nowclick].interviewId;
+                //var interviewId = lists[nowclick].interviewId;
                 var visitor = lists[nowclick].visitor;
   
                 console.log('网友评论，评论ID ======', commentId);
@@ -925,7 +955,7 @@ $(function () {
                   contentType: 'application/json;charset=utf-8',
                   data: JSON.stringify({
                     commentId: commentId,
-                    interviewId: interviewId,
+                    interviewId: talkNum,
                     visitor: visitor
                   }),
                   success: function (data, textStatus, jqXHR) {
@@ -937,6 +967,8 @@ $(function () {
 
                     $('#InteractionShield').removeAttr("id");
                     $('#ReviewResponse').removeClass("class");
+
+                    layer.msg("屏蔽成功")
                     }
                   },
                   error: function (xhr, textStatus) {
@@ -963,138 +995,138 @@ $(function () {
           });
   
           //点击审核回复
-          $('.ReviewResponse').click(function () {
+          // $('.ReviewResponse').click(function () {
   
-            // 审核回复弹窗的内容部分
-            $('.review_response').css("display", "block");
+          //   // 审核回复弹窗的内容部分
+          //   $('.review_response').css("display", "block");
   
-            // 把网友的提问在打开弹窗的时候就渲染到弹窗上面
-            var questionsnow = $(this).parent().parent().index();
-            var questions_text = $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text();
+          //   // 把网友的提问在打开弹窗的时候就渲染到弹窗上面
+          //   var questionsnow = $(this).parent().parent().index();
+          //   var questions_text = $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text();
 
-            // 渲染到弹框上面
-            $('.edit_q').text(questions_text);
+          //   // 渲染到弹框上面
+          //   $('.edit_q').text(questions_text);
 
-            console.log(questionsnow);
+          //   console.log(questionsnow);
   
-            console.log('获取到的网友提问 ========= ', questions_text)
+          //   console.log('获取到的网友提问 ========= ', questions_text)
   
-            // 网友提问页面的审核回复
-            layer.open({
-              type: 1,
-              area: ['700px', ''],
-              title: ['', 'background: #fff;border:0'],
-              btn: ['确定', '取消'],
-              skin: 'my-skin',
-              btnAlign: 'c',
-              content: $('#review'),
-              cancel: function (index, layero) {
-                $('#review').css("display", "none");
-              },
-              yes: function (index, layero) {
+          //   // 网友提问页面的审核回复
+          //   layer.open({
+          //     type: 1,
+          //     area: ['700px', ''],
+          //     title: ['', 'background: #fff;border:0'],
+          //     btn: ['确定', '取消'],
+          //     skin: 'my-skin',
+          //     btnAlign: 'c',
+          //     content: $('#review'),
+          //     cancel: function (index, layero) {
+          //       $('#review').css("display", "none");
+          //     },
+          //     yes: function (index, layero) {
 
-                var Speak = localStorage.getItem("Speak");
+          //       var Speak = localStorage.getItem("Speak");
 
-                var speaker = JSON.parse(Speak);
+          //       var speaker = JSON.parse(Speak);
   
-                var commentId = lists[questionsnow].commentId;
-                var commentContent = $('.edit_q').text();
-                var replyContent = $('#review textarea').val();
-                var speakerinx = $("#select_guest").get(0).selectedIndex;
-                var speakerId = speaker[speakerinx].speakerId;
-                var speakername = speaker[speakerinx].name;
+          //       var commentId = lists[questionsnow].commentId;
+          //       var commentContent = $('.edit_q').text();
+          //       var replyContent = $('#review textarea').val();
+          //       var speakerinx = $("#select_guest").get(0).selectedIndex;
+          //       var speakerId = speaker[speakerinx].speakerId;
+          //       var speakername = speaker[speakerinx].name;
 
-                //var speakerName = 
-                console.log('评论ID =======', commentId);
-                console.log('评论内容 =======', commentContent);
-                console.log('回复内容 =======', replyContent);
-                console.log('回复者嘉宾ID =======', speakerId);
-                console.log('回复者嘉宾名字 =======', speakername);
+          //       //var speakerName = 
+          //       console.log('评论ID =======', commentId);
+          //       console.log('评论内容 =======', commentContent);
+          //       console.log('回复内容 =======', replyContent);
+          //       console.log('回复者嘉宾ID =======', speakerId);
+          //       console.log('回复者嘉宾名字 =======', speakername);
   
-                //点击确定把数据上传
-                $.ajax({
-                  url: TheServer + '/comments/audit',
-                  type: 'POST',
-                  dataType: 'json',
-                  async: true,
-                  contentType: 'application/json;charset=utf-8',
-                  data: JSON.stringify({
-                    commentId: commentId,
-                    commentContent: commentContent,
-                    replyContent: replyContent,
-                    speakerId: speakerId,
-                    speakerName: speakername
-                  }),
-                  success: function (data, textStatus, jqXHR) {
-                    console.log(data);
+          //       //点击确定把数据上传
+          //       $.ajax({
+          //         url: TheServer + '/comments/audit',
+          //         type: 'POST',
+          //         dataType: 'json',
+          //         async: true,
+          //         contentType: 'application/json;charset=utf-8',
+          //         data: JSON.stringify({
+          //           commentId: commentId,
+          //           commentContent: commentContent,
+          //           replyContent: replyContent,
+          //           speakerId: speakerId,
+          //           speakerName: speakername
+          //         }),
+          //         success: function (data, textStatus, jqXHR) {
+          //           console.log(data);
   
-                    // 如果请求成功，修改页面上的问题
-                    if (data.code == 200) {
-                      $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text(commentContent);
-                      $('.questions_main').eq(questionsnow).css('display','none');
-                    }
-  
-  
-                  },
-                  error: function (xhr, textStatus) {
-                  },
-                  complete: function () {
-                  }
-                })
-  
-                // 关闭弹框
-                layer.close(index);
-                $('#review').css("display", "none");
-  
-              },
-              btn2: function (index, layero) {// 取消按钮
-  
-                layer.close(index);
-                $('#review').css("display", "none");
-  
-              },
-  
-            });
-  
-            // 编辑网友提问的弹框
-            $('.editor_question').click(function () {
-  
-              $('#response_main').val($('.edit_q').text());
-  
-              layer.open({
-                type: 1,
-                area: ['700px', ''],
-                title: ['', 'background: #fff;border:0'],
-                btn: ['确定', '取消'],
-                skin: 'my-skin',
-                btnAlign: 'c',
-                content: $('#response'),
-                cancel: function (index, layero) {
-                  $('#response').css("display", "none");
-                },
-                yes: function (index, layero) {
-  
-                  // 获取修改后的问题，重新渲染到上一个弹框
-                  var Modified = $('#response_main').val();
-                  $('.edit_q').text(Modified)
-                  //$('.questions_bottom').text(Modified);
-  
-                  layer.close(index);
-                  $('#response').css("display", "none");
-  
-                },
-                btn2: function (index, layero) {
-                  // 取消按钮
-                  layer.close(index);
-                  $('#response').css("display", "none");
+          //           // 如果请求成功，修改页面上的问题
+          //           if (data.code == 200) {
+          //             $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text(commentContent);
+          //             $('.questions_main').eq(questionsnow).css('display','none');
+          //           }
   
   
-                },
-              });
+          //         },
+          //         error: function (xhr, textStatus) {
+          //         },
+          //         complete: function () {
+          //         }
+          //       })
   
-            });
+          //       // 关闭弹框
+          //       layer.close(index);
+          //       $('#review').css("display", "none");
   
-          });
+          //     },
+          //     btn2: function (index, layero) {// 取消按钮
+  
+          //       layer.close(index);
+          //       $('#review').css("display", "none");
+  
+          //     },
+  
+          //   });
+  
+          //   // 编辑网友提问的弹框
+          //   $('.editor_question').click(function () {
+  
+          //     $('#response_main').val($('.edit_q').text());
+  
+          //     layer.open({
+          //       type: 1,
+          //       area: ['700px', ''],
+          //       title: ['', 'background: #fff;border:0'],
+          //       btn: ['确定', '取消'],
+          //       skin: 'my-skin',
+          //       btnAlign: 'c',
+          //       content: $('#response'),
+          //       cancel: function (index, layero) {
+          //         $('#response').css("display", "none");
+          //       },
+          //       yes: function (index, layero) {
+  
+          //         // 获取修改后的问题，重新渲染到上一个弹框
+          //         var Modified = $('#response_main').val();
+          //         $('.edit_q').text(Modified)
+          //         //$('.questions_bottom').text(Modified);
+  
+          //         layer.close(index);
+          //         $('#response').css("display", "none");
+  
+          //       },
+          //       btn2: function (index, layero) {
+          //         // 取消按钮
+          //         layer.close(index);
+          //         $('#response').css("display", "none");
+  
+  
+          //       },
+          //     });
+  
+          //   });
+  
+          // });
           
   
         }
@@ -1103,6 +1135,7 @@ $(function () {
     });
   };
   
+  // 网友提问 ===== 分页
   var ProblemPage = function(ProblemCurr){
 
     $.ajax({
@@ -1159,7 +1192,6 @@ $(function () {
 
   };
   
-  
   // 互动设置  ===== 审核回复
   var ReplyCurr = 1;
 
@@ -1197,13 +1229,13 @@ $(function () {
             var speak = localStorage.getItem("Speak");
             var speaker = JSON.parse(speak);
 
-            console.log(speaker);
+            //console.log(speaker);
 
             var now = [];
 
             // 循环嘉宾列表把id相等的数据的名字拿出来
             for(var c = 0; c < speaker.length; c ++){
-              console.log(speaker[c].speakerId)
+              //console.log(speaker[c].speakerId)
               if(speaker[c].speakerId == speakernames){
 
                 now.push(speaker[c].name);
@@ -1211,8 +1243,6 @@ $(function () {
 
               }
             }
-
-            console.log(now)
 
             replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
             replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
@@ -1231,7 +1261,7 @@ $(function () {
             replys += '<span>' + obj.reply.updateTime + '</span>';
             replys += '</p>';
             replys += '<p class="reply_bottom_content">' + obj.reply.content + '</p>';
-            replys += '<p class="reply_editor"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
+            replys += '<p class="reply_editor" data-commentId="'+obj.comment.commentId+'" data-replyId="'+obj.reply.replyId+'"  data-index="'+i+'"><img src="' + '../img/edit.png' + '" alt="">' + '编辑' + '</p>';
             replys += '</div>';
             replys += '</div>';
             replys += '</div>';
@@ -1309,8 +1339,6 @@ $(function () {
               $('.002 p').text($('.administrators').text());
               $('#names_02').val(nowlist.reply.content);
 
-              //console.log($('.administrators').html());
-      
       
               $('.ReplyEditor').css("display", "block");
       
@@ -1354,8 +1382,9 @@ $(function () {
                       console.log(data);
       
                       if (data.code == 200) {
-                        $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
-                        $('.reply_main').eq(nowreply - 1).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
+                        $('.reply_main').eq(nowreply).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
+                        $('.reply_main').eq(nowreply).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
+                        layer.msg('修改成功');
                       }
       
                     },
@@ -1447,7 +1476,165 @@ $(function () {
   };
 
   ReplyPage(ReplyCurr);
+
+
+  // 网友提问 ======= 审核回复
+  var AnswerQuestions = function(commentId,inx){
+
+    console.log(commentId);
+    console.log(inx);
+
+    // 审核回复弹窗的内容部分
+    $('.review_response').css("display", "block");
   
+    // 把网友的提问在打开弹窗的时候就渲染到弹窗上面
+    var questions_text = $('.questions_main').eq(inx).children('.questions_left').children('.questions_bottom').text();
+
+    
+    // 渲染到弹框上面
+    $('.edit_q').text(questions_text);
+
+    console.log('获取到的网友提问 ========= ', questions_text)
+
+    // 网友提问页面的审核回复
+    layer.open({
+      type: 1,
+      area: ['700px', ''],
+      title: ['', 'background: #fff;border:0'],
+      btn: ['确定', '取消'],
+      skin: 'my-skin',
+      btnAlign: 'c',
+      content: $('#review'),
+      cancel: function (index, layero) {
+        $('#review').css("display", "none");
+      },
+      yes: function (index, layero) {
+
+        var Speak = localStorage.getItem("Speak");
+
+        var speaker = JSON.parse(Speak);
+
+        var commentContent = $('.edit_q').text();
+        var replyContent = $('#review textarea').val();
+        var speakerinx = $("#select_guest").get(0).selectedIndex;
+        var speakerId = speaker[speakerinx].speakerId;
+        var speakername = speaker[speakerinx].name;
+
+        console.log('评论ID =======', commentId);
+        console.log('评论内容 =======', commentContent);
+        console.log('回复内容 =======', replyContent);
+        console.log('回复者嘉宾ID =======', speakerId);
+        console.log('回复者嘉宾名字 =======', speakername);
+
+        //点击确定把数据上传
+        $.ajax({
+          url: TheServer + '/comments/audit',
+          type: 'POST',
+          dataType: 'json',
+          async: true,
+          contentType: 'application/json;charset=utf-8',
+          data: JSON.stringify({
+            commentId: commentId,
+            commentContent: commentContent,
+            replyContent: replyContent,
+            speakerId: speakerId,
+            speakerName: speakername
+          }),
+          success: function (data, textStatus, jqXHR) {
+            console.log(data);
+
+            // 如果请求成功，修改页面上的问题
+            if (data.code == 200) {
+              // $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text(commentContent);
+              // $('.questions_main').eq(questionsnow).css('display','none');
+              ProblemList(ProblemCurr);
+              ProblemPage(ProblemCurr);
+              layer.msg('回复成功');
+
+            }
+
+
+          },
+          error: function (xhr, textStatus) {
+          },
+          complete: function () {
+          }
+        })
+
+        // 关闭弹框
+        layer.close(index);
+        $('#review').css("display", "none");
+
+      },
+      btn2: function (index, layero) {// 取消按钮
+
+        layer.close(index);
+        $('#review').css("display", "none");
+
+      },
+
+    });
+
+    // 编辑网友提问的弹框
+    $('.editor_question').click(function () {
+
+      $('#response_main').val($('.edit_q').text());
+
+      layer.open({
+        type: 1,
+        area: ['700px', ''],
+        title: ['', 'background: #fff;border:0'],
+        btn: ['确定', '取消'],
+        skin: 'my-skin',
+        btnAlign: 'c',
+        content: $('#response'),
+        cancel: function (index, layero) {
+          $('#response').css("display", "none");
+        },
+        yes: function (index, layero) {
+
+          // 获取修改后的问题，重新渲染到上一个弹框
+          var Modified = $('#response_main').val();
+          $('.edit_q').text(Modified)
+          //$('.questions_bottom').text(Modified);
+
+          layer.close(index);
+          $('#response').css("display", "none");
+
+        },
+        btn2: function (index, layero) {
+          // 取消按钮
+          layer.close(index);
+          $('#response').css("display", "none");
+
+
+        },
+      });
+
+    });
+
+  };
+
+  // 事件代理 ======= 网友提问/审核回复
+  $('#aaaa').click(function(event){
+
+    var event = event || window.event;
+　  var target = event.target || event.srcElement;
+
+    var commentId = target.getAttribute('data-id');
+    var inx = target.getAttribute('data-index');
+
+    switch(target.className){
+      case 'ReviewResponse':
+      AnswerQuestions(commentId,inx);
+      break;
+    }
+
+    console.log(target)
+    console.log(commentId)
+
+  });
+
 
   // 网友提问 ==== 打开编辑
   $('.batch_management').click(function () {
@@ -1534,14 +1721,14 @@ $(function () {
 
         var QuestionsStr = [];
 
-        var Questionsinx = [];
+        //var Questionsinx = [];
 
         for (var i = 0; i < Questions.length; i++) {
 
           if (Questions.eq(i).hasClass('chexbox_img')) {
 
             QuestionsStr.push(Questions[i].getAttribute('data-id'));
-            Questionsinx.push(i)
+           // Questionsinx.push(i)
           }
 
         }
@@ -1569,11 +1756,12 @@ $(function () {
 
             if(data.code == 200){
 
-              for(var i = 0;i<Questionsinx.length;i++){
-                $('.questions_main').eq(i).css('display','none')
-              }
-              // ProblemList(ProblemCurr);
-              //ProblemPage(ProblemCurr);
+              // for(var i = 0;i<Questionsinx.length;i++){
+              //   $('.questions_main').eq(i).css('display','none')
+              // }
+              ProblemList(ProblemCurr);
+              ProblemPage(ProblemCurr);
+              layer.msg('删除成功');
 
             }
 
@@ -1674,11 +1862,14 @@ $(function () {
 
             if(data.code == 200){
 
-              for(var i = 0;i < SelectReplyInx.length; i ++){
+              // for(var i = 0;i < SelectReplyInx.length; i ++){
 
-                $('.reply_main').eq(i).css('display','none');
+              //   $('.reply_main').eq(i).css('display','none');
 
-              };
+              // };
+              ReplyList(ReplyCurr);
+              ReplyPage(ReplyCurr);
+              layer.msg('删除成功');
               
             }
             console.log(data);
@@ -1717,6 +1908,11 @@ $(function () {
     $(this).addClass('item3_active').siblings().removeClass('item3_active');
     idx = $(this).index();
     $(".item3>div").hide().eq(idx).show();
+    if(idx == 1){
+      ReplyList(ReplyCurr)
+      ReplyPage(ReplyCurr);
+    }
+    
   });
 
 
@@ -1940,6 +2136,8 @@ $(function () {
               GetImage(ImageCurr);
               ImagePage(ImageCurr);
 
+              layer.msg('删除成功');
+
             }
 
           },
@@ -2004,6 +2202,8 @@ $(function () {
 
           GetImage(ImageCurr);
           ImagePage(ImageCurr);
+
+          layer.msg('上传成功');
         };
 
 
@@ -2302,6 +2502,8 @@ $(function () {
               GetText(TextCurr);
               TextPage(TextCurr);
 
+              layer.msg('删除成功');
+
             }
 
 
@@ -2375,7 +2577,7 @@ $(function () {
 
               GetText(TextCurr);
               TextPage(TextCurr);
-
+              layer.msg('录入成功');
             }
       
           },
@@ -2490,6 +2692,7 @@ $(function () {
         if(status == 'success'){
           DirectSeedingDetails();
           Vedio();
+          layer.msg('上传成功');
         }
 
       },
