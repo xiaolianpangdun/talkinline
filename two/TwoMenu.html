@@ -103,7 +103,7 @@
                 <!-- <p class="guest">国家税务总局司长王思宇</p> -->
                 <div class="add" id="AddGuests">添加嘉宾</div>
               </div>
-              
+
             </li>
             <li style="height: 50px;margin-bottom: 40px;">
               <p>会议简介</p>
@@ -175,17 +175,17 @@
                 <th>操作</th>
               </tr>
             </thead>
-            
-            <!-- <tr>
-              <td>芝麻球</td>
-              <td>123.234.345.45</td>
-              <td>2018/10/25 15:28</td>
-              <td>
-                <p class="black_list">加入黑名单</p>
-              </td>
-            </tr> -->
-            <tbody class="tab_tr">
 
+            
+            <tbody class="tab_tr">
+              <tr>
+                <td>芝麻球</td>
+                <td>123.234.345.45</td>
+                <td>2018/10/25 15:28</td>
+                <td>
+                  <p class="black_list">加入黑名单</p>
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -225,8 +225,8 @@
                 <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
             </div>
-            <div id="aaaa"></div>
-            <!-- <div class="questions_main">
+            <div id="aaaa">
+              <!-- <div class="questions_main">
               <div class="questions_chexbox" style="display: none;">
                 <p class="checkbox"></p>
               </div>
@@ -239,8 +239,8 @@
               <div class="questions_right">
                 <p class="InteractionShield">屏蔽</p>
                 <p style="margin-right: 0;" class="ReviewResponse">审核回复</p>
-              </div>
-            </div> -->
+              </div> -->
+            </div>
             <div id="QuestionPage" style="position: absolute; right: 30%;bottom: -50px;"></div>
           </div>
 
@@ -273,7 +273,7 @@
               </div>
             </div> -->
             <div id="ReplyPage" style="position: absolute; right: 30%;bottom: -50px;"></div>
-            
+
           </div>
 
         </div>
@@ -306,7 +306,7 @@
             <div class="upimage">
               <input type="file" name="files" id="updata">上传图片
             </div>
-            
+
           </div>
           <div class="picture_content">
             <!-- <div class="picture_img">
@@ -418,7 +418,7 @@
   <!-- 直播详情里的四个弹框 -->
   <div class="modify_name">
     <p class="name_title">修改会议名称</p>
-    <input type="text" value="请输入会议名称" id="Name">
+    <input type="text" placeholder="请输入会议名称" id="Name">
     <p class="tips" style="display: none">提示：最多只能输入25个字符</p>
   </div>
 
@@ -436,7 +436,7 @@
 
   <div id="add_guest">
     <p class="name_title">添加嘉宾</p>
-    <input type="text" value="请输入嘉宾姓名" id="Adds" maxlength="20">
+    <input type="text" placeholder="请输入嘉宾姓名" id="Adds" maxlength="20">
     <p class="tips_2" style="display: none">提示：最多只能输入20个字符</p>
   </div>
 
@@ -561,77 +561,77 @@
    * 访谈状态
   */
 
- var kind = localStorage.getItem("kind");
+  var kind = localStorage.getItem("kind");
 
-var status = localStorage.getItem("status");
+  var status = localStorage.getItem("status");
 
-  console.log('访谈状态 ======' ,status);
-  
+  console.log('访谈状态 ======', status);
+
 
   /**
    * 根据不同的访谈状态，切换页面
    */
-  if(kind == "talkmanage"){
+  if (kind == "talkmanage") {
 
-    if(status == 0){ // 访谈预告
+    if (status == 0) { // 访谈预告
 
-      $('.status_0').css('display','none');
+      $('.status_0').css('display', 'none');
 
       $('.title_0').text('预告详情');
 
       $('.status_0_li').text('预告详情设置');
       var qq = $('.reply_editor');
 
-      for(var i = 0; i < qq.length; i ++){
+      for (var i = 0; i < qq.length; i++) {
 
-        qq.eq(i).css('display','none')
+        qq.eq(i).css('display', 'none')
 
       }
-      
+
       // 是预告的话访谈场景变成预告的
       $('.radio_item1 span').text('视频预告');
       $('.radio_item2 span').text('图文预告');
 
       // 通过选择的是哪个直播方式，改变文字
-      if($('#TalkScene').text('图文预告')){
+      if ($('#TalkScene').text('图文预告')) {
 
         $('.video_0').text('图片');
 
-      }else if($('#TalkScene').text('视频预告')){
+      } else if ($('#TalkScene').text('视频预告')) {
 
         $('.video_0').text('视频');
       }
 
-    }else if(status == 1){ // 访谈直播中
+    } else if (status == 1) { // 访谈直播中
 
-      $('.status_1').css('display','none');
+      $('.status_1').css('display', 'none');
 
-    }else if(status == 2 ){ // 访谈结束
+    } else if (status == 2) { // 访谈结束
 
-      $('.status_2').css('display','none');
+      $('.status_2').css('display', 'none');
 
       $('#time1').removeAttr('id');
       $('#time2').removeAttr('id');
       $('.add').removeAttr('id');
-      $('.add').css('border','1px solid #CFCFCF');
-      $('.add').css('color','#CFCFCF');
+      $('.add').css('border', '1px solid #CFCFCF');
+      $('.add').css('color', '#CFCFCF');
 
     }
 
-  }else if(kind == "history"){
+  } else if (kind == "history") {
 
-    $('.status_2').css('display','none');
+    $('.status_2').css('display', 'none');
 
     $('#time1').removeAttr('id');
     $('#time2').removeAttr('id');
     $('.add').removeAttr('id');
-    $('.add').css('border','1px solid #CFCFCF');
-    $('.add').css('color','#CFCFCF');
+    $('.add').css('border', '1px solid #CFCFCF');
+    $('.add').css('color', '#CFCFCF');
 
-    
+
 
   };
-  
+
 
 
 
@@ -640,7 +640,3 @@ var status = localStorage.getItem("status");
 
 
 </html>
-
-
-
-

@@ -126,6 +126,7 @@ $(function () {
           $('#TalkName').text(data.result.name);
           $('#TalkNumber').text(data.result.interviewId);
 
+          // 访谈场景得渲染
           if (data.result.status == 0) {
 
             if(data.result.type == 0){
@@ -143,6 +144,15 @@ $(function () {
             } else if (data.result.type == 1) {
               $('#TalkScene').text('图文直播');
             }
+
+            $('#conversion').css('display','none');
+
+            $('.nav li.status_0').removeClass('status_0').css('display','block');
+
+            $('.ddd').css('display','none');
+
+            $('.status_0_li').text("直播详情");
+
             
           }else if(data.result.status == 2){
 
@@ -455,6 +465,7 @@ $(function () {
           //DirectSeedingDetails();
           // 再次调嘉宾列表
           ADD();
+          layer.msg("修改成功");
         };
       },
       error: function (xhr, textStatus) {
@@ -476,16 +487,15 @@ $(function () {
 
   // 直播详情 ====== 转为在线访谈
   $('#conversion').click(function(){
-
     
 
     if( $('#TalkScene').text() == '视频预告' ){
 
-      console.log('执行了');
+      // 从本地拿出直播详情页面的数据
 
       var Details = localStorage.getItem("Details");
       var detail = JSON.parse(Details);
-      console.log(detail);
+      //console.log(detail);
 
       if( detail.preVideoUrl != null ){
 
@@ -584,15 +594,8 @@ $(function () {
                 if(data.code == 200){
       
                   DirectSeedingDetails();
+                  layer.msg("操作成功")
 
-                  $('#conversion').css('display','none');
-
-                  $('.nav li.status_0').removeClass('status_0').css('display','block');
-
-                  $('.ddd').css('display','none');
-
-                  $('.status_0_li').text("直播详情");
-      
                 }
               },
             });
@@ -664,44 +667,44 @@ $(function () {
           $('.tab_tr').html(users);
   
           // 加入黑名单
-          $('.black_list').click(function () {
+          // $('.black_list').click(function () {
   
-            var NowUser = $(this).parent().parent().index();
-            console.log($(this));
-            console.log(NowUser);
+          //   var NowUser = $(this).parent().parent().index();
+          //   console.log($(this));
+          //   console.log(NowUser);
   
-            var ip = UserList[NowUser].ip;
-            var visitor = UserList[NowUser].name;
+          //   var ip = UserList[NowUser].ip;
+          //   var visitor = UserList[NowUser].name;
   
-            console.log('黑名单的ip ======== ', ip);
-            console.log('黑名单的名字 ======== ', visitor);
+          //   console.log('黑名单的ip ======== ', ip);
+          //   console.log('黑名单的名字 ======== ', visitor);
   
-            $.ajax({
-              url: TheServer + '/blacklist/create',
-              type: 'POST',
-              async: true,
-              data: {
-                params: '{"ip":"' + ip + '","visitor": "' + visitor + '"}'
+          //   $.ajax({
+          //     url: TheServer + '/blacklist/create',
+          //     type: 'POST',
+          //     async: true,
+          //     data: {
+          //       params: '{"ip":"' + ip + '","visitor": "' + visitor + '"}'
   
-              },
-              success: function (data, textStatus, jqXHR) {
-                console.log(data)
-                if(data.code == 200){
+          //     },
+          //     success: function (data, textStatus, jqXHR) {
+          //       console.log(data)
+          //       if(data.code == 200){
 
-                  $('tbody tr').eq(NowUser).css('display','none');
-                  // UserList(UserNow);
-                  // UserPage(UserNow);
-                };
-              },
-              error: function (xhr, textStatus) {
+          //         $('tbody tr').eq(NowUser).css('display','none');
+          //         // UserList(UserNow);
+          //         // UserPage(UserNow);
+          //       };
+          //     },
+          //     error: function (xhr, textStatus) {
   
-              },
-              complete: function () {
+          //     },
+          //     complete: function () {
   
-              }
-            })
+          //     }
+          //   })
   
-          });
+          // });
   
         }
   
@@ -757,6 +760,34 @@ $(function () {
   };
 
   UserPage(UserNow);
+
+  // 用户管理 ==== 点击加入黑名单
+  $('.tab_tr').click(function(event){
+
+    var event = event || window.event;
+　  var target = event.target || event.srcElement;
+
+    if(target.classname == 'back_list'){
+      console.log('找到了');
+    };
+
+    // switch(target.classname){
+    //   case back_list:
+    //   break;
+    // }
+      
+    
+
+
+
+    //if(target)
+
+    //var nowclick = target.parent().parent().index();
+
+    console.log(target);
+   // console.log(index);
+
+  });
 
 
   /**
@@ -826,6 +857,16 @@ $(function () {
   
           // 把创建的元素添加到html上面
           $('#aaaa').html(questions);
+
+          if( $('.tool').css("display") == 'none'){
+
+            $('.questions_chexbox').css('display','none')
+  
+          }else if( $('.tool').css("display") == 'block' ){
+  
+            $('.questions_chexbox').css('display','block')
+  
+          };
   
           // 网友提问的复选框
           $('.questions_chexbox').click(function () {
@@ -930,6 +971,7 @@ $(function () {
             // 把网友的提问在打开弹窗的时候就渲染到弹窗上面
             var questionsnow = $(this).parent().parent().index();
             var questions_text = $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text();
+
             // 渲染到弹框上面
             $('.edit_q').text(questions_text);
 
@@ -1146,10 +1188,31 @@ $(function () {
 
             console.log('审核回复的数据 ============ ', replyList)
 
-            // var speakerId = replyList[i].reply.speakerId;
-            // console.log(speakerId)
+            // 先获取当前这条数据的嘉宾id
+            var speakernames = replyList[i].reply.speakerId;
+
+            console.log(speakernames);
+
+            // 从本地储存里面拿出嘉宾列表
             var speak = localStorage.getItem("Speak");
             var speaker = JSON.parse(speak);
+
+            console.log(speaker);
+
+            var now = [];
+
+            // 循环嘉宾列表把id相等的数据的名字拿出来
+            for(var c = 0; c < speaker.length; c ++){
+              console.log(speaker[c].speakerId)
+              if(speaker[c].speakerId == speakernames){
+
+                now.push(speaker[c].name);
+                
+
+              }
+            }
+
+            console.log(now)
 
             replys += '<div class="reply_main" style="border-top: 1px solid #DEE1E6;">';
             replys += '<div class="replys_chexbox" style="display: none;" data-id="' + obj.comment.commentId + '" data-key="' + obj.reply.replyId + '">';
@@ -1163,7 +1226,7 @@ $(function () {
             replys += '</div>';
             replys += '<div class="reply_main_bottom questions_left">';
             replys += '<p style="color: #3199F7;font-size: 16px;">';
-            replys += '<span class="administrators">' + obj.name + '</span>' + '回复';
+            replys += '<span class="administrators">' + now + '</span>' + '回复';
             replys += '<span class="net_friend">' + obj.comment.visitor + '</span>';
             replys += '<span>' + obj.reply.updateTime + '</span>';
             replys += '</p>';
@@ -1173,19 +1236,40 @@ $(function () {
             replys += '</div>';
             replys += '</div>';
 
-            // var de = $('.reply_main')
-
-            // for(var i = 0; i < de.length; i ++){
-
-            //   var ddd = de[i].children('.reply_main-right').children('.reply_main_bottom').children('.reply_editor');
-            //   console.log(ddd);
-            // }
+            
                   
           });
-        
-        
 
           $('#bbbb').html(replys);
+
+          //如果是预告和在线就把编辑按钮隐藏
+          // if(kind == "talkmanage"){
+
+          //   if(status == 1){
+
+          //     console.log('执行了');
+
+          //     for(var i = 0; i < $('.reply_main').length; i ++){
+
+          //       $('.reply_main').eq(i).find('reply_editor').text('heh');
+
+          //     }
+
+          //   }
+
+          // }
+
+          // 判断编辑是否打开，是打开的就打开复选框
+          if( $('.reply_tool').css("display") == 'none'){
+
+            $('.replys_chexbox').css('display','none')
+  
+          }else if( $('.reply_tool').css("display") == 'block' ){
+  
+            $('.replys_chexbox').css('display','block')
+  
+          };
+
 
         
   
@@ -1222,8 +1306,10 @@ $(function () {
               $('.001 p').text(nowlist.comment.visitor);
               $('#names_01').val(nowlist.comment.content);
       
-              $('.002 p').text(nowlist.reply.speakerId);
+              $('.002 p').text($('.administrators').text());
               $('#names_02').val(nowlist.reply.content);
+
+              //console.log($('.administrators').html());
       
       
               $('.ReplyEditor').css("display", "block");
@@ -1699,6 +1785,16 @@ $(function () {
           });
           $('.picture_content').html(Img);
 
+          if( $('.picture_tool').css("display") == 'none'){
+
+            $('.picture_chexbox').css('display','none')
+  
+          }else if( $('.picture_tool').css("display") == 'block' ){
+  
+            $('.picture_chexbox').css('display','block')
+  
+          };
+
           
   
           // 复选框
@@ -1977,6 +2073,16 @@ $(function () {
 
         });
         $('#TextList').html(Texts);
+
+        if( $('.text_tool').css("display") == 'none'){
+
+          $('.text_chexbox').css('display','none')
+
+        }else if( $('.text_tool').css("display") == 'block' ){
+
+          $('.text_chexbox').css('display','block')
+
+        };
 
         // 复选框
         $('.text_chexbox').click(function () {
