@@ -20,6 +20,14 @@
             "border-bottom": "1px solid #eee"
         });
     });
+    // $(".uname").focus(function(event) {
+    //     $(".cancel").show();
+    // }).blur(function() {
+    //     $(".cancel").hide();
+    // });
+    $(".dddd").on("click", ".cancel", function() {
+        $(".uname").val("").focus();
+    });
     // radio标签改变样式
     $("input[type='checkbox']").click(function() {
         var val = $("input[type='checkbox']:checked").val();
@@ -34,8 +42,8 @@
     $(".loginsubmit").click(function() {
         var username = $(".uname").val();
         var password = $(".upwd").val();
-        console.log(username);
-        console.log(password);
+        if (!username) { layer.msg("用户名不能为空"); return false; }
+        if (!password) { layer.msg("密码不能为空"); return false; }
         $.ajax({
             type: "post",
             contentType: "application/json;charset=utf-8",

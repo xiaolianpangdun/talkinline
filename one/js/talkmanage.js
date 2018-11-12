@@ -346,9 +346,10 @@
                                     if (status == "success") {
                                         layer.msg("上传成功");
                                         var pagenum = window.localStorage.getItem("pagenum");
-                                        pagecurrent(1);
+
                                         // $("#addadvance").reload();
                                         layer.close(index);
+                                        pagecurrent(1);
                                     } else {
                                         layer.msg("上传失败,请刷新重试");
                                         layer.close(index);

@@ -123,6 +123,13 @@ label {
     left: -17px;
 }
 
+.cancel {
+    /* display: none; */
+    position: relative;
+    right: 31px;
+    cursor: pointer;
+}
+
 .ddd {
     box-sizing: border-box;
     position: relative;
