@@ -28,20 +28,26 @@ body{
   width: 100%;
   height: 100%;
   position: relative;
+  padding: 0;
+  border: 1px solid #E6EEF5;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 .container{
   width: 100%;
-  height: 918px;
   margin: 0px auto;
+  height: 100%;
 }
 
 .nav{
   width: 17%;
   /* height: 1000px; */
-  height: 891px;
+  height: 799px;
   background: #F7F9FB;
   padding-top: 27px;
   float: left;
+  border-right: 1px solid #E6EEF5;
+  box-sizing: border-box;
 }
 
 .nav li{
@@ -65,9 +71,10 @@ body{
 .menu{
   width: 100%;
   height: 100%;
-  border: 1px solid #E6EEF5;
+  /* border: 1px solid #E6EEF5; */
   box-sizing: border-box;
   display: none;
+  /* border-bottom: 0; */
 }
 .title{
   width: 100%;
@@ -89,7 +96,7 @@ body{
 .main ul li{
   width: 100%;
   height: 44px;
-  font-size: 13px;
+  /* font-size: 13px; */
 }
 .main ul li p{
   display: inline-block;
@@ -97,22 +104,21 @@ body{
 .main ul li>p{
   margin-left: 6%;
   width: 8%;
-  height: 44px;
+  /* height: 44px; */
   color: #888888;
   float: left;
 }
 .main ul li>div{
   width: 75%;
   margin-right: 6%;
-  float: right;
+  /* float: right; */
+  display: inline-block
 }
 .time{
   text-align: center;
   width: 193px;
   height: 32px;
-  /* line-height: 32px; */
   border: 1px solid #CDCDCD;
-  /* display: inline-block; */
   float: left;
 }
 .main ul li>div>p{
@@ -126,8 +132,8 @@ body{
   margin-right: 20px;
   margin-left: 0;
   color: #000;
-  display: inline-block
-  /* cursor: none; */
+  display: inline-block;
+  margin-bottom: 10px;
 }
 .guest_list{
   display: inline-block;
@@ -141,7 +147,7 @@ body{
   text-align: center;
   line-height: 32px;
   color: #3199F7;
-  font-size: 14px;
+  /* font-size: 14px; */
   cursor: pointer;
   display: inline-block
 }
@@ -158,9 +164,9 @@ body{
   cursor: pointer;
 }
 .sure{
-  position: fixed;
-  bottom: 10px;
-  right: 30%;
+  width: 100%;
+  text-align: center;
+  margin-top: 4%;
 }
 
 .active{
@@ -185,7 +191,7 @@ body{
 
 .tab{
   width: 90%;
-  height: 686px;
+  height: 590px;
   margin-left: 30px;
 }
 .tab table{
@@ -214,7 +220,7 @@ body{
   width: 80px;
   height: 30px;
   line-height: 30px;
-  font-size: 13px;
+  /* font-size: 13px; */
   color: #3199F7;
   margin-left: -10px;
   cursor: pointer;
@@ -373,10 +379,10 @@ body{
   margin-top: 8px;
   cursor: pointer;
 }
-.nav_questions{
+/* .nav_questions{
   height: 550px;
   overflow-y: scroll;
-}
+} */
 
 /* 现场图片 */
 .upimage,.conference{
@@ -395,12 +401,14 @@ body{
   display: none;
 }
 .imagess{
-  width: 210px;
+  width: 25%;
+  /* width: 210px; */
   height: 120px;
   background: #E8EFF1;
 }
 .imagess_main{
-  width: 210px;
+  width: 25%;
+  /* width: 210px; */
   height: 120px;
   /* background: url('../../img/image.png'); */
   background-size: 100%;
@@ -441,7 +449,7 @@ body{
 
 }
 .picture_content{
-  height: 550px;
+  height: 500px;
   overflow-y: scroll;
 }
 
@@ -534,23 +542,24 @@ body{
   outline: none;
 }
 .radio{
-  font-size: 24px;
-  margin-top: 22.5px;
+  font-size: 14px;
+  /* margin-top: 22.5px; */
   line-height: 24px;
 }
 .radio_item{
   display: inline-block;
 }
 .radio_item p{
-  width: 24px;
-  height: 24px;
-  border: 1px solid #4F93FE;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #CDCDCD;
   float: left;
   cursor: pointer;
   margin-right: 10px;
+  margin-top: 2px;
 }
 .image{
-  background-image: url(../../img/se.png);
+  background-image: url(../../img/selected.png);
 }
 .interaction_delete,.interaction_shield,.picture_delece,.text_delece,.interaction_delete_2,.conversion{
   width: 100%;
@@ -654,6 +663,11 @@ body{
 }
 .download:hover{
   color: #3199F7;
+}
+/* 分页 */
+.PageNum{
+  width: 100%;
+  text-align: center;
 }
 
 /* 二级页面样式  end */

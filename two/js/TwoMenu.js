@@ -122,28 +122,36 @@ $(function () {
           // 把获取到的数据保存到本地
           localStorage.setItem('Details',JSON.stringify(data.result));
 
+          // 把访谈预告保存到本地，当切换场景的时候就切换数据
+          localStorage.setItem('preVideoUrl',data.result.preVideoUrl);
+
+          localStorage.setItem('prePicUrl',data.result.prePicUrl);
+
           // 直播详情的数据渲染
           $('#TalkName').text(data.result.name);
           $('#TalkNumber').text(data.result.interviewId);
+
+          // 是什么类型就选中什么类型
+          if(data.result.type == 0){
+            $('.radio_item').eq(0).children('.check_out').addClass('image');
+            $('.video_0').text('视频');
+          }else if(data.result.type == 1){
+            $('.radio_item').eq(1).children('.check_out').addClass('image');
+            $('.video_0').text('图片');
+          };
 
           // 访谈场景得渲染
           if (data.result.status == 0) {
 
             if(data.result.type == 0){
-              $('#TalkScene').text('视频预告');
+              //$('#TalkScene').text('视频预告');
               $('#conversion').text('转为在线视频访谈');
             }else if(data.result.type == 1){
-              $('#TalkScene').text('图文预告');
+              //$('#TalkScene').text('图文预告');
               $('#conversion').text('转为在线图文访谈');
             }
             
           } else if (data.result.status == 1) {
-
-            if (data.result.type == 0) {
-              $('#TalkScene').text('视频直播');
-            } else if (data.result.type == 1) {
-              $('#TalkScene').text('图文直播');
-            }
 
             $('#conversion').css('display','none');
 
@@ -156,12 +164,6 @@ $(function () {
             
           }else if(data.result.status == 2){
 
-            if (data.result.type == 0) {
-              $('#TalkScene').text('视频直播');
-            } else if (data.result.type == 1) {
-              $('#TalkScene').text('图文直播');
-            }
-
           }
           
           $('#compere').text(data.result.compere);
@@ -170,7 +172,7 @@ $(function () {
           $('#text_brief').text(data.result.description);
 
           // 预告详情里面的 上传图文和视频
-          if( $('.video_0').text() == '图片'){
+          if( data.result.type == 1){
 
             if(data.result.prePicUrl != null){
 
@@ -180,14 +182,14 @@ $(function () {
 
             }else if(data.result.prePicUrl == null){
 
-              $('.vedio_link').text('无文件/');
+              $('.vedio_link').text('无文件');
 
               $('.uplink span').text('请上传文件');
 
             }
 
             
-          }else if( $('.video_0').text() == '视频'){
+          }else if( data.result.type == 0 ){
 
 
             if(data.result.preVideoUrl != null){
@@ -197,7 +199,7 @@ $(function () {
 
             }else if(data.result.preVideoUrl == null){
 
-              $('.vedio_link').text('无文件/');
+              $('.vedio_link').text('无文件');
 
               $('.uplink').text('请上传视频文件');
 
@@ -219,6 +221,7 @@ $(function () {
     })
 
   };
+
   DirectSeedingDetails();
 
   // 把嘉宾渲染到选择框
@@ -283,6 +286,7 @@ $(function () {
     })
 
   };
+
   ADD();
 
   // 直播详情 =========== 修改访谈场景（单选框）
@@ -290,46 +294,76 @@ $(function () {
 
     $(this).addClass('image').parent().siblings().children().removeClass('image');
 
-
     var type_num = $(this).parent().index();
     console.log(type_num);
 
-    // var Details = localStorage.getItem("Details");
-    // var detail = JSON.parse(Details);
+    // 从本地获取访谈预告，改变场景的时候改变数据
+    var prePicUrl = localStorage.getItem('prePicUrl');
+    var preVideoUrl = localStorage.getItem('preVideoUrl');
 
-    //console.log(detail);
+    console.log('图片 ======= ',prePicUrl);
+    console.log('视频 ======= ',preVideoUrl);
 
+    if(type_num == 0){
+
+      $('.video_0').text('视频');
+
+      if(preVideoUrl != null){
+
+        $('.vedio_link').text(preVideoUrl);
+
+        $('.uplink span').text('重新上传');
+
+      }else if(preVideoUrl == null){
+
+        $('.vedio_link').text('无文件');
+
+        $('.uplink span').text('请上传文件');
+
+      }
+
+    }
+    if(type_num == 1){
+
+      $('.video_0').text('图片');
+
+      if(prePicUrl != null){
+
+        $('.vedio_link').text(prePicUrl);
+
+        $('.uplink span').text('重新上传');
+
+      }else if(prePicUrl == null){
+
+        $('.vedio_link').text('无文件/');
+
+        $('.uplink span').text('请上传文件');
+
+      }
+
+    }
+
+    // 通过选择的是哪个，改变页面文字
     if(kind == "talkmanage"){
 
       if(status == 0){
 
         if (type_num == 0) {
-          $('#TalkScene').text('视频预告');
-          $('.video_0').text('视频');
+
           $('#conversion').text('转为在线视频访谈');
     
         } else if (type_num == 1) {
-          $('#TalkScene').text('图文预告');
-          $('.video_0').text('图片');
+
           $('#conversion').text('转为在线图文访谈');
-        }
 
-      }else if(status == 1){
-
-        if (type_num == 0) {
-          $('#TalkScene').text('视频直播');
-          $('.video_0').text('视频');
-    
-        } else if (type_num == 1) {
-          $('#TalkScene').text('图文直播');
-          $('.video_0').text('图片');
         }
 
       }
-
       
 
     }
+
+    
 
     
 
@@ -406,15 +440,18 @@ $(function () {
   $('.ascertaining_modification').click(function () {
 
     var talkname = $('#TalkName').text();
-    var talktype = $('#TalkScene').text();
     var begintime = $('#time1').text();
     var endtime = $('#time2').text();
     var talkbrief = $('#text_brief').text();
 
-    if (talktype == '视频直播') {
-      talktype = 0;
-    } else if (talktype == '图文直播') {
-      talktype = 1;
+    var talktype = $('.radio_item').children('.check_out');
+    var type;
+    for(var i = 0; i < talktype.length; i ++){
+
+      if(talktype.eq(i).hasClass('image')){
+        type = i;
+      }
+
     }
 
     var AddText = $('.guest');
@@ -438,7 +475,7 @@ $(function () {
     };
 
     console.log("会议名称 ========= ", talkname);
-    console.log("访谈场景 ========= ", talktype);
+    console.log("访谈场景 ========= ", type);
     console.log("访谈时间=开始 ========= ", begintime);
     console.log("访谈时间=结束 ========= ", endtime);
     console.log("会议简介 ========= ", talkbrief);
@@ -453,7 +490,7 @@ $(function () {
       data: {
         interviewId: talkNum,
         name: talkname,
-        type: talktype,
+        type: type,
         beginTime: begintime,
         endTime: endtime,
         description: talkbrief,
@@ -462,7 +499,7 @@ $(function () {
       success: function (data, textStatus, jqXHR) {
         console.log(data)
         if(data.code == 200){
-          //DirectSeedingDetails();
+          DirectSeedingDetails();
           // 再次调嘉宾列表
           ADD();
           layer.msg("修改成功");
@@ -482,15 +519,14 @@ $(function () {
 
     var files = e.currentTarget.files[0].name;
 
-    var talktype = $('#TalkScene').text();
+    var talktype = $('.radio_item').children('.check_out');
 
-    if (talktype == '视频直播') {
+    var type;
+    for(var i = 0; i < talktype.length; i ++){
 
-      talktype = 0;
-
-    } else if (talktype == '图文直播') {
-
-      talktype = 1;
+      if(talktype.eq(i).hasClass('image')){
+        type = i;
+      }
 
     }
 
@@ -504,7 +540,7 @@ $(function () {
       contentType: 'application/json;charset=utf-8',
       data: {
         interviewId: talkNum,
-        type: talktype,
+        type: type,
         file: files
       },
       
@@ -524,38 +560,6 @@ $(function () {
 
       }
     });
-
-    // $.ajax({
-    //   url: TheServer + '/interview/edit',
-    //   type: 'POST',
-    //   dataType: 'json',
-    //   async: true,
-    //   traditional: true,    //或false,是否异步
-    //   data: {
-    //     interviewId: talkNum,
-    //     type: talktype,
-    //     file: files
-    //   },
-    //   success: function (data, textStatus, jqXHR) {
-    //     console.log(data)
-    //     if(data.code == 200){
-
-    //       DirectSeedingDetails();
-
-    //       // $('.vedio_link').html();
-    //       // $('.uplink span').html('重新上传');
-         
-    //       layer.msg("修改成功");
-    //     };
-    //   },
-    //   error: function (xhr, textStatus) {
-    //   },
-    //   complete: function () {
-    //   }
-    // })
-
-
-
     
     console.log('选择文件的名称 ========', files);
 
@@ -740,7 +744,7 @@ $(function () {
       data: {
         interviewId: talkNum,
         currentPage: UserNow,
-        pageSize: 12
+        pageSize: 10
       },
       success: function (data, textStatus, jqXHR) {
         
@@ -833,7 +837,7 @@ $(function () {
       data: {
         interviewId: talkNum,
         currentPage: UserNow,
-        pageSize: 12
+        pageSize: 10
       },
       success: function (data, textStatus, jqXHR){
 
@@ -986,6 +990,7 @@ $(function () {
           // 把创建的元素添加到html上面
           $('#aaaa').html(questions);
 
+          // 判断是不是要打开全选框
           if( $('.tool').css("display") == 'none'){
 
             $('.questions_chexbox').css('display','none')
@@ -995,6 +1000,9 @@ $(function () {
             $('.questions_chexbox').css('display','block')
   
           };
+
+          
+          
   
           // 网友提问的复选框
           $('.questions_chexbox').click(function () {
@@ -2173,6 +2181,7 @@ $(function () {
   };
 
   ImagePage(ImageCurr);
+
   // 打开编辑
   $('.picture_management').click(function () {
     $('.picture_management').css("display", "none");
@@ -2888,34 +2897,33 @@ function ModifyName() {
   });
 };
 
+// function ModifyScene() {
 
-function ModifyScene() {
-
-  layer.open({
-    type: 1,
-    area: ['480px', '360px'],
-    title: ['', 'background: #fff;border:0'],
-    btn: ['确定', '取消'],
-    skin: 'my-skin',
-    btnAlign: 'c',
-    content: $('.modify_scene'),
-    cancel: function (index, layero) {
-      $('.modify_scene').css("display", "none");
-    },
-    yes: function (index, layero) {
-      layer.close(index);
-      $('.modify_scene').css("display", "none");
+//   layer.open({
+//     type: 1,
+//     area: ['480px', '360px'],
+//     title: ['', 'background: #fff;border:0'],
+//     btn: ['确定', '取消'],
+//     skin: 'my-skin',
+//     btnAlign: 'c',
+//     content: $('.modify_scene'),
+//     cancel: function (index, layero) {
+//       $('.modify_scene').css("display", "none");
+//     },
+//     yes: function (index, layero) {
+//       layer.close(index);
+//       $('.modify_scene').css("display", "none");
 
       
-    },
-    btn2: function (index, layero) {
-      // 取消
-      layer.close(index);
-      $('.modify_scene').css("display", "none");
-    },
-  });
+//     },
+//     btn2: function (index, layero) {
+//       // 取消
+//       layer.close(index);
+//       $('.modify_scene').css("display", "none");
+//     },
+//   });
 
-};
+// };
 
 function BriefIntroduction() {
 

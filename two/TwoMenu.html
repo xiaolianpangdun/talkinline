@@ -79,8 +79,16 @@
             <li>
               <p>访谈场景</p>
               <div>
-                <span id="TalkScene"></span>
-                <p onclick="ModifyScene()" class="status_2">修改</p>
+                <!-- <span id="TalkScene"></span> -->
+                <!-- <p onclick="ModifyScene()" class="status_2">修改</p> -->
+                <div class="radio">
+                  <div class="radio_item radio_item1" style="margin-right: 60px;">
+                    <p class="check_out"></p><span>视频直播</span>
+                  </div>
+                  <div class="radio_item radio_item2">
+                    <p class="check_out"></p><span>图文直播</span>
+                  </div>
+                </div>
               </div>
             </li>
             <li>
@@ -191,9 +199,10 @@
           </table>
 
         </div>
-
-        <div id="UserPage" style="text-align:center;"></div>
-
+        <div class="PageNum">
+          <div id="UserPage"></div>
+        </div>
+        
       </div>
       <!-- 用户管理  end -->
 
@@ -226,7 +235,7 @@
                 <p style="background: #9FB1C0" id="questions_cancel">取消</p>
               </div>
             </div>
-            <div id="aaaa">
+            <div id="aaaa" style="height: 450px;overflow-y: scroll">
               <!-- <div class="questions_main">
               <div class="questions_chexbox" style="display: none;">
                 <p class="checkbox"></p>
@@ -242,7 +251,9 @@
                 <p style="margin-right: 0;" class="ReviewResponse">审核回复</p>
               </div> -->
             </div>
-            <div id="QuestionPage" style="position: absolute; right: 30%;bottom: -50px;"></div>
+            <div class="PageNum">
+              <div id="QuestionPage" style="margin-top: 30px;"></div>
+            </div>
           </div>
 
           <div class="reply nav_questions">
@@ -254,7 +265,7 @@
                 <p style="background: #9FB1C0" id="ReplyCancel">取消</p>
               </div>
             </div>
-            <div id="bbbb"></div>
+            <div id="bbbb" style="height: 450px;overflow-y: scroll"></div>
             <!-- <div class="reply_main" style="border-top: 1px solid #DEE1E6;">
               <div class="reply_main_top questions_left">
                 <p style="font-size: 16px;margin-bottom: 6px;">现场观众
@@ -273,7 +284,9 @@
                 <p class="reply_editor"><img src="../img/edit.png" alt="">编辑</p>
               </div>
             </div> -->
-            <div id="ReplyPage" style="position: absolute; right: 30%;bottom: -50px;"></div>
+            <div class="PageNum">
+              <div id="ReplyPage" style="margin-top: 30px;"></div>
+            </div>
 
           </div>
 
@@ -309,7 +322,7 @@
             </div>
 
           </div>
-          <div class="picture_content">
+          <div class="picture_content" style="height: 500px;overflow-y: scroll">
             <!-- <div class="picture_img">
 
               <div class="picture_chexbox">
@@ -323,7 +336,9 @@
             </div> -->
 
           </div>
-          <div id="ImagePage" style="position: absolute; right: 30%;bottom: -50px;"></div>
+          <div class="PageNum">
+            <div id="ImagePage" style="margin-top: 30px;"></div>
+          </div>
         </div>
 
       </div>
