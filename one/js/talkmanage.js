@@ -181,14 +181,15 @@
                             type: 'post',
                             success: function(data, status) //服务器成功响应处理函数
                                 {
+                                    console.log(data);
                                     if (status == "success") {
                                         layer.msg("上传成功");
                                         var pagenum = window.localStorage.getItem("pagenum");
                                         pagecurrent(pagenum);
-                                        layer.close(index);
+                                        // layer.close(index);
                                     } else {
                                         layer.msg("上传失败,请重试！");
-                                        layer.close(index);
+                                        // layer.close(index);
                                     }
                                     $("#addinlinetalk input[type='file']").change(function(e) {
                                         console.log(111111);
@@ -206,7 +207,7 @@
                                 },
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
-                                    layer.close(index);
+                                    // layer.close(index);
                                 }
                         });
                         // $.ajax({
@@ -338,21 +339,22 @@
                             url: 'http://192.168.0.71:8080/interview/create',
                             secureuri: false, //一般设置为false
                             fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'JSON', //返回值类型 一般设置为json
+                            dataType: 'json', //返回值类型 一般设置为json
                             data: data,
-                            type: 'POST',
+                            type: 'post',
                             success: function(data, status) //服务器成功响应处理函数
                                 {
+                                    console.log(data);
                                     if (status == "success") {
                                         layer.msg("上传成功");
                                         var pagenum = window.localStorage.getItem("pagenum");
 
                                         // $("#addadvance").reload();
-                                        layer.close(index);
-                                        pagecurrent(1);
+                                        // layer.close(index);
+                                        // pagecurrent(1);
                                     } else {
                                         layer.msg("上传失败,请刷新重试");
-                                        layer.close(index);
+                                        // layer.close(index);
                                     }
                                     $("#addadvance input[type='file']").change(function(e) {
                                         var that = $(this);
@@ -370,9 +372,9 @@
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
                                     console.log(data, status);
-                                    pagecurrent(1);
+                                    // pagecurrent(1);
                                     //     layer.msg("服务器繁忙，请刷新重试！");
-                                    layer.close(index);
+                                    // layer.close(index);
                                 }
                         });
                         // $.ajax({
