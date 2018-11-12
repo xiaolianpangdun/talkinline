@@ -1,160 +1,170 @@
-    /* 顶部 */
-    
-    button.right {
-        font-size: 14px;
-        padding: 5px 20px;
-        color: #fff;
-        background: #3199F7;
-        border: 1px solid #4597E0;
-        border-radius: 2px;
-        cursor: pointer;
-    }
-    
-    button.addforbidword {
-        margin: 0 30px;
-    }
-    
-    button.lead {
-        position: relative;
-    }
-    
-    input.leadfile {
-        position: absolute;
-        opacity: 0;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-    }
-    
-    .talktop .right {
-        margin-top: 4px;
-    }
-    
-    .talktop {
-        font-size: 28px;
-        color: #333333;
-        padding: 20px 0 30px;
-        border-bottom: 1px solid #E6EEF5;
-    }
-    
-    input.search {
-        font-size: 14px;
-        padding-left: 15px;
-        margin: 0 5px;
-        height: 30px;
-        color: #999999;
-        border: 1px solid #E7EAEC;
-    }
-    
-    span.keyword {
-        color: #359BF6;
-    }
-    /* 没有违禁词时 */
-    
-    .none {
-        text-align: center;
-        margin-top: 200px;
-    }
-    
-    .none,
-    .had {
-        display: none;
-    }
-    
-    .tip {
-        font-family: PingFangSC-Regular;
-        font-size: 13px;
-        color: #9FADC7;
-    }
-    
-    .addforbidden {
-        color: #FFFFFF;
-        background: #3199F7;
-        border: 1px solid #4597E0;
-        border-radius: 2px;
-        padding: 10px 25px;
-        margin-top: 40px;
-        cursor: pointer;
-    }
-    /* 有违禁词时 */
-    
-    .forbidwords>.left {
-        float: left;
-        height: 40px;
-        line-height: 40px;
-        margin-right: 20px;
-        background: #E6EEF5;
-        padding: 0px 25px;
-        margin-top: 20px;
-        color: #FF5500;
-        border-radius: 3px;
-    }
-    
-    img.del {
-        position: relative;
-        top: -1px;
-        margin-left: 5px;
-        cursor: pointer;
-    }
-    
-    span.addforbidword {}
-    /* 添加违禁词弹框 */
-    
-    .addforbidword {
-        text-align: center;
-    }
-    
-    .title {
-        font-family: PingFangSC-Semibold;
-        font-size: 26px;
-        color: #4B4E50;
-        margin-bottom: 80px;
-    }
-    
-    input.content {
-        padding-left: 20px;
-        width: 460px;
-        height: 40px;
-        line-height: 40px;
-        border: 1px solid #BABABA;
-        margin-bottom: 40px;
-    }
-    
-    .warn {
-        position: absolute;
-        width: 200px;
-        left: 50%;
-        margin-left: -100px;
-        bottom: 20px;
-        font-size: 12px;
-        color: #FF5500;
-        text-align: center;
-    }
-    
-    body .addforbidword .layui-layer-btn a {
-        width: 140px;
-        height: 34px;
-        line-height: 34px;
-        color: #fff;
-        /* border-top: 1px solid #E7EAEC; */
-    }
-    
-    body .addforbidword .layui-layer-btn a.layui-layer-btn1 {
-        background: #9FB1C0;
-        margin-left: 30px;
-    }
-    
-    .center {
-        text-align: center;
-    }
-    
-    .comfirmdo {
-        margin-top: 50px;
-        font-family: PingFangSC-Regular;
-        font-size: 24px;
-        color: #676A6C;
-        text-align: center;
-        line-height: 30px;
-        padding: 0 50px;
-    }
+.layui-layer-btn a {}
+
+
+/* 顶部 */
+
+button.right {
+    font-size: 14px;
+    padding: 5px 20px;
+    color: #fff;
+    background: #3199F7;
+    border: 1px solid #4597E0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+button.addforbidword {
+    margin: 0 30px;
+}
+
+button.lead {
+    position: relative;
+}
+
+input.leadfile {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.talktop .right {
+    margin-top: 4px;
+}
+
+.talktop {
+    font-size: 28px;
+    color: #333333;
+    padding: 20px 0 30px;
+    border-bottom: 1px solid #E6EEF5;
+}
+
+input.search {
+    font-size: 14px;
+    padding-left: 15px;
+    margin: 0 5px;
+    height: 30px;
+    color: #999999;
+    border: 1px solid #E7EAEC;
+}
+
+span.keyword {
+    color: #359BF6;
+}
+
+
+/* 没有违禁词时 */
+
+.none {
+    text-align: center;
+    margin-top: 200px;
+}
+
+.none,
+.had {
+    display: none;
+}
+
+.tip {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #9FADC7;
+}
+
+.addforbidden {
+    color: #FFFFFF;
+    background: #3199F7;
+    border: 1px solid #4597E0;
+    border-radius: 2px;
+    padding: 10px 25px;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+
+/* 有违禁词时 */
+
+.forbidwords>.left {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 20px;
+    background: #E6EEF5;
+    padding: 0px 25px;
+    margin-top: 20px;
+    color: #FF5500;
+    border-radius: 3px;
+}
+
+img.del {
+    position: relative;
+    top: -1px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+span.addforbidword {}
+
+
+/* 添加违禁词弹框 */
+
+.addforbidword {
+    text-align: center;
+}
+
+.title {
+    font-family: PingFangSC-Semibold;
+    font-size: 26px;
+    color: #4B4E50;
+    margin-bottom: 70px;
+}
+
+input.content {
+    padding-left: 20px;
+    width: 460px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #BABABA;
+    margin-bottom: 40px;
+}
+
+.warn {
+    position: absolute;
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
+    bottom: 20px;
+    font-size: 12px;
+    color: #FF5500;
+    text-align: center;
+}
+
+body .addforbidword .layui-layer-btn a {
+    width: 140px;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    margin-bottom: 20px;
+    /* border-top: 1px solid #E7EAEC; */
+}
+
+body .addforbidword .layui-layer-btn a.layui-layer-btn1 {
+    background: #9FB1C0;
+    margin-left: 30px;
+}
+
+.center {
+    text-align: center;
+}
+
+.comfirmdo {
+    margin-top: 50px;
+    font-family: PingFangSC-Regular;
+    font-size: 24px;
+    color: #676A6C;
+    text-align: center;
+    line-height: 30px;
+    padding: 0 50px;
+}

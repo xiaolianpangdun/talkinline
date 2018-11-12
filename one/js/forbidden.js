@@ -71,7 +71,7 @@
         });
 
     };
-    update(1, keyWord);
+    // update(1, keyWord);
     laypage(1, keyWord);
     // 利用冒泡写删除违禁词弹框
     $(".forbidwords").on('click', 'img.del', function(event) {
@@ -101,7 +101,7 @@
                     data: JSON.stringify({ "ids": id }),
                     success: function(data) {
                         var pagenm = window.localStorage.getItem("pagenm")
-                        update(pagenm, keyWord);
+                            // update(pagenm, keyWord);
                         laypage(pagenm, keyWord);
                         layer.close(index);
                     },

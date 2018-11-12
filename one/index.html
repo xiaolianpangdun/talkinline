@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./css/talkmanage.css">
 </head>
 
-<body>
+<body style="background:#F3F3F4;">
     <div class="">
         <div class="layui-side  aside">
             <div class="layui-side-scroll">
@@ -57,7 +57,7 @@
                 <div class="right" style="border-left:1px solid red;height:54px;border:1px solid #D8D8D8;margin-left:20px;"></div>
                 <div class="right admin">
                     <div class="right" style="margin-top:9px;">
-                        <span style="font-size:20px;" class="adminname">admin</span><br>
+                        <span style="font-size:20px;" class="adminname">慧慧</span><br>
                         <span>超级管理员</span>
                         <!-- <select class="select">
                         <option value="">超级管理员</option>
@@ -93,7 +93,7 @@
                         var adminname = window.localStorage.getItem("adminname");
                         $(".adminname").html(adminname);
                     } else {
-                        alert("您还没登录");
+                        // alert("您还没登录");
                         window.location.href = "../login.html";
                     }
                 })();
