@@ -87,7 +87,7 @@
             content: $("#delforbidword"),
             shade: [0.2, '#393D49'],
             skin: 'addforbidword',
-            shadeClose: true,
+            shadeClose: false,
             btnAlign: 'c', //按钮居中显示
             btn: ['确定', '取消'],
             yes: function(index, layero) {
@@ -122,7 +122,7 @@
             content: $("#addforbidword"),
             shade: [0.2, '#393D49'],
             skin: 'addforbidword',
-            shadeClose: true,
+            shadeClose: false,
             btnAlign: 'c', //按钮居中显示
             btn: ['确定', '取消'],
             yes: function(index, layero) {

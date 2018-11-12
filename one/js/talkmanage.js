@@ -53,7 +53,7 @@
             content: $("#addguest"),
             shade: [0.8, '#393D49'],
             skin: 'addguest',
-            shadeClose: true,
+            shadeClose: false,
             btnAlign: 'c', //按钮居中显示
             btn: ['确定', '取消'],
             yes: function(index, layero) {
@@ -96,7 +96,7 @@
             content: '<div class="addtype">请选择所要新建的类型</div>',
             shade: [0.2, '#393D49'],
             skin: 'addkind',
-            shadeClose: true,
+            shadeClose: false,
             btnAlign: 'c', //按钮居中显示
             btn: ['在线访谈', '在线预告'],
             yes: function(index, layero) {
@@ -109,7 +109,7 @@
                     content: $("#addinlinetalk"),
                     shade: [0.2, '#393D49'],
                     skin: 'addkind1',
-                    shadeClose: true,
+                    shadeClose: false,
                     btnAlign: 'c', //按钮居中显示
                     btn: ['确定'],
                     yes: function(index, layero) {
@@ -176,7 +176,7 @@
                             url: 'http://192.168.0.71:8080/interview/create',
                             secureuri: false, //一般设置为false
                             fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'JSON', //返回值类型 一般设置为json
+                            dataType: 'json', //返回值类型 一般设置为json
                             data: data,
                             type: 'post',
                             success: function(data, status) //服务器成功响应处理函数
@@ -186,7 +186,7 @@
                                         layer.msg("上传成功");
                                         var pagenum = window.localStorage.getItem("pagenum");
                                         pagecurrent(pagenum);
-                                        // layer.close(index);
+                                        layer.close(index);
                                     } else {
                                         layer.msg("上传失败,请重试！");
                                         // layer.close(index);
@@ -207,7 +207,7 @@
                                 },
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
-                                    // layer.close(index);
+                                    layer.close(index);
                                 }
                         });
                         // $.ajax({
@@ -250,7 +250,7 @@
                     content: $("#addadvance"),
                     shade: [0.2, '#393D49'],
                     skin: 'addkind1',
-                    shadeClose: true,
+                    shadeClose: false,
                     btnAlign: 'c', //按钮居中显示
                     btn: ['确定'],
                     yes: function(index, layero) {
@@ -347,11 +347,10 @@
                                     console.log(data);
                                     if (status == "success") {
                                         layer.msg("上传成功");
-                                        var pagenum = window.localStorage.getItem("pagenum");
-
+                                        // var pagenum = window.localStorage.getItem("pagenum");
                                         // $("#addadvance").reload();
-                                        // layer.close(index);
-                                        // pagecurrent(1);
+                                        layer.close(index);
+                                        pagecurrent(1);
                                     } else {
                                         layer.msg("上传失败,请刷新重试");
                                         // layer.close(index);
@@ -521,7 +520,7 @@
                 content: $("#endtalkpopup"),
                 shade: [0.2, '#393D49'],
                 skin: 'end',
-                shadeClose: true,
+                shadeClose: false,
                 btnAlign: 'c', //按钮居中显示
                 btn: ['确定', '取消'],
                 yes: function(index, layero) {
@@ -552,7 +551,7 @@
                     content: $("#cannotdel"),
                     shade: [0.2, '#393D49'],
                     skin: 'end',
-                    shadeClose: true,
+                    shadeClose: false,
                     time: 2000,
                     btnAlign: 'c', //按钮居中显示
                     btn: [],

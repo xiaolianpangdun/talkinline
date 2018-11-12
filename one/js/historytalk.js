@@ -57,10 +57,11 @@
                 {
                     field: 'interviewId',
                     title: '序号',
-                    width: 150,
+                    width: 120,
                     unresize: true
                 }, {
                     field: 'name',
+                    // width: 200,
                     title: '访谈名称',
                     unresize: true
                 }, {

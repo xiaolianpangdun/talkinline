@@ -10,21 +10,42 @@
 </head>
 
 <body>
-    <form id="fileform" method="post" enctype='multipart/form-data'>
-        <!-- <input type="file" lay-filter="fileup"> -->
-        <!-- <input type="submit" lay-type="file" class="layui-btn" name="file" lay-submit="" lay-filter="file"> -->
-        <input type="text" name="name">
-        <input type="file" id="xxxxx" name="file">
-        <input type="submit" class="submit" value="提交">
-    </form>
+    <!-- <form id="fileform" method="post" enctype='multipart/form-data'> -->
+    <!-- <input type="file" lay-filter="fileup"> -->
+    <!-- <input type="submit" lay-type="file" class="layui-btn" name="file" lay-submit="" lay-filter="file"> -->
+    <input type="text" class="uname" name="uname"><br>
+    <input type="text" class="upwd" name="upwd"><br>
+    <input type="file" id="xxxxx" name="file"><br>
+    <!-- <input type="submit" class="submit" value="提交"> -->
+    <button class="aaaa">提交</button>
+    <!-- </form> -->
     <!-- <div class="layui-upload">
         <button class="layui-btn layui-btn-normal" id="test8" type="button">选择文件</button>
         <input type="file" name="file" id="test9" type="button">
     </div> -->
-
+    <script src="../js/jquery-1.7.1.js"></script>
+    <script src="../js/ajaxfileupload1.js"></script>
     <script src="../../layui/layui.all.js"></script>
     <script>
-        ;
+        $(".aaaa").click(function() {
+            var uname = $(".uname").val();
+            var upwd = $(".upwd").val();
+            $.ajaxFileUpload({
+                url: './aa.php',
+                secureuri: false, //一般设置为false
+                fileElementId: "xxxxx", //文件上传空间的id属性
+                dataType: 'json', //返回值类型 一般设置为json
+                data: {
+                    uname: uname,
+                    upwd: upwd
+                },
+                type: 'post',
+                success: function(data, status) {
+                    console.log(data);
+                }
+            });;
+        });
+
         ! function() {
             var upload = layui.upload;
             var $ = layui.$;

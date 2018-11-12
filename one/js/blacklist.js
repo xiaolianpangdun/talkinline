@@ -98,7 +98,7 @@
                 content: $("#removeblacklist"),
                 shade: [0.2, '#393D49'],
                 skin: 'removeblacklist',
-                shadeClose: true,
+                shadeClose: false,
                 btnAlign: 'c', //按钮居中显示
                 btn: ['确定', '取消'],
                 yes: function(index, layero) {
