@@ -1378,6 +1378,8 @@ $(function () {
 
           $('#bbbb').html(replys);
 
+          // if(){}
+
           //如果是预告和在线就把编辑按钮隐藏
           // if(kind == "talkmanage"){
 
