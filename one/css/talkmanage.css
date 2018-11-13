@@ -4,18 +4,23 @@
 
 .addtalk {
     font-size: 14px;
-    padding: 5px 10px;
+    width: 121px;
+    height: 30px;
+    line-height: 30px;
     margin-top: 6px;
+    text-align: center;
+    vertical-align: middle;
     color: #fff;
     background: #3199F7;
     border: 1px solid #4597E0;
+    cursor: pointer;
     border-radius: 5px;
 }
 
 .talktop {
     font-size: 28px;
     color: #333333;
-    margin: 20px;
+    margin: 20px 0 20px 10px;
 }
 
 
