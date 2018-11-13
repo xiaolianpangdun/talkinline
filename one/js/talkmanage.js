@@ -3,46 +3,7 @@
     var
         upload = layui.upload;
 
-    function pagecurrent(pagenum) {
-        $.ajax({
-            type: "get",
-            // dataType: "json",
-            url: ' http://192.168.0.71:8080/interview/list?currentPage=' + pagenum + '&pageSize=10',
-            // data: { username: username, password: password },
-            success: function(data) {
-                // alert("提交成功");
-                // console.log(data);
-                var count = data.result.total;
-                // 分页器
-                var laypage = layui.laypage;
 
-                //执行一个laypage实例
-                laypage.render({
-                    elem: 'page',
-                    count: count,
-                    prev: "<<上一页",
-                    next: "下一页>>",
-                    curr: pagenum,
-                    theme: '#4597E0',
-                    limit: 10,
-                    jump: function(obj, first) {
-                        //obj包含了当前分页的所有参数，比如：
-                        var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
-                            limit = obj.limit; //得到每页显示的条数
-                        window.localStorage.setItem("pagenum", curr);
-                        if (!first)
-                            table.reload('tbtalkmanage', {
-                                url: 'http://192.168.0.71:8080/interview/list?currentPage=' + curr + '&pageSize=10'
-                            })
-                    }
-                });
-            },
-            error: function() {
-                layer.msg("服务器繁忙,请刷新重试！");
-            }
-        });
-    };
-    pagecurrent(1);
     // 点击添加嘉宾弹框
     $(".addguest").click(function() {
         var that = $(this);
@@ -176,7 +137,7 @@
                             url: 'http://192.168.0.71:8080/interview/create',
                             secureuri: false, //一般设置为false
                             fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'json', //返回值类型 一般设置为json
+                            dataType: 'jsonp', //返回值类型 一般设置为json
                             data: data,
                             type: 'post',
                             success: function(data, status) //服务器成功响应处理函数
@@ -184,8 +145,11 @@
                                     console.log(data);
                                     if (status == "success") {
                                         layer.msg("上传成功");
-                                        var pagenum = window.localStorage.getItem("pagenum");
-                                        pagecurrent(pagenum);
+                                        // var pagenum = window.localStorage.getItem("pagenum");
+                                        pagecurrent(1);
+                                        table.reload('tbtalkmanage', {
+                                            url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                        })
                                         layer.close(index);
                                     } else {
                                         layer.msg("上传失败,请重试！");
@@ -207,6 +171,10 @@
                                 },
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
+                                    pagecurrent(1);
+                                    table.reload('tbtalkmanage', {
+                                        url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                    })
                                     layer.close(index);
                                 }
                         });
@@ -339,7 +307,7 @@
                             url: 'http://192.168.0.71:8080/interview/create',
                             secureuri: false, //一般设置为false
                             fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'json', //返回值类型 一般设置为json
+                            dataType: 'jsonp', //返回值类型 一般设置为json
                             data: data,
                             type: 'post',
                             success: function(data, status) //服务器成功响应处理函数
@@ -351,6 +319,9 @@
                                         // $("#addadvance").reload();
                                         layer.close(index);
                                         pagecurrent(1);
+                                        table.reload('tbtalkmanage', {
+                                            url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                        })
                                     } else {
                                         layer.msg("上传失败,请刷新重试");
                                         // layer.close(index);
@@ -370,10 +341,13 @@
                                 },
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
-                                    console.log(data, status);
-                                    // pagecurrent(1);
-                                    //     layer.msg("服务器繁忙，请刷新重试！");
-                                    // layer.close(index);
+                                    // console.log(data, status);
+                                    pagecurrent(1);
+                                    table.reload('tbtalkmanage', {
+                                            url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                        })
+                                        //     layer.msg("服务器繁忙，请刷新重试！");
+                                    layer.close(index);
                                 }
                         });
                         // $.ajax({
@@ -504,6 +478,47 @@
             ]
         ],
     });
+    //分页
+    function pagecurrent(pagenum) {
+        $.ajax({
+            type: "get",
+            // dataType: "json",
+            url: ' http://192.168.0.71:8080/interview/list?currentPage=' + pagenum + '&pageSize=10',
+            // data: { username: username, password: password },
+            success: function(data) {
+                // alert("提交成功");
+                // console.log(data);
+                var count = data.result.total;
+                // 分页器
+                var laypage = layui.laypage;
+
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'page',
+                    count: count,
+                    prev: "<<上一页",
+                    next: "下一页>>",
+                    curr: pagenum,
+                    theme: '#4597E0',
+                    limit: 10,
+                    jump: function(obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
+                            limit = obj.limit; //得到每页显示的条数
+                        window.localStorage.setItem("pagenum", curr);
+                        if (!first)
+                            table.reload('tbtalkmanage', {
+                                url: 'http://192.168.0.71:8080/interview/list?currentPage=' + curr + '&pageSize=10'
+                            })
+                    }
+                });
+            },
+            error: function() {
+                layer.msg("服务器繁忙,请刷新重试！");
+            }
+        });
+    };
+    pagecurrent(1);
     // 表格点击事件
     table.on('tool(tbtalkmanage)', function(obj) { //注：tool是工具条事件名，tbtalkmanage是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data;
@@ -579,10 +594,11 @@
                                 table.reload('tbtalkmanage');
                                 var pagenum = window.localStorage.getItem("pagenum");
                                 pagecurrent(pagenum);
+                                layer.msg("删除成功！");
                                 layer.close(index);
                             },
                             error: function() {
-                                alert("修改失败");
+                                alert("服务器繁忙。删除失败！");
                             }
                         });
                     },

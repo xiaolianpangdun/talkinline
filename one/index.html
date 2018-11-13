@@ -84,8 +84,8 @@
                 var form = layui.form,
                     layer = layui.layer,
                     $ = layui.$,
-                    link = window.localStorage.getItem("link");
-                isLogin = window.localStorage.getItem("isLogin");
+                    link = window.localStorage.getItem("link"),
+                    isLogin = window.localStorage.getItem("isLogin");
 
                 (function() {
                     if (isLogin == "true") {
@@ -150,9 +150,11 @@
                     var linkto = window.localStorage.getItem("kind");
                     console.log(linkto);
                     if (linkto == "history") {
+                        window.localStorage.setItem("link", "historytalk");
                         var html = "<iframe width=100% height=800px src='./pages/historytalk.html' frameborder='0'></iframe>"
                         $(".body").html(html);
                     } else {
+                        window.localStorage.setItem("link", "talkmanage");
                         var html = "<iframe width=100% height=800px src='./pages/talkmanage.html' frameborder='0'></iframe>"
                         $(".body").html(html);
                     }

@@ -39,7 +39,7 @@
         }
     });
     // 登录
-    $(".loginsubmit").click(function() {
+    var login = function() {
         var username = $(".uname").val();
         var password = $(".upwd").val();
         if (!username) { layer.msg("用户名不能为空"); return false; }
@@ -76,6 +76,12 @@
                 layer.msg("服务器繁忙，请稍后再试");
             }
         });
+    }
+    $(".loginsubmit").click(function() { login() });
+    $(".upwd").bind('keypress', function() {
+        if (event.keyCode == "13") {
+            login();
+        }
     });
     // form.on('submit(formDemo)', function(data) {
     //     console.log(data);
