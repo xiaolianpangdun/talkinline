@@ -19,6 +19,11 @@
             btn: ['确定', '取消'],
             yes: function(index, layero) {
                 var name = $("input.guestname").val();
+                name = name.replace(/(^\s*)|(\s*$)/g, '');
+                if (name == "") {
+                    layer.msg("嘉宾名称不能为空");
+                    return;
+                }
                 if (name) {
                     var html = "";
                     html += "<div class='left guest'>";

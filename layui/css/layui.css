@@ -852,7 +852,7 @@ a cite {
     top: 0;
     bottom: 0;
     z-index: 999;
-    width: 19%;
+    width: 20.5%;
     overflow-x: hidden
 }
 
@@ -2899,7 +2899,7 @@ hr {
 
 .layui-table,
 .layui-table-view {
-    margin: 10px 0
+    margin: 0px 0
 }
 
 .layui-flow-more {

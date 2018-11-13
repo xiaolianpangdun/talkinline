@@ -129,7 +129,7 @@
                 var word = $(".content").val();
                 word = word.replace(/(^\s*)|(\s*$)/g, '');
                 if (word == "") {
-                    layer.close(index);
+                    layer.msg("违禁词不能为空");
                     return;
                 }
                 $.ajax({
@@ -172,7 +172,7 @@
     });
     // 批量导入违禁词
     $("input[type='file']").click(function(e) {
-        alert("请上传txt格式的文件");
+        alert("请上传txt格式的文件,每个违禁词为一行！！！");
     });
     upload.render({
         elem: '#leadfile',
@@ -185,6 +185,8 @@
         done: function(res) {
             // console.log(res);
             layer.msg("上传成功");
+            laypage(1, "");
+            // console.log(res);
         }
     });
 }()

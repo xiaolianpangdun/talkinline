@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div class="contain-body" style="position:absolute;left:19%;width:80%;">
+        <div class="contain-body" style="position:absolute;left:20.5%;width:79.5%;">
 
             <!-- 内容头部 -->
             <div class="header">
@@ -109,7 +109,7 @@
                 // 刷新之后 导航背景颜色还在
                 (function() {
                     if (link == "two") {
-                        var html = "<iframe width=100% height=800px src='../two/TwoMenu.html' frameborder='0'></iframe>"
+                        var html = "<iframe width=100% height=800px src='../two/TwoMenu.html' frameborder='0' border='0'></iframe>"
                         $(".body").html(html);
                         $(".return").show();
                         var linkto = window.localStorage.getItem("kind");
@@ -119,12 +119,12 @@
                             $(".talkmanage").addClass("layui-this");
                         }
                     } else if (link != null) {
-                        var html = "<iframe width=100% height=800px src='./pages/" + link + ".html' frameborder='0'></iframe>"
+                        var html = "<iframe width=100% height=800px src='./pages/" + link + ".html' frameborder='0' border='0'></iframe>"
                         $(".body").html(html);
                         $(".return").hide();
 
                     } else {
-                        var html = "<iframe width=100% height=800px src='./pages/" + "talkmanage" + ".html' frameborder='0'></iframe>"
+                        var html = "<iframe width=100% height=800px src='./pages/" + "talkmanage" + ".html' frameborder='0' border='0'></iframe>"
                         $(".body").html(html);
                         $(".return").hide();
                         $($(".jumpTo")[0]).addClass("layui-this");
