@@ -87,6 +87,8 @@ $(function () {
   //   $(".menu").hide().eq(index).show();
   // }
 
+  
+
   /**
    * 
    * 直播详情 
@@ -269,14 +271,11 @@ $(function () {
         $("#text_s").html(TextSe);
         $("#text_ss").html(Test);
 
-        $('.removes').click(function(){
-
-          var remove_inx = $(this).parent().index();
-
-          console.log(remove_inx);
-
-          $('.guest').eq(remove_inx).remove();
-
+        
+        //$('#speakerList').append(AddStr);
+        // 删除嘉宾
+        $('.main').on('click','.removes',function(){
+          $(this).parent('.guest').remove();
         });
 
         // 如果是历史访谈就不能删除嘉宾
@@ -310,8 +309,8 @@ $(function () {
     console.log(type_num);
 
     // 从本地获取访谈预告，改变场景的时候改变数据
-    var prePicUrl = localStorage.getItem('prePicUrl');
-    var preVideoUrl = localStorage.getItem('preVideoUrl');
+    var prePicUrl = window.localStorage.getItem('prePicUrl');
+    var preVideoUrl = window.localStorage.getItem('preVideoUrl');
 
     console.log('图片 ======= ',prePicUrl);
     console.log('视频 ======= ',preVideoUrl);
@@ -334,12 +333,13 @@ $(function () {
 
       }
 
-    }
-    if(type_num == 1){
+    }else if(type_num == 1){
 
       $('.video_0').text('图片');
 
       if(prePicUrl != null){
+
+        console.log(prePicUrl)
 
         $('.vedio_link').text(prePicUrl);
 
@@ -347,9 +347,12 @@ $(function () {
 
       }else if(prePicUrl == null){
 
+        console.log("null");
+
         $('.vedio_link').text('无文件/');
 
         $('.uplink span').text('请上传文件');
+        
 
       }
 
@@ -382,6 +385,7 @@ $(function () {
 
   });
 
+  
   //添加嘉宾 ====== 弹框
   $("#AddGuests").click(function () {
 
@@ -402,18 +406,62 @@ $(function () {
       yes: function (index, layero) {
 
         // 获取input里面的val值
-        var speakername = $('#Adds').val();
+        //var speakername = $('#Adds').val();
+
+        var speakername = $("#Adds").val();
+        speakername = speakername.replace(/(^\s*)|(\s*$)/g, '');
 
         // 判断嘉宾姓名的长度
         if (speakername.length > 20) {
 
           $('.tips_2').css('display', 'block');
 
-        } else {
+        } else if(speakername == ''){
+
+          layer.msg("内容不能为空");
+
+        }else{
+
           layer.close(index);
 
           $('#add_guest').css("display", "none");
 
+          // 从本地储存里面拿出嘉宾列表
+          // var speak = localStorage.getItem("Speak");
+          // var speaker = JSON.parse(speak);
+
+          // console.log(speaker);
+
+          // var now = [];
+
+          // 循环嘉宾列表把id相等的数据的名字拿出来
+          // for(var i = 0; i < speaker.length; i ++){
+
+          //   now.push(speaker[i].name);
+          // }
+          // now.push(speakername);
+
+          // console.log(now)
+
+          // $.ajax({
+          //   url: TheServer + '/interview/edit',
+          //   type: 'POST',
+          //   dataType: 'json',
+          //   async: true,
+          //   traditional: true,    //或false,是否异步
+          //   data: {
+          //     interviewId: talkNum,
+          //     speakername: now
+          //   },
+          //   success: function (data, textStatus, jqXHR){
+          //     if(data.code == 200){
+          //       ADD();
+          //       layer.msg('添加成功');
+          //     };
+          //   },
+          // });
+          
+          
           // 添加到html上面
           var guests = '';
 
@@ -425,16 +473,8 @@ $(function () {
 
           $('#Adds').val('');
 
-          $('.removes').click(function(){
-
-            var remove_inx = $(this).parent().index();
-
-            console.log(remove_inx);
-
-            $('.guest').eq(remove_inx).remove();
-
-          });
-
+          
+          
         }
 
       },
@@ -447,6 +487,7 @@ $(function () {
     });
 
   });
+
 
   // 直播详情 =========== 修改里面的内容 （会议名称、访谈场景、访谈时间、会议简介）
   $('.ascertaining_modification').click(function () {
@@ -730,6 +771,29 @@ $(function () {
     layer.msg('复制成功');
 
   });
+
+  // 删除嘉宾
+  $('.guest_list').click(function(event){
+
+    var event = event || window.event;
+
+　   var target = event.target || event.srcElement;
+
+    console.log(target);
+
+    if(target.className == 'removes'){
+
+      // console.log('执行了')
+      // var that = target.innerHTML;
+      // console.log(that)
+
+      //remove(this)
+
+    }
+
+  });
+
+  
 
 
 
@@ -1388,7 +1452,7 @@ $(function () {
           });
 
           $('#bbbb').html(replys);
-          
+
 
           // 判断编辑是否打开，是打开的就打开复选框
           if( $('.reply_tool').css("display") == 'none'){
