@@ -93,40 +93,41 @@ body{
   width: 100%;
   
 }
-.main ul li{
+.main_item{
   width: 100%;
-  height: 44px;
-  /* font-size: 13px; */
-}
-.main ul li p{
+  margin-bottom: 1.7%;
   display: inline-block;
 }
-.main ul li>p{
+.main_item>p{
   margin-left: 6%;
-  width: 8%;
-  /* height: 44px; */
+  width: 13%;
+  height: 100%;
   color: #888888;
+  /* display: inline-block */
   float: left;
 }
-.main ul li>div{
+.main_item>div{
   width: 75%;
+  height: 100%;
   margin-right: 6%;
-  /* float: right; */
-  display: inline-block
+  float: right;
 }
 .time{
   text-align: center;
+  /* width: 30%; */
   width: 193px;
   height: 32px;
+  line-height: 32px;
   border: 1px solid #CDCDCD;
   float: left;
 }
-.main ul li>div>p{
+.main_item>div>p{
   color: #3199F7;
   margin-left: 32px;
   cursor: pointer;
+  display: inline-block;
 }
-.main ul li>div>.guest_list>.guest{
+.main_item>div>.guest_list>.guest{
   padding: 9px 12px;
   background: #E6EEF5;
   margin-right: 20px;

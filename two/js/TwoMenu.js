@@ -250,6 +250,7 @@ $(function () {
         var Test = '';
   
         $.each(data.result, function (i, obj) {
+
           select += '<option value="">' + obj.name + '</option>';
           
           str += '<p class="guest">';
@@ -277,6 +278,17 @@ $(function () {
           $('.guest').eq(remove_inx).remove();
 
         });
+
+        // 如果是历史访谈就不能删除嘉宾
+        if(status == 2){
+
+          for(var i = 0; i < $('.guest').length; i ++){
+
+            $('.guest').eq(i).children('.removes').css('display','none');
+
+          }
+
+        }
 
       },
       error: function (xhr, textStatus) {
@@ -772,6 +784,7 @@ $(function () {
   
           });
           $('.tab_tr').html(users);
+          $('.viewing_number').html(data.result.total);
   
           // 加入黑名单
           // $('.black_list').click(function () {
@@ -1000,8 +1013,6 @@ $(function () {
             $('.questions_chexbox').css('display','block')
   
           };
-
-          
           
   
           // 网友提问的复选框
@@ -1377,25 +1388,7 @@ $(function () {
           });
 
           $('#bbbb').html(replys);
-
-          // if(){}
-
-          //如果是预告和在线就把编辑按钮隐藏
-          // if(kind == "talkmanage"){
-
-          //   if(status == 1){
-
-          //     console.log('执行了');
-
-          //     for(var i = 0; i < $('.reply_main').length; i ++){
-
-          //       $('.reply_main').eq(i).find('reply_editor').text('heh');
-
-          //     }
-
-          //   }
-
-          // }
+          
 
           // 判断编辑是否打开，是打开的就打开复选框
           if( $('.reply_tool').css("display") == 'none'){
@@ -1520,6 +1513,17 @@ $(function () {
               });
       
             });
+
+          }
+
+          // 不是历史访谈的时候，隐藏编辑按钮
+          if(status != 2){
+
+            for(var i = 0; i < $('.reply_main').length; i ++){
+
+              $('.reply_main').eq(i).children('.reply_main-right').children('.reply_main_bottom').children('.reply_editor').css('display','none')
+
+            }
 
           }
         
@@ -2390,6 +2394,9 @@ $(function () {
         });
         $('#TextList').html(Texts);
 
+        // 滚动条
+        //console.log($('.record').innerHeight());
+
         if( $('.text_tool').css("display") == 'none'){
 
           $('.text_chexbox').css('display','none')
@@ -2937,7 +2944,7 @@ function BriefIntroduction() {
 
   layer.open({
     type: 1,
-    area: ['700px', '430px'],
+    area: ['700px', '450px'],
     title: ['', 'background: #fff;border:0'],
     btn: ['确定', '取消'],
     skin: 'my-skin',
