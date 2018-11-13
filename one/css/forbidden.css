@@ -68,6 +68,7 @@ span.keyword {
 }
 
 .tip {
+    margin-top: 20px;
     font-family: PingFangSC-Regular;
     font-size: 13px;
     color: #9FADC7;
