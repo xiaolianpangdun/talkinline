@@ -139,9 +139,11 @@ $(function () {
           // 是什么类型就选中什么类型
           if(data.result.type == 0){
             $('.radio_item').eq(0).children('.check_out').addClass('image');
+            $('.radio_item').eq(0).children('.check_out').css('border','0');
             $('.video_0').text('视频');
           }else if(data.result.type == 1){
             $('.radio_item').eq(1).children('.check_out').addClass('image');
+            $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
             $('.video_0').text('图片');
           };
 
@@ -311,6 +313,7 @@ $(function () {
     var type_num = $(this).index();
 
     $('.radio_item').eq(type_num).children('.check_out').addClass('image').parent().siblings().children().removeClass('image');
+    $('.radio_item').eq(type_num).children('.check_out').css('border','0').parent().siblings().children('.check_out').css('border','1px solid #3199F7');
 
     console.log(type_num);
 
