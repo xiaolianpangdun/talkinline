@@ -8,14 +8,17 @@ $(function () {
    * 访谈状态
    * 
    */
-  var TheServer = 'http://192.168.0.71:8080';
+  //var TheServer = 'http://192.168.0.71:8080';
+  var TheServer = localStorage.getItem('backstage');
 
   var talkNum = localStorage.getItem("interviewId");
 
   var status = localStorage.getItem("status");
 
   var kind = localStorage.getItem("kind");
-  
+
+  console.log('接口 ======' ,TheServer);
+
   console.log('访谈ID ======' ,talkNum);
 
   console.log('访谈状态 ======' ,status);
@@ -753,28 +756,6 @@ $(function () {
 
   });
 
-  // 删除嘉宾
-  $('.guest_list').click(function(event){
-
-    var event = event || window.event;
-
-　   var target = event.target || event.srcElement;
-
-    console.log(target);
-
-    if(target.className == 'removes'){
-
-      // console.log('执行了')
-      // var that = target.innerHTML;
-      // console.log(that)
-
-      //remove(this)
-
-    }
-
-  });
-
-  
 
 
 

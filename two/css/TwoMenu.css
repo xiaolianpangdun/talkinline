@@ -42,7 +42,6 @@ body{
 
 .nav{
   width: 17%;
-  /* height: 1000px; */
   height: 799px;
   background: #F7F9FB;
   padding-top: 27px;
@@ -67,17 +66,14 @@ body{
   width: 83%;
   height: 100%;
   float: right;
-  overflow: auto;
-  /* overflow-y: scroll; */
-  /* background: #f60; */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .menu{
   width: 100%;
   height: 100%;
-  /* border: 1px solid #E6EEF5; */
   box-sizing: border-box;
   display: none;
-  /* border-bottom: 0; */
 }
 .title{
   width: 100%;
@@ -94,13 +90,10 @@ body{
 }
 .main{
   width: 100%;
-  /* overflow: hidden; */
-  /* overflow-y: scroll */
 }
 .main_item{
   width: 100%;
  margin-bottom: 10px;
-  /* margin-bottom: 1.7%; */
   display: inline-block;
 }
 .main_item>p{
@@ -108,7 +101,6 @@ body{
   width: 13%;
   height: 34px;
   color: #888888;
-  /* display: inline-block */
   float: left;
 }
 .main_item>div{
@@ -119,7 +111,6 @@ body{
 }
 .time{
   text-align: center;
-  /* width: 30%; */
   width: 193px;
   height: 32px;
   line-height: 32px;
@@ -207,7 +198,6 @@ body{
   border-bottom: 1px solid #E7EAEC;
   border-left: 1px solid #E7EAEC;
   border-right: 1px solid #E7EAEC;
-  /* height: 50px; */
 }
 .tab table tr th{
   text-align: left;
@@ -224,7 +214,6 @@ body{
   width: 80px;
   height: 30px;
   line-height: 30px;
-  /* font-size: 13px; */
   color: #3199F7;
   margin-left: -10px;
   cursor: pointer;
@@ -313,7 +302,6 @@ body{
 }
 .questions_left{
   width: 70%;
-  /* margin-right: 28px; */
   display: inline-block;
 }
 .questions_right{
@@ -383,10 +371,6 @@ body{
   margin-top: 8px;
   cursor: pointer;
 }
-/* .nav_questions{
-  height: 550px;
-  overflow-y: scroll;
-} */
 
 /* 现场图片 */
 .picture_content{
@@ -419,7 +403,6 @@ body{
   width: 100%;
   height: 100%;
   background-size: 100%;
-  /* background-repeat: no-repeat; */
 }
 .picture_img{
   position: relative;
@@ -445,7 +428,6 @@ body{
 }
 .uplink{
   position: relative;
-  /* margin-top: -3px; */
 }
 #updata,#VedioUpdata,#UpPreview{
   position: absolute;
@@ -549,8 +531,6 @@ body{
 }
 .radio{
   font-size: 14px;
-  /* margin-top: 22.5px; */
-  /* line-height: 24px; */
 }
 .radio_item{
   display: inline-block;
@@ -559,7 +539,7 @@ body{
 .radio_item p{
   width: 15.5px;
   height: 15.5px;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #3199F7;
   float: left;
   cursor: pointer;
   margin-right: 10px;
@@ -567,7 +547,8 @@ body{
   box-sizing: border-box;
 }
 .image{
-  background-image: url(../../img/selected.png);
+  background-image: url(../../img/checked.png);
+  background-size: 100%;
 }
 .interaction_delete,.interaction_shield,.picture_delece,.text_delece,.interaction_delete_2,.conversion{
   width: 100%;
@@ -620,7 +601,6 @@ body{
   float: left;
 }
 .real_time_{
-  /* width: 100%; */
   text-align: center;
   margin-left: 40px;
 }

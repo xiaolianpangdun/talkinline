@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- 360浏览器极速模式 -->
+
+  <meta name="renderer" content="webkit"> 
+
   <title>在线访谈后台管理系统</title>
 
   <!-- 引入jquery2.0以下的版本 -->
@@ -27,6 +32,9 @@
 
   <!-- 引入上传的插件 -->
   <script src="../one/js/ajaxfileupload1.js"></script>
+
+  <!-- 引入placeholder兼容 -->
+  <!-- <script src="../one/js/"></script> -->
 
 </head>
 
@@ -356,7 +364,7 @@
             </div>
             <div class="conference status_2" style="width: 148px;">实时录入会议内容</div>
           </div>
-          <div id="TextList" style="height: 500px;overflow: auto"></div>
+          <div id="TextList" style="height: 500px;overflow-y: auto"></div>
           <!-- <div class="record">
             <div class="text_chexbox"></div>
             <div class="record_right">
