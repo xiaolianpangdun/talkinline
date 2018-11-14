@@ -328,7 +328,7 @@ $(function () {
 
       console.log('视频 ======= ',preVideoUrl);
 
-      if(preVideoUrl == null){
+      if(preVideoUrl == 'null'){
 
         console.log('没有视频')
 
@@ -336,7 +336,7 @@ $(function () {
 
         $('.uplink span').text('请上传视频文件');
 
-      }else if(preVideoUrl != null){
+      }else if(preVideoUrl != 'null'){
 
         console.log('有视频')
 
@@ -354,7 +354,7 @@ $(function () {
 
       console.log('图片 ======= ',prePicUrl);
 
-      if(prePicUrl == null){
+      if(prePicUrl == "null"){
 
         console.log('没有图片')
 
@@ -363,7 +363,7 @@ $(function () {
         $('.uplink span').text('请上传图片文件');
         
 
-      }else if(prePicUrl != null){
+      }else if(prePicUrl != "null"){
 
         console.log("有图片");
 
