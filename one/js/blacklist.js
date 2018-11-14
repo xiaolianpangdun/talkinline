@@ -3,10 +3,11 @@
     var table = layui.table,
         layer = layui.layer,
         $ = layui.$;
+    var url = window.localStorage.getItem("backstage");
     (function() {
         $.ajax({
             type: "get",
-            url: ' http://192.168.0.71:8080/blacklist/list?pageNum=1&pageSize=10',
+            url: url + '/blacklist/list?pageNum=1&pageSize=10',
             success: function(data) {
                 console.log(data);
                 var count = data.result.total;
@@ -27,7 +28,7 @@
                         var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
                             limit = obj.limit; //得到每页显示的条数
                         table.reload('blacklist', {
-                                url: 'http://192.168.0.71:8080/blacklist/list?status=2&pageNum=' + curr + '&pageSize=10'
+                                url: url + '/blacklist/list?status=2&pageNum=' + curr + '&pageSize=10'
                             })
                             //首次不执行
                         if (!first) {
@@ -46,7 +47,7 @@
     table.render({
         elem: '#blacklist',
         skin: 'line',
-        url: 'http://192.168.0.71:8080/blacklist/list?pageNum=1&pageSize=10',
+        url: url + '/blacklist/list?pageNum=1&pageSize=10',
         parseData: function(res) { //res 即为原始返回的数据
             console.log(res);
             return {
@@ -104,7 +105,7 @@
                 yes: function(index, layero) {
                     $.ajax({
                         type: 'get',
-                        url: 'http://192.168.0.71:8080/blacklist/remove/' + id,
+                        url: url + '/blacklist/remove/' + id,
                         success: function(data) {
                             console.log(data);
                             layer.close(index);
@@ -118,18 +119,5 @@
                 }
             });
         }
-    });
-    // button搜索事件
-    $("button.search").click(function() {
-        var keyWord = $("input.search").val();
-        console.log(keyWord);
-        $.ajax({
-            type: 'get',
-            url: '',
-            success: function() {
-                table.reload('blacklist');
-            },
-            error: function() {}
-        });
     });
 }();

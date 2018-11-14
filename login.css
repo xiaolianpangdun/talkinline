@@ -109,8 +109,11 @@ body {
     margin-left: 0px;
 }
 
-.layui-form-item {
+.lg-right {
     clear: right;
+    width: 450px;
+    padding-top: 80px;
+    position: relative;
 }
 
 input[type="checkbox"] {

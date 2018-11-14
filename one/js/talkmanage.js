@@ -1,8 +1,7 @@
 ;
 ! function() {
-    var
-        upload = layui.upload;
-
+    var upload = layui.upload;
+    var url = window.localStorage.getItem("backstage");
 
     // 点击添加嘉宾弹框
     $(".addguest").click(function() {
@@ -139,7 +138,7 @@
                             description: description
                         };
                         $.ajaxFileUpload({
-                            url: 'http://192.168.0.71:8080/interview/create',
+                            url: url + '/interview/create',
                             secureuri: false, //一般设置为false
                             fileElementId: fileid, //文件上传空间的id属性
                             dataType: 'jsonp', //返回值类型 一般设置为json
@@ -153,7 +152,7 @@
                                         // var pagenum = window.localStorage.getItem("pagenum");
                                         pagecurrent(1);
                                         table.reload('tbtalkmanage', {
-                                            url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                            url: url + '/interview/list?currentPage=1&pageSize=10'
                                         })
                                         layer.close(index);
                                     } else {
@@ -178,7 +177,7 @@
                                 {
                                     pagecurrent(1);
                                     table.reload('tbtalkmanage', {
-                                        url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                        url: url + '/interview/list?currentPage=1&pageSize=10'
                                     })
                                     layer.close(index);
                                 }
@@ -186,7 +185,7 @@
                         // $.ajax({
                         //     type: 'post',
                         //     // contentType: 'application/form-data;charset=utf-8',
-                        //     url: 'http://192.168.0.71:8080/interview/create',
+                        //     url: url+'/interview/create',
                         //     traditional: true,
                         //     data: {
                         //         name: name,
@@ -309,7 +308,7 @@
                         };
                         // console.log(data);
                         $.ajaxFileUpload({
-                            url: 'http://192.168.0.71:8080/interview/create',
+                            url: url + '/interview/create',
                             secureuri: false, //一般设置为false
                             fileElementId: fileid, //文件上传空间的id属性
                             dataType: 'jsonp', //返回值类型 一般设置为json
@@ -325,7 +324,7 @@
                                         layer.close(index);
                                         pagecurrent(1);
                                         table.reload('tbtalkmanage', {
-                                            url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                            url: url + '/interview/list?currentPage=1&pageSize=10'
                                         })
                                     } else {
                                         layer.msg("上传失败,请刷新重试");
@@ -349,7 +348,7 @@
                                     // console.log(data, status);
                                     pagecurrent(1);
                                     table.reload('tbtalkmanage', {
-                                            url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10'
+                                            url: url + '/interview/list?currentPage=1&pageSize=10'
                                         })
                                         //     layer.msg("服务器繁忙，请刷新重试！");
                                     layer.close(index);
@@ -358,7 +357,7 @@
                         // $.ajax({
                         //     type: 'post',
                         //     // contentType: 'application/form-data;charset=utf-8',
-                        //     url: 'http://192.168.0.71:8080/interview/create',
+                        //     url: url+'/interview/create',
                         //     traditional: true,
                         //     contentType: 'multipart/form-data',
                         //     data: {
@@ -379,7 +378,7 @@
                         // });
                         // $.ajax({
                         //     type: 'post',
-                        //     url: 'http://192.168.0.71:8080/interview/create',
+                        //     url: url+'/interview/create',
                         //     // secureuri: false,
                         //     // fileElementId: 'fileup',
                         //     // dataType: 'JSON',
@@ -440,7 +439,7 @@
     table.render({
         elem: '#tbtalkmanage',
         skin: 'line',
-        url: 'http://192.168.0.71:8080/interview/list?currentPage=1&pageSize=10',
+        url: url + '/interview/list?currentPage=1&pageSize=10',
         parseData: function(res) { //res 即为原始返回的数据
             return {
                 "code": 0, //解析接口状态
@@ -488,7 +487,7 @@
         $.ajax({
             type: "get",
             // dataType: "json",
-            url: ' http://192.168.0.71:8080/interview/list?currentPage=' + pagenum + '&pageSize=10',
+            url: url + '/interview/list?currentPage=' + pagenum + '&pageSize=10',
             // data: { username: username, password: password },
             success: function(data) {
                 // alert("提交成功");
@@ -513,7 +512,7 @@
                         window.localStorage.setItem("pagenum", curr);
                         if (!first)
                             table.reload('tbtalkmanage', {
-                                url: 'http://192.168.0.71:8080/interview/list?currentPage=' + curr + '&pageSize=10'
+                                url: url + '/interview/list?currentPage=' + curr + '&pageSize=10'
                             })
                     }
                 });
@@ -546,7 +545,7 @@
                 yes: function(index, layero) {
                     $.ajax({
                         type: 'post',
-                        url: 'http://192.168.0.71:8080/interview/edit',
+                        url: url + '/interview/edit',
                         data: { interviewId: interviewId, status: 2 },
                         success: function() {
                             table.reload('tbtalkmanage');
@@ -594,7 +593,7 @@
                     yes: function(index, layero) {
                         $.ajax({
                             type: 'else',
-                            url: 'http://192.168.0.71:8080/interview/remove?id=' + interviewId,
+                            url: url + '/interview/remove?id=' + interviewId,
                             success: function() {
                                 table.reload('tbtalkmanage');
                                 var pagenum = window.localStorage.getItem("pagenum");

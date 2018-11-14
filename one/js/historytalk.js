@@ -1,10 +1,11 @@
 ;
 ! function() {
     var $ = layui.$;
+    var url = window.localStorage.getItem("backstage");
     (function() {
         $.ajax({
             type: "get",
-            url: ' http://192.168.0.71:8080/interview/list?status=2&currentPage=1&pageSize=10',
+            url: url + '/interview/list?status=2&currentPage=1&pageSize=10',
             success: function(data) {
                 console.log(data);
                 var count = data.result.total;
@@ -27,7 +28,7 @@
                         //首次不执行
                         if (!first) {
                             table.reload('historytalk', {
-                                url: 'http://192.168.0.71:8080/interview/list?status=2&currentPage=' + curr + '&pageSize=10'
+                                url: url + '/interview/list?status=2&currentPage=' + curr + '&pageSize=10'
                             })
                         }
                     }
@@ -43,7 +44,7 @@
     table.render({
         elem: '#historytalk',
         skin: 'line',
-        url: 'http://192.168.0.71:8080/interview/list?status=2&currentPage=1&pageSize=10',
+        url: url + '/interview/list?status=2&currentPage=1&pageSize=10',
         parseData: function(res) { //res 即为原始返回的数据
             return {
                 "code": 0, //解析接口状态

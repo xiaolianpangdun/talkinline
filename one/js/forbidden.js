@@ -5,11 +5,12 @@
         upload = layui.upload,
         keyWord = '',
         $ = layui.$;
+    var url = window.localStorage.getItem("backstage");
     // 数据渲染
     var update = function(num, keyWord) {
         $.ajax({
             type: "get",
-            url: 'http://192.168.0.71:8080/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
+            url: url + '/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
                 // console.log(data);
                 var lists = data.result.list;
@@ -43,7 +44,7 @@
     var laypage = function(pagenm, keyWord) {
         $.ajax({
             type: "get",
-            url: ' http://192.168.0.71:8080/prohibit/list?pageNum=' + pagenm + '&pageSize=50&keyWord=' + keyWord + '',
+            url: url + '/prohibit/list?pageNum=' + pagenm + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
                 var count = data.result.total;
                 var laypage = layui.laypage;
@@ -93,7 +94,7 @@
             yes: function(index, layero) {
                 var data = { "ids": id };
                 $.ajax({
-                    url: 'http://192.168.0.71:8080/prohibit/remove',
+                    url: url + '/prohibit/remove',
                     type: 'POST',
                     contentType: "application/json;charset=utf-8",
                     dataType: 'json',
@@ -133,7 +134,7 @@
                     return;
                 }
                 $.ajax({
-                    url: 'http://192.168.0.71:8080/prohibit/create',
+                    url: url + '/prohibit/create',
                     type: 'POST',
                     contentType: "application/json;charset=utf-8",
                     // dataType: 'json',
@@ -176,7 +177,7 @@
     });
     upload.render({
         elem: '#leadfile',
-        url: 'http://192.168.0.71:8080/prohibit/batchImport',
+        url: url + '/prohibit/batchImport',
         multiple: true,
         accept: 'file', //普通文件
         exts: 'txt',
