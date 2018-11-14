@@ -496,20 +496,33 @@ $(function () {
 
     //console.log(AddText);
 
-    for(var i = 0; i < AddText.length; i ++){
+    $.each(AddText,function(i,obj){
 
       var guest_text = AddText.eq(i).children('span');
       console.log(guest_text);
 
-      for(var o = 0; o < guest_text.length; o ++){
+      $.each(guest_text,function(o,ibj){
 
         AddSpeaker.push(guest_text[o].innerHTML);
 
+      });
 
-      }
+    });
+
+    // for(var i = 0; i < AddText.length; i ++){
+
+    //   var guest_text = AddText.eq(i).children('span');
+    //   console.log(guest_text);
+
+    //   for(var o = 0; o < guest_text.length; o ++){
+
+    //     AddSpeaker.push(guest_text[o].innerHTML);
+
+
+    //   }
 
       
-    };
+    // };
 
     console.log("会议名称 ========= ", talkname);
     console.log("访谈场景 ========= ", type);
@@ -518,35 +531,46 @@ $(function () {
     console.log("会议简介 ========= ", talkbrief);
     console.log('添加嘉宾 ========= ',AddSpeaker);
 
-    $.ajax({
-      url: TheServer + '/interview/edit',
-      type: 'POST',
-      dataType: 'json',
-      async: true,
-      traditional: true,    //或false,是否异步
-      data: {
-        interviewId: talkNum,
-        name: talkname,
-        type: type,
-        beginTime: begintime,
-        endTime: endtime,
-        description: talkbrief,
-        speakername: AddSpeaker
-      },
-      success: function (data, textStatus, jqXHR) {
-        console.log(data)
-        if(data.code == 200){
-          DirectSeedingDetails();
-          // 再次调嘉宾列表
-          ADD();
-          layer.msg("修改成功");
-        };
-      },
-      error: function (xhr, textStatus) {
-      },
-      complete: function () {
-      }
-    })
+    // 判断嘉宾是否为空
+    if(AddSpeaker == ''){
+
+      layer.msg('嘉宾不能为空');
+
+    }else if (AddSpeaker != ''){
+
+      $.ajax({
+        url: TheServer + '/interview/edit',
+        type: 'POST',
+        dataType: 'json',
+        async: true,
+        traditional: true,    //或false,是否异步
+        data: {
+          interviewId: talkNum,
+          name: talkname,
+          type: type,
+          beginTime: begintime,
+          endTime: endtime,
+          description: talkbrief,
+          speakername: AddSpeaker
+        },
+        success: function (data, textStatus, jqXHR) {
+          console.log(data)
+          if(data.code == 200){
+            DirectSeedingDetails();
+            // 再次调嘉宾列表
+            ADD();
+            layer.msg("修改成功");
+          };
+        },
+        error: function (xhr, textStatus) {
+        },
+        complete: function () {
+        }
+      })
+
+    };
+
+    
 
 
   });
@@ -1868,7 +1892,7 @@ $(function () {
 
         //var Questionsinx = [];
 
-        for (var i = 0; i < Questions.length; i++) {
+        $.each(Questions,function(i,obj){
 
           if (Questions.eq(i).hasClass('chexbox_img')) {
 
@@ -1876,7 +1900,17 @@ $(function () {
            // Questionsinx.push(i)
           }
 
-        }
+        });
+
+        // for (var i = 0; i < Questions.length; i++) {
+
+        //   if (Questions.eq(i).hasClass('chexbox_img')) {
+
+        //     QuestionsStr.push(Questions[i].getAttribute('data-id'));
+        //    // Questionsinx.push(i)
+        //   }
+
+        // }
 
         var intQuestions = [];
 
@@ -1964,7 +1998,7 @@ $(function () {
 
         var SelectReplyInx = [];
 
-        for (var i = 0; i < AllReply.length; i++) {
+        $.each(AllReply,function(i,obj){
 
           if (AllReply.eq(i).hasClass('chexbox_img')) {
 
@@ -1974,7 +2008,20 @@ $(function () {
 
           }
 
-        }
+
+        });
+
+        // for (var i = 0; i < AllReply.length; i++) {
+
+        //   if (AllReply.eq(i).hasClass('chexbox_img')) {
+
+        //     SelectComment.push(AllReply[i].getAttribute('data-id'));
+        //     SelectReply.push(AllReply[i].getAttribute('data-key'));
+        //     SelectReplyInx.push(i);
+
+        //   }
+
+        // }
 
         // 字符串数组转化成int整数型数组
         var commentIds = [];
