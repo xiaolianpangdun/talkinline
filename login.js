@@ -26,9 +26,9 @@
     // }).blur(function() {
     //     $(".cancel").hide();
     // });
-    $(".dddd").on("click", ".cancel", function() {
-        $(".uname").val("").focus();
-    });
+    // $(".dddd").on("click", ".cancel", function() {
+    //     $(".uname").val("").focus();
+    // });
     // radio标签改变样式
     $("input[type='checkbox']").click(function() {
         var val = $("input[type='checkbox']:checked").val();
@@ -38,6 +38,10 @@
         } else {
             $(".ddd").removeClass("checked");
         }
+    });
+    $(".color-cb").click(function() {
+        var val = $("input[type='checkbox']:checked").val();
+        console.log(val);
     });
     // 登录
     var login = function() {
@@ -91,31 +95,7 @@
 
 
     //ie8兼容placeholder
-    // if (!('placeholder' in document.createElement('input'))) {
 
-    //     $('input[placeholder],textarea[placeholder]').each(function() {
-    //         var that = $(this),
-    //             text = that.attr('placeholder');
-    //         if (that.val() === "") {
-    //             that.val(text).addClass('placeholder');
-    //         }
-    //         that.focus(function() {
-    //                 if (that.val() === text) {
-    //                     that.val("").removeClass('placeholder');
-    //                 }
-    //             })
-    //             .blur(function() {
-    //                 if (that.val() === "") {
-    //                     that.val(text).addClass('placeholder');
-    //                 }
-    //             })
-    //             .closest('form').submit(function() {
-    //                 if (that.val() === text) {
-    //                     that.val('');
-    //                 }
-    //             });
-    //     });
-    // }
     (function() {
         //仅在不支持 placeholder 的时候执行
         if (!('placeholder' in document.createElement('input'))) {
@@ -151,7 +131,7 @@
                         div.style.position = 'absolute';
                         div.style.width = this.getPosition(dom, 'Width') + 'px';
                         div.style.height = this.getPosition(dom, 'Height') + 'px';
-                        div.style.left = this.getPosition(dom, 'Left') + 'px';;
+                        div.style.left = '30px';;
                         div.style.top = this.getPosition(dom, 'Top') + 'px';
                         div.style.color = '#999';
                         div.style.textIndent = '5px';
@@ -167,7 +147,7 @@
                         } else {
                             div.style.lineHeight = div.style.height;
                         }
-                        document.getElementsByTagName('body')[0].appendChild(div);
+                        document.querySelector('.lg-right').appendChild(div);
                         return div;
                     },
                     //计算当前输入项目的位置

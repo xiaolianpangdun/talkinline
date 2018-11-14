@@ -11,7 +11,7 @@
             area: ['480px', '360px'],
             title: ['', "background:#fff;border:0"], //'在线调试',
             content: $("#addguest"),
-            shade: [0.8, '#393D49'],
+            shade: [0.2, '#393D49'],
             skin: 'addguest',
             shadeClose: false,
             btnAlign: 'c', //按钮居中显示
@@ -439,6 +439,8 @@
     table.render({
         elem: '#tbtalkmanage',
         skin: 'line',
+        loading: true,
+        // cellMinWidth: 200,
         url: url + '/interview/list?currentPage=1&pageSize=10',
         parseData: function(res) { //res 即为原始返回的数据
             return {
@@ -463,19 +465,19 @@
                 }, {
                     field: 'status',
                     title: '访谈状态',
-                    width: '15%',
+                    width: '14%',
                     templet: '#talk',
                     unresize: true
                 }, {
                     field: 'type',
                     title: '类型',
-                    width: '15%',
+                    width: '14%',
                     templet: '#talktype',
                     unresize: true
                 }, {
                     field: 'as',
                     title: '操作',
-                    // width: 360,
+                    minWidth: 336,
                     toolbar: '#handle',
                     unresize: true
                 }

@@ -35,7 +35,7 @@
                 });
             },
             error: function() {
-                alert("抱歉");
+                layer.msg("服务器繁忙，请刷新重试！");
             }
         });
     })();
