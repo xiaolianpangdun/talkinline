@@ -166,6 +166,7 @@ $(function () {
             
           }else if(data.result.status == 2){
 
+
           }
           
           $('#compere').text(data.result.compere);
@@ -173,7 +174,8 @@ $(function () {
           $('.time2').text(data.result.endTime);
           $('#text_brief').text(data.result.description);
 
-          // 预告详情里面的 上传图文和视频
+
+          // 上传图文和视频
           if( data.result.type == 1){
 
             if(data.result.prePicUrl != null){
@@ -186,7 +188,7 @@ $(function () {
 
               $('.vedio_link').text('无文件');
 
-              $('.uplink span').text('请上传文件');
+              $('.uplink span').text('请上传图片文件');
 
             }
 
@@ -301,82 +303,100 @@ $(function () {
   ADD();
 
   // 直播详情 =========== 修改访谈场景（单选框）
-  $('.radio_item').children('.check_out').click(function () {
+  $('.radio_item').click(function () {
 
-    $(this).addClass('image').parent().siblings().children().removeClass('image');
+    var type_num = $(this).index();
 
-    var type_num = $(this).parent().index();
+    $('.radio_item').eq(type_num).children('.check_out').addClass('image').parent().siblings().children().removeClass('image');
+
     console.log(type_num);
 
-    // 从本地获取访谈预告，改变场景的时候改变数据
-    var prePicUrl = window.localStorage.getItem('prePicUrl');
-    var preVideoUrl = window.localStorage.getItem('preVideoUrl');
 
-    console.log('图片 ======= ',prePicUrl);
-    console.log('视频 ======= ',preVideoUrl);
+
+    // 从本地获取访谈预告，改变场景的时候改变数据
+    var prePicUrl = localStorage.getItem('prePicUrl');
+    var preVideoUrl = localStorage.getItem('preVideoUrl');
+
+    // console.log('图片 ======= ',prePicUrl);
+    // console.log('视频 ======= ',preVideoUrl);
 
     if(type_num == 0){
 
+      $('#conversion').text('转为在线视频访谈');
+
       $('.video_0').text('视频');
 
-      if(preVideoUrl != null){
+      console.log('视频 ======= ',preVideoUrl);
+
+      if(preVideoUrl == null){
+
+        console.log('没有视频')
+
+        $('.vedio_link').text('无文件');
+
+        $('.uplink span').text('请上传视频文件');
+
+      }else if(preVideoUrl != null){
+
+        console.log('有视频')
 
         $('.vedio_link').text(preVideoUrl);
 
         $('.uplink span').text('重新上传');
 
-      }else if(preVideoUrl == null){
-
-        $('.vedio_link').text('无文件');
-
-        $('.uplink span').text('请上传文件');
-
       }
 
     }else if(type_num == 1){
 
+      $('#conversion').text('转为在线图文访谈');
+
       $('.video_0').text('图片');
 
-      if(prePicUrl != null){
+      console.log('图片 ======= ',prePicUrl);
 
-        console.log(prePicUrl)
+      if(prePicUrl == null){
+
+        console.log('没有图片')
+
+        $('.vedio_link').text('无文件');
+
+        $('.uplink span').text('请上传图片文件');
+        
+
+      }else if(prePicUrl != null){
+
+        console.log("有图片");
 
         $('.vedio_link').text(prePicUrl);
 
         $('.uplink span').text('重新上传');
-
-      }else if(prePicUrl == null){
-
-        console.log("null");
-
-        $('.vedio_link').text('无文件/');
-
-        $('.uplink span').text('请上传文件');
         
 
       }
 
-    }
+    };
+
+    
 
     // 通过选择的是哪个，改变页面文字
-    if(kind == "talkmanage"){
+    // if(kind == "talkmanage"){
 
-      if(status == 0){
+    //   if(status == 0){
 
-        if (type_num == 0) {
+    //     if (type_num == 0) {
 
-          $('#conversion').text('转为在线视频访谈');
+    //       $('#conversion').text('转为在线视频访谈');
     
-        } else if (type_num == 1) {
+    //     } else if (type_num == 1) {
 
-          $('#conversion').text('转为在线图文访谈');
+    //       $('#conversion').text('转为在线图文访谈');
 
-        }
+    //     }
 
-      }
+    //   }
       
 
-    }
+    // }
 
     
 
@@ -412,11 +432,7 @@ $(function () {
         speakername = speakername.replace(/(^\s*)|(\s*$)/g, '');
 
         // 判断嘉宾姓名的长度
-        if (speakername.length > 20) {
-
-          $('.tips_2').css('display', 'block');
-
-        } else if(speakername == ''){
+       if(speakername == ''){
 
           layer.msg("内容不能为空");
 
@@ -426,41 +442,6 @@ $(function () {
 
           $('#add_guest').css("display", "none");
 
-          // 从本地储存里面拿出嘉宾列表
-          // var speak = localStorage.getItem("Speak");
-          // var speaker = JSON.parse(speak);
-
-          // console.log(speaker);
-
-          // var now = [];
-
-          // 循环嘉宾列表把id相等的数据的名字拿出来
-          // for(var i = 0; i < speaker.length; i ++){
-
-          //   now.push(speaker[i].name);
-          // }
-          // now.push(speakername);
-
-          // console.log(now)
-
-          // $.ajax({
-          //   url: TheServer + '/interview/edit',
-          //   type: 'POST',
-          //   dataType: 'json',
-          //   async: true,
-          //   traditional: true,    //或false,是否异步
-          //   data: {
-          //     interviewId: talkNum,
-          //     speakername: now
-          //   },
-          //   success: function (data, textStatus, jqXHR){
-          //     if(data.code == 200){
-          //       ADD();
-          //       layer.msg('添加成功');
-          //     };
-          //   },
-          // });
-          
           
           // 添加到html上面
           var guests = '';

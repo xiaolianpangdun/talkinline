@@ -445,7 +445,6 @@ body{
 }
 .uplink{
   position: relative;
-  overflow: hidden;
   /* margin-top: -3px; */
 }
 #updata,#VedioUpdata,#UpPreview{
@@ -454,9 +453,11 @@ body{
   right: 0;
   top: 0;
   opacity: 0;
-
 }
-
+#UpPreview{
+  width: 100px;
+  height: 34px;
+}
 
 /* 文字实录 */
 .record{
@@ -553,6 +554,7 @@ body{
 }
 .radio_item{
   display: inline-block;
+  cursor: pointer;
 }
 .radio_item p{
   width: 15.5px;
