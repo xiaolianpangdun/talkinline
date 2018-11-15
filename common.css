@@ -21,7 +21,6 @@ li {
 button,
 select,
 input {
-    border: none;
     outline: none;
     margin: 0px;
     padding: 0px;
@@ -29,6 +28,7 @@ input {
     list-style: none;
     outline: none;
     resize: none;
+    box-sizing: border-box;
 }
 
 p,

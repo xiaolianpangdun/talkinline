@@ -1,4 +1,4 @@
-<div id="aaaaaa" style="padding:0 2%;">
+<div id="aaaaaa" style="padding:0 2%; box-sizing: border-box;">
     <link rel="stylesheet" href="../css/talkmanage.css">
     <link rel="stylesheet" href="../../common.css">
     <link rel="stylesheet" href="../../layui/css/layui.css">
@@ -39,7 +39,7 @@
         <a href="javascript:;" lay-event="endtalk" class="layui-table-link   endtalk hover">结束访谈</a> {{# }else{ }}
         <span class="endtalk" style="color:#999999;">结束访谈</span> {{# }}}
         <a href="javascript:;" lay-event="delete" class="layui-table-link " style="color:#FF5500;">
-            <img src="../../img/delete.png" alt=""> 删除
+            <img src="../../img/del2.png" alt=""> 删除
         </a>
     </script>
 
@@ -61,14 +61,14 @@
         <div class="line">
             <div class="textleft">*访谈时间</div>
             <div class="left">
-                <input type="text" class="talk" placeholder="请输入时间" id="starttime">至
+                <input type="text" class="talk" placeholder="请输入时间" id="starttime"><span class="timeto">至</span>
                 <input type="text" class="talk" placeholder="请输入时间" id="endtime">
             </div>
             <div class="clear"></div>
         </div>
         <div class="line" style="margin-bottom:0;">
             <div class="textleft">*本期嘉宾</div>
-            <div class="left guests" style="float:left;width:450px;">
+            <div class="left guests" style="float:left;width:509px;">
                 <div class="guestlist">
                     <!-- <div class='left guest'>
                         <span guestlists>嘉宾1 &nbsp;&nbsp;</span>
@@ -102,10 +102,14 @@
         <div class="line">
             <div class="textleft">*访谈场景</div>
             <div class="left select">
-                <input type="radio" id="s1" value="0" name="type" class="selecttype color-cb">
-                <label for="s1"><div class="ddd"></div>在线访谈视频</label>
-                <input type="radio" id="s2" value="1" name="type" class="selecttype color-cb">
-                <label for="s2"><div class="ddd"></div>图文实录访谈</label>
+                <!-- <input type="radio" id="s1" value="0" name="type" class="selecttype color-cb"> -->
+                <div class="selecttype left">
+                    <div class="ddd talkvideo"></div>在线访谈视频
+                </div>
+                <!-- <input type="radio" id="s2" value="1" name="type" class="selecttype color-cb"> -->
+                <div class="selecttype left">
+                    <div class="ddd talkimg"></div>图文实录访谈
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -151,14 +155,14 @@
         <div class="line">
             <div class="textleft">*访谈时间</div>
             <div class="left">
-                <input type="text" class="talk" placeholder="请输入时间" id="starttime1">至
+                <input type="text" class="talk" placeholder="请输入时间" id="starttime1"><span class="timeto">至</span>
                 <input type="text" class="talk" placeholder="请输入时间" id="endtime1">
             </div>
             <div class="clear"></div>
         </div>
         <div class="line" style="margin-bottom:0;">
             <div class="textleft">*本期嘉宾</div>
-            <div class="left guests" style="float:left;width:450px;">
+            <div class="left guests" style="float:left;width:509px;">
                 <div class="guestlist">
                     <!-- <div class='left guest'>
                         <span class="guestlists">嘉宾1 &nbsp;&nbsp;</span>
@@ -192,11 +196,17 @@
         <div class="line">
             <div class="textleft">*访谈场景</div>
             <div class="left select">
-                <input type="radio" id="s3" value="0" name="type" class="selectvideo color-cb">
+                <!-- <input type="radio" id="s3" value="0" name="type" class="selectvideo color-cb">
 
                 <label for="s3"><div class="ddd"></div>视频预告</label>
                 <input type="radio" id="s4" value="1" name="type" class="selectimg color-cb">
-                <label for="s4"><div class="ddd"></div> 图文预告</label>
+                <label for="s4"><div class="ddd"></div> 图文预告</label> -->
+                <div class="selecttype left">
+                    <div class="ddd talkvideo"></div>视频预告
+                </div>
+                <div class="selecttype left">
+                    <div class="ddd talkimg"></div>图文预告
+                </div>
             </div>
             <div class="clear"></div>
         </div>

@@ -79,7 +79,9 @@
                     btn: ['确定'],
                     yes: function(index, layero) {
                         var status = 1;
-                        var type = parseInt($("#addinlinetalk input[name='type']:checked").val());
+                        var isvideo = $("#addinlinetalk .checked").hasClass("talkvideo");
+                        if (isvideo) { type = 0 } else { type = 1 }
+                        // var type = parseInt($("#addinlinetalk input[name='type']:checked").val());
                         var name = $("#addinlinetalk input.talkname").val();
                         var beginTime = $("#addinlinetalk #starttime").val();
                         var endTime = $("#addinlinetalk #endtime").val();
@@ -208,7 +210,7 @@
                     end: function() {
                         $("#addinlinetalk").hide();
                         $("#addinlinetalk input[type='text'],.talkintro").val("");
-                        $("input[name='type']").prop("checked", false).next().find(".ddd").removeClass("checked");
+                        $(".selecttype").children(".ddd").removeClass("checked");
                         $(".showfile").hide();
                     }
                 });
@@ -230,7 +232,9 @@
                         var name = $("#addadvance .talkname").val();
                         var beginTime = $("#addadvance #starttime1").val();
                         var endTime = $("#addadvance #endtime1").val();
-                        var type = parseInt($("#addadvance input[name='type']:checked").val());
+                        var isvideo = $("#addadvance .checked").hasClass("talkvideo");
+                        if (isvideo) { type = 0 } else { type = 1 }
+                        // var type = parseInt($("#addadvance input[name='type']:checked").val());
                         var compere = $("#addadvance input.compere").val();
                         var description = $("#addadvance .talkintro").val();
                         var guests = document.getElementsByClassName("guestlists");
@@ -407,7 +411,7 @@
                     end: function() {
                         $("#addadvance").hide();
                         $("#addadvance input[type='text'],.talkintro").val("");
-                        $("input[name='type']").prop("checked", false).next().find(".ddd").removeClass("checked");
+                        $(".selecttype").children(".ddd").removeClass("checked");
                         $(".showfile").hide();
                     }
                 });
@@ -622,15 +626,19 @@
         }
     });
 
+    // div标签改变选中样式
+    $(".selecttype").click(function() {
+        $(".ddd").removeClass("checked");
+        $(this).children(".ddd").addClass("checked");
+    });
     // 点击切换访谈预告视频 图片
-    $("#addadvance input[name='type']").click(function() {
-        var val = $("#addadvance input[name='type']:checked").val();
-        // console.log(val);
+    $("#addadvance .selecttype").click(function() {
+        var val = $("#addadvance .selecttype .checked").hasClass("talkvideo");
         $("#addadvance input[type='file']").val("");
         $("#addadvance .afterupcon").show();
         $(".showfile").show();
         $("#addadvance .beforeup").hide();
-        if (val == "1") {
+        if (val == false) {
             $("#addadvance .upimg").show();
             $("#addadvance .deletefile").show();
             $("#addadvance .upvideo").hide();
@@ -667,13 +675,13 @@
         $("#addinlinetalk .filename").html(name);
         $("#addinlinetalk .filesize").html("(" + size + ")MB");
     });
-    $("#addinlinetalk input[name='type']").click(function() {
-        var val = $("#addinlinetalk input[name='type']:checked").val();
-        // console.log(val);
+    $("#addinlinetalk .selecttype").click(function() {
+        // var val = $("#addinlinetalk .selecttype").children(".talkimg").hasClass("checked");
+        var val = $("#addinlinetalk .selecttype .checked").hasClass("talkvideo");
         $("#addinlinetalk input[type='file']").val("");
         $("#addinlinetalk .afterupcon").show();
         $("#addinlinetalk .beforeup").hide();
-        if (val == "1") {
+        if (val == false) {
             $(".afterupcon").show();
             $(".showfile").show();
             $("#addinlinetalk .upimg").show();
@@ -690,11 +698,7 @@
         $(".afterupcon").show();
         $(".beforeup").hide();
     });
-    // radio标签改变样式
-    $("input[type='radio']").click(function() {
-        $(".ddd").removeClass("checked");
-        $(this).next().children(".ddd").addClass("checked");
-    });
+
     //实时显示剩余可输入的字数
     $(".freewordevent").keyup(function() {
         var t = $(this);

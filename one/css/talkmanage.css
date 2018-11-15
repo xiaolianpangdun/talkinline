@@ -133,7 +133,7 @@ div.line {
 
 .talkname,
 .talkintro {
-    width: 450px;
+    width: 509px;
     padding: 10px;
 }
 
@@ -144,12 +144,27 @@ div.line {
     color: #999999;
 }
 
+#starttime,
+#endtime,
+#starttime1,
+#endtime1 {
+    width: 150px;
+}
+
+.compere {
+    width: 173px;
+}
+
+.timeto {
+    margin: 0 15px;
+}
+
 .guest,
 .addguest {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    padding: 0 15px;
+    padding: 0 12px;
     border-radius: 2px;
     margin-right: 15px;
     background: #E6EEF5;
@@ -204,13 +219,6 @@ img.deleteguest {
 .showfile {
     margin-top: -10px;
 }
-
-
-/* .selecttype {
-    width: 30px;
-    height: 30px;
-    border-radius: 0;
-} */
 
 
 /* 添加嘉宾弹框 */
@@ -354,6 +362,11 @@ label {
     left: -26px;
 }
 
+.selecttype {
+    margin-right: 80px;
+    cursor: pointer;
+}
+
 .ddd {
     box-sizing: border-box;
     position: relative;
@@ -367,5 +380,6 @@ label {
 }
 
 .checked {
+    border: none;
     background-image: url(../../img/checked.png);
 }

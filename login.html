@@ -18,24 +18,23 @@
             <div class="left">
                 <img class="lg-img" src="./img/Illustrations.png" alt="">
             </div>
-            <!-- <form class="layui-form" action=""></form> -->
-            <div class="right lg-right">
-                <p class="lg-title">在线访谈后台系统</p>
+            <form autocomplete="off" onclick="return false">
+                <div class="right lg-right">
+                    <p class="lg-title">在线访谈后台系统</p>
 
-                <div class="dddd">
-                    <input class="uname" type="text" placeholder="请输入用户名">
-                    <!-- <img class="cancel" src="./img/cancel.png" alt=""> -->
+                    <div class="dddd">
+                        <input class="uname" type="text" maxlength="20" placeholder="请输入用户名">
+                        <!-- <img class="cancel" src="./img/cancel.png" alt=""> -->
+                    </div>
+                    <div class="">
+                        <input class="upwd" type="password" autocomplete="off" maxlength="20" placeholder="请输入密码">
+                    </div>
+                    <div class="remember">
+                        <div class="ddd"></div><span>记住用户名</span>
+                    </div>
+                    <button class="layui-btn loginsubmit" lay-submit lay-filter="formDemo">登录</button>
                 </div>
-                <div class="">
-                    <input class="upwd" type="password" placeholder="请输入密码">
-                </div>
-                <div class="layui-input-block remember">
-                    <input id="color-cb" class="color-cb" type="checkbox" value="1">
-                    <label for="color-cb"><div class="ddd"></div> 记住用户名</label>
-                </div>
-                <button class="layui-btn loginsubmit" lay-submit lay-filter="formDemo">登录</button>
-            </div>
-            <!-- </form> -->
+            </form>
         </div>
     </div>
 

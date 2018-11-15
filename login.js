@@ -5,11 +5,12 @@
     var name = window.localStorage.getItem("tkilname");
     var upwd = window.localStorage.getItem("tkilupwd");
     window.localStorage.setItem("backstage", "http://192.168.0.71:8080");
+    console.log(name, upwd);
     if (name)
         $(".uname").val(name);
     $(".upwd").val(upwd);
     if (upwd) {
-        $("#color-cb").prop("checked", true);
+        // $("#color-cb").prop("checked", true);
         $(".ddd").addClass("checked");
     }
     $(".uname,.upwd").focus(function(event) {
@@ -21,6 +22,17 @@
             "border-bottom": "1px solid #eee"
         });
     });
+    // 输入框enter键事件
+    $(".upwd").bind('keypress', function() {
+        if (event.keyCode == "13") {
+            login();
+        }
+    });
+    $(".uname").bind('keypress', function() {
+        if (event.keyCode == "13") {
+            $(".upwd").focus();
+        }
+    });
     // $(".uname").focus(function(event) {
     //     $(".cancel").show();
     // }).blur(function() {
@@ -30,19 +42,21 @@
     //     $(".uname").val("").focus();
     // });
     // radio标签改变样式
-    $("input[type='checkbox']").click(function() {
-        var val = $("input[type='checkbox']:checked").val();
-        console.log(val);
-        if (val == "1") {
+    $(".remember").click(function() {
+        var has = $(".ddd").hasClass("checked");
+        console.log(has);
+        // var val = $("input[type='checkbox']:checked").val();
+        // console.log(val);
+        if (has == false) {
             $(".ddd").addClass("checked");
         } else {
             $(".ddd").removeClass("checked");
         }
     });
-    $(".color-cb").click(function() {
-        var val = $("input[type='checkbox']:checked").val();
-        console.log(val);
-    });
+    // $(".color-cb").click(function() {
+    //     var val = $("input[type='checkbox']:checked").val();
+    //     console.log(val);
+    // });
     // 登录
     var login = function() {
         var username = $(".uname").val();
@@ -61,8 +75,8 @@
                 console.log(data);
                 if (data.code == "200") {
                     layer.msg("登录成功");
-                    var val = $("input[type='checkbox']:checked").val();
-                    if (val == "1") {
+                    var has = $(".ddd").hasClass("checked");
+                    if (has == true) {
                         window.localStorage.setItem("tkilname", username);
                         window.localStorage.setItem("tkilupwd", password);
                     } else {
@@ -84,11 +98,7 @@
         });
     }
     $(".loginsubmit").click(function() { login() });
-    $(".upwd").bind('keypress', function() {
-        if (event.keyCode == "13") {
-            login();
-        }
-    });
+
     // form.on('submit(formDemo)', function(data) {
     //     console.log(data);
     // });
@@ -131,7 +141,7 @@
                         div.style.position = 'absolute';
                         div.style.width = this.getPosition(dom, 'Width') + 'px';
                         div.style.height = this.getPosition(dom, 'Height') + 'px';
-                        div.style.left = '30px';;
+                        div.style.left = '25px';;
                         div.style.top = this.getPosition(dom, 'Top') + 'px';
                         div.style.color = '#999';
                         div.style.textIndent = '5px';

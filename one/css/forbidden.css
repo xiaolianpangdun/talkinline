@@ -133,6 +133,7 @@ input.content {
 }
 
 .warn {
+    display: none;
     position: absolute;
     width: 200px;
     left: 50%;
