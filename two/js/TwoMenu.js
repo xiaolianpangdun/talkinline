@@ -1338,6 +1338,8 @@ $(function () {
               ,curr: location.hash.replace('#!ProblemCurr=', ProblemCurr)
               ,hash: 'ProblemCurr'
               ,limit: 5
+              ,prev: '<< 上一页'
+              ,next: '下一页 >>'
               ,jump: function(obj, first){
                 
                 localStorage.setItem("ProblemCurr",obj.curr);
@@ -1625,6 +1627,8 @@ $(function () {
               ,curr: location.hash.replace('#!ReplyCurr=', ReplyCurr)
               ,hash: 'ReplyCurr'
               ,limit: 5
+              ,prev: '<< 上一页'
+              ,next: '下一页 >>'
               ,jump: function(obj, first){
   
                 localStorage.setItem("ReplyCurr",obj.curr);
@@ -1807,9 +1811,6 @@ $(function () {
       });
     }
   }
-  
-  
-
 
   // 网友提问 ==== 打开编辑
   $('.batch_management').click(function () {
@@ -2247,6 +2248,8 @@ $(function () {
             ,curr: location.hash.replace('#!ImageCurr=', ImageCurr)
             ,hash: 'ImageCurr'
             ,limit: 12
+            ,prev: '<< 上一页'
+            ,next: '下一页 >>'
             ,jump: function(obj, first){
 
               console.log(obj.curr);
@@ -2606,6 +2609,8 @@ $(function () {
               ,limit: 5
               ,curr: location.hash.replace('#!TextCurr=', TextCurr)
               ,hash: 'TextCurr'
+              ,prev: '<< 上一页'
+              ,next: '下一页 >>'
               ,jump: function(obj, first){
 
                 localStorage.setItem("TextCurr",obj.curr);

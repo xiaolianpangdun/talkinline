@@ -425,12 +425,14 @@ body{
   line-height: 28px;
   margin-top: 11px;
   text-align: center;
+  cursor: pointer;
 }
 .uplink{
   position: relative;
   overflow: hidden;
   width: 100px;
   height: 15.5px;
+  cursor: pointer;
   /* line-height: 34px; */
 }
 #updata,#VedioUpdata,#UpPreview{
@@ -440,6 +442,7 @@ body{
   top: 0;
   opacity: 0;
   filter:alpha(opacity=0);
+  cursor: pointer;
 }
 
 /* 文字实录 */
