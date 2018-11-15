@@ -918,6 +918,8 @@ $(function () {
             ,curr: location.hash.replace('#!UserNow=', UserNow)
             ,hash: 'UserNow'
             ,limit: 12
+            ,prev: '<< 上一页'
+            ,next: '下一页 >>'
             ,jump: function(obj, first){
 
               localStorage.setItem("UserNow",obj.curr);
