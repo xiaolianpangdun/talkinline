@@ -321,7 +321,7 @@ body{
   margin-right: 10px;
   color: #3199F7;
 }
-.questions_right p:hover{
+.questions_hover p:hover{
   color: #fff;
   background: #3199F7
 }
@@ -647,6 +647,10 @@ body{
   display: inline-block;
   width: 18%;
 }
+.vedio{
+  border-top: 1px solid #E7EAEC;
+  border-bottom: 1px solid #E7EAEC;
+}
 .vedio:hover{
   background: #E7EAEC
 }
@@ -656,6 +660,7 @@ body{
 .download:hover{
   color: #3199F7;
 }
+
 /* 分页 */
 .PageNum{
   width: 100%;
