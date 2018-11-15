@@ -187,13 +187,13 @@ $(function () {
 
               $('.vedio_link').text(data.result.prePicUrl);
 
-              $('.uplink span').text('重新上传');
+              $('.uplink_text').text('重新上传');
 
             }else if(data.result.prePicUrl == null){
 
               $('.vedio_link').text('无文件');
 
-              $('.uplink span').text('请上传图片文件');
+              $('.uplink_text').text('请上传图片文件');
 
             }
 
@@ -204,13 +204,14 @@ $(function () {
             if(data.result.preVideoUrl != null){
 
               $('.vedio_link').text(data.result.preVideoUrl);
-              $('.uplink').text('重新上传');
+
+              $('.uplink_text').text('重新上传');
 
             }else if(data.result.preVideoUrl == null){
 
               $('.vedio_link').text('无文件');
 
-              $('.uplink').text('请上传视频文件');
+              $('.uplink_text').text('请上传视频文件');
 
 
             }
@@ -340,7 +341,7 @@ $(function () {
 
         $('.vedio_link').text('无文件');
 
-        $('.uplink span').text('请上传视频文件');
+        $('.uplink_text').text('请上传视频文件');
 
       }else if(preVideoUrl != 'null'){
 
@@ -348,7 +349,7 @@ $(function () {
 
         $('.vedio_link').text(preVideoUrl);
 
-        $('.uplink span').text('重新上传');
+        $('.uplink_text').text('重新上传');
 
       }
 
@@ -366,7 +367,7 @@ $(function () {
 
         $('.vedio_link').text('无文件');
 
-        $('.uplink span').text('请上传图片文件');
+        $('.uplink_text').text('请上传图片文件');
         
 
       }else if(prePicUrl != "null"){
@@ -375,7 +376,7 @@ $(function () {
 
         $('.vedio_link').text(prePicUrl);
 
-        $('.uplink span').text('重新上传');
+        $('.uplink_text').text('重新上传');
         
 
       }
