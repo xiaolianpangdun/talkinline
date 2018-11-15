@@ -87,15 +87,15 @@
                     link = window.localStorage.getItem("link"),
                     isLogin = window.localStorage.getItem("isLogin");
 
-                (function() {
-                    if (isLogin == "true") {
-                        var adminname = window.localStorage.getItem("adminname");
-                        $(".adminname").html(adminname);
-                    } else {
-                        // alert("您还没登录");
-                        window.location.href = "../login.html";
-                    }
-                })();
+                // (function() {
+                //     if (isLogin == "true") {
+                //         var adminname = window.localStorage.getItem("adminname");
+                //         $(".adminname").html(adminname);
+                //     } else {
+                //         // alert("您还没登录");
+                //         window.location.href = "../login.html";
+                //     }
+                // })();
                 // 退出注销
                 $(".exit").click(function() {
                     var exit = confirm("确定退出吗？");

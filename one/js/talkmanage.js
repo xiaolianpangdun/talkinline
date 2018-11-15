@@ -169,7 +169,7 @@
                                         var name = e.currentTarget.files[0].name;
                                         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
                                         $("#addinlinetalk .filename").html(name);
-                                        $("#addinlinetalk .filesize").html("(" + size + ")MB");
+                                        $("#addinlinetalk .filesize").html("(" + size + "M)");
                                     });
                                     $("#addinlinetalk input[id='afterfileUp0']").change(function(e) {
                                         $("#beforefileUp0").val("");
@@ -341,7 +341,7 @@
                                         var name = e.currentTarget.files[0].name;
                                         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
                                         $("#addadvance .filename").html(name);
-                                        $("#addadvance .filesize").html("(" + size + ")MB");
+                                        $("#addadvance .filesize").html("(" + size + "M)");
                                     });
                                     $("input[id='afterfileUp']").change(function(e) {
                                         $("#beforefileUp").val("");
@@ -658,7 +658,7 @@
         var name = e.currentTarget.files[0].name;
         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
         $("#addadvance .filename").html(name);
-        $("#addadvance .filesize").html("(" + size + ")MB");
+        $("#addadvance .filesize").html("(" + size + "M)");
     });
     $("input[id='afterfileUp']").change(function(e) {
         $("#beforefileUp").val("");
@@ -673,7 +673,7 @@
         var name = e.currentTarget.files[0].name;
         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
         $("#addinlinetalk .filename").html(name);
-        $("#addinlinetalk .filesize").html("(" + size + ")MB");
+        $("#addinlinetalk .filesize").html("(" + size + "M)");
     });
     $("#addinlinetalk .selecttype").click(function() {
         // var val = $("#addinlinetalk .selecttype").children(".talkimg").hasClass("checked");

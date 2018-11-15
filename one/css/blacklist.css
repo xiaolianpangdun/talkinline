@@ -21,8 +21,8 @@
     .talktop {
         font-size: 28px;
         color: #333333;
-        margin: 20px 0 20px 10px;
-        /* border-bottom: 1px solid #E6EEF5; */
+        padding-top: 20px;
+        margin: 0px 0 20px 10px;
     }
     
     input.search {

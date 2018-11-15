@@ -5,7 +5,6 @@
     var name = window.localStorage.getItem("tkilname");
     var upwd = window.localStorage.getItem("tkilupwd");
     window.localStorage.setItem("backstage", "http://192.168.0.71:8080");
-    console.log(name, upwd);
     if (name)
         $(".uname").val(name);
     $(".upwd").val(upwd);
@@ -44,7 +43,7 @@
     // radio标签改变样式
     $(".remember").click(function() {
         var has = $(".ddd").hasClass("checked");
-        console.log(has);
+        // console.log(has);
         // var val = $("input[type='checkbox']:checked").val();
         // console.log(val);
         if (has == false) {

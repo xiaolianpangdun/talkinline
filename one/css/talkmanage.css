@@ -20,11 +20,16 @@
 .talktop {
     font-size: 28px;
     color: #333333;
-    margin: 20px 0 20px 10px;
+    padding-top: 20px;
+    margin: 0px 0 20px 10px;
 }
 
 
 /* layui表格样式修改 */
+
+.layui-laydate .layui-this {
+    background-color: #3199F7;
+}
 
 .layui-table {
     color: #4D4F50;
@@ -131,10 +136,13 @@ div.line {
     border: 1px solid #DEE1E6;
 }
 
-.talkname,
 .talkintro {
     width: 509px;
     padding: 10px;
+}
+
+.talkname {
+    width: 509px;
 }
 
 .freewords {
@@ -212,6 +220,7 @@ img.deleteguest {
 }
 
 .upfile {
+    cursor: pointer;
     margin-left: -6px;
     display: none;
 }
@@ -234,7 +243,7 @@ img.deleteguest {
     width: 350px;
     height: 40px;
     line-height: 40px;
-    padding: 5px 15px;
+    padding: 0px 15px;
     font-size: 14px;
     margin-top: 100px;
 }
@@ -248,6 +257,7 @@ input[type='file'] {
     white-space: nowrap;
     opacity: 0;
     border: 1px solid red;
+    cursor: pointer;
 }
 
 .afterupcon {
@@ -288,6 +298,7 @@ input[type='file'] {
 
 .filesize {
     margin: 0 10px;
+    color: #B7B7B7;
 }
 
 .refileup {
@@ -299,6 +310,7 @@ input[type='file'] {
     text-align: center;
     font-size: 12px;
     line-height: 20px;
+    cursor: pointer;
 }
 
 .deletefile {
