@@ -1556,6 +1556,7 @@ $(function () {
       btn: ['确定', '取消'],
       skin: 'my-skin',
       btnAlign: 'c',
+      zIndex: 998,
       content: $('#review'),
       cancel: function (index, layero) {
         $('#review').css("display", "none");
@@ -1639,6 +1640,7 @@ $(function () {
         btn: ['确定', '取消'],
         skin: 'my-skin',
         btnAlign: 'c',
+        zIndex: 999,
         content: $('#response'),
         cancel: function (index, layero) {
           $('#response').css("display", "none");
@@ -1782,7 +1784,7 @@ $(function () {
 
 
   });
-  
+
 
   // 网友提问 ==== 打开编辑
   $('.batch_management').click(function () {
@@ -2912,7 +2914,7 @@ $(function () {
           // }
 
           layer.msg('上传成功');
-          //Vedio();
+
         }
 
       },
