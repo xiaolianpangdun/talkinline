@@ -1,4 +1,5 @@
 $(function () {
+  jQuery.support.cors = true;
 
   /**
    * 服务器
@@ -222,6 +223,12 @@ $(function () {
           // 视频下载
           if(data.result.videoUrl != null){
 
+            var size = data.result.videoSize/1024/1024;
+            var lastsize = size.toFixed(2)
+
+            console.log(size)
+            console.log(lastsize)
+
             var VedioStr = [];
       
             VedioStr += '<div class="vedio">';
@@ -230,7 +237,7 @@ $(function () {
             VedioStr += '<span class="vedio_title">'+data.result.name+'</span>';
             VedioStr += '</p>';
             VedioStr += '<p class="vedio_size">'+data.result.updateTime+'</p>';
-            VedioStr += '<p style="width: 28%" class="vedio_time">'+data.result.videoSize+'M'+'</p>';
+            VedioStr += '<p style="width: 28%" class="vedio_time">'+lastsize+'M'+'</p>';
             VedioStr += '<a href="'+data.result.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
             VedioStr += '</div>';
       
@@ -669,7 +676,7 @@ $(function () {
     }else if(status == 2){
 
       ModifyTheRequest();
-      
+
     }
     
     
