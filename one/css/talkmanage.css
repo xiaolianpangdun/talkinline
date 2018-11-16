@@ -222,12 +222,18 @@ img.deleteguest {
 .upfile {
     cursor: pointer;
     margin-left: -6px;
+    margin-right: 20px;
     display: none;
 }
 
 .showfile {
     margin-top: -10px;
     height: 88px;
+}
+
+.filename {
+    max-width: 260px;
+    overflow: hidden;
 }
 
 
