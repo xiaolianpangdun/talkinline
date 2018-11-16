@@ -1062,7 +1062,7 @@ $(function () {
             questions += '<p class="questions_bottom">' + obj.content + '</p>';
             questions += '</div>';
             questions += '<div class="questions_right questions_hover">';
-            questions += '<p class="InteractionShield">' + '屏蔽' + '</p>';
+            questions += '<p class="InteractionShield" data-commentId="'+ obj.commentId +'" data-visitor="'+obj.visitor+'" data-index="'+i+'">' + '屏蔽' + '</p>';
             questions += '<p style="margin-right: 0;" class="ReviewResponse" data-id="' + obj.commentId + '" data-index="' + i + '">' + '审核回复' + '</p>';
             questions += '</div>';
             questions += '</div>';
@@ -1098,87 +1098,87 @@ $(function () {
           });
   
           // 点击屏蔽功能
-          $('.InteractionShield').click(function () {
+          // $('.InteractionShield').click(function () {
   
-            // 获取当前被点击元素的下标
-            var nowclick = $(this).parent().parent().index();
-            console.log('网友提问，当前点击的下标 ========', nowclick);
+          //   // 获取当前被点击元素的下标
+          //   var nowclick = $(this).parent().parent().index();
+          //   console.log('网友提问，当前点击的下标 ========', nowclick);
   
-            // 屏蔽弹框的内容部分  出现
-            $('.interaction_shield').css("display", "block");
+          //   // 屏蔽弹框的内容部分  出现
+          //   $('.interaction_shield').css("display", "block");
   
-            // 屏蔽的弹窗
-            layer.open({
-              type: 1,
-              area: ['480px', '360px'],
-              title: ['', 'background: #fff;border:0'],
-              btn: ['确定', '取消'],
-              skin: 'my-skin',
-              btnAlign: 'c',
-              content: $('.interaction_shield'),
-              cancel: function (index, layero) {  // 点击右上角
-                $('.interaction_shield').css("display", "none");
-              },
-              yes: function (index, layero) {  // 点击确定
+          //   // 屏蔽的弹窗
+          //   layer.open({
+          //     type: 1,
+          //     area: ['480px', '360px'],
+          //     title: ['', 'background: #fff;border:0'],
+          //     btn: ['确定', '取消'],
+          //     skin: 'my-skin',
+          //     btnAlign: 'c',
+          //     content: $('.interaction_shield'),
+          //     cancel: function (index, layero) {  // 点击右上角
+          //       $('.interaction_shield').css("display", "none");
+          //     },
+          //     yes: function (index, layero) {  // 点击确定
   
-                // 获取要传给后台的值
-                console.log(lists);
-                var commentId = lists[nowclick].commentId;
-                //var interviewId = lists[nowclick].interviewId;
-                var visitor = lists[nowclick].visitor;
+          //       // 获取要传给后台的值
+          //       console.log(lists);
+          //       var commentId = lists[nowclick].commentId;
+          //       //var interviewId = lists[nowclick].interviewId;
+          //       var visitor = lists[nowclick].visitor;
   
-                console.log('网友评论，评论ID ======', commentId);
-                //console.log('网友评论，访谈ID ======', interviewId);
-                console.log('网友评论，游客名 ======', visitor);
+          //       console.log('网友评论，评论ID ======', commentId);
+          //       //console.log('网友评论，访谈ID ======', interviewId);
+          //       console.log('网友评论，游客名 ======', visitor);
   
-                // 提交屏蔽
-                $.ajax({
-                  url: TheServer + '/comments/disable',
-                  type: 'POST',
-                  dataType: 'json',
-                  async: true,
-                  contentType: 'application/json;charset=utf-8',
-                  data: JSON.stringify({
-                    commentId: commentId,
-                    interviewId: talkNum,
-                    visitor: visitor
-                  }),
-                  success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if(data.code == 200){
+          //       // 提交屏蔽
+          //       $.ajax({
+          //         url: TheServer + '/comments/disable',
+          //         type: 'POST',
+          //         dataType: 'json',
+          //         async: true,
+          //         contentType: 'application/json;charset=utf-8',
+          //         data: JSON.stringify({
+          //           commentId: commentId,
+          //           interviewId: talkNum,
+          //           visitor: visitor
+          //         }),
+          //         success: function (data, textStatus, jqXHR) {
+          //           console.log(data);
+          //           if(data.code == 200){
 
 
-                      $('.questions_main').eq(nowclick).children('.questions_right').children('p').css('border','1px solid #E8EFF1');
-                      $('.questions_main').eq(nowclick).children('.questions_right').children('p').css('color','#E8EFF1');
-                      $('.questions_main').eq(nowclick).children('.questions_right').children('.InteractionShield').removeAttr('click');
-                      $('.questions_main').eq(nowclick).children('.questions_right').children('.ReviewResponse').removeClass("ReviewResponse");
-                      $('.questions_main').eq(nowclick).children('.questions_hover').removeClass("questions_hover");
+          //             $('.questions_main').eq(nowclick).children('.questions_right').children('p').css('border','1px solid #E8EFF1');
+          //             $('.questions_main').eq(nowclick).children('.questions_right').children('p').css('color','#E8EFF1');
+          //             $('.questions_main').eq(nowclick).children('.questions_right').children('.InteractionShield').removeAttr('click');
+          //             $('.questions_main').eq(nowclick).children('.questions_right').children('.ReviewResponse').removeClass("ReviewResponse");
+          //             $('.questions_main').eq(nowclick).children('.questions_hover').removeClass("questions_hover");
 
-                      layer.msg("屏蔽成功")
-                    }
-                  },
-                  error: function (xhr, textStatus) {
-                  },
-                  complete: function () {
-                  }
-                })
+          //             layer.msg("屏蔽成功")
+          //           }
+          //         },
+          //         error: function (xhr, textStatus) {
+          //         },
+          //         complete: function () {
+          //         }
+          //       })
   
-                // 关闭弹窗
-                layer.close(index);
-                // 隐藏弹窗的内容部分
-                $('.interaction_shield').css("display", "none");
-                // 给设置了屏蔽的信息的屏蔽按钮改变ui样式
-                $('.questions_main').eq(nowclick - 1).children('.questions_right').children('p').css('color', '#9FB1C0');
-              },
-              btn2: function (index, layero) {// 取消
+          //       // 关闭弹窗
+          //       layer.close(index);
+          //       // 隐藏弹窗的内容部分
+          //       $('.interaction_shield').css("display", "none");
+          //       // 给设置了屏蔽的信息的屏蔽按钮改变ui样式
+          //       $('.questions_main').eq(nowclick - 1).children('.questions_right').children('p').css('color', '#9FB1C0');
+          //     },
+          //     btn2: function (index, layero) {// 取消
   
-                layer.close(index);
-                $('.interaction_shield').css("display", "none");
+          //       layer.close(index);
+          //       $('.interaction_shield').css("display", "none");
   
-              },
-            });
+          //     },
+          //   });
   
-          });
+          // });
   
           
   
@@ -1686,6 +1686,103 @@ $(function () {
     console.log(commentId)
 
   });
+
+  // 网友提问 ======== 屏蔽
+  var ShieldingQuestions = function(commentId,visitor,inx){
+
+    // 屏蔽弹框的内容部分  出现
+    $('.interaction_shield').css("display", "block");
+
+    // 屏蔽的弹窗
+    layer.open({
+      type: 1,
+      area: ['480px', '360px'],
+      title: ['', 'background: #fff;border:0'],
+      btn: ['确定', '取消'],
+      skin: 'my-skin',
+      btnAlign: 'c',
+      content: $('.interaction_shield'),
+      cancel: function (index, layero) {  // 点击右上角
+        $('.interaction_shield').css("display", "none");
+      },
+      yes: function (index, layero) {  // 点击确定]
+
+        console.log('网友评论，评论ID ======', commentId);
+        console.log('网友评论，游客名 ======', visitor);
+        console.log('网友评论，下标 ======', inx);
+
+        // 提交屏蔽
+        $.ajax({
+          url: TheServer + '/comments/disable',
+          type: 'POST',
+          dataType: 'json',
+          async: true,
+          contentType: 'application/json;charset=utf-8',
+          data: JSON.stringify({
+            commentId: commentId,
+            interviewId: talkNum,
+            visitor: visitor
+          }),
+          success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            if(data.code == 200){
+
+              $('.questions_main').eq(inx).children('.questions_right').children('p').css('border','1px solid #E8EFF1');
+              $('.questions_main').eq(inx).children('.questions_right').children('p').css('color','#E8EFF1');
+              $('.questions_main').eq(inx).children('.questions_right').children('.InteractionShield').removeClass('InteractionShield');
+              $('.questions_main').eq(inx).children('.questions_right').children('.ReviewResponse').removeClass("ReviewResponse");
+              $('.questions_main').eq(inx).children('.questions_hover').removeClass("questions_hover");
+
+              layer.msg("屏蔽成功")
+            }
+          },
+          error: function (xhr, textStatus) {
+          },
+          complete: function () {
+          }
+        })
+
+        // 关闭弹窗
+        layer.close(index);
+        // 隐藏弹窗的内容部分
+        $('.interaction_shield').css("display", "none");
+
+      },
+      btn2: function (index, layero) {// 取消
+
+        layer.close(index);
+        $('.interaction_shield').css("display", "none");
+
+      },
+    });
+
+
+  };
+
+  // 事件代理 ======== 网友提问/屏蔽
+  $('.questions').click(function(event){
+
+    var event = event || window.event;
+　  var target = event.target || event.srcElement;
+
+    var commentId = target.getAttribute('data-commentId');
+    var visitor = target.getAttribute('data-visitor');
+    var inx = target.getAttribute('data-index');
+
+    switch(target.className){
+      case 'InteractionShield':
+      ShieldingQuestions(commentId,visitor,inx);
+      break;
+    }
+    console.log(target)
+    console.log(commentId)
+    console.log(visitor)
+    console.log(inx)
+
+
+
+  });
+  
 
   // 网友提问 ==== 打开编辑
   $('.batch_management').click(function () {
