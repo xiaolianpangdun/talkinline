@@ -628,7 +628,6 @@ $(function () {
 
   };
 
-
   // 直播详情 =========== 修改里面的内容 （会议名称、访谈场景、访谈时间、会议简介）
   $('.ascertaining_modification').click(function () {
 
@@ -643,24 +642,36 @@ $(function () {
     // 从本地拿出直播详情页面的数据
     var Details = localStorage.getItem("Details");
     var detail = JSON.parse(Details);
-    
-    if(type == 0){
+    if(status == 0){
 
-      if( detail.preVideoUrl == null ){
+      if(type == 0){
 
-        layer.msg('视频不能为空');
+        if( detail.preVideoUrl == null ){
   
-      }else{
-
+          layer.msg('视频不能为空');
+    
+        }else{
+  
+          ModifyTheRequest();
+  
+        }
+  
+      }else if(type == 1){
+  
         ModifyTheRequest();
-
+  
       }
 
-    }else if(type == 1){
+    }else if(status == 1){
 
       ModifyTheRequest();
 
+    }else if(status == 2){
+
+      ModifyTheRequest();
+      
     }
+    
     
     
     
@@ -2927,7 +2938,7 @@ $(function () {
    * 
    * 视频渲染
    */
-  
+
   // var Vedio = function(){
 
   //   var VedioList = localStorage.getItem("Details");
