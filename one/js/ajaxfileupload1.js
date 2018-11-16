@@ -48,7 +48,7 @@ jQuery.extend({
         for (var key in data) {
             name = key;
             value = data[key];
-            var cloneElement = originalElement.clone();
+            var cloneElement = originalElement.clone(true, true);
             cloneElement.attr({ 'name': name, 'value': value });
             $(cloneElement).appendTo(form);
         }
@@ -203,7 +203,7 @@ jQuery.extend({
             s.error.call(s.context || s, xhr, status, e);
         }
 
-        // Fire the global callback
+        // Fare the global callback
         if (s.global) {
             (s.context ? jQuery(s.context) : jQuery.event).trigger(
                 "ajaxError", [xhr, s, e]);

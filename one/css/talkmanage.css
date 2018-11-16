@@ -227,6 +227,7 @@ img.deleteguest {
 
 .showfile {
     margin-top: -10px;
+    height: 88px;
 }
 
 
@@ -246,6 +247,31 @@ img.deleteguest {
     padding: 0px 15px;
     font-size: 14px;
     margin-top: 100px;
+}
+
+.guestlists {
+    float: left;
+}
+
+.s-bottom {
+    height: 89px;
+    line-height: 89px;
+    vertical-align: middle;
+    border-top: 1px solid #E7EAEC;
+    text-align: center;
+    margin-bottom: 0 !important;
+}
+
+button.sss,
+button.sss1 {
+    width: 180px;
+    height: 44px;
+    margin-top: 22px;
+    line-height: 44px;
+    background: #3199F7;
+    border-radius: 5px;
+    color: #FFF;
+    cursor: pointer;
 }
 
 
@@ -285,8 +311,8 @@ input[type='file'] {
 }
 
 .beforeup {
-    height: 30px;
-    line-height: 30px;
+    height: 46px;
+    line-height: 46px;
 }
 
 .uptip {

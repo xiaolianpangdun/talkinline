@@ -26,6 +26,7 @@
                 if (name) {
                     var html = "";
                     html += "<div class='left guest'>";
+                    html += "<input class='guestlists'value='" + name + "' name='speakername' style='display:none;'>";
                     html += "<span class='guestlists'>" + name + "</span>";
                     html += "&nbsp;&nbsp;<img class='deleteguest' src='../../img/cancel_02.png'>";
                     html += "</div>";
@@ -76,37 +77,9 @@
                     skin: 'addkind1',
                     shadeClose: false,
                     btnAlign: 'c', //按钮居中显示
-                    btn: ['确定'],
+                    // btn: ['确定'],
                     yes: function(index, layero) {
-                        var status = 1;
-                        var isvideo = $("#addinlinetalk .checked").hasClass("talkvideo");
-                        if (isvideo) { type = 0 } else { type = 1 }
-                        // var type = parseInt($("#addinlinetalk input[name='type']:checked").val());
-                        var name = $("#addinlinetalk input.talkname").val();
-                        var beginTime = $("#addinlinetalk #starttime").val();
-                        var endTime = $("#addinlinetalk #endtime").val();
-                        var compere = $("#addinlinetalk input.compere").val();
-                        var description = $("#addinlinetalk .talkintro").val();
-                        var guests = document.getElementsByClassName("guestlists");
-                        var file1 = $("#addinlinetalk input[id='beforefileUp0']")[0].files[0];
-                        var file2 = $("#addinlinetalk input[id='afterfileUp0']")[0].files[0];
-                        var fileid = "beforefileUp0";
-                        if (!file1) {
-                            fileid = "afterfileUp0"
-                        }
-                        var speakername = [];
-                        var length = guests.length;
-                        console.log(length);
-                        for (var i = 0; i < length; i++) {
-                            speakername.push(guests[i].innerHTML);
-                        }
-                        if (!name) { layer.msg("请输入访谈名称"); return false; }
-                        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
-                        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
-                        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
-                        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
-                        if (!description) { layer.msg("请输入访谈简介"); return false; }
-                        if (isNaN(type)) { layer.msg("请选择访谈场景"); return false; }
+
 
                         if (type == 1 && !(!file1 && !file2)) {
                             if (file1) {
@@ -161,19 +134,7 @@
                                         layer.msg("上传失败,请重试！");
                                         // layer.close(index);
                                     }
-                                    $("#addinlinetalk input[type='file']").change(function(e) {
-                                        console.log(111111);
-                                        var that = $(this);
-                                        $("#addinlinetalk .afterupcon").hide();
-                                        $("#addinlinetalk .beforeup").show();
-                                        var name = e.currentTarget.files[0].name;
-                                        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
-                                        $("#addinlinetalk .filename").html(name);
-                                        $("#addinlinetalk .filesize").html("(" + size + "M)");
-                                    });
-                                    $("#addinlinetalk input[id='afterfileUp0']").change(function(e) {
-                                        $("#beforefileUp0").val("");
-                                    });
+
                                 },
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
@@ -226,127 +187,20 @@
                     skin: 'addkind1',
                     shadeClose: false,
                     btnAlign: 'c', //按钮居中显示
-                    btn: ['确定'],
+                    // btn: ['确定'],
                     yes: function(index, layero) {
-                        var status = 0;
-                        var name = $("#addadvance .talkname").val();
-                        var beginTime = $("#addadvance #starttime1").val();
-                        var endTime = $("#addadvance #endtime1").val();
-                        var isvideo = $("#addadvance .checked").hasClass("talkvideo");
-                        if (isvideo) { type = 0 } else { type = 1 }
-                        // var type = parseInt($("#addadvance input[name='type']:checked").val());
-                        var compere = $("#addadvance input.compere").val();
-                        var description = $("#addadvance .talkintro").val();
-                        var guests = document.getElementsByClassName("guestlists");
-                        var length = guests.length;
-                        var file1 = $("#addadvance input[id='beforefileUp']")[0].files[0];
-                        var file2 = $("#addadvance input[id='afterfileUp']")[0].files[0];
-                        var fileid = "beforefileUp";
-                        if (!file1) {
-                            fileid = "afterfileUp"
-                        }
-                        console.log(fileid);
-                        var speakername = [];
-                        for (var i = 0; i < length; i++) {
-                            speakername.push(guests[i].innerHTML);
-                        }
-                        if (!name) { layer.msg("请输入访谈名称"); return false; }
-                        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
-                        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
-                        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
-                        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
-                        if (!description) { layer.msg("请输入访谈简介"); return false; }
-                        if (isNaN(type)) { layer.msg("请选择访谈场景"); return false; }
-                        if (type == 0 && (!file1 && !file2)) { layer.msg("请上传访谈视频"); return false; }
-                        if (type == 0) {
-                            if (file1) {
-                                var filetype = file1.type,
-                                    size = file1.size;
-                            } else {
-                                var filetype = file2.type,
-                                    size = file2.size;
-                            }
-                            if (filetype.indexOf("/") > 0) {
-                                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
-                            }
-                            filetype = filetype.toLowerCase();
-                            if (filetype != "mp4" && filetype != "mvp" && filetype != "mpeg" && filetype != "3gp" && filetype != "mov") {
-                                layer.msg("请上传符合格式的视频");
-                                return false;
-                            }
-                            if (size / 1024 / 1024 > 10) {
-                                layer.msg("您的视频文件超过10兆！");
-                                return false;
-                            }
-                        }
-                        if (type == 1 && !(!file1 && !file2)) {
-                            if (file1) {
-                                var filetype = file1.type;
-                                var size = file1.size;
-                            } else if (file2) {
-                                var filetype = file2.type;
-                                var size = file2.size;
-                            }
-                            if (filetype.indexOf("/") > 0) {
-                                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
-                            }
-                            filetype = filetype.toLowerCase();
-                            if (filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm") {
-                                layer.msg("请上传符合格式的图片");
-                                return false;
-                            }
-                            if (size / 1024 / 1024 > 10) {
-                                layer.msg("您的图片文件超过10兆！");
-                                return false;
-                            }
-                        }
-                        var data = {
-                            speakername: speakername,
-                            status: status,
-                            name: name,
-                            beginTime: beginTime,
-                            endTime: endTime,
-                            type: type,
-                            compere: compere,
-                            description: description
-                        };
+
                         // console.log(data);
                         $.ajaxFileUpload({
                             url: url + '/interview/create',
                             secureuri: false, //一般设置为false
+                            async: true,
                             fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'jsonp', //返回值类型 一般设置为json
+                            dataType: 'text/html', //返回值类型 一般设置为json
                             data: data,
                             type: 'post',
                             success: function(data, status) //服务器成功响应处理函数
-                                {
-                                    console.log(data);
-                                    if (status == "success") {
-                                        layer.msg("上传成功");
-                                        // var pagenum = window.localStorage.getItem("pagenum");
-                                        // $("#addadvance").reload();
-                                        layer.close(index);
-                                        pagecurrent(1);
-                                        table.reload('tbtalkmanage', {
-                                            url: url + '/interview/list?currentPage=1&pageSize=10'
-                                        })
-                                    } else {
-                                        layer.msg("上传失败,请刷新重试");
-                                        // layer.close(index);
-                                    }
-                                    $("#addadvance input[type='file']").change(function(e) {
-                                        var that = $(this);
-                                        $("#addadvance .afterupcon").hide();
-                                        $("#addadvance .beforeup").show();
-                                        var name = e.currentTarget.files[0].name;
-                                        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
-                                        $("#addadvance .filename").html(name);
-                                        $("#addadvance .filesize").html("(" + size + "M)");
-                                    });
-                                    $("input[id='afterfileUp']").change(function(e) {
-                                        $("#beforefileUp").val("");
-                                    });
-                                },
+                                {},
                             error: function(data, status, e) //服务器响应失败处理函数
                                 {
                                     // console.log(data, status);
@@ -358,55 +212,6 @@
                                     layer.close(index);
                                 }
                         });
-                        // $.ajax({
-                        //     type: 'post',
-                        //     // contentType: 'application/form-data;charset=utf-8',
-                        //     url: url+'/interview/create',
-                        //     traditional: true,
-                        //     contentType: 'multipart/form-data',
-                        //     data: {
-                        //         name: name,
-                        //         speakername: speakername,
-                        //         status: status,
-                        //         type: type,
-                        //         compere: compere,
-                        //         description: description,
-                        //         files: file
-                        //     },
-                        //     success: function(data) {
-                        //         console.log(data);
-                        //     },
-                        //     error: function(err) {
-                        //         alert("修改失败");
-                        //     }
-                        // });
-                        // $.ajax({
-                        //     type: 'post',
-                        //     url: url+'/interview/create',
-                        //     // secureuri: false,
-                        //     // fileElementId: 'fileup',
-                        //     // dataType: 'JSON',
-                        //     // contentType: false,
-                        //     traditional: true,
-                        //     // async: false,
-                        //     // cache: false,
-                        //     processData: false,
-                        //     data: {
-                        //         status: status,
-                        //         name: name,
-                        //         type: type,
-                        //         compere: compere,
-                        //         description: description,
-                        //         files: file,
-                        //         speakername: speakername
-                        //     },
-                        //     success: function(data) {
-                        //         console.log(data);
-                        //     },
-                        //     error: function(err) {
-                        //         alert("新增失败");
-                        //     }
-                        // });
                     },
                     end: function() {
                         $("#addadvance").hide();
@@ -419,6 +224,148 @@
             success: function(layero, index) {},
             end: function() {}
         });
+    });
+
+    $(".sss").click(function() {
+        var status = 0;
+        var name = $("#addadvance .talkname").val();
+        var beginTime = $("#addadvance #starttime1").val();
+        var endTime = $("#addadvance #endtime1").val();
+        var isvideo = $("#addadvance .checked").hasClass("talkvideo");
+        if (isvideo) { type = 0 } else { type = 1 };
+        var typecheck = $("#addadvance .ddd").hasClass("checked");
+        var compere = $("#addadvance input.compere").val();
+        var description = $("#addadvance .talkintro").val();
+        var guests = document.getElementsByClassName("guestlists");
+        var length = guests.length;
+        var file = $("#addadvance input[id='beforefileUp']")[0].files[0];
+        if (!name) { layer.msg("请输入访谈名称"); return false; }
+        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
+        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
+        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
+        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
+        if (!description) { layer.msg("请输入访谈简介"); return false; }
+        if (!typecheck) { layer.msg("请选择访谈场景"); return false; }
+        if (type == 0 && !file) { layer.msg("请上传访谈视频"); return false; }
+        if (file) {
+            var filetype = file.type,
+                size = file.size;
+            if (filetype.indexOf("/") > 0) {
+                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
+            }
+            filetype = filetype.toLowerCase();
+            if (type == 0) {
+                if (filetype != "mp4" && filetype != "mvp" && filetype != "mpeg" && filetype != "3gp" && filetype != "mov") {
+                    layer.msg("请上传符合格式的视频");
+                    return false;
+                }
+                if (size / 1024 / 1024 > 10) {
+                    layer.msg("您的视频文件超过10兆！");
+                    return false;
+                }
+            } else {
+                if (filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm") {
+                    layer.msg("请上传符合格式的图片");
+                    return false;
+                }
+                if (size / 1024 / 1024 > 10) {
+                    layer.msg("您的图片文件超过10兆！");
+                    return false;
+                }
+            }
+
+        }
+        var reqServer = {
+            "status": status,
+            "type": type
+        };
+        $('#formfile').ajaxSubmit({
+            forceSync: false,
+            url: url + '/interview/create',
+            type: 'post',
+            dataType: 'json',
+            data: reqServer,
+            restForm: true,
+            clearForm: true,
+            success: function(res) {
+                console.log(res);
+                pagecurrent(1);
+                table.reload('tbtalkmanage', {
+                    url: url + '/interview/list?currentPage=1&pageSize=10'
+                })
+                layer.closeAll();
+            },
+            error: function(res) {
+                console.log(res);
+            }
+
+        })
+        return false;
+    });
+    $(".sss1").click(function() {
+        var status = 1;
+        var name = $("#addinlinetalk .talkname").val();
+        var beginTime = $("#addinlinetalk #starttime").val();
+        var endTime = $("#addinlinetalk #endtime").val();
+        var guests = document.getElementsByClassName("guestlists");
+        var length = guests.length;
+        var isvideo = $("#addinlinetalk .checked").hasClass("talkvideo");
+        var typecheck = $("#addinlinetalk .ddd").hasClass("checked");
+        if (isvideo) { type = 0 } else { type = 1 }
+        var compere = $("#addinlinetalk input.compere").val();
+        var description = $("#addinlinetalk .talkintro").val();
+        var file = $("#addinlinetalk input[id='beforefileUp0']")[0].files[0];
+        if (!name) { layer.msg("请输入访谈名称"); return false; }
+        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
+        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
+        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
+        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
+        if (!description) { layer.msg("请输入访谈简介"); return false; }
+        console.log(type);
+        if (!typecheck) { layer.msg("请选择访谈场景"); return false; }
+        // if (type == 0 && (!file)) { layer.msg("请上传访谈视频"); return false; }
+        if (file) {
+            var filetype = file.type,
+                size = file.size;
+            if (filetype.indexOf("/") > 0) {
+                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
+            }
+            filetype = filetype.toLowerCase();
+            if (filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm") {
+                layer.msg("请上传符合格式的图片");
+                return false;
+            }
+            if (size / 1024 / 1024 > 10) {
+                layer.msg("您的图片文件超过10兆！");
+                return false;
+            }
+        }
+        var reqServer = {
+            "status": status,
+            "type": type
+        };
+        $('#formfile1').ajaxSubmit({
+            forceSync: false,
+            url: url + '/interview/create',
+            type: 'post',
+            dataType: 'json',
+            data: reqServer,
+            restForm: true,
+            clearForm: true,
+            success: function(res) {
+                console.log(res);
+                pagecurrent(1);
+                table.reload('tbtalkmanage', {
+                    url: url + '/interview/list?currentPage=1&pageSize=10'
+                })
+                layer.closeAll();
+            },
+            error: function(res) {
+                console.log(res);
+            }
+
+        })
+        return false;
     });
     // 新建访谈开始与时间
     var laydate = layui.laydate;
@@ -634,18 +581,18 @@
     // 点击切换访谈预告视频 图片
     $("#addadvance .selecttype").click(function() {
         var val = $("#addadvance .selecttype .checked").hasClass("talkvideo");
+        console.log(val);
         $("#addadvance input[type='file']").val("");
-        $("#addadvance .afterupcon").show();
         $(".showfile").show();
+        $("#addadvance .afterupcon").show();
         $("#addadvance .beforeup").hide();
+        $(".uptip").hide();
         if (val == false) {
+            $("#addadvance .upfile").hide();
             $("#addadvance .upimg").show();
             $("#addadvance .deletefile").show();
-            $("#addadvance .upvideo").hide();
-            // $(this).next().children(".ddd").addClass("checked");
         } else {
-            // $(".ddd").removeClass("checked");
-            $("#addadvance .upimg").hide();
+            $("#addadvance .upfile").hide();
             $("#addadvance .upvideo").show();
             $("#addadvance .deletefile").hide();
         }
@@ -653,22 +600,24 @@
     // 上传文件
     $("#addadvance input[type='file']").change(function(e) {
         var that = $(this);
-        $("#addadvance .afterupcon").hide();
+        $("#addadvance .upfile").hide();
+        $("#addadvance .reupload").show();
         $("#addadvance .beforeup").show();
         var name = e.currentTarget.files[0].name;
         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
         $("#addadvance .filename").html(name);
         $("#addadvance .filesize").html("(" + size + "M)");
     });
-    $("input[id='afterfileUp']").change(function(e) {
-        $("#beforefileUp").val("");
-    });
-    $("input[id='afterfileUp0']").change(function(e) {
-        $("#beforefileUp0").val("");
-    });
+    // $("input[id='afterfileUp']").change(function(e) {
+    //     $("#beforefileUp").val("");
+    // });
+    // $("input[id='afterfileUp0']").change(function(e) {
+    //     $("#beforefileUp0").val("");
+    // });
     $("#addinlinetalk input[type='file']").change(function(e) {
         var that = $(this);
-        $("#addinlinetalk .afterupcon").hide();
+        $("#addinlinetalk .upfile").hide();
+        $("#addinlinetalk .reupload").show();
         $("#addinlinetalk .beforeup").show();
         var name = e.currentTarget.files[0].name;
         var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
@@ -684,6 +633,7 @@
         if (val == false) {
             $(".afterupcon").show();
             $(".showfile").show();
+            $("#addinlinetalk .upfile").hide();
             $("#addinlinetalk .upimg").show();
             $("#addinlinetalk .deletefile").show();
             // $(this).next().children(".ddd").addClass("checked");
@@ -696,6 +646,16 @@
     $(".deletefile").click(function() {
         $("input[type='file']").val("");
         $(".afterupcon").show();
+        $(".upfile").hide();
+        if ($("#addinlinetalk .talkimg").hasClass("checked")) {
+            $("#addinlinetalk .upimg").show();
+        }
+        if ($("#addadvance .talkimg").hasClass("checked")) {
+            $("#addadvance .upimg").show();
+        }
+        if ($("#addadvance .talkvideo").hasClass("checked")) {
+            $("#addadvance .upvideo").show();
+        }
         $(".beforeup").hide();
     });
 
