@@ -65,9 +65,8 @@ $(function () {
    * 
    * 刷新，不改变页面内容
   */
-
+  var index;
   $(".nav li").click(function () {
-    var index;
 
     $(this).addClass('active').siblings().removeClass('active');
 
@@ -139,11 +138,13 @@ $(function () {
           // 是什么类型就选中什么类型
           if(data.result.type == 0){
             $('.radio_item').eq(0).children('.check_out').addClass('image');
-            $('.radio_item').eq(0).children('.check_out').css('border','0');
+            $('#TalkScene').text('视频直播')
+            // $('.radio_item').eq(0).children('.check_out').css('border','0');
             $('.video_0').text('视频');
           }else if(data.result.type == 1){
             $('.radio_item').eq(1).children('.check_out').addClass('image');
-            $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
+            $('#TalkScene').text('图文直播')
+            // $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
             $('.video_0').text('图片');
           };
 
@@ -151,15 +152,45 @@ $(function () {
           if (data.result.status == 0) {
 
             if(data.result.type == 0){
-              //$('#TalkScene').text('视频预告');
+
               $('#conversion').text('转为在线视频访谈');
+
+              if(data.result.preVideoUrl != null){
+
+                $('.vedio_link').text(data.result.preVideoUrl);
+  
+                $('.uplink_text').text('重新上传');
+  
+              }else if(data.result.preVideoUrl == null){
+  
+                $('.vedio_link').text('无文件');
+  
+                $('.uplink_text').text('请上传视频文件');
+  
+              }
+
             }else if(data.result.type == 1){
-              //$('#TalkScene').text('图文预告');
+
               $('#conversion').text('转为在线图文访谈');
+
+              if(data.result.prePicUrl != null){
+
+                $('.vedio_link').text(data.result.prePicUrl);
+  
+                $('.uplink_text').text('重新上传');
+  
+              }else if(data.result.prePicUrl == null){
+  
+                $('.vedio_link').text('无文件');
+  
+                $('.uplink_text').text('请上传图片文件');
+  
+              }
             }
             
           } else if (data.result.status == 1) {
 
+            // 转为在线直播，要修改的一系列东西
             $('#conversion').css('display','none');
 
             $('.nav li.status_0').removeClass('status_0').css('display','block');
@@ -168,7 +199,16 @@ $(function () {
 
             $('.status_0_li').text("直播详情");
 
-            
+            $('.title_0').text("直播详情");
+
+            $('.radio').css('display','none');
+
+            $('#TalkScene').css('display','block');
+
+            $('.linkss').css('display','block');
+
+            $('.video_linkss').css('display','none');
+
           }else if(data.result.status == 2){
 
 
@@ -179,44 +219,62 @@ $(function () {
           $('.time2').text(data.result.endTime);
           $('#text_brief').text(data.result.description);
 
+          // 视频下载
+          if(data.result.videoUrl != null){
+
+            var VedioStr = [];
+      
+            VedioStr += '<div class="vedio">';
+            VedioStr += '<P style="margin: 0;width: 42%">';
+            VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
+            VedioStr += '<span class="vedio_title">'+data.result.name+'</span>';
+            VedioStr += '</p>';
+            VedioStr += '<p class="vedio_size">'+data.result.updateTime+'</p>';
+            VedioStr += '<p style="width: 28%" class="vedio_time">'+data.result.videoSize+'M'+'</p>';
+            VedioStr += '<a href="'+data.result.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
+            VedioStr += '</div>';
+      
+            $('.vedio_vedio').html(VedioStr);
+            $(".download").attr("download",data.result.videoUrl); 
+          }
+
 
           // 上传图文和视频
-          if( data.result.type == 1){
+          // if( data.result.type == 1){
 
-            if(data.result.prePicUrl != null){
+          //   if(data.result.prePicUrl != null){
 
-              $('.vedio_link').text(data.result.prePicUrl);
+          //     $('.vedio_link').text(data.result.prePicUrl);
 
-              $('.uplink_text').text('重新上传');
+          //     $('.uplink_text').text('重新上传');
 
-            }else if(data.result.prePicUrl == null){
+          //   }else if(data.result.prePicUrl == null){
 
-              $('.vedio_link').text('无文件');
+          //     $('.vedio_link').text('无文件');
 
-              $('.uplink_text').text('请上传图片文件');
+          //     $('.uplink_text').text('请上传图片文件');
 
-            }
+          //   }
 
             
-          }else if( data.result.type == 0 ){
+          // }else if( data.result.type == 0 ){
 
 
-            if(data.result.preVideoUrl != null){
+          //   if(data.result.preVideoUrl != null){
 
-              $('.vedio_link').text(data.result.preVideoUrl);
+          //     $('.vedio_link').text(data.result.preVideoUrl);
 
-              $('.uplink_text').text('重新上传');
+          //     $('.uplink_text').text('重新上传');
 
-            }else if(data.result.preVideoUrl == null){
+          //   }else if(data.result.preVideoUrl == null){
 
-              $('.vedio_link').text('无文件');
+          //     $('.vedio_link').text('无文件');
 
-              $('.uplink_text').text('请上传视频文件');
+          //     $('.uplink_text').text('请上传视频文件');
 
+          //   }
 
-            }
-
-          };
+          // };
 
 
         }
@@ -314,7 +372,7 @@ $(function () {
     var type_num = $(this).index();
 
     $('.radio_item').eq(type_num).children('.check_out').addClass('image').parent().siblings().children().removeClass('image');
-    $('.radio_item').eq(type_num).children('.check_out').css('border','0').parent().siblings().children('.check_out').css('border','1px solid #3199F7');
+    //$('.radio_item').eq(type_num).children('.check_out').css('border','0').parent().siblings().children('.check_out').css('border','1px solid #3199F7');
 
     console.log(type_num);
 
@@ -332,6 +390,8 @@ $(function () {
       $('#conversion').text('转为在线视频访谈');
 
       $('.video_0').text('视频');
+
+      $('#TalkScene').text('视频直播');
 
       console.log('视频 ======= ',preVideoUrl);
 
@@ -358,6 +418,8 @@ $(function () {
       $('#conversion').text('转为在线图文访谈');
 
       $('.video_0').text('图片');
+
+      $('#TalkScene').text('图文直播')
 
       console.log('图片 ======= ',prePicUrl);
 
@@ -476,29 +538,33 @@ $(function () {
 
   });
 
-
-  // 直播详情 =========== 修改里面的内容 （会议名称、访谈场景、访谈时间、会议简介）
-  $('.ascertaining_modification').click(function () {
+   // 直播详情 ======= 修改里面的内容的ajax请求
+   var ModifyTheRequest = function(){
 
     var talkname = $('#TalkName').text();
     var begintime = $('#time1').text();
     var endtime = $('#time2').text();
     var talkbrief = $('#text_brief').text();
 
-    var talktype = $('.radio_item').children('.check_out');
+    // var talktype = $('.radio_item').children('.check_out');
     var type;
-    for(var i = 0; i < talktype.length; i ++){
+    // for(var i = 0; i < talktype.length; i ++){
 
-      if(talktype.eq(i).hasClass('image')){
-        type = i;
-      }
+    //   if(talktype.eq(i).hasClass('image')){
+    //     type = i;
+    //   }
 
+    // }
+    if( $('#TalkScene').text() == '视频直播' ){
+      type = 0;
+    }else if( $('#TalkScene').text() == '图文直播' ){
+      type = 1;
     }
 
     var AddText = $('.guest');
+    
     var AddSpeaker = [];
 
-    //console.log(AddText);
 
     $.each(AddText,function(i,obj){
 
@@ -513,21 +579,6 @@ $(function () {
 
     });
 
-    // for(var i = 0; i < AddText.length; i ++){
-
-    //   var guest_text = AddText.eq(i).children('span');
-    //   console.log(guest_text);
-
-    //   for(var o = 0; o < guest_text.length; o ++){
-
-    //     AddSpeaker.push(guest_text[o].innerHTML);
-
-
-    //   }
-
-      
-    // };
-
     console.log("会议名称 ========= ", talkname);
     console.log("访谈场景 ========= ", type);
     console.log("访谈时间=开始 ========= ", begintime);
@@ -540,7 +591,7 @@ $(function () {
 
       layer.msg('嘉宾不能为空');
 
-    }else if (AddSpeaker != ''){
+    }else{
 
       $.ajax({
         url: TheServer + '/interview/edit',
@@ -572,7 +623,56 @@ $(function () {
         }
       })
 
-    };
+    }
+    
+
+  };
+
+
+  // 直播详情 =========== 修改里面的内容 （会议名称、访谈场景、访谈时间、会议简介）
+  $('.ascertaining_modification').click(function () {
+
+    var type;
+    if( $('#TalkScene').text() == '视频直播' ){
+      type = 0;
+    }else if( $('#TalkScene').text() == '图文直播' ){
+      type = 1;
+    }
+    console.log(type);
+
+    // 从本地拿出直播详情页面的数据
+    var Details = localStorage.getItem("Details");
+    var detail = JSON.parse(Details);
+    
+    if(type == 0){
+
+      if( detail.preVideoUrl == null ){
+
+        layer.msg('视频不能为空');
+  
+      }else{
+
+        ModifyTheRequest();
+
+      }
+
+    }else if(type == 1){
+
+      ModifyTheRequest();
+
+    }
+    
+    
+    
+    // else if( detail.preVideoUrl == null ){
+
+    //   layer.msg('视频不能为空');
+
+    // }else{
+
+     
+
+    // };
 
     
 
@@ -581,6 +681,8 @@ $(function () {
 
   // 直播详情 ====== 上传视频
   $('#UpPreview').change(function(e){
+
+    console.log('执行了')
 
     var files = e.currentTarget.files[0].name;
 
@@ -594,46 +696,43 @@ $(function () {
       }
 
     }
+    console.log(files);
+    console.log(type);
 
-    $.ajaxFileUpload({
+    $('#formfile').ajaxSubmit({
+      forceSync: false,
       url: TheServer + '/interview/edit',
-      type: 'POST',
-      secureuri: false, //一般设置为false
-      fileElementId: "UpPreview", //文件上传空间的id属性
-      dataType: 'JSON',
-      traditional: true,
-      contentType: 'application/json;charset=utf-8',
+      type: 'post',
+      dataType: 'json',
       data: {
+
         interviewId: talkNum,
         type: type,
         file: files
-      },
-      
-      success: function(data, status){
-
-        console.log(status)
-
-        if(status == 'success'){
-          DirectSeedingDetails();
-          layer.msg('上传成功');
-        }
 
       },
-      error: function(data, status, e){
-        //layer.close(index);
-        console.log(data);
+      restForm: true,
+      clearForm: true,
+      success: function(res) {
+          console.log(res);
+        DirectSeedingDetails();
+      },
+      error: function(data){
 
-      }
-    });
+      },
+
+    })
+
     
-    console.log('选择文件的名称 ========', files);
+    
+
 
   });
 
   // 直播详情 ====== 转为在线访谈
   $('#conversion').click(function(){
 
-    // console.log('执行了');
+     console.log('执行了');
 
     var talktype = $('.radio_item').children('.check_out');
     var type;
@@ -711,13 +810,13 @@ $(function () {
 
       }else{
 
-        alert('要转为在线直播视频的话，得先上传预告视频');
+        layer.msg('转为在线直播视频的话，得先上传预告视频');
 
       }
 
     }else if( type == 1 ){
 
-      $('.conversion p').text('是否确认将访谈预告转为在线视频访谈')
+      $('.conversion p').text('是否确认将访谈预告转为在线图文访谈')
 
         $('.conversion').css("display", "block");
 
@@ -786,6 +885,7 @@ $(function () {
     layer.msg('复制成功');
 
   });
+
   $('.Coyp_2').click(function(e){
 
     var content = document.getElementById('test1');
@@ -2827,32 +2927,33 @@ $(function () {
    * 
    * 视频渲染
    */
-  var Vedio = function(){
+  
+  // var Vedio = function(){
 
-    var VedioList = localStorage.getItem("Details");
-    var VedioLists = JSON.parse(VedioList);
-    console.log(VedioLists);
+  //   var VedioList = localStorage.getItem("Details");
+  //   var VedioLists = JSON.parse(VedioList);
+  //   console.log(VedioLists);
 
-    if(VedioLists.videoUrl != null){
+  //   // if(VedioLists.videoUrl != null){
 
-      var VedioStr = [];
+  //   //   var VedioStr = [];
 
-      VedioStr += '<div class="vedio">';
-      VedioStr += '<P style="margin: 0;width: 42%">';
-      VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
-      VedioStr += '<span class="vedio_title">'+VedioLists.name+'</span>';
-      VedioStr += '</p>';
-      VedioStr += '<p class="vedio_size">'+VedioLists.updateTime+'</p>';
-      VedioStr += '<p style="width: 28%" class="vedio_time">'+VedioLists.videoSize+'M'+'</p>';
-      VedioStr += '<a href="'+VedioLists.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
-      VedioStr += '</div>';
+  //   //   VedioStr += '<div class="vedio">';
+  //   //   VedioStr += '<P style="margin: 0;width: 42%">';
+  //   //   VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
+  //   //   VedioStr += '<span class="vedio_title">'+VedioLists.name+'</span>';
+  //   //   VedioStr += '</p>';
+  //   //   VedioStr += '<p class="vedio_size">'+VedioLists.updateTime+'</p>';
+  //   //   VedioStr += '<p style="width: 28%" class="vedio_time">'+VedioLists.videoSize+'M'+'</p>';
+  //   //   VedioStr += '<a href="'+VedioLists.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
+  //   //   VedioStr += '</div>';
 
-      $('.vedio_vedio').html(VedioStr);
-      $(".download").attr("download",VedioLists.videoUrl); 
-    }
+  //   //   $('.vedio_vedio').html(VedioStr);
+  //   //   $(".download").attr("download",VedioLists.videoUrl); 
+  //   // }
 
-  };
-  Vedio();
+  // };
+  // Vedio();
   
 
   // 视频上传
@@ -2860,79 +2961,36 @@ $(function () {
 
     var files = e.currentTarget.files[0].name;
 
-    var Size = e.currentTarget.files[0].size;
-
-    var videoSize = ((Size/1024)/1024).toFixed(2);
-
-    
-
     console.log('选择文件的名称 ========', files);
-    console.log('选择文件的大小 ========', videoSize);
 
-    $.ajaxFileUpload({
+    $('#formvedio').ajaxSubmit({
+      forceSync: false,
       url: TheServer + '/interview/uploadVideo',
-      type: 'POST',
-      secureuri: false, //一般设置为false
-      fileElementId: "VedioUpdata", //文件上传空间的id属性
-      dataType: 'JSON',
-      traditional: true,
-      contentType: 'application/json;charset=utf-8',
+      type: 'post',
+      dataType: 'json',
       data: {
         interviewId: talkNum,
-        file: files,
-        videoSize: videoSize
+        file: files
       },
-      
-      success: function(res, status){
-        console.log(status);
-
-        if(status == 'success'){
-
+      restForm: true,
+      clearForm: true,
+      success: function(res) {
+          console.log(res);
+        if(res.code == 200){
           DirectSeedingDetails();
-          Vedio();
-          // var VedioList = localStorage.getItem("Details");
-          // var VedioLists = JSON.parse(VedioList);
-          // console.log(VedioLists);
-
-          // if(VedioLists.videoUrl != null){
-
-          //   console.log('执行了')
-
-          //   var VedioStr = [];
-
-          //   VedioStr += '<div class="vedio">';
-          //   VedioStr += '<P style="margin: 0;width: 42%">';
-          //   VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
-          //   VedioStr += '<span class="vedio_title">'+VedioLists.name+'</span>';
-          //   VedioStr += '</p>';
-          //   VedioStr += '<p class="vedio_size">'+VedioLists.updateTime+'</p>';
-          //   VedioStr += '<p style="width: 28%" class="vedio_time">'+VedioLists.videoSize+'M'+'</p>';
-          //   VedioStr += '<a class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
-          //   VedioStr += '</div>';
-
-          //   $('.vedio_vedio').html(VedioStr);
-          // }
-
-          layer.msg('上传成功');
+          console.log('执行了');
+          //Vedio();
 
         }
+      },
+      error: function(data){
 
       },
-      error: function(data, status, e){
-        //layer.close(index);
-        console.log(data);
 
-      }
-    });
-
-
-
-  });
+    })
   
 
-
-
-
+  });
 
 
 
@@ -2984,34 +3042,6 @@ function ModifyName() {
     },
   });
 };
-
-// function ModifyScene() {
-
-//   layer.open({
-//     type: 1,
-//     area: ['480px', '360px'],
-//     title: ['', 'background: #fff;border:0'],
-//     btn: ['确定', '取消'],
-//     skin: 'my-skin',
-//     btnAlign: 'c',
-//     content: $('.modify_scene'),
-//     cancel: function (index, layero) {
-//       $('.modify_scene').css("display", "none");
-//     },
-//     yes: function (index, layero) {
-//       layer.close(index);
-//       $('.modify_scene').css("display", "none");
-
-      
-//     },
-//     btn2: function (index, layero) {
-//       // 取消
-//       layer.close(index);
-//       $('.modify_scene').css("display", "none");
-//     },
-//   });
-
-// };
 
 function BriefIntroduction() {
 

@@ -36,6 +36,8 @@
   <!-- 引入placeholder兼容 -->
   <script src="../one/js/placeholder.js"></script>
 
+  <script src="../one/js/jquery.form.js"></script>
+
 </head>
 
 <body>
@@ -86,7 +88,7 @@
           <div class="main_item">
             <p>访谈场景</p>
             <div>
-              <div class="radio">
+              <div class="radio status_1 status_2">
                 <div class="radio_item radio_item1" style="margin-right: 60px;">
                   <p class="check_out"></p><span>视频直播</span>
                 </div>
@@ -94,6 +96,7 @@
                   <p class="check_out"></p><span>图文直播</span>
                 </div>
               </div>
+              <span id="TalkScene" class="status_0"></span>
             </div>
           </div>
           <div class="main_item">
@@ -125,7 +128,7 @@
               <p onclick="BriefIntroduction()">编辑</p>
             </div>
           </div>
-          <div class="main_item status_0">
+          <div class="main_item status_0 linkss">
             <p>推流地址</p>
             <div>
               <span id="links">http://zxft.hntax.gov.cn/onfront/chat_show.jsp?meeting_id=2</span>
@@ -133,7 +136,7 @@
               <p class="Coyp_1" style="margin-left: 54px;">复制地址</p>
             </div>
           </div>
-          <div class="main_item status_0">
+          <div class="main_item status_0 linkss" style="float: left;">
             <p>访问地址</p>
             <div>
               <span>http://zxft.hntax.gov.cn/onfront</span>
@@ -141,12 +144,15 @@
               <p class="Coyp_2" style="margin-left: 54px;">复制地址</p>
             </div>
           </div>
-          <div class="main_item status_2">
+          <div class="main_item status_2 status_1 video_linkss">
             <p class="video_0"></p>
-              <div class="have_data" style="float: left;">
+              <div class="have_data">
                 <span class="vedio_link"></span>
                 <p class="uplink">
-                  <input type="file" id="UpPreview" name="file" title=" "><span class="uplink_text">请上传文件</span>
+                  <form action="" method="post" id="formfile" enctype="multipart/form-data">
+                      <input type="file" id="UpPreview" name="file" title=" ">
+                      <span class="uplink_text">请上传文件</span>
+                  </form>
                 </p>
                 <!-- <p style="color: #FF5500">删除</p> -->
               </div>
@@ -399,7 +405,9 @@
         </div>
 
         <div class="operation">
-          <input type="file" id="VedioUpdata" name="file">上传视频
+          <form action="" method="post" id="formvedio" enctype="multipart/form-data">
+            <input type="file" id="VedioUpdata" name="file">上传视频
+          </form>
         </div>
 
         <div class="vedio_vedio"></div>

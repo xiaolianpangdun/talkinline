@@ -427,22 +427,34 @@ body{
   text-align: center;
   cursor: pointer;
 }
-.uplink{
+.uplink,.vedio_link{
+  float: left;
+  cursor: pointer;
+}
+.vedio_link{
+  margin-right: 40px;
+}
+#formfile{
+  width: 100px;
+  height: 16px;
   position: relative;
   overflow: hidden;
-  width: 100px;
-  height: 15.5px;
   cursor: pointer;
-  /* line-height: 34px; */
 }
 #updata,#VedioUpdata,#UpPreview{
   position: absolute;
+  width: 100px;
+  height: 16px;
   font-size: 100px;
   right: 0;
   top: 0;
   opacity: 0;
   filter:alpha(opacity=0);
   cursor: pointer;
+}
+.uplink_text{
+  cursor: pointer;
+  color: #3199F7
 }
 
 /* 文字实录 */
@@ -544,6 +556,7 @@ body{
   width: 15.5px;
   height: 15.5px;
   border: 1px solid #3199F7;
+  border-radius: 3px;
   float: left;
   cursor: pointer;
   margin-right: 10px;
