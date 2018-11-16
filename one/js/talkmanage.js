@@ -598,7 +598,7 @@
                     btn: ['确定', '取消'],
                     yes: function(index, layero) {
                         $.ajax({
-                            type: 'else',
+                            type: 'get',
                             url: url + '/interview/remove?id=' + interviewId,
                             success: function() {
                                 table.reload('tbtalkmanage');
@@ -608,7 +608,7 @@
                                 layer.close(index);
                             },
                             error: function() {
-                                alert("服务器繁忙。删除失败！");
+                                layer.msg("服务器繁忙。删除失败！");
                             }
                         });
                     },

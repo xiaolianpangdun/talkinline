@@ -393,7 +393,7 @@ html #layuicss-laydate {
 }
 
 .laydate-day-mark::after {
-    background-color: #5FB878
+    background-color: #3199F7
 }
 
 .layui-laydate-content td.layui-this .laydate-day-mark::after {
@@ -401,7 +401,7 @@ html #layuicss-laydate {
 }
 
 .layui-laydate-footer span[lay-type=date] {
-    color: #5FB878
+    color: #3199F7
 }
 
 .layui-laydate .layui-this {
