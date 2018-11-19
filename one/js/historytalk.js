@@ -1,6 +1,6 @@
 ;
 ! function() {
-    var $ = layui.$;
+    // var $ = layui.$;
     var url = window.localStorage.getItem("backstage");
     (function() {
         $.ajax({
@@ -8,7 +8,7 @@
             url: url + '/interview/list?status=2&currentPage=1&pageSize=10',
             success: function(data) {
                 console.log(data);
-                var count = data.result.total;
+                var count = data.count;
                 // 分页器
                 var laypage = layui.laypage;
 
@@ -45,14 +45,14 @@
         elem: '#historytalk',
         skin: 'line',
         url: url + '/interview/list?status=2&currentPage=1&pageSize=10',
-        parseData: function(res) { //res 即为原始返回的数据
-            return {
-                "code": 0, //解析接口状态
-                "msg": res.message, //解析提示文本
-                "count": res.result.total, //解析数据长度
-                "data": res.result.list //解析数据列表
-            };
-        },
+        // parseData: function(res) { //res 即为原始返回的数据
+        //     return {
+        //         "code": 0, //解析接口状态
+        //         "msg": res.message, //解析提示文本
+        //         "count": res.result.total, //解析数据长度
+        //         "data": res.result.list //解析数据列表
+        //     };
+        // },
         cols: [
             [ //表头
                 {

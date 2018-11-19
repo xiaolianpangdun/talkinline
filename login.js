@@ -70,11 +70,12 @@
             contentType: "application/json;charset=utf-8",
             // dataType: "json",
             url: url + '/user/login',
+            crossDomain: true == !(document.all),
             data: JSON.stringify({ username: username, password: password }),
             success: function(data) {
                 // alert("提交成功");
                 console.log(data);
-                if (data.code == "200") {
+                if (data.code == "0") {
                     layer.msg("登录成功");
                     var has = $(".ddd").hasClass("checked");
                     if (has == true) {
@@ -86,7 +87,7 @@
                     }
                     window.localStorage.setItem("isLogin", true);
                     window.localStorage.setItem("link", "talkmanage");
-                    window.localStorage.setItem("adminname", data.result.name);
+                    window.localStorage.setItem("adminname", data.data.name);
                     window.location.href = "./one/index.html";
                 } else {
                     layer.msg("用户名或密码错误");
