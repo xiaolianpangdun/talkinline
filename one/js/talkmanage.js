@@ -289,11 +289,11 @@
             clearForm: true,
             success: function(res) {
                 if (res.code == 200) {
-                    console.log(res);
                     pagecurrent(1);
                     table.reload('tbtalkmanage', {
                         url: url + '/interview/list?currentPage=1&pageSize=10'
-                    })
+                    });
+                    layer.msg("新增成功！");
                     layer.closeAll();
                 } else {
                     layer.msg("服务器繁忙，请稍后重试！");
@@ -358,11 +358,12 @@
             clearForm: true,
             success: function(res) {
                 if (res.code == 200) {
-                    layer.msg("新建成功！");
+
                     pagecurrent(1);
                     table.reload('tbtalkmanage', {
                         url: url + '/interview/list?currentPage=1&pageSize=10'
-                    })
+                    });
+                    layer.msg("新建成功！");
                     layer.closeAll();
                 } else {
                     layer.msg("服务器繁忙，请稍后重试！");
