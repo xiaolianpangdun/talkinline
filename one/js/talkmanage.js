@@ -2,7 +2,7 @@
 ! function() {
     var upload = layui.upload;
     var url = window.localStorage.getItem("backstage");
-
+    $.support.cors = true;
     // 点击添加嘉宾弹框
     $(".addguest").click(function() {
         var that = $(this);
@@ -288,12 +288,16 @@
             restForm: true,
             clearForm: true,
             success: function(res) {
-                console.log(res);
-                pagecurrent(1);
-                table.reload('tbtalkmanage', {
-                    url: url + '/interview/list?currentPage=1&pageSize=10'
-                })
-                layer.closeAll();
+                if (res.code == 200) {
+                    console.log(res);
+                    pagecurrent(1);
+                    table.reload('tbtalkmanage', {
+                        url: url + '/interview/list?currentPage=1&pageSize=10'
+                    })
+                    layer.closeAll();
+                } else {
+                    layer.msg("服务器繁忙，请稍后重试！");
+                }
             },
             error: function(res) {
                 console.log(res);
@@ -353,12 +357,16 @@
             restForm: true,
             clearForm: true,
             success: function(res) {
-                console.log(res);
-                pagecurrent(1);
-                table.reload('tbtalkmanage', {
-                    url: url + '/interview/list?currentPage=1&pageSize=10'
-                })
-                layer.closeAll();
+                if (res.code == 200) {
+                    layer.msg("新建成功！");
+                    pagecurrent(1);
+                    table.reload('tbtalkmanage', {
+                        url: url + '/interview/list?currentPage=1&pageSize=10'
+                    })
+                    layer.closeAll();
+                } else {
+                    layer.msg("服务器繁忙，请稍后重试！");
+                }
             },
             error: function(res) {
                 console.log(res);

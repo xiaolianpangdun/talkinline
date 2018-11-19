@@ -5,10 +5,12 @@
     var name = window.localStorage.getItem("tkilname");
     var upwd = window.localStorage.getItem("tkilupwd");
     window.localStorage.setItem("backstage", "http://192.168.0.71:8080");
-    if (name)
-        $(".uname").val(name);
-    $(".upwd").val(upwd);
+    $(".uname").focus().css({
+        "border-bottom": "1px solid #4F93FE"
+    });;
     if (upwd) {
+        $(".uname").val(name).focus();
+        $(".upwd").val(upwd);
         // $("#color-cb").prop("checked", true);
         $(".ddd").addClass("checked");
     }
