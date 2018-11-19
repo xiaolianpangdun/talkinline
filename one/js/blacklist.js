@@ -1,8 +1,8 @@
 ;
 ! function() {
     var table = layui.table,
-        layer = layui.layer,
-        $ = layui.$;
+        layer = layui.layer;
+    // $ = layui.$;
     var url = window.localStorage.getItem("backstage");
     (function() {
         $.ajax({
@@ -10,7 +10,7 @@
             url: url + '/blacklist/list?pageNum=1&pageSize=10',
             success: function(data) {
                 console.log(data);
-                var count = data.result.total;
+                var count = data.count;
                 console.log(count);
                 // 分页器
                 var laypage = layui.laypage;
@@ -48,15 +48,15 @@
         elem: '#blacklist',
         skin: 'line',
         url: url + '/blacklist/list?pageNum=1&pageSize=10',
-        parseData: function(res) { //res 即为原始返回的数据
-            console.log(res);
-            return {
-                "code": 0, //解析接口状态
-                "msg": res.message, //解析提示文本
-                "count": res.result.total, //解析数据长度
-                "data": res.result.list //解析数据列表
-            };
-        },
+        // parseData: function(res) { //res 即为原始返回的数据
+        //     console.log(res);
+        //     return {
+        //         "code": 0, //解析接口状态
+        //         "msg": res.message, //解析提示文本
+        //         "count": res.result.total, //解析数据长度
+        //         "data": res.result.list //解析数据列表
+        //     };
+        // },
         cols: [
             [ //表头
                 {
@@ -109,6 +109,7 @@
                         success: function(data) {
                             console.log(data);
                             layer.close(index);
+                            layer.msg("删除成功！");
                             table.reload('blacklist');
                         },
                         error: function(err) {
@@ -116,6 +117,9 @@
                             // alert("删除失败");
                         }
                     });
+                },
+                end: function() {
+                    $("#removeblacklist").hide();
                 }
             });
         }

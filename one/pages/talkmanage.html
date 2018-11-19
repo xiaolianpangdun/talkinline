@@ -20,15 +20,15 @@
     <!-- 访谈状态颜色变化 -->
     <script type="text/html" id="talk">
         {{# if(d.status=="0"){ }}
-        <span style="color:#FF9E00;">访谈未开始</span> {{# }else if(d.status=="1"){}}
-        <span style="color:#0EB65C;">正在访谈...</span> {{# }else if(d.status=="2"){}}
-        <span>访谈结束</span>{{#}}}
+        <span style="color:#FF9E00;">未开始</span> {{# }else if(d.status=="1"){}}
+        <span style="color:#0EB65C;">进行中</span> {{# }else if(d.status=="2"){}}
+        <span>已结束</span>{{#}}}
     </script>
     <!-- 访谈类型 -->
     <script type="text/html" id="talktype">
         {{# if(d.type=="0"){ }}
-        <span>视频直播</span> {{# }else if(d.type=="1"){}}
-        <span>图文直播</span>{{#}}}
+        <span>视频访谈</span> {{# }else if(d.type=="1"){}}
+        <span>图文访谈</span>{{#}}}
     </script>
     <!-- 访谈操作按钮模板 -->
     <script type="text/html" id="handle">
@@ -277,8 +277,6 @@
                         <img src="../../img/cancel_02.png" alt="">
                     </div>`
  -->
-<script src="../js/jquery-1.7.1.js"></script>
-<script src="../js/ajaxfileupload1.js"></script>
 <script src="../js/jquery.1.8.3.min.js"></script>
 <script src="../js/jquery.form.js"></script>
 

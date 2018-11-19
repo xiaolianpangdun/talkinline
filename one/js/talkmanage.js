@@ -2,7 +2,8 @@
 ! function() {
     var upload = layui.upload;
     var url = window.localStorage.getItem("backstage");
-    $.support.cors = true;
+    // jQuery.support.cors = true;
+    $.ajaxSetup({ cache: false });
     // 点击添加嘉宾弹框
     $(".addguest").click(function() {
         var that = $(this);
@@ -288,7 +289,7 @@
             restForm: true,
             clearForm: true,
             success: function(res) {
-                if (res.code == 200) {
+                if (res.code == 0) {
                     pagecurrent(1);
                     table.reload('tbtalkmanage', {
                         url: url + '/interview/list?currentPage=1&pageSize=10'
@@ -357,7 +358,7 @@
             restForm: true,
             clearForm: true,
             success: function(res) {
-                if (res.code == 200) {
+                if (res.code == 0) {
 
                     pagecurrent(1);
                     table.reload('tbtalkmanage', {
@@ -401,15 +402,16 @@
         skin: 'line',
         loading: true,
         // cellMinWidth: 200,
+        // url: '../data.json',
         url: url + '/interview/list?currentPage=1&pageSize=10',
-        parseData: function(res) { //res 即为原始返回的数据
-            return {
-                "code": 0, //解析接口状态
-                "msg": res.message, //解析提示文本
-                "count": res.result.total, //解析数据长度
-                "data": res.result.list //解析数据列表
-            };
-        },
+        // parseData: function(res) { //res 即为原始返回的数据
+        //     return {
+        //         "code": 0, //解析接口状态
+        //         "msg": res.message, //解析提示文本
+        //         "count": res.result.total, //解析数据长度
+        //         "data": res.result.list //解析数据列表
+        //     };
+        // },
         cols: [
             [ //表头
                 {
@@ -453,8 +455,8 @@
             // data: { username: username, password: password },
             success: function(data) {
                 // alert("提交成功");
-                // console.log(data);
-                var count = data.result.total;
+                console.log(data);
+                var count = data.count;
                 // 分页器
                 var laypage = layui.laypage;
 

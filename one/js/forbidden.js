@@ -3,8 +3,9 @@
     // 分页器
     var layer = layui.layer,
         upload = layui.upload,
-        keyWord = '',
-        $ = layui.$;
+        keyWord = '';
+    // $ = layui.$;
+    $.ajaxSetup({ cache: false });
     var url = window.localStorage.getItem("backstage");
     // 数据渲染
     var update = function(num, keyWord) {
@@ -12,8 +13,8 @@
             type: "get",
             url: url + '/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
-                // console.log(data);
-                var lists = data.result.list;
+                console.log(data);
+                var lists = data.data.list;
                 if (lists.length > 0) {
                     $(".none").hide();
                     $(".had").show();
@@ -46,7 +47,7 @@
             type: "get",
             url: url + '/prohibit/list?pageNum=' + pagenm + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
-                var count = data.result.total;
+                var count = data.data.total;
                 var laypage = layui.laypage;
                 //执行一个laypage实例
                 console.log(data);
@@ -104,12 +105,16 @@
                         var pagenm = window.localStorage.getItem("pagenm")
                             // update(pagenm, keyWord);
                         laypage(pagenm, keyWord);
+                        layer.msg("删除成功！");
                         layer.close(index);
                     },
                     error: function(xhr, textStatus) {
                         layer.msg("服务器错误，请稍后重试");
                     },
                 })
+            },
+            end: function() {
+                $("#delforbidword").hide();
             }
         });
     });
@@ -142,9 +147,10 @@
                     data: JSON.stringify({ "keyWord": word }),
                     success: function(data, textStatus, jqXHR) {
                         $(".content").val("");
-                        var pagenm = window.localStorage.getItem("pagenm")
+                        var pagenm = window.localStorage.getItem("pagenm");
                         update(pagenm, keyWord);
                         laypage(pagenm, keyWord);
+                        layer.msg("新增成功！");
                         // window.location.reload();
                         // console.log(data);
                         layer.close(index);
@@ -153,6 +159,9 @@
                 })
                 $(".content").val("");
                 layer.close(index);
+            },
+            end: function() {
+                $("#addforbidword").hide();
             }
         });
     });
@@ -190,4 +199,4 @@
             // console.log(res);
         }
     });
-}()
+}();
