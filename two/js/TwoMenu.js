@@ -1,5 +1,4 @@
 $(function () {
-  jQuery.support.cors = true;
 
   /**
    * 服务器
@@ -108,6 +107,8 @@ $(function () {
    */
 
   // 直播详情 ========== 数据渲染
+  
+  $.ajaxSetup({cache:false}) 
   var DirectSeedingDetails = function(){
 
     $.ajax({
@@ -122,7 +123,7 @@ $(function () {
 
         console.log('直播详情 ======= ',data);
 
-        if(data.code == 200){
+        if(data.code == 0){
 
           // 把获取到的数据保存到本地
           localStorage.setItem('Details',JSON.stringify(data.result));
@@ -224,7 +225,7 @@ $(function () {
           if(data.result.videoUrl != null){
 
             var size = data.result.videoSize/1024/1024;
-            var lastsize = size.toFixed(2)
+            //var lastsize = size.toFixed(2)
 
             console.log(size)
             console.log(lastsize)
@@ -244,45 +245,6 @@ $(function () {
             $('.vedio_vedio').html(VedioStr);
             $(".download").attr("download",data.result.videoUrl); 
           }
-
-
-          // 上传图文和视频
-          // if( data.result.type == 1){
-
-          //   if(data.result.prePicUrl != null){
-
-          //     $('.vedio_link').text(data.result.prePicUrl);
-
-          //     $('.uplink_text').text('重新上传');
-
-          //   }else if(data.result.prePicUrl == null){
-
-          //     $('.vedio_link').text('无文件');
-
-          //     $('.uplink_text').text('请上传图片文件');
-
-          //   }
-
-            
-          // }else if( data.result.type == 0 ){
-
-
-          //   if(data.result.preVideoUrl != null){
-
-          //     $('.vedio_link').text(data.result.preVideoUrl);
-
-          //     $('.uplink_text').text('重新上传');
-
-          //   }else if(data.result.preVideoUrl == null){
-
-          //     $('.vedio_link').text('无文件');
-
-          //     $('.uplink_text').text('请上传视频文件');
-
-          //   }
-
-          // };
-
 
         }
   
@@ -617,7 +579,7 @@ $(function () {
         },
         success: function (data, textStatus, jqXHR) {
           console.log(data)
-          if(data.code == 200){
+          if(data.code == 0){
             DirectSeedingDetails();
             // 再次调嘉宾列表
             ADD();
@@ -678,21 +640,6 @@ $(function () {
       ModifyTheRequest();
 
     }
-    
-    
-    
-    
-    // else if( detail.preVideoUrl == null ){
-
-    //   layer.msg('视频不能为空');
-
-    // }else{
-
-     
-
-    // };
-
-    
 
 
   });
@@ -761,135 +708,163 @@ $(function () {
       }
 
     }
+
+    var AddText = $('.guest');
     
+    var AddSpeaker = [];
 
-    if( type == 0 ){
 
-      // 从本地拿出直播详情页面的数据
+    $.each(AddText,function(i,obj){
 
-      var Details = localStorage.getItem("Details");
-      var detail = JSON.parse(Details);
-      //console.log(detail);
+      var guest_text = AddText.eq(i).children('span');
+      console.log(guest_text);
 
-      if( detail.preVideoUrl != null ){
+      $.each(guest_text,function(o,ibj){
 
-        $('.conversion p').text('是否确认将访谈预告转为在线视频访谈')
+        AddSpeaker.push(guest_text[o].innerHTML);
 
-        $('.conversion').css("display", "block");
+      });
 
-        layer.open({
-          type: 1,
-          area: ['480px', '360px'],
-          title: ['', 'background: #fff;border:0'],
-          btn: ['确定', '取消'],
-          skin: 'my-skin',
-          btnAlign: 'c',
-          content: $('.conversion'),
-          cancel: function (index, layero) {
-            $('.conversion').css("display", "none");
-          },
-          yes: function (index, layero) {
+    });
 
-            $.ajax({
-              url: TheServer + '/interview/edit',
-              type: 'POST',
-              dataType: 'json',
-              async: true,
-              traditional: true,    //或false,是否异步
-              data: {
-                interviewId: talkNum,
-                status: 1,
-                type: 0
-              },
-              success: function (data, textStatus, jqXHR){
-                console.log(data);
-                if(data.code == 200){
+    if(AddSpeaker == ''){
 
-                  DirectSeedingDetails();
+      layer.msg('嘉宾不能为空')
 
-                  
-                };
-              },
-            });
+    }else{
 
-            layer.close(index);
-            $('.conversion').css("display", "none");
-    
-          },
-          btn2: function (index, layero) {
-            // 取消
-            layer.close(index);
-            $('.conversion').css("display", "none");
+      if( type == 0 ){
 
-          },
-        });
-
+        // 从本地拿出直播详情页面的数据
+  
+        var Details = localStorage.getItem("Details");
+        var detail = JSON.parse(Details);
+        //console.log(detail);
+  
+        if( detail.preVideoUrl != null ){
+  
+          $('.conversion p').text('是否确认将访谈预告转为在线视频访谈')
+  
+          $('.conversion').css("display", "block");
+  
+          layer.open({
+            type: 1,
+            area: ['480px', '360px'],
+            title: ['', 'background: #fff;border:0'],
+            btn: ['确定', '取消'],
+            skin: 'my-skin',
+            btnAlign: 'c',
+            content: $('.conversion'),
+            cancel: function (index, layero) {
+              $('.conversion').css("display", "none");
+            },
+            yes: function (index, layero) {
+  
+              $.ajax({
+                url: TheServer + '/interview/edit',
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                traditional: true,    //或false,是否异步
+                data: {
+                  interviewId: talkNum,
+                  status: 1,
+                  type: 0
+                },
+                success: function (data, textStatus, jqXHR){
+                  console.log(data);
+                  if(data.code == 0){
+  
+                    DirectSeedingDetails();
+  
+                    
+                  };
+                },
+              });
+  
+              layer.close(index);
+              $('.conversion').css("display", "none");
+      
+            },
+            btn2: function (index, layero) {
+              // 取消
+              layer.close(index);
+              $('.conversion').css("display", "none");
+  
+            },
+          });
+  
+          
+  
+        }else{
+  
+          layer.msg('转为在线直播视频的话，得先上传预告视频');
+  
+        }
+  
+      }else if( type == 1 ){
+  
+        $('.conversion p').text('是否确认将访谈预告转为在线图文访谈')
+  
+          $('.conversion').css("display", "block");
+  
+          layer.open({
+            type: 1,
+            area: ['480px', '360px'],
+            title: ['', 'background: #fff;border:0'],
+            btn: ['确定', '取消'],
+            skin: 'my-skin',
+            btnAlign: 'c',
+            content: $('.conversion'),
+            cancel: function (index, layero) {
+              $('.conversion').css("display", "none");
+            },
+            yes: function (index, layero) {
+  
+              $.ajax({
+                url: TheServer + '/interview/edit',
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                traditional: true,    //或false,是否异步
+                data: {
+                  interviewId: talkNum,
+                  status: 1,
+                  type: 1
+                },
+                success: function (data, textStatus, jqXHR){
+                  console.log(data);
         
-
-      }else{
-
-        layer.msg('转为在线直播视频的话，得先上传预告视频');
-
+                  if(data.code == 0){
+        
+                    DirectSeedingDetails();
+                    layer.msg("操作成功")
+  
+                  }
+                },
+              });
+  
+              layer.close(index);
+              $('.conversion').css("display", "none");
+      
+            },
+            btn2: function (index, layero) {
+              // 取消
+              layer.close(index);
+              $('.conversion').css("display", "none");
+  
+            },
+          });
+  
+        
+  
+  
       }
 
-    }else if( type == 1 ){
-
-      $('.conversion p').text('是否确认将访谈预告转为在线图文访谈')
-
-        $('.conversion').css("display", "block");
-
-        layer.open({
-          type: 1,
-          area: ['480px', '360px'],
-          title: ['', 'background: #fff;border:0'],
-          btn: ['确定', '取消'],
-          skin: 'my-skin',
-          btnAlign: 'c',
-          content: $('.conversion'),
-          cancel: function (index, layero) {
-            $('.conversion').css("display", "none");
-          },
-          yes: function (index, layero) {
-
-            $.ajax({
-              url: TheServer + '/interview/edit',
-              type: 'POST',
-              dataType: 'json',
-              async: true,
-              traditional: true,    //或false,是否异步
-              data: {
-                interviewId: talkNum,
-                status: 1,
-                type: 1
-              },
-              success: function (data, textStatus, jqXHR){
-                console.log(data);
-      
-                if(data.code == 200){
-      
-                  DirectSeedingDetails();
-                  layer.msg("操作成功")
-
-                }
-              },
-            });
-
-            layer.close(index);
-            $('.conversion').css("display", "none");
+    };
     
-          },
-          btn2: function (index, layero) {
-            // 取消
-            layer.close(index);
-            $('.conversion').css("display", "none");
 
-          },
-        });
-
-      
-
-
-    }
+    
 
   });
 
@@ -945,7 +920,7 @@ $(function () {
       success: function (data, textStatus, jqXHR) {
         
         // 如果请求成功的话
-        if (data.code == 200) {
+        if (data.code == 0) {
   
           var UserList = data.result.list;
 
@@ -970,45 +945,6 @@ $(function () {
           $('.tab_tr').html(users);
           $('.viewing_number').html(data.result.total);
   
-          // 加入黑名单
-          // $('.black_list').click(function () {
-  
-          //   var NowUser = $(this).parent().parent().index();
-          //   console.log($(this));
-          //   console.log(NowUser);
-  
-          //   var ip = UserList[NowUser].ip;
-          //   var visitor = UserList[NowUser].name;
-  
-          //   console.log('黑名单的ip ======== ', ip);
-          //   console.log('黑名单的名字 ======== ', visitor);
-  
-          //   $.ajax({
-          //     url: TheServer + '/blacklist/create',
-          //     type: 'POST',
-          //     async: true,
-          //     data: {
-          //       params: '{"ip":"' + ip + '","visitor": "' + visitor + '"}'
-  
-          //     },
-          //     success: function (data, textStatus, jqXHR) {
-          //       console.log(data)
-          //       if(data.code == 200){
-
-          //         $('tbody tr').eq(NowUser).css('display','none');
-          //         // UserList(UserNow);
-          //         // UserPage(UserNow);
-          //       };
-          //     },
-          //     error: function (xhr, textStatus) {
-  
-          //     },
-          //     complete: function () {
-  
-          //     }
-          //   })
-  
-          // });
   
         }
   
@@ -1083,7 +1019,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
         console.log(data)
-        if(data.code == 200){
+        if(data.code == 0){
 
           //$('tbody tr').eq(NowUser).css('display','none');
           UserList(UserNow);
@@ -1159,7 +1095,7 @@ $(function () {
       success: function (data, textStatus, jqXHR) {
         
         // 如果成功的话，就执行下面的代码
-        if (data.code == 200) {
+        if (data.code == 0) {
             
           // 提问列表的数据列表
           var lists = data.result.list;
@@ -1215,90 +1151,6 @@ $(function () {
             }
           });
   
-          // 点击屏蔽功能
-          // $('.InteractionShield').click(function () {
-  
-          //   // 获取当前被点击元素的下标
-          //   var nowclick = $(this).parent().parent().index();
-          //   console.log('网友提问，当前点击的下标 ========', nowclick);
-  
-          //   // 屏蔽弹框的内容部分  出现
-          //   $('.interaction_shield').css("display", "block");
-  
-          //   // 屏蔽的弹窗
-          //   layer.open({
-          //     type: 1,
-          //     area: ['480px', '360px'],
-          //     title: ['', 'background: #fff;border:0'],
-          //     btn: ['确定', '取消'],
-          //     skin: 'my-skin',
-          //     btnAlign: 'c',
-          //     content: $('.interaction_shield'),
-          //     cancel: function (index, layero) {  // 点击右上角
-          //       $('.interaction_shield').css("display", "none");
-          //     },
-          //     yes: function (index, layero) {  // 点击确定
-  
-          //       // 获取要传给后台的值
-          //       console.log(lists);
-          //       var commentId = lists[nowclick].commentId;
-          //       //var interviewId = lists[nowclick].interviewId;
-          //       var visitor = lists[nowclick].visitor;
-  
-          //       console.log('网友评论，评论ID ======', commentId);
-          //       //console.log('网友评论，访谈ID ======', interviewId);
-          //       console.log('网友评论，游客名 ======', visitor);
-  
-          //       // 提交屏蔽
-          //       $.ajax({
-          //         url: TheServer + '/comments/disable',
-          //         type: 'POST',
-          //         dataType: 'json',
-          //         async: true,
-          //         contentType: 'application/json;charset=utf-8',
-          //         data: JSON.stringify({
-          //           commentId: commentId,
-          //           interviewId: talkNum,
-          //           visitor: visitor
-          //         }),
-          //         success: function (data, textStatus, jqXHR) {
-          //           console.log(data);
-          //           if(data.code == 200){
-
-
-          //             $('.questions_main').eq(nowclick).children('.questions_right').children('p').css('border','1px solid #E8EFF1');
-          //             $('.questions_main').eq(nowclick).children('.questions_right').children('p').css('color','#E8EFF1');
-          //             $('.questions_main').eq(nowclick).children('.questions_right').children('.InteractionShield').removeAttr('click');
-          //             $('.questions_main').eq(nowclick).children('.questions_right').children('.ReviewResponse').removeClass("ReviewResponse");
-          //             $('.questions_main').eq(nowclick).children('.questions_hover').removeClass("questions_hover");
-
-          //             layer.msg("屏蔽成功")
-          //           }
-          //         },
-          //         error: function (xhr, textStatus) {
-          //         },
-          //         complete: function () {
-          //         }
-          //       })
-  
-          //       // 关闭弹窗
-          //       layer.close(index);
-          //       // 隐藏弹窗的内容部分
-          //       $('.interaction_shield').css("display", "none");
-          //       // 给设置了屏蔽的信息的屏蔽按钮改变ui样式
-          //       $('.questions_main').eq(nowclick - 1).children('.questions_right').children('p').css('color', '#9FB1C0');
-          //     },
-          //     btn2: function (index, layero) {// 取消
-  
-          //       layer.close(index);
-          //       $('.interaction_shield').css("display", "none");
-  
-          //     },
-          //   });
-  
-          // });
-  
-          
   
         }
       },
@@ -1322,7 +1174,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR){
 
-        if(data.code == 200){
+        if(data.code == 0){
 
           layui.use('laypage', function(){
 
@@ -1381,7 +1233,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
 
-        if(data.code == 200){
+        if(data.code == 0){
 
           var replyList = data.result.list;
           console.log('审核回复列表 ============ ',replyList);
@@ -1538,7 +1390,7 @@ $(function () {
       
                       console.log(data);
       
-                      if (data.code == 200) {
+                      if (data.code == 0) {
                         $('.reply_main').eq(nowreply).children('.reply_main-right').children('.reply_main_top').children('.questions_bottom').text(commentContent);
                         $('.reply_main').eq(nowreply).children('.reply_main-right').children('.reply_main_bottom').children('.reply_bottom_content').text(replyContent);
                         layer.msg('修改成功');
@@ -1611,7 +1463,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR){
 
-        if(data.code == 200){
+        if(data.code == 0){
 
           layui.use('laypage', function(){
 
@@ -1715,7 +1567,7 @@ $(function () {
             console.log(data);
 
             // 如果请求成功，修改页面上的问题
-            if (data.code == 200) {
+            if (data.code == 0) {
               // $('.questions_main').eq(questionsnow).children('.questions_left').children('.questions_bottom').text(commentContent);
               // $('.questions_main').eq(questionsnow).css('display','none');
               ProblemList(ProblemCurr);
@@ -1845,7 +1697,7 @@ $(function () {
           }),
           success: function (data, textStatus, jqXHR) {
             console.log(data);
-            if(data.code == 200){
+            if(data.code == 0){
 
               $('.questions_main').eq(inx).children('.questions_right').children('p').css('border','1px solid #E8EFF1');
               $('.questions_main').eq(inx).children('.questions_right').children('p').css('color','#E8EFF1');
@@ -2032,7 +1884,7 @@ $(function () {
           success: function (data, textStatus, jqXHR) {
             // 如果请求成功的话
 
-            if(data.code == 200){
+            if(data.code == 0){
 
               // for(var i = 0;i<Questionsinx.length;i++){
               //   $('.questions_main').eq(i).css('display','none')
@@ -2151,7 +2003,7 @@ $(function () {
           }),
           success: function (data, textStatus, jqXHR) {
 
-            if(data.code == 200){
+            if(data.code == 0){
 
               // for(var i = 0;i < SelectReplyInx.length; i ++){
 
@@ -2241,7 +2093,7 @@ $(function () {
       success: function (data, textStatus, jqXHR) {
         console.log('图片 ======== ',data);
         // 如果请求成功的话
-        if (data.code == 200) {
+        if (data.code == 0) {
 
           // 分页
           //ImagePage(data.result.total);
@@ -2425,7 +2277,7 @@ $(function () {
             // 如果请求成功的话
             console.log('删除图片接口 ======= ',data);
 
-            if (data.code == 200) {
+            if (data.code == 0) {
 
               GetImage(ImageCurr);
               ImagePage(ImageCurr);
@@ -2492,7 +2344,7 @@ $(function () {
         console.log(res)
         
         // 如果上传成功的话，就调取图片列表的接口
-        if(res.code == 200){
+        if(res.code == 0){
 
           GetImage(ImageCurr);
           ImagePage(ImageCurr);
@@ -2644,7 +2496,7 @@ $(function () {
                 success: function (data, textStatus, jqXHR) {
                   console.log(data);
 
-                  if(data.code == 200){
+                  if(data.code == 0){
 
                     // 从本地储存里面拿出嘉宾列表
                     var speak = localStorage.getItem("Speak");
@@ -2708,7 +2560,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
 
-        if(data.code == 200){
+        if(data.code == 0){
 
           layui.use('laypage', function(){
 
@@ -2817,7 +2669,7 @@ $(function () {
             console.log('删除文字实录接口 ========= ',data);
 
             // 如果请求成功的话
-            if(data.code == 200){
+            if(data.code == 0){
 
               GetText(TextCurr);
               TextPage(TextCurr);
@@ -2893,7 +2745,7 @@ $(function () {
 
             console.log('实时录入文字接口 ========= ',data);
 
-            if(data.code == 200){
+            if(data.code == 0){
 
               GetText(TextCurr);
               TextPage(TextCurr);
@@ -2993,8 +2845,8 @@ $(function () {
       restForm: true,
       clearForm: true,
       success: function(res) {
-          console.log(res);
-        if(res.code == 200){
+          console.log('请求上传视频的接口 ========== ',res);
+        if(res.code == 0){
           DirectSeedingDetails();
           console.log('执行了');
           //Vedio();
@@ -3002,6 +2854,8 @@ $(function () {
         }
       },
       error: function(data){
+
+        console.log('请求失败 ======== ',data)
 
       },
 
@@ -3085,7 +2939,7 @@ function BriefIntroduction() {
       var news = $('#brief').val();
 
       // 判断简介的长度
-      if (news.length > 50) {
+      if (news.length > 300) {
         $('.tips_3').css('display', 'block');
       } else {
         $('#text_brief').text(news);

@@ -15,6 +15,10 @@
   <!-- 引入jquery2.0以下的版本 -->
   <script src="js/jquery.js"></script>
 
+  <!-- <script>
+    jQuery.support.cors = true;
+  </script> -->
+
   <!-- 引入layui -->
   <link rel="stylesheet" href="../layui/css/layui.css">
   <script src="../layui/layui.all.js"></script>
@@ -26,7 +30,7 @@
   <!-- 引入页面css、js-->
   <link rel="stylesheet" href="css/TwoMenu.css">
   <script src="js/TwoMenu.js"></script>
-
+  
   <!-- 引入复制功能需要的JS -->
   <!-- <script src="js/clipboard.min.js"></script> -->
 
@@ -467,7 +471,7 @@
   <div class="brief_introduction">
     <p class="name_title">编辑会议简介</p>
     <textarea name="" id="brief" cols="30" rows="10"></textarea>
-    <p class="tips_3" style="display: none">提示：最多只能输入50个字符</p>
+    <p class="tips_3" style="display: none">提示：最多只能输入300个字符</p>
   </div>
 
 
@@ -577,9 +581,15 @@
 
 </div>
 
+<script>
+  jQuery.support.cors = true;
+</script>
+
 
 
 <script>
+
+  
 
   /**
    * 访谈状态
