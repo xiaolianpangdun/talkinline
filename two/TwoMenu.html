@@ -408,7 +408,7 @@
         <!-- 视频播放 -->
         <div class="vedio">
           <video id="vedio" style="width: 100%;height: 100%;" controls data-setup="{}">
-            <source id='vedioBox' type="video/mp4" src="http://192.168.0.71:8090/17093e0b-c1f2-451a-a8c5-a7ef27779708.mp4">
+            <source id='vedioBox' type="video/mp4" src="">
           </video>
         </div>
 
@@ -653,6 +653,8 @@
         $('.video_0').text('视频');
       }
 
+      $('.time').css('cursor','pointer');
+
     } else if (status == 1) { // 访谈直播中
 
       $('.status_1').css('display', 'none');
@@ -665,6 +667,8 @@
 
        $('.video_0').text('视频');
       }
+      // 给时间添加小手标志
+      $('.time').css('cursor','pointer');
 
     } else if (status == 2) { // 访谈结束
 
