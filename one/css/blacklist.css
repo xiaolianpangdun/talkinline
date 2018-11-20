@@ -1,91 +1,101 @@
-    /* 顶部 */
-    
-    button.right {
-        font-size: 14px;
-        padding: 5px 20px;
-        color: #fff;
-        background: #3199F7;
-        border: 1px solid #4597E0;
-        border-radius: 2px;
-    }
-    
-    button.lead {
-        padding: 5px 30px;
-        margin-left: 30px;
-    }
-    
-    .talktop .right {
-        margin-top: 4px;
-    }
-    
-    .talktop {
-        font-size: 28px;
-        color: #333333;
-        padding-top: 20px;
-        margin: 0px 0 20px 10px;
-    }
-    
-    input.search {
-        font-size: 14px;
-        padding-left: 15px;
-        margin: 0 5px;
-        height: 30px;
-        color: #999999;
-        border: 1px solid #E7EAEC;
-    }
-    
-    .layui-table tbody tr:hover,
-    .layui-table-click,
-    .layui-table-header,
-    .layui-table-hover,
-    .layui-table-mend,
-    .layui-table-patch,
-    .layui-table-tool,
-    .layui-table[lay-even] tr:nth-child(even) {
-        background-color: transparent;
-    }
-    
-    .layui-table {
-        color: #4D4F50;
-    }
-    
-    .layui-table-view .layui-table th {
-        background: #F7F9FB;
-        color: #424547;
-        height: 36px;
-        font-weight: bold;
-    }
-    
-    .layui-table-view .layui-table td {
-        height: 50px;
-        background: #fff;
-        color: #4D4F50;
-    }
-    
-    body .removeblacklist .layui-layer-btn a {
-        width: 140px;
-        height: 34px;
-        line-height: 34px;
-        color: #fff;
-        margin-bottom: 20px;
-        /* border-top: 1px solid #E7EAEC; */
-    }
-    
-    body .removeblacklist .layui-layer-btn a.layui-layer-btn1 {
-        background: #9FB1C0;
-        margin-left: 30px;
-    }
-    
-    .center {
-        text-align: center;
-    }
-    
-    .comfirmdo {
-        margin-top: 50px;
-        font-family: PingFangSC-Regular;
-        font-size: 24px;
-        color: #676A6C;
-        text-align: center;
-        line-height: 30px;
-        padding: 0 50px;
-    }
+   /* 手写table */
+   
+   .table-sx .table-ip {
+       color: #3199F7;
+   }
+   
+   .table-sx .table-remove {
+       cursor: pointer;
+       color: #FF5C0B;
+   }
+   /* 顶部 */
+   
+   button.right {
+       font-size: 14px;
+       padding: 5px 20px;
+       color: #fff;
+       background: #3199F7;
+       border: 1px solid #4597E0;
+       border-radius: 2px;
+   }
+   
+   button.lead {
+       padding: 5px 30px;
+       margin-left: 30px;
+   }
+   
+   .talktop .right {
+       margin-top: 4px;
+   }
+   
+   .talktop {
+       font-size: 28px;
+       color: #333333;
+       padding-top: 20px;
+       margin: 0px 0 20px 10px;
+   }
+   
+   input.search {
+       font-size: 14px;
+       padding-left: 15px;
+       margin: 0 5px;
+       height: 30px;
+       color: #999999;
+       border: 1px solid #E7EAEC;
+   }
+   
+   .layui-table tbody tr:hover,
+   .layui-table-click,
+   .layui-table-header,
+   .layui-table-hover,
+   .layui-table-mend,
+   .layui-table-patch,
+   .layui-table-tool,
+   .layui-table[lay-even] tr:nth-child(even) {
+       background-color: transparent;
+   }
+   
+   .layui-table {
+       color: #4D4F50;
+   }
+   
+   .layui-table-view .layui-table th {
+       background: #F7F9FB;
+       color: #424547;
+       height: 36px;
+       font-weight: bold;
+   }
+   
+   .layui-table-view .layui-table td {
+       height: 50px;
+       background: #fff;
+       color: #4D4F50;
+   }
+   
+   body .removeblacklist .layui-layer-btn a {
+       width: 140px;
+       height: 34px;
+       line-height: 34px;
+       color: #fff;
+       margin-bottom: 20px;
+       /* border-top: 1px solid #E7EAEC; */
+   }
+   
+   body .removeblacklist .layui-layer-btn a.layui-layer-btn1 {
+       background: #9FB1C0;
+       margin-left: 30px;
+   }
+   
+   .center {
+       text-align: center;
+   }
+   
+   .comfirmdo {
+       margin-top: 50px;
+       font-family: PingFangSC-Regular;
+       font-size: 24px;
+       color: #676A6C;
+       text-align: center;
+       line-height: 30px;
+       padding: 0 50px;
+   }

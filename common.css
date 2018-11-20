@@ -47,3 +47,28 @@ input:-webkit-autofill {
 input {
     background-color: rgba(255, 255, 255, 0.6);
 }
+
+.table-sx {
+    font-size: 14px;
+    border: 1px solid #E7EAEC;
+}
+
+th {
+    height: 38px;
+    background: #F7F9FB;
+}
+
+.table-sx th,
+.table-sx td {
+    text-align: left;
+    color: #4D4F50;
+    padding: 0 15px;
+}
+
+.table-sx td {
+    height: 50px;
+}
+
+.table-sx tr {
+    border-top: 1px solid #E7EAEC;
+}

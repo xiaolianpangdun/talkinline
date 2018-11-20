@@ -122,32 +122,7 @@
                     skin: 'addkind1',
                     shadeClose: false,
                     btnAlign: 'c', //按钮居中显示
-                    // btn: ['确定'],
-                    yes: function(index, layero) {
-
-                        // console.log(data);
-                        // $.ajaxFileUpload({
-                        //     url: url + '/interview/create',
-                        //     secureuri: false, //一般设置为false
-                        //     async: true,
-                        //     fileElementId: fileid, //文件上传空间的id属性
-                        //     dataType: 'text/html', //返回值类型 一般设置为json
-                        //     data: data,
-                        //     type: 'post',
-                        //     success: function(data, status) //服务器成功响应处理函数
-                        //         {},
-                        //     error: function(data, status, e) //服务器响应失败处理函数
-                        //         {
-                        //             // console.log(data, status);
-                        //             pagecurrent(1);
-                        //             table.reload('tbtalkmanage', {
-                        //                     url: url + '/interview/list?currentPage=1&pageSize=10'
-                        //                 })
-                        //                 //     layer.msg("服务器繁忙，请刷新重试！");
-                        //             layer.close(index);
-                        //         }
-                        // });
-                    },
+                    yes: function(index, layero) {},
                     end: function() {
                         $("#addadvance").hide();
                         $("#addadvance input[type='text'],.talkintro").val("");
@@ -171,8 +146,7 @@
         var typecheck = $("#addadvance .ddd").hasClass("checked");
         var compere = $("#addadvance input.compere").val();
         var description = $("#addadvance .talkintro").val();
-        var guests = document.getElementsByClassName("guestlists");
-        var length = guests.length;
+        var length = $(".guestlists").length;
         var file = $("#addadvance input[id='beforefileUp']")[0].files[0];
         if (!name) { layer.msg("请输入访谈名称"); return false; }
         if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
@@ -225,9 +199,6 @@
             success: function(res) {
                 if (res.code == 0) {
                     pagecurrent(1);
-                    table.reload('tbtalkmanage', {
-                        url: url + '/interview/list?currentPage=1&pageSize=10'
-                    });
                     layer.closeAll();
                     layer.msg("新增成功！");
                 } else {
@@ -247,8 +218,7 @@
         var name = $("#addinlinetalk .talkname").val();
         var beginTime = $("#addinlinetalk #starttime").val();
         var endTime = $("#addinlinetalk #endtime").val();
-        var guests = document.getElementsByClassName("guestlists");
-        var length = guests.length;
+        var length = $(".guestlists").length;
         var isvideo = $("#addinlinetalk .checked").hasClass("talkvideo");
         var typecheck = $("#addinlinetalk .ddd").hasClass("checked");
         if (isvideo) { type = 0 } else { type = 1 }
@@ -295,9 +265,6 @@
             success: function(res) {
                 if (res.code == 0) {
                     pagecurrent(1);
-                    table.reload('tbtalkmanage', {
-                        url: url + '/interview/list?currentPage=1&pageSize=10'
-                    });
                     layer.closeAll();
                     layer.msg("新建成功！");
                 } else {
@@ -328,56 +295,146 @@
         elem: '#endtime1',
         type: 'datetime'
     });
-    // 表格
-    var table = layui.table;
-    table.render({
-        elem: '#tbtalkmanage',
-        skin: 'line',
-        loading: true,
-        // cellMinWidth: 200,
-        // url: '../data.json',
-        url: url + '/interview/list?currentPage=1&pageSize=10',
-        // parseData: function(res) { //res 即为原始返回的数据
-        //     return {
-        //         "code": 0, //解析接口状态
-        //         "msg": res.message, //解析提示文本
-        //         "count": res.result.total, //解析数据长度
-        //         "data": res.result.list //解析数据列表
-        //     };
-        // },
-        cols: [
-            [ //表头
-                {
-                    field: 'interviewId',
-                    title: '序号',
-                    width: '10%',
-                    unresize: true
-                }, {
-                    field: 'name',
-                    title: '访谈名称',
-                    width: '20%',
-                    unresize: true
-                }, {
-                    field: 'status',
-                    title: '访谈状态',
-                    width: '14%',
-                    templet: '#talk',
-                    unresize: true
-                }, {
-                    field: 'type',
-                    title: '类型',
-                    width: '14%',
-                    templet: '#talktype',
-                    unresize: true
-                }, {
-                    field: 'as',
-                    title: '操作',
-                    minWidth: 336,
-                    toolbar: '#handle',
-                    unresize: true
+    // 手写表格
+    function tablerender(pageNum) {
+        $.ajax({
+            type: "get",
+            url: url + '/interview/list?currentPage=' + pageNum + '&pageSize=10',
+            success: function(data) {
+                var tbody = "";
+                $.each(data.data, function(i, obj) {
+                    tbody += '<tr>';
+                    tbody += '<td>' + obj.interviewId + '</td>';
+                    tbody += '<td>' + obj.name + '</td>';
+                    if (obj.status == "0") {
+                        tbody += '<td style="color:#FF9E00;">未开始</td>';
+                        if (obj.type == "0")
+                            tbody += '<td>视频预告</td>';
+                        if (obj.type == "1")
+                            tbody += '<td>图文预告</td>';
+                    } else {
+                        if (obj.status == "1") {
+                            tbody += '<td style="color:#0EB65C;">进行中</td>';
+                        } else {
+                            tbody += '<td>已结束</td>';
+                        }
+                        if (obj.type == "0")
+                            tbody += '<td>视频访谈</td>';
+                        if (obj.type == "1")
+                            tbody += '<td>图文访谈</td>';
+                    }
+                    tbody += '<td><span data-id="' + obj.interviewId + '" data-status="' + obj.status + '" class="table-edit"><img src="../../img/edit.png" alt="">设置访谈详情</span>';
+                    if (obj.status == "1") {
+                        tbody += '<span data-id="' + obj.interviewId + '" class="table-end">结束访谈</span>';
+                    } else {
+                        tbody += '<span class="table-end1">结束访谈</span>';
+                    }
+                    tbody += ' <span data-id="' + obj.interviewId + '" data-status="' + obj.status + '" class="table-remove"><img style="position:relative;top:-2px;" src="../../img/del2.png" alt="">删除</span>';
+                    tbody += '</td></tr>';
+                });
+                $(".table-tbody").html(tbody);
+            }
+        });
+    };
+    // 设置访谈详情
+    $(".table-tbody").on("click", "span.table-edit", function(event) {
+        var that = $(event.target);
+        var interviewId = that.attr("data-id");
+        var status = that.attr("data-status");
+        console.log(interviewId, status);
+        window.localStorage.setItem("link", "two");
+        window.localStorage.setItem("interviewId", interviewId);
+        window.localStorage.setItem("status", status);
+        window.localStorage.setItem("kind", "talkmanage");
+        parent.location.reload();
+    });
+    // 点击结束访谈
+    $(".table-tbody").on("click", "span.table-end", function(event) {
+        var that = $(event.target);
+        var interviewId = that.attr("data-id");
+        layer.open({
+            type: 1,
+            area: ['480px', '360px'],
+            title: ['', "background:#fff;border:0"], //'在线调试',
+            content: $("#endtalkpopup"),
+            shade: [0.2, '#393D49'],
+            skin: 'end',
+            shadeClose: false,
+            btnAlign: 'c', //按钮居中显示
+            btn: ['确定', '取消'],
+            yes: function(index, layero) {
+                $.ajax({
+                    type: 'post',
+                    url: url + '/interview/edit',
+                    data: { interviewId: interviewId, status: 2 },
+                    success: function() {
+                        var pagenum = window.localStorage.getItem("pagenum");
+                        pagecurrent(pagenum);
+                        layer.close(index);
+                    },
+                    error: function() {
+                        layer.msg("结束访谈失败");
+                    }
+                });
+            },
+            end: function() {
+                $("#endtalkpopup").hide();
+            }
+        });
+    });
+    // 点击删除访谈
+    $(".table-tbody").on("click", "span.table-remove", function(event) {
+        var that = $(event.target);
+        var interviewId = that.attr("data-id");
+        var status = that.attr("data-status");
+        if (status == "1") {
+            layer.open({
+                type: 1,
+                area: ['480px', '360px'],
+                title: ['', "background:#fff;border:0"], //'在线调试',
+                content: $("#cannotdel"),
+                shade: [0.2, '#393D49'],
+                skin: 'end',
+                shadeClose: false,
+                time: 2000,
+                btnAlign: 'c', //按钮居中显示
+                btn: [],
+                yes: function(index, layero) {},
+                end: function() {
+                    $("#cannotdel").hide();
                 }
-            ]
-        ],
+            });
+        } else {
+            layer.open({
+                type: 1,
+                area: ['480px', '360px'],
+                title: ['', "background:#fff;border:0"], //'在线调试',
+                content: $("#candel"),
+                shade: [0.2, '#393D49'],
+                skin: 'end',
+                shadeClose: true,
+                btnAlign: 'c', //按钮居中显示
+                btn: ['确定', '取消'],
+                yes: function(index, layero) {
+                    $.ajax({
+                        type: 'get',
+                        url: url + '/interview/remove?id=' + interviewId,
+                        success: function() {
+                            var pagenum = window.localStorage.getItem("pagenum");
+                            pagecurrent(pagenum);
+                            layer.msg("删除成功！");
+                            layer.close(index);
+                        },
+                        error: function() {
+                            layer.msg("服务器繁忙。删除失败！");
+                        }
+                    });
+                },
+                end: function() {
+                    $("#candel").hide();
+                }
+            });
+        }
     });
     //分页
     function pagecurrent(pagenum) {
@@ -407,10 +464,7 @@
                         var curr = obj.curr, //得到当前页，以便向服务端请求对应页的数据。
                             limit = obj.limit; //得到每页显示的条数
                         window.localStorage.setItem("pagenum", curr);
-                        if (!first)
-                            table.reload('tbtalkmanage', {
-                                url: url + '/interview/list?currentPage=' + curr + '&pageSize=10'
-                            })
+                        tablerender(curr);
                     }
                 });
             },
@@ -420,103 +474,6 @@
         });
     };
     pagecurrent(1);
-    // 表格点击事件
-    table.on('tool(tbtalkmanage)', function(obj) { //注：tool是工具条事件名，tbtalkmanage是table原始容器的属性 lay-filter="对应的值"
-        var data = obj.data;
-        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的DOM对象
-        var interviewId = obj.data.interviewId;
-        var status = obj.data.status;
-        // console.log(interviewId);
-        if (layEvent === 'endtalk') { //查看
-            layer.open({
-                type: 1,
-                area: ['480px', '360px'],
-                title: ['', "background:#fff;border:0"], //'在线调试',
-                content: $("#endtalkpopup"),
-                shade: [0.2, '#393D49'],
-                skin: 'end',
-                shadeClose: false,
-                btnAlign: 'c', //按钮居中显示
-                btn: ['确定', '取消'],
-                yes: function(index, layero) {
-                    $.ajax({
-                        type: 'post',
-                        url: url + '/interview/edit',
-                        data: { interviewId: interviewId, status: 2 },
-                        success: function() {
-                            table.reload('tbtalkmanage');
-                            layer.close(index);
-                        },
-                        error: function() {
-                            alert("修改失败");
-                        }
-                    });
-                },
-                end: function() {
-                    $("#endtalkpopup").hide();
-                }
-            });
-        } else if (layEvent === 'delete') { //删除
-            // console.log(data);
-            if (data.status == "1") {
-                layer.open({
-                    type: 1,
-                    area: ['480px', '360px'],
-                    title: ['', "background:#fff;border:0"], //'在线调试',
-                    content: $("#cannotdel"),
-                    shade: [0.2, '#393D49'],
-                    skin: 'end',
-                    shadeClose: false,
-                    time: 2000,
-                    btnAlign: 'c', //按钮居中显示
-                    btn: [],
-                    yes: function(index, layero) {},
-                    end: function() {
-                        $("#cannotdel").hide();
-                    }
-                });
-            } else {
-                layer.open({
-                    type: 1,
-                    area: ['480px', '360px'],
-                    title: ['', "background:#fff;border:0"], //'在线调试',
-                    content: $("#candel"),
-                    shade: [0.2, '#393D49'],
-                    skin: 'end',
-                    shadeClose: true,
-                    btnAlign: 'c', //按钮居中显示
-                    btn: ['确定', '取消'],
-                    yes: function(index, layero) {
-                        $.ajax({
-                            type: 'get',
-                            url: url + '/interview/remove?id=' + interviewId,
-                            success: function() {
-                                table.reload('tbtalkmanage');
-                                var pagenum = window.localStorage.getItem("pagenum");
-                                pagecurrent(pagenum);
-                                layer.msg("删除成功！");
-                                layer.close(index);
-                            },
-                            error: function() {
-                                layer.msg("服务器繁忙。删除失败！");
-                            }
-                        });
-                    },
-                    end: function() {
-                        $("#candel").hide();
-                    }
-                });
-            }
-        } else if (layEvent === 'talkdetail') { //编辑
-            window.localStorage.setItem("link", "two");
-            window.localStorage.setItem("interviewId", interviewId);
-            window.localStorage.setItem("status", status);
-            window.localStorage.setItem("kind", "talkmanage");
-            parent.location.reload();
-        }
-    });
-
     // div标签改变选中样式
     $(".selecttype").click(function() {
         $(".ddd").removeClass("checked");

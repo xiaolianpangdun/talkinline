@@ -25,6 +25,36 @@
 }
 
 
+/* 手写表格 */
+
+.table-edit,
+.table-end1,
+.table-end {
+    color: #01AAED;
+    margin-right: 12%;
+    cursor: pointer;
+}
+
+.table-end1,
+.table-end {
+    padding: 5px 15px;
+}
+
+.table-end:hover {
+    background: #E2EDF8;
+}
+
+.table-end1 {
+    color: #999;
+    cursor: auto;
+}
+
+.table-remove {
+    color: #FF5500;
+    cursor: pointer;
+}
+
+
 /* layui表格样式修改 */
 
 .layui-laydate .layui-this {
