@@ -108,7 +108,8 @@ $(function () {
 
   // 直播详情 ========== 数据渲染
   
-  $.ajaxSetup({cache:false}) 
+  $.ajaxSetup({cache:false});
+  
   var DirectSeedingDetails = function(){
 
     $.ajax({
@@ -233,7 +234,7 @@ $(function () {
             var vedio = data.data.videoUrl;
 
             $('#vedioBox').attr("src",vedio);
-            
+
           }
          
 

@@ -13,11 +13,14 @@
   <title>在线访谈后台管理系统</title>
 
   <!-- 引入jquery2.0以下的版本 -->
-  <script src="js/jquery.js"></script>
+  <!-- <script src="js/jquery.js"></script> -->
+  <script src="js/jquery.1.8.3.min.js"></script>
 
-  <!-- <script>
-    jQuery.support.cors = true;
-  </script> -->
+  <script>
+    console.log(jQuery.support.cors);
+    jQuery.support.cors = true; 
+    console.log(jQuery.support.cors);
+  </script>
 
   <!-- 引入layui -->
   <link rel="stylesheet" href="../layui/css/layui.css">
@@ -30,9 +33,6 @@
   <!-- 引入页面css、js-->
   <link rel="stylesheet" href="css/TwoMenu.css">
   <script src="js/TwoMenu.js"></script>
-  
-  <!-- 引入复制功能需要的JS -->
-  <!-- <script src="js/clipboard.min.js"></script> -->
 
   <!-- 引入上传的插件 -->
   <script src="../one/js/ajaxfileupload1.js"></script>
@@ -234,6 +234,7 @@
 
         <!-- 提问和回复 -->
         <div class="item3">
+
           <div class="questions nav_questions" style="display: block;" id="questions">
             <div class="questions_top">
               <div class="batch_management">批量管理</div>
@@ -598,10 +599,6 @@
 
 </div>
 
-<script>
-  jQuery.support.cors = true;
-</script>
-
 
 
 <script>
@@ -617,6 +614,8 @@
   var status = localStorage.getItem("status");
 
   console.log('访谈状态 ======', status);
+
+
 
 
   /**
@@ -680,6 +679,9 @@
       $('.add').css('border', '1px solid #CFCFCF');
       $('.add').css('color', '#CFCFCF');
 
+      $('.questions').css('display','none');
+      $('.reply').css('display','block');
+
     }
 
   } else if (kind == "history") {
@@ -692,11 +694,17 @@
     $('.add').css('border', '1px solid #CFCFCF');
     $('.add').css('color', '#CFCFCF');
 
-
+    $('.questions').css('display','none');
+    $('.reply').css('display','block');
 
   };
 
 
+
+
+
+
+  
 
 
 </script>
