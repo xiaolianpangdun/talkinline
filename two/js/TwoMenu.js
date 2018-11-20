@@ -126,24 +126,24 @@ $(function () {
         if(data.code == 0){
 
           // 把获取到的数据保存到本地
-          localStorage.setItem('Details',JSON.stringify(data.result));
+          localStorage.setItem('Details',JSON.stringify(data.data));
 
           // 把访谈预告保存到本地，当切换场景的时候就切换数据
-          localStorage.setItem('preVideoUrl',data.result.preVideoUrl);
+          localStorage.setItem('preVideoUrl',data.data.preVideoUrl);
 
-          localStorage.setItem('prePicUrl',data.result.prePicUrl);
+          localStorage.setItem('prePicUrl',data.data.prePicUrl);
 
           // 直播详情的数据渲染
-          $('#TalkName').text(data.result.name);
-          $('#TalkNumber').text(data.result.interviewId);
+          $('#TalkName').text(data.data.name);
+          $('#TalkNumber').text(data.data.interviewId);
 
           // 是什么类型就选中什么类型
-          if(data.result.type == 0){
+          if(data.data.type == 0){
             $('.radio_item').eq(0).children('.check_out').addClass('image');
             $('#TalkScene').text('视频直播')
             // $('.radio_item').eq(0).children('.check_out').css('border','0');
             $('.video_0').text('视频');
-          }else if(data.result.type == 1){
+          }else if(data.data.type == 1){
             $('.radio_item').eq(1).children('.check_out').addClass('image');
             $('#TalkScene').text('图文直播')
             // $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
@@ -151,19 +151,19 @@ $(function () {
           };
 
           // 访谈场景得渲染
-          if (data.result.status == 0) {
+          if (data.data.status == 0) {
 
-            if(data.result.type == 0){
+            if(data.data.type == 0){
 
               $('#conversion').text('转为在线视频访谈');
 
-              if(data.result.preVideoUrl != null){
+              if(data.data.preVideoUrl != null){
 
-                $('.vedio_link').text(data.result.preVideoUrl);
+                $('.vedio_link').text(data.data.preVideoUrl);
   
                 $('.uplink_text').text('重新上传');
   
-              }else if(data.result.preVideoUrl == null){
+              }else if(data.data.preVideoUrl == null){
   
                 $('.vedio_link').text('无文件');
   
@@ -171,17 +171,17 @@ $(function () {
   
               }
 
-            }else if(data.result.type == 1){
+            }else if(data.data.type == 1){
 
               $('#conversion').text('转为在线图文访谈');
 
-              if(data.result.prePicUrl != null){
+              if(data.data.prePicUrl != null){
 
-                $('.vedio_link').text(data.result.prePicUrl);
+                $('.vedio_link').text(data.data.prePicUrl);
   
                 $('.uplink_text').text('重新上传');
   
-              }else if(data.result.prePicUrl == null){
+              }else if(data.data.prePicUrl == null){
   
                 $('.vedio_link').text('无文件');
   
@@ -190,7 +190,7 @@ $(function () {
               }
             }
             
-          } else if (data.result.status == 1) {
+          } else if (data.data.status == 1) {
 
             // 转为在线直播，要修改的一系列东西
             $('#conversion').css('display','none');
@@ -211,40 +211,68 @@ $(function () {
 
             $('.video_linkss').css('display','none');
 
-          }else if(data.result.status == 2){
+          }else if(data.data.status == 2){
+
+            if(data.data.type == 1){
+
+              $('.ddd').css('display','none')
+
+            }
 
 
           }
           
-          $('#compere').text(data.result.compere);
-          $('.time1').text(data.result.beginTime);
-          $('.time2').text(data.result.endTime);
-          $('#text_brief').text(data.result.description);
+          $('#compere').text(data.data.compere);
+          $('.time1').text(data.data.beginTime);
+          $('.time2').text(data.data.endTime);
+          $('#text_brief').text(data.data.description);
+
+          // 视频回放
+          if(data.data.videoUrl != null){
+
+            var vedio = data.data.videoUrl;
+
+            $('#vedioBox').attr("src",vedio);
+            
+          }
+         
+
 
           // 视频下载
-          if(data.result.videoUrl != null){
+          // console.log($('#vedio'))
+          //if(data.data.videoUrl != null){
 
-            var size = data.result.videoSize/1024/1024;
-            //var lastsize = size.toFixed(2)
+            
 
-            console.log(size)
-            console.log(lastsize)
+            //$('#vedioBox').src('')
 
-            var VedioStr = [];
+            // var size = data.data.videoSize/1024/1024;
+            // var lastsize = size.toFixed(2)
+
+            // console.log(size)
+            // console.log(lastsize)
+
+            // var VedioStr = [];
+
+            // VedioStr += '<video id="vedio" style="width: 100%;height: 100%;" controls="controls">';
+            // VedioStr += '<source src="'+'http://192.168.0.71:8090/17093e0b-c1f2-451a-a8c5-a7ef27779708.mp4'+'" type="rtmp/flv">';
+            // VedioStr += '</video>'
       
-            VedioStr += '<div class="vedio">';
-            VedioStr += '<P style="margin: 0;width: 42%">';
-            VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
-            VedioStr += '<span class="vedio_title">'+data.result.name+'</span>';
-            VedioStr += '</p>';
-            VedioStr += '<p class="vedio_size">'+data.result.updateTime+'</p>';
-            VedioStr += '<p style="width: 28%" class="vedio_time">'+lastsize+'M'+'</p>';
-            VedioStr += '<a href="'+data.result.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
-            VedioStr += '</div>';
+            // VedioStr += '<div class="vedio">';
+            // VedioStr += '<P style="margin: 0;width: 42%">';
+            // VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
+            // VedioStr += '<span class="vedio_title">'+data.data.name+'</span>';
+            // VedioStr += '</p>';
+            // VedioStr += '<p class="vedio_size">'+data.data.updateTime+'</p>';
+            // VedioStr += '<p style="width: 28%" class="vedio_time">'+lastsize+'M'+'</p>';
+            // VedioStr += '<a href="'+data.data.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
+            // VedioStr += '</div>';
+
+            //console.log(VedioStr);
       
-            $('.vedio_vedio').html(VedioStr);
-            $(".download").attr("download",data.result.videoUrl); 
-          }
+            //$('.vedio').html(VedioStr);
+            //$(".download").attr("download",data.data.videoUrl); 
+         // }
 
         }
   
@@ -272,9 +300,9 @@ $(function () {
         interviewId: talkNum
       },
       success: function (data, textStatus, jqXHR) {
-        console.log('获取到嘉宾的列表 ======== ', data.result)
+        console.log('获取到嘉宾的列表 ======== ', data.data)
   
-        localStorage.setItem("Speak",JSON.stringify(data.result));
+        localStorage.setItem("Speak",JSON.stringify(data.data));
   
         // 网友提问的回复弹窗里面的嘉宾列表
         var select = '';
@@ -286,7 +314,7 @@ $(function () {
   
         var Test = '';
   
-        $.each(data.result, function (i, obj) {
+        $.each(data.data, function (i, obj) {
 
           select += '<option value="">' + obj.name + '</option>';
           
@@ -922,11 +950,7 @@ $(function () {
         // 如果请求成功的话
         if (data.code == 0) {
   
-          var UserList = data.result.list;
-
-          //localStorage.setItem('UserS',JSON.stringify(data.result.list));
-  
-          console.log('用户列表接口请求成功 ======== ', data.result);
+          var UserList = data.data.list;
   
           console.log('用户列表 ======== ', UserList);
   
@@ -943,7 +967,7 @@ $(function () {
   
           });
           $('.tab_tr').html(users);
-          $('.viewing_number').html(data.result.total);
+          $('.viewing_number').html(data.data.total);
   
   
         }
@@ -974,13 +998,15 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR){
 
+        console.log(data)
+
         layui.use('laypage', function(){
 
           var laypage = layui.laypage;
 
           laypage.render({
             elem: 'UserPage'
-            ,count: data.result.total
+            ,count: data.data.total
             ,theme: '#4597E0'
             ,curr: location.hash.replace('#!UserNow=', UserNow)
             ,hash: 'UserNow'
@@ -1093,12 +1119,14 @@ $(function () {
         pageSize: 5
       },
       success: function (data, textStatus, jqXHR) {
+
+        console.log(data);
         
         // 如果成功的话，就执行下面的代码
         if (data.code == 0) {
             
           // 提问列表的数据列表
-          var lists = data.result.list;
+          var lists = data.data.list;
           console.log('网友提问的列表 ========== ',lists);
             
           // 创建空数组
@@ -1183,7 +1211,7 @@ $(function () {
             //执行一个laypage实例
             laypage.render({
               elem: 'QuestionPage'
-              ,count: data.result.total//数据总数，从服务端得到
+              ,count: data.data.total//数据总数，从服务端得到
               ,theme: '#4597E0'
               ,curr: location.hash.replace('#!ProblemCurr=', ProblemCurr)
               ,hash: 'ProblemCurr'
@@ -1233,9 +1261,11 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
 
+        //console.log('审核回复 ========= ',data)
+
         if(data.code == 0){
 
-          var replyList = data.result.list;
+          var replyList = data.data.list;
           console.log('审核回复列表 ============ ',replyList);
 
 
@@ -1463,6 +1493,8 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR){
 
+        console.log('回复列表 ======== ',data);
+
         if(data.code == 0){
 
           layui.use('laypage', function(){
@@ -1472,7 +1504,7 @@ $(function () {
             //执行一个laypage实例
             laypage.render({
               elem: 'ReplyPage'
-              ,count: data.result.total//数据总数，从服务端得到
+              ,count: data.total//数据总数，从服务端得到
               ,theme: '#4597E0'
               ,curr: location.hash.replace('#!ReplyCurr=', ReplyCurr)
               ,hash: 'ReplyCurr'
@@ -2091,16 +2123,16 @@ $(function () {
         pageSize: 12
       }),
       success: function (data, textStatus, jqXHR) {
+
         console.log('图片 ======== ',data);
         // 如果请求成功的话
         if (data.code == 0) {
 
           // 分页
-          //ImagePage(data.result.total);
   
-          localStorage.setItem("ImageTotal",data.result.total);
+          localStorage.setItem("ImageTotal",data.total);
   
-          var ImgList = data.result.list;
+          var ImgList = data.data.list;
   
           console.log(ImgList);
   
@@ -2112,7 +2144,8 @@ $(function () {
             Img += '<div class="picture_chexbox" data-id="' + ImgList[i].picId + '">';
             Img += '</div>';
             Img += '<div class="imagess">';
-            Img += '<div class="imagess_main" style="background:url(' + obj.picUrl + ');background-size: 100%">';
+            Img += '<div class="imagess_main">';
+            Img += '<img src="'+obj.picUrl+'" alt="">';
             Img += '</div>';
             Img += '</div>';
             Img += '<p>' + obj.updateTime + '</p>';
@@ -2153,7 +2186,6 @@ $(function () {
   
         }
   
-        console.log(data.result)
   
       },
       error: function (xhr, textStatus) {
@@ -2187,7 +2219,7 @@ $(function () {
           //执行一个laypage实例
           laypage.render({
             elem: 'ImagePage'
-            ,count: data.result.total//数据总数，从服务端得到
+            ,count: data.total//数据总数，从服务端得到
             ,theme: '#4597E0'
             ,curr: location.hash.replace('#!ImageCurr=', ImageCurr)
             ,hash: 'ImageCurr'
@@ -2395,11 +2427,11 @@ $(function () {
         pageSize: 5,
       },
       success: function (data, textStatus, jqXHR) {
-        console.log(data.result.list);
+        console.log(data.data.list);
 
-        localStorage.setItem("TextTotal",data.result.total);
+        localStorage.setItem("TextTotal",data.data.total);
 
-        var TextList = data.result.list;
+        var TextList = data.data.list;
 
         var Texts = '';
 
@@ -2560,6 +2592,8 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
 
+        console.log('文字实录 ======' ,data)
+
         if(data.code == 0){
 
           layui.use('laypage', function(){
@@ -2569,7 +2603,7 @@ $(function () {
             //执行一个laypage实例
             laypage.render({
               elem: 'TextPage'
-              ,count: data.result.total//数据总数，从服务端得到
+              ,count: data.data.total//数据总数，从服务端得到
               ,theme: '#4597E0'
               ,limit: 5
               ,curr: location.hash.replace('#!TextCurr=', TextCurr)
@@ -2827,42 +2861,42 @@ $(function () {
   
 
   // 视频上传
-  $('#VedioUpdata').change(function(e){
+  // $('#VedioUpdata').change(function(e){
 
-    var files = e.currentTarget.files[0].name;
+  //   var files = e.currentTarget.files[0].name;
 
-    console.log('选择文件的名称 ========', files);
+  //   console.log('选择文件的名称 ========', files);
 
-    $('#formvedio').ajaxSubmit({
-      forceSync: false,
-      url: TheServer + '/interview/uploadVideo',
-      type: 'post',
-      dataType: 'json',
-      data: {
-        interviewId: talkNum,
-        file: files
-      },
-      restForm: true,
-      clearForm: true,
-      success: function(res) {
-          console.log('请求上传视频的接口 ========== ',res);
-        if(res.code == 0){
-          DirectSeedingDetails();
-          console.log('执行了');
-          //Vedio();
+  //   $('#formvedio').ajaxSubmit({
+  //     forceSync: false,
+  //     url: TheServer + '/interview/uploadVideo',
+  //     type: 'post',
+  //     dataType: 'json',
+  //     data: {
+  //       interviewId: talkNum,
+  //       file: files
+  //     },
+  //     restForm: true,
+  //     clearForm: true,
+  //     success: function(res) {
+  //         console.log('请求上传视频的接口 ========== ',res);
+  //       if(res.code == 0){
+  //         DirectSeedingDetails();
+  //         console.log('执行了');
+  //         //Vedio();
 
-        }
-      },
-      error: function(data){
+  //       }
+  //     },
+  //     error: function(data){
 
-        console.log('请求失败 ======== ',data)
+  //       console.log('请求失败 ======== ',data)
 
-      },
+  //     },
 
-    })
+  //   })
   
 
-  });
+  // });
 
 
 

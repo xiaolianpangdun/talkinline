@@ -59,7 +59,7 @@
         <li>互动设置</li>
         <li class="status_0">现场图片</li>
         <li class="status_0">文字实录</li>
-        <li class="status_0 status_1 ddd">视频下载</li>
+        <li class="status_0 status_1 ddd">视频回放</li>
       </ul>
      
     </div>
@@ -343,7 +343,6 @@
               </div>
               <p>2018-10-29 14:52</p>
             </div> -->
-
           </div>
           <div class="PageNum">
             <div id="ImagePage" style="margin-top: 30px;"></div>
@@ -399,12 +398,30 @@
       <!-- 文字实录  end -->
 
 
-
-      <!-- 视频下载  start -->
+      <!-- 视频回放   start -->
       <div class="menu status_0">
-
         <!-- 标题 -->
         <div class="title" style="margin-bottom: 0">
+          <p style="border: 0">视频回放</p>
+        </div>
+
+        <!-- 视频播放 -->
+        <div class="vedio">
+          <video id="vedio" style="width: 100%;height: 100%;" controls data-setup="{}">
+            <source id='vedioBox' type="video/mp4" src="http://192.168.0.71:8090/17093e0b-c1f2-451a-a8c5-a7ef27779708.mp4">
+          </video>
+        </div>
+
+      </div>
+      <!-- 视频回放   end -->
+
+
+
+      <!-- 视频回放  start -->
+      <!-- <div class="menu status_0"> -->
+
+        <!-- 标题 -->
+        <!-- <div class="title" style="margin-bottom: 0">
           <p style="border: 0">访谈视频文件</p>
         </div>
 
@@ -414,7 +431,7 @@
           </form>
         </div>
 
-        <div class="vedio_vedio"></div>
+        <div class="vedio_vedio"></div> -->
         <!-- <div class="vedio">
           <P style="margin: 0;width: 42%">
             <img src="../img/vedio.png" alt="">
@@ -425,8 +442,8 @@
           <p class="download" style="width: 10%;cursor: pointer;">下载视频</p>
         </div> -->
 
-      </div>
-      <!-- 视频下载  end -->
+      <!-- </div> -->
+      <!-- 视频回放  end -->
 
 
 
