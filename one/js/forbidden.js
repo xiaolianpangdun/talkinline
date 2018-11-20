@@ -5,6 +5,7 @@
         upload = layui.upload,
         keyWord = '';
     // $ = layui.$;
+    jQuery.support.cors = true;
     $.ajaxSetup({ cache: false });
     var url = window.localStorage.getItem("backstage");
     // 数据渲染

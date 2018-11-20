@@ -2,6 +2,8 @@
 ! function() {
     var table = layui.table,
         layer = layui.layer;
+    jQuery.support.cors = true;
+    $.ajaxSetup({ cache: false });
     // $ = layui.$;
     var url = window.localStorage.getItem("backstage");
     (function() {

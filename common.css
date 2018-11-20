@@ -39,3 +39,11 @@ html {
     margin: 0;
     padding: 0;
 }
+
+input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input {
+    background-color: rgba(255, 255, 255, 0.6);
+}

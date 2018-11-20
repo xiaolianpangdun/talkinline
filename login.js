@@ -1,7 +1,6 @@
 ;
 ! function() {
-    var $ = layui.$,
-        form = layui.form;
+    var form = layui.form;
     var name = window.localStorage.getItem("tkilname");
     var upwd = window.localStorage.getItem("tkilupwd");
     window.localStorage.setItem("backstage", "http://192.168.0.71:8080");

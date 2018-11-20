@@ -2,6 +2,8 @@
 ! function() {
     // var $ = layui.$;
     var url = window.localStorage.getItem("backstage");
+    jQuery.support.cors = true;
+    $.ajaxSetup({ cache: false });
     (function() {
         $.ajax({
             type: "get",

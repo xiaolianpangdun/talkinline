@@ -2,7 +2,7 @@
 ! function() {
     var upload = layui.upload;
     var url = window.localStorage.getItem("backstage");
-    // jQuery.support.cors = true;
+    jQuery.support.cors = true;
     $.ajaxSetup({ cache: false });
     // 点击添加嘉宾弹框
     $(".addguest").click(function() {
@@ -80,72 +80,6 @@
                     btnAlign: 'c', //按钮居中显示
                     // btn: ['确定'],
                     yes: function(index, layero) {
-
-
-                        if (type == 1 && !(!file1 && !file2)) {
-                            if (file1) {
-                                var filetype = file1.type;
-                                var size = file1.size;
-                            } else if (file2) {
-                                var filetype = file2.type;
-                                var size = file2.size;
-                            }
-                            if (filetype.indexOf("/") > 0) {
-                                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
-                            }
-                            filetype = filetype.toLowerCase();
-                            if (filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm") {
-                                layer.msg("请上传符合格式(jpg|jpeg|png|gif|bpm)的图片");
-                                return false;
-                            }
-                            if (size / 1024 / 1024 > 10) {
-                                layer.msg("您的图片文件超过10兆！");
-                                return false;
-                            }
-                        }
-                        var data = {
-                            name: name,
-                            speakername: speakername,
-                            status: status,
-                            type: type,
-                            beginTime: beginTime,
-                            endTime: endTime,
-                            compere: compere,
-                            description: description
-                        };
-                        $.ajaxFileUpload({
-                            url: url + '/interview/create',
-                            secureuri: false, //一般设置为false
-                            fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'jsonp', //返回值类型 一般设置为json
-                            data: data,
-                            type: 'post',
-                            success: function(data, status) //服务器成功响应处理函数
-                                {
-                                    console.log(data);
-                                    if (status == "success") {
-                                        layer.msg("上传成功");
-                                        // var pagenum = window.localStorage.getItem("pagenum");
-                                        pagecurrent(1);
-                                        table.reload('tbtalkmanage', {
-                                            url: url + '/interview/list?currentPage=1&pageSize=10'
-                                        })
-                                        layer.close(index);
-                                    } else {
-                                        layer.msg("上传失败,请重试！");
-                                        // layer.close(index);
-                                    }
-
-                                },
-                            error: function(data, status, e) //服务器响应失败处理函数
-                                {
-                                    pagecurrent(1);
-                                    table.reload('tbtalkmanage', {
-                                        url: url + '/interview/list?currentPage=1&pageSize=10'
-                                    })
-                                    layer.close(index);
-                                }
-                        });
                         // $.ajax({
                         //     type: 'post',
                         //     // contentType: 'application/form-data;charset=utf-8',
@@ -192,27 +126,27 @@
                     yes: function(index, layero) {
 
                         // console.log(data);
-                        $.ajaxFileUpload({
-                            url: url + '/interview/create',
-                            secureuri: false, //一般设置为false
-                            async: true,
-                            fileElementId: fileid, //文件上传空间的id属性
-                            dataType: 'text/html', //返回值类型 一般设置为json
-                            data: data,
-                            type: 'post',
-                            success: function(data, status) //服务器成功响应处理函数
-                                {},
-                            error: function(data, status, e) //服务器响应失败处理函数
-                                {
-                                    // console.log(data, status);
-                                    pagecurrent(1);
-                                    table.reload('tbtalkmanage', {
-                                            url: url + '/interview/list?currentPage=1&pageSize=10'
-                                        })
-                                        //     layer.msg("服务器繁忙，请刷新重试！");
-                                    layer.close(index);
-                                }
-                        });
+                        // $.ajaxFileUpload({
+                        //     url: url + '/interview/create',
+                        //     secureuri: false, //一般设置为false
+                        //     async: true,
+                        //     fileElementId: fileid, //文件上传空间的id属性
+                        //     dataType: 'text/html', //返回值类型 一般设置为json
+                        //     data: data,
+                        //     type: 'post',
+                        //     success: function(data, status) //服务器成功响应处理函数
+                        //         {},
+                        //     error: function(data, status, e) //服务器响应失败处理函数
+                        //         {
+                        //             // console.log(data, status);
+                        //             pagecurrent(1);
+                        //             table.reload('tbtalkmanage', {
+                        //                     url: url + '/interview/list?currentPage=1&pageSize=10'
+                        //                 })
+                        //                 //     layer.msg("服务器繁忙，请刷新重试！");
+                        //             layer.close(index);
+                        //         }
+                        // });
                     },
                     end: function() {
                         $("#addadvance").hide();
@@ -226,7 +160,7 @@
             end: function() {}
         });
     });
-
+    // form表单新建访谈预告
     $(".sss").click(function() {
         var status = 0;
         var name = $("#addadvance .talkname").val();
@@ -294,19 +228,20 @@
                     table.reload('tbtalkmanage', {
                         url: url + '/interview/list?currentPage=1&pageSize=10'
                     });
-                    layer.msg("新增成功！");
                     layer.closeAll();
+                    layer.msg("新增成功！");
                 } else {
                     layer.msg("服务器繁忙，请稍后重试！");
                 }
             },
             error: function(res) {
-                console.log(res);
+                layer.msg("服务器繁忙，请稍后重试！");
             }
 
         })
         return false;
     });
+    // form表单新建访谈直播
     $(".sss1").click(function() {
         var status = 1;
         var name = $("#addinlinetalk .talkname").val();
@@ -359,21 +294,19 @@
             clearForm: true,
             success: function(res) {
                 if (res.code == 0) {
-
                     pagecurrent(1);
                     table.reload('tbtalkmanage', {
                         url: url + '/interview/list?currentPage=1&pageSize=10'
                     });
-                    layer.msg("新建成功！");
                     layer.closeAll();
+                    layer.msg("新建成功！");
                 } else {
                     layer.msg("服务器繁忙，请稍后重试！");
                 }
             },
             error: function(res) {
-                console.log(res);
+                layer.msg("服务器繁忙，请稍后重试！");
             }
-
         })
         return false;
     });
