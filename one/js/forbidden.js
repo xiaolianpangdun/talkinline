@@ -183,7 +183,8 @@
     });
     // 批量导入违禁词
     $("input[type='file']").click(function(e) {
-        alert("请上传txt格式的文件,每个违禁词为一行！！！");
+        // alert("请上传txt格式的文件,每个违禁词为一行！！！");
+        layer.msg("请上传txt格式的文件,每个违禁词为一行！！！");
     });
     upload.render({
         elem: '#leadfile',
