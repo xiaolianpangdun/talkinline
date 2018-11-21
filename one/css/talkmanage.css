@@ -31,7 +31,7 @@
 .table-end1,
 .table-end {
     color: #01AAED;
-    margin-right: 12%;
+    margin-right: 8%;
     cursor: pointer;
 }
 
@@ -318,7 +318,7 @@ input[type='file'] {
     text-overflow: ellipsis;
     white-space: nowrap;
     opacity: 0;
-    border: 1px solid red;
+    filter: alpha(opacity=0);
     cursor: pointer;
 }
 

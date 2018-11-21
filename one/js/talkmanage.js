@@ -147,7 +147,8 @@
         var compere = $("#addadvance input.compere").val();
         var description = $("#addadvance .talkintro").val();
         var length = $(".guestlists").length;
-        var file = $("#addadvance input[id='beforefileUp']")[0].files[0];
+        var file = $("#addadvance input[id='beforefileUp']");
+        var filename = file.val();
         if (!name) { layer.msg("请输入访谈名称"); return false; }
         if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
         if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
@@ -155,32 +156,31 @@
         if (!compere) { layer.msg("请输入访谈主持人"); return false; }
         if (!description) { layer.msg("请输入访谈简介"); return false; }
         if (!typecheck) { layer.msg("请选择访谈场景"); return false; }
-        if (type == 0 && !file) { layer.msg("请上传访谈视频"); return false; }
-        if (file) {
-            var filetype = file.type,
-                size = file.size;
-            if (filetype.indexOf("/") > 0) {
-                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
-            }
+        // if (type == 0 && !file) { layer.msg("请上传访谈视频"); return false; }
+        if (filename) {
+            var filetype = filename.substring(filename.lastIndexOf(".") + 1);
             filetype = filetype.toLowerCase();
             if (type == 0) {
                 if (filetype != "mp4" && filetype != "mvp" && filetype != "mpeg" && filetype != "3gp" && filetype != "mov") {
                     layer.msg("请上传符合格式的视频");
                     return false;
                 }
-                if (size / 1024 / 1024 > 10) {
-                    layer.msg("您的视频文件超过10兆！");
-                    return false;
-                }
+                if (file[0].files)
+                    if (file[0].files[0].size / 1024 / 1024 > 10) {
+                        layer.msg("您的视频文件超过10兆！");
+                        return false;
+                    }
             } else {
                 if (filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm") {
+
                     layer.msg("请上传符合格式的图片");
                     return false;
                 }
-                if (size / 1024 / 1024 > 10) {
-                    layer.msg("您的图片文件超过10兆！");
-                    return false;
-                }
+                if (file[0].files)
+                    if (file[0].files[0].size / 1024 / 1024 > 10) {
+                        layer.msg("您的图片文件超过10兆！");
+                        return false;
+                    }
             }
 
         }
@@ -197,16 +197,20 @@
             restForm: true,
             clearForm: true,
             success: function(res) {
-                if (res.code == 0) {
-                    pagecurrent(1);
-                    layer.closeAll();
-                    layer.msg("新增成功！");
-                } else {
-                    layer.msg("服务器繁忙，请稍后重试！");
-                }
+                // var res = JSON.parse(res);
+                console.log(res);
+                // if (res.code == 0) {
+                pagecurrent(1);
+                layer.closeAll();
+                // layer.msg("新增成功！");
+                // } else {
+                layer.msg(res.msg);
+                // }
             },
             error: function(res) {
-                layer.msg("服务器繁忙，请稍后重试！");
+                pagecurrent(1);
+                layer.closeAll();
+                // layer.msg("");   //ie8文件成功上传但进入error
             }
 
         })
@@ -224,31 +228,29 @@
         if (isvideo) { type = 0 } else { type = 1 }
         var compere = $("#addinlinetalk input.compere").val();
         var description = $("#addinlinetalk .talkintro").val();
-        var file = $("#addinlinetalk input[id='beforefileUp0']")[0].files[0];
-        if (!name) { layer.msg("请输入访谈名称"); return false; }
-        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
-        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
-        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
-        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
-        if (!description) { layer.msg("请输入访谈简介"); return false; }
-        console.log(type);
+        var file = $("#addinlinetalk input[id='beforefileUp0']");
+        var filename = file.val();
+        // if (!name) { layer.msg("请输入访谈名称"); return false; }
+        // if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
+        // if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
+        // if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
+        // if (!compere) { layer.msg("请输入访谈主持人"); return false; }
+        // if (!description) { layer.msg("请输入访谈简介"); return false; }
+        // console.log(type);
         if (!typecheck) { layer.msg("请选择访谈场景"); return false; }
         // if (type == 0 && (!file)) { layer.msg("请上传访谈视频"); return false; }
-        if (file) {
-            var filetype = file.type,
-                size = file.size;
-            if (filetype.indexOf("/") > 0) {
-                filetype = filetype.substring(filetype.lastIndexOf("/") + 1, filetype.length);
-            }
+        if (filename) {
+            var filetype = filename.substring(filename.lastIndexOf(".") + 1);
             filetype = filetype.toLowerCase();
             if (filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm") {
                 layer.msg("请上传符合格式的图片");
                 return false;
             }
-            if (size / 1024 / 1024 > 10) {
-                layer.msg("您的图片文件超过10兆！");
-                return false;
-            }
+            if (file[0].files)
+                if (file[0].files[0].size / 1024 / 1024 > 10) {
+                    layer.msg("您的图片文件超过10兆！");
+                    return false;
+                }
         }
         var reqServer = {
             "status": status,
@@ -263,16 +265,19 @@
             restForm: true,
             clearForm: true,
             success: function(res) {
-                if (res.code == 0) {
-                    pagecurrent(1);
-                    layer.closeAll();
-                    layer.msg("新建成功！");
-                } else {
-                    layer.msg("服务器繁忙，请稍后重试！");
-                }
+                // console.log(res);
+                // if (res.code == 0) {
+                pagecurrent(1);
+                layer.closeAll();
+                // layer.msg("新建成功！");
+                // } else {
+                layer.msg(res.msg);
+                // }
             },
             error: function(res) {
-                layer.msg("服务器繁忙，请稍后重试！");
+                pagecurrent(1);
+                layer.closeAll();
+                // layer.msg("");  //ie8进入error， 但是文件上传成功
             }
         })
         return false;
@@ -341,7 +346,7 @@
         var that = $(event.target);
         var interviewId = that.attr("data-id");
         var status = that.attr("data-status");
-        console.log(interviewId, status);
+        // console.log(interviewId, status);
         window.localStorage.setItem("link", "two");
         window.localStorage.setItem("interviewId", interviewId);
         window.localStorage.setItem("status", status);
@@ -367,13 +372,14 @@
                     type: 'post',
                     url: url + '/interview/edit',
                     data: { interviewId: interviewId, status: 2 },
-                    success: function() {
+                    success: function(res) {
                         var pagenum = window.localStorage.getItem("pagenum");
                         pagecurrent(pagenum);
                         layer.close(index);
+                        layer.msg(res.msg);
                     },
-                    error: function() {
-                        layer.msg("结束访谈失败");
+                    error: function(res) {
+                        layer.msg("服务器繁忙，请稍后重试！");
                     }
                 });
             },
@@ -419,10 +425,10 @@
                     $.ajax({
                         type: 'get',
                         url: url + '/interview/remove?id=' + interviewId,
-                        success: function() {
+                        success: function(res) {
                             var pagenum = window.localStorage.getItem("pagenum");
                             pagecurrent(pagenum);
-                            layer.msg("删除成功！");
+                            layer.msg(res.msg);
                             layer.close(index);
                         },
                         error: function() {
@@ -445,7 +451,7 @@
             // data: { username: username, password: password },
             success: function(data) {
                 // alert("提交成功");
-                console.log(data);
+                // console.log(data);
                 var count = data.count;
                 // 分页器
                 var laypage = layui.laypage;
@@ -482,7 +488,7 @@
     // 点击切换访谈预告视频 图片
     $("#addadvance .selecttype").click(function() {
         var val = $("#addadvance .selecttype .checked").hasClass("talkvideo");
-        console.log(val);
+        // console.log(val);
         $("#addadvance input[type='file']").val("");
         $(".showfile").show();
         $("#addadvance .afterupcon").show();
@@ -491,23 +497,26 @@
         if (val == false) {
             $("#addadvance .upfile").hide();
             $("#addadvance .upimg").show();
-            $("#addadvance .deletefile").show();
+            // $("#addadvance .deletefile").show();
         } else {
             $("#addadvance .upfile").hide();
             $("#addadvance .upvideo").show();
-            $("#addadvance .deletefile").hide();
+            // $("#addadvance .deletefile").hide();
         }
     });
     // 上传文件
     $("#addadvance input[type='file']").change(function(e) {
-        var that = $(this);
+        var val = $(this).val();
+        var name = val.substring(val.lastIndexOf("\\") + 1);
         $("#addadvance .upfile").hide();
         $("#addadvance .reupload").show();
         $("#addadvance .beforeup").show();
-        var name = e.currentTarget.files[0].name;
-        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
         $("#addadvance .filename").html(name);
-        $("#addadvance .filesize").html("(" + size + "M)");
+        // var name = e.currentTarget.files[0].name;
+        if (e.currentTarget.files) {
+            var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
+            $("#addadvance .filesize").html("(" + size + "M)");
+        }
     });
     // $("input[id='afterfileUp']").change(function(e) {
     //     $("#beforefileUp").val("");
@@ -516,14 +525,17 @@
     //     $("#beforefileUp0").val("");
     // });
     $("#addinlinetalk input[type='file']").change(function(e) {
-        var that = $(this);
+        var val = $(this).val();
+        var name = val.substring(val.lastIndexOf("\\") + 1);
         $("#addinlinetalk .upfile").hide();
         $("#addinlinetalk .reupload").show();
         $("#addinlinetalk .beforeup").show();
-        var name = e.currentTarget.files[0].name;
-        var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
         $("#addinlinetalk .filename").html(name);
-        $("#addinlinetalk .filesize").html("(" + size + "M)");
+        // var name = e.currentTarget.files[0].name;
+        if (e.currentTarget.files) {
+            var size = (e.currentTarget.files[0].size / 1024 / 1024).toFixed(2);
+            $("#addinlinetalk .filesize").html("(" + size + "M)");
+        }
     });
     $("#addinlinetalk .selecttype").click(function() {
         // var val = $("#addinlinetalk .selecttype").children(".talkimg").hasClass("checked");
@@ -536,7 +548,7 @@
             $(".showfile").show();
             $("#addinlinetalk .upfile").hide();
             $("#addinlinetalk .upimg").show();
-            $("#addinlinetalk .deletefile").show();
+            // $("#addinlinetalk .deletefile").show();
             // $(this).next().children(".ddd").addClass("checked");
         } else {
             $("#addinlinetalk .afterupcon").hide();

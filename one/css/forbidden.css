@@ -1,6 +1,3 @@
-.layui-layer-btn a {}
-
-
 /* 顶部 */
 
 button.right {
@@ -17,17 +14,34 @@ button.addforbidword {
     margin: 0 30px;
 }
 
-button.lead {
+.lead {
     position: relative;
+    font-size: 14px;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: #3199F7;
+    /* border: 1px solid red; */
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 input.leadfile {
     position: absolute;
+    left: -70px;
+    top: 0;
+    width: 140px;
+    height: 30px;
+    /* z-index: 100000; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     opacity: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
+    filter: alpha(opacity=0);
+    cursor: pointer;
 }
 
 .talktop .right {
@@ -47,6 +61,7 @@ input.search {
     padding-left: 15px;
     margin: 0 5px;
     height: 30px;
+    line-height: 30px;
     color: #999999;
     border: 1px solid #E7EAEC;
 }
@@ -106,8 +121,6 @@ img.del {
     margin-left: 5px;
     cursor: pointer;
 }
-
-span.addforbidword {}
 
 
 /* 添加违禁词弹框 */

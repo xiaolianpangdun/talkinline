@@ -84,15 +84,15 @@
                 $.ajax({
                     type: 'get',
                     url: url + '/blacklist/remove/' + id,
-                    success: function(data) {
-                        console.log(data);
+                    success: function(res) {
+                        // console.log(data);
                         layer.close(index);
                         pagecurrent();
-                        layer.msg("删除成功！");
+                        layer.msg(res.msg);
                         // table.reload('blacklist');
                     },
                     error: function(err) {
-                        console.log(err);
+                        layer.msg("服务器繁忙！请稍后重试！");
                         // alert("删除失败");
                     }
                 });

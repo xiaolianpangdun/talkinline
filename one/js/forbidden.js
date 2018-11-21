@@ -102,11 +102,11 @@
                     dataType: 'json',
                     async: true, //或false,是否异步
                     data: JSON.stringify({ "ids": id }),
-                    success: function(data) {
+                    success: function(res) {
                         var pagenm = window.localStorage.getItem("pagenm")
                             // update(pagenm, keyWord);
                         laypage(pagenm, keyWord);
-                        layer.msg("删除成功！");
+                        layer.msg(res.msg);
                         layer.close(index);
                     },
                     error: function(xhr, textStatus) {
@@ -146,12 +146,12 @@
                     // dataType: 'json',
                     async: true, //或false,是否异步
                     data: JSON.stringify({ "keyWord": word }),
-                    success: function(data, textStatus, jqXHR) {
+                    success: function(res, textStatus, jqXHR) {
                         $(".content").val("");
                         var pagenm = window.localStorage.getItem("pagenm");
                         update(pagenm, keyWord);
                         laypage(pagenm, keyWord);
-                        layer.msg("新增成功！");
+                        layer.msg(res.msg);
                         // window.location.reload();
                         // console.log(data);
                         layer.close(index);
@@ -195,7 +195,7 @@
         before: function(obj) {},
         done: function(res) {
             // console.log(res);
-            layer.msg("上传成功");
+            layer.msg(res.msg);
             laypage(1, "");
             // console.log(res);
         }
