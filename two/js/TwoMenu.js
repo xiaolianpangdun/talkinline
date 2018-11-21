@@ -513,7 +513,7 @@ $(function () {
           // 添加到html上面
           var guests = '';
 
-          guests += '<p class="guest">';
+          guests += '<p class="guest" style="cursor: pointer;">';
           guests += '<span>'+speakername+'</span>';
           guests += '<img src="'+'../img/cancel_02.png'+'" alt="" style="margin-left: 10px;margin-top: -3px;" class="removes"></p>'
 
@@ -2974,7 +2974,7 @@ function BriefIntroduction() {
       var news = $('#brief').val();
 
       // 判断简介的长度
-      if (news.length > 300) {
+      if (news.length > 299) {
         $('.tips_3').css('display', 'block');
       } else {
         $('#text_brief').text(news);

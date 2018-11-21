@@ -131,6 +131,7 @@ body{
   color: #000;
   margin-bottom: 10px;
   float: left;
+  cursor: pointer;
 }
 
 .add{
