@@ -10,8 +10,8 @@
                 <input type="file" id="leadfile" name="file" class="leadfile">
             </form>
         </div>
-        <button class="right addforbidword">新增违禁词</button>
-        <button class="search right">搜索</button>
+        <button type="button" class="right addforbidword">新增违禁词</button>
+        <button type="button" class="search right">搜索</button>
         <input type="text" class="right search" placeholder="搜入关键词搜索">
     </div>
     <!-- 违禁词为空的时候 -->
@@ -42,8 +42,8 @@
     <!-- 添加违禁词弹出框模板 -->
     <div id="addforbidword" style="display:none;">
         <div class="title">添加违禁词</div>
-        <input class="content" type="text" placeholder="请输入内容" maxlength="10">
-        <div class="warn">输入的内容不超过10个字</div>
+        <input class="content" type="text" placeholder="请输入内容" maxlength="50">
+        <!-- <div class="warn">输入的内容不超过10个字</div> -->
     </div>
     <!-- 删除违禁词弹框模板 -->
     <div id="delforbidword" class='center' style="display:none;">

@@ -79,30 +79,7 @@
                     shadeClose: false,
                     btnAlign: 'c', //按钮居中显示
                     // btn: ['确定'],
-                    yes: function(index, layero) {
-                        // $.ajax({
-                        //     type: 'post',
-                        //     // contentType: 'application/form-data;charset=utf-8',
-                        //     url: url+'/interview/create',
-                        //     traditional: true,
-                        //     data: {
-                        //         name: name,
-                        //         speakername: speakername,
-                        //         status: status,
-                        //         type: type,
-                        //         beginTime: beginTime,
-                        //         endTime: endTime,
-                        //         compere: compere,
-                        //         description: description
-                        //     },
-                        //     success: function(data) {
-                        //         console.log(data);
-                        //     },
-                        //     error: function(err) {
-                        //         alert("修改失败");
-                        //     }
-                        // });
-                    },
+                    yes: function(index, layero) {},
                     end: function() {
                         $("#addinlinetalk").hide();
                         $("#addinlinetalk input[type='text'],.talkintro").val("");
@@ -304,6 +281,7 @@
     function tablerender(pageNum) {
         $.ajax({
             type: "get",
+            cache: false,
             url: url + '/interview/list?currentPage=' + pageNum + '&pageSize=10',
             success: function(data) {
                 var tbody = "";
@@ -370,6 +348,7 @@
             yes: function(index, layero) {
                 $.ajax({
                     type: 'post',
+                    cache: false,
                     url: url + '/interview/edit',
                     data: { interviewId: interviewId, status: 2 },
                     success: function(res) {
@@ -424,6 +403,7 @@
                 yes: function(index, layero) {
                     $.ajax({
                         type: 'get',
+                        cache: false,
                         url: url + '/interview/remove?id=' + interviewId,
                         success: function(res) {
                             var pagenum = window.localStorage.getItem("pagenum");
@@ -447,6 +427,7 @@
         $.ajax({
             type: "get",
             // dataType: "json",
+            cache: false,
             url: url + '/interview/list?currentPage=' + pagenum + '&pageSize=10',
             // data: { username: username, password: password },
             success: function(data) {

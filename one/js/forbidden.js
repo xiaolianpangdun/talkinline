@@ -12,9 +12,10 @@
     var update = function(num, keyWord) {
         $.ajax({
             type: "get",
+            cache: false,
             url: url + '/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
-                // console.log(data);
+                console.log(data);
                 var lists = data.data.list;
                 if (lists.length > 0) {
                     $(".none").hide();
@@ -46,6 +47,7 @@
     var laypage = function(pagenm, keyWord) {
         $.ajax({
             type: "get",
+            cache: false,
             url: url + '/prohibit/list?pageNum=' + pagenm + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
                 var count = data.data.total;
@@ -101,6 +103,7 @@
                     contentType: "application/json;charset=utf-8",
                     dataType: 'json',
                     async: true, //或false,是否异步
+                    cache: false,
                     data: JSON.stringify({ "ids": id }),
                     success: function(res) {
                         var pagenm = window.localStorage.getItem("pagenm")
@@ -145,6 +148,7 @@
                     contentType: "application/json;charset=utf-8",
                     // dataType: 'json',
                     async: true, //或false,是否异步
+                    cache: false,
                     data: JSON.stringify({ "keyWord": word }),
                     success: function(res, textStatus, jqXHR) {
                         $(".content").val("");
@@ -162,6 +166,7 @@
                 layer.close(index);
             },
             end: function() {
+                $(".content").val("");
                 $("#addforbidword").hide();
             }
         });
