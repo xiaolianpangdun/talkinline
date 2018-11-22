@@ -13,12 +13,14 @@
         $.ajax({
             type: "post",
             cache: false,
+            dataType: 'json',
+            contentType: "application/json;charset=utf-8",
             url: url + '/prohibit/list',
-            data: {
+            data: JSON.stringify({
                 pageNum: num,
                 pageSize: 50,
                 keyWord: keyWord
-            },
+            }),
             success: function(data) {
                 console.log(data);
                 var lists = data.data.list;
@@ -53,35 +55,42 @@
         $.ajax({
             type: "post",
             cache: false,
+            dataType: 'json',
+            contentType: "application/json;charset=utf-8",
             url: url + '/prohibit/list',
-            data: {
+            data: JSON.stringify({
                 pageNum: pagenm,
                 pageSize: 50,
                 keyWord: keyWord
-            },
+            }),
             success: function(data) {
-                var count = data.data.total;
-                var laypage = layui.laypage;
-                //执行一个laypage实例
-                // console.log(data);
-                laypage.render({
-                    elem: 'forbidpage',
-                    count: count,
-                    prev: "<<上一页",
-                    next: "下一页>>",
-                    curr: pagenm, //location.hash.replace('#!fenye=', pagenm),
-                    // hash: 'fenye',
-                    theme: '#4597E0',
-                    limit: 50,
-                    jump: function(obj, first) {
-                        // console.log(curr);
-                        var curr = obj.curr;
-                        //得到当前页，以便向服务端请求对应页的数据。
-                        // limit = obj.limit; //得到每页显示的条数
-                        window.localStorage.setItem("pagenm", curr);
-                        update(curr, keyWord);
-                    }
-                });
+                console.log(data);
+                if (data.code == 0) {
+                    var count = data.data.total;
+                    var laypage = layui.laypage;
+                    //执行一个laypage实例
+                    // console.log(data);
+                    laypage.render({
+                        elem: 'forbidpage',
+                        count: count,
+                        prev: "<<上一页",
+                        next: "下一页>>",
+                        curr: pagenm, //location.hash.replace('#!fenye=', pagenm),
+                        // hash: 'fenye',
+                        theme: '#4597E0',
+                        limit: 50,
+                        jump: function(obj, first) {
+                            // console.log(curr);
+                            var curr = obj.curr;
+                            //得到当前页，以便向服务端请求对应页的数据。
+                            // limit = obj.limit; //得到每页显示的条数
+                            window.localStorage.setItem("pagenm", curr);
+                            update(curr, keyWord);
+                        }
+                    });
+                } else {
+                    layer.msg(data.msg);
+                }
             }
         });
 
