@@ -35,7 +35,7 @@
   <script src="js/TwoMenu.js"></script>
 
   <!-- 引入上传的插件 -->
-  <script src="../one/js/ajaxfileupload1.js"></script>
+  <!-- <script src="../one/js/ajaxfileupload1.js"></script> -->
 
   <!-- 引入placeholder兼容 -->
   <script src="../one/js/placeholder.js"></script>
@@ -54,14 +54,13 @@
     <!-- 左侧导航   start -->
     <div>
       <ul class="nav">
-        <li class="active status_0_li">直播详情</li>
+        <li class="active status_0_li">访谈详情</li>
         <li class="status_0 status_2">用户监控</li>
         <li>互动设置</li>
         <li class="status_0">现场图片</li>
         <li class="status_0">文字实录</li>
         <li class="status_0 status_1 ddd">视频回放</li>
       </ul>
-     
     </div>
     <!-- 左侧导航   end -->
 
@@ -72,7 +71,7 @@
       <div class="menu" style="display: block">
         <!-- 标题 -->
         <div class="title">
-          <p class="title_0">直播详情</p>
+          <p class="title_0">访谈详情</p>
         </div>
         <!-- 信息 -->
         <div class="main">
@@ -94,10 +93,10 @@
             <div>
               <div class="radio status_1 status_2">
                 <div class="radio_item radio_item1" style="margin-right: 60px;">
-                  <p class="check_out"></p><span>视频直播</span>
+                  <p class="check_out"></p><span>视频访谈</span>
                 </div>
                 <div class="radio_item radio_item2">
-                  <p class="check_out"></p><span>图文直播</span>
+                  <p class="check_out"></p><span>图文访谈</span>
                 </div>
               </div>
               <span id="TalkScene" class="status_0"></span>
@@ -151,14 +150,15 @@
           <div class="main_item status_2 status_1 video_linkss">
             <p class="video_0">上传文件</p>
               <div class="have_data">
-                <span class="vedio_link"></span>
-                <p class="uplink">
+                <span class="vedio_link" style="margin-right: 10px;"></span>
+                <p class="uplink" style="margin-left: 0;margin-right: 20px;">
+                  <span id="See">查看</span>
                   <form action="" method="post" id="formfile" enctype="multipart/form-data">
                       <input type="file" id="UpPreview" name="file" title=" ">
                       <span class="uplink_text">请上传文件</span>
                   </form>
                 </p>
-                <!-- <p style="color: #FF5500">删除</p> -->
+                <div style="color: #FF5500;font-size: 12px;display: block">*视频限制300M，图片限制10M</div>
               </div>
           </div>
         </div>

@@ -8,8 +8,8 @@ $(function () {
    * 访谈状态
    * 
    */
-  //var TheServer = 'http://192.168.0.71:8080';
-  var TheServer = localStorage.getItem('backstage');
+  var TheServer = 'http://192.168.0.125:8080';
+ // var TheServer = localStorage.getItem('backstage');
 
   var talkNum = localStorage.getItem("interviewId");
 
@@ -89,8 +89,6 @@ $(function () {
   //   $(".menu").hide().eq(index).show();
   // }
 
-  
-
   /**
    * 
    * 直播详情 
@@ -122,7 +120,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
 
-        console.log('直播详情 ======= ',data);
+        console.log('访谈详情 ======= ',data);
 
         if(data.code == 0){
 
@@ -130,23 +128,25 @@ $(function () {
           localStorage.setItem('Details',JSON.stringify(data.data));
 
           // 把访谈预告保存到本地，当切换场景的时候就切换数据
-          localStorage.setItem('preVideoUrl',data.data.preVideoUrl);
+          // localStorage.setItem('preVideoUrl',data.data.preVideoUrl);
 
-          localStorage.setItem('prePicUrl',data.data.prePicUrl);
+          // localStorage.setItem('prePicUrl',data.data.prePicUrl);
 
           // 直播详情的数据渲染
           $('#TalkName').text(data.data.name);
           $('#TalkNumber').text(data.data.interviewId);
 
+          console.log('上传的文件', data.data.preFileUrl);
+
           // 是什么类型就选中什么类型
           if(data.data.type == 0){
             $('.radio_item').eq(0).children('.check_out').addClass('image');
-            $('#TalkScene').text('视频直播')
+            $('#TalkScene').text('视频访谈')
             // $('.radio_item').eq(0).children('.check_out').css('border','0');
             //$('.video_0').text('视频');
           }else if(data.data.type == 1){
             $('.radio_item').eq(1).children('.check_out').addClass('image');
-            $('#TalkScene').text('图文直播')
+            $('#TalkScene').text('图文访谈')
             // $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
             //$('.video_0').text('图片');
           };
@@ -158,37 +158,64 @@ $(function () {
 
               $('#conversion').text('转为在线视频访谈');
 
-              if(data.data.preVideoUrl != null){
+              // if(data.data.preVideoUrl != null){
 
-                $('.vedio_link').text(data.data.preVideoUrl);
+              //   $('.vedio_link').text(data.data.preVideoUrl);
   
-                $('.uplink_text').text('重新上传');
+              //   $('.uplink_text').text('重新上传');
+
+              //   $('#See').css('display','block');
   
-              }else if(data.data.preVideoUrl == null){
+              // }else if(data.data.preVideoUrl == null){
   
-                $('.vedio_link').text('无文件');
+              //   $('.vedio_link').text('无文件');
   
-                $('.uplink_text').text('请上传文件');
+              //   $('.uplink_text').text('请上传文件');
+
+              //   $('#See').css('display','none');
   
-              }
+              // }
 
             }else if(data.data.type == 1){
 
               $('#conversion').text('转为在线图文访谈');
 
-              if(data.data.prePicUrl != null){
+              // if(data.data.prePicUrl != null){
 
-                $('.vedio_link').text(data.data.prePicUrl);
+              //   $('.vedio_link').text(data.data.prePicUrl);
   
-                $('.uplink_text').text('重新上传');
+              //   $('.uplink_text').text('重新上传');
+
+              //   $('#See').css('display','block');
   
-              }else if(data.data.prePicUrl == null){
+              // }else if(data.data.prePicUrl == null){
   
-                $('.vedio_link').text('无文件');
+              //   $('.vedio_link').text('无文件');
   
-                $('.uplink_text').text('请上传文件');
+              //   $('.uplink_text').text('请上传文件');
+
+              //   $('#See').css('display','none');
   
-              }
+              // }
+            }
+
+            // 如果 preFileUrl 没有数据  或者  有数据的判断
+            if(data.data.preFileUrl != null){
+
+              $('.vedio_link').text(data.data.preFileUrl);
+
+              $('.uplink_text').text('重新上传');
+
+              $('#See').css('display','block');
+
+            }else if(data.data.preFileUrl == null){
+
+              $('.vedio_link').text('无文件');
+
+              $('.uplink_text').text('请上传文件');
+
+              $('#See').css('display','none');
+
             }
             
           } else if (data.data.status == 1) {
@@ -200,9 +227,9 @@ $(function () {
 
             $('.ddd').css('display','none');
 
-            $('.status_0_li').text("直播详情");
+            $('.status_0_li').text("访谈详情");
 
-            $('.title_0').text("直播详情");
+            $('.title_0').text("访谈详情");
 
             $('.radio').css('display','none');
 
@@ -374,11 +401,9 @@ $(function () {
 
     console.log(type_num);
 
-
-
     // 从本地获取访谈预告，改变场景的时候改变数据
-    var prePicUrl = localStorage.getItem('prePicUrl');
-    var preVideoUrl = localStorage.getItem('preVideoUrl');
+    // var prePicUrl = localStorage.getItem('prePicUrl');
+    // var preVideoUrl = localStorage.getItem('preVideoUrl');
 
     // console.log('图片 ======= ',prePicUrl);
     // console.log('视频 ======= ',preVideoUrl);
@@ -389,27 +414,31 @@ $(function () {
 
       //$('.video_0').text('视频');
 
-      $('#TalkScene').text('视频直播');
+      $('#TalkScene').text('视频访谈');
 
       console.log('视频 ======= ',preVideoUrl);
 
-      if(preVideoUrl == 'null'){
+      // if(preVideoUrl == 'null'){
 
-        console.log('没有视频')
+      //   console.log('没有视频')
 
-        $('.vedio_link').text('无文件');
+      //   $('.vedio_link').text('无文件');
 
-        $('.uplink_text').text('请上传文件');
+      //   $('.uplink_text').text('请上传文件');
 
-      }else if(preVideoUrl != 'null'){
+      //   $('#See').css('display','none');
 
-        console.log('有视频')
+      // }else if(preVideoUrl != 'null'){
 
-        $('.vedio_link').text(preVideoUrl);
+      //   console.log('有视频')
 
-        $('.uplink_text').text('重新上传');
+      //   $('.vedio_link').text(preVideoUrl);
 
-      }
+      //   $('.uplink_text').text('重新上传');
+
+      //   $('#See').css('display','block');
+
+      // }
 
     }else if(type_num == 1){
 
@@ -417,29 +446,33 @@ $(function () {
 
       //$('.video_0').text('图片');
 
-      $('#TalkScene').text('图文直播')
+      $('#TalkScene').text('图文访谈')
 
-      console.log('图片 ======= ',prePicUrl);
+      // console.log('图片 ======= ',prePicUrl);
 
-      if(prePicUrl == "null"){
+      // if(prePicUrl == "null"){
 
-        console.log('没有图片')
+      //   console.log('没有图片')
 
-        $('.vedio_link').text('无文件');
+      //   $('.vedio_link').text('无文件');
 
-        $('.uplink_text').text('请上传文件');
+      //   $('.uplink_text').text('请上传文件');
+
+      //   $('#See').css('display','none');
         
 
-      }else if(prePicUrl != "null"){
+      // }else if(prePicUrl != "null"){
 
-        console.log("有图片");
+      //   console.log("有图片");
 
-        $('.vedio_link').text(prePicUrl);
+      //   $('.vedio_link').text(prePicUrl);
 
-        $('.uplink_text').text('重新上传');
+      //   $('.uplink_text').text('重新上传');
+
+      //   $('#See').css('display','block');
         
 
-      }
+      // }
 
     };
 
@@ -553,9 +586,9 @@ $(function () {
     //   }
 
     // }
-    if( $('#TalkScene').text() == '视频直播' ){
+    if( $('#TalkScene').text() == '视频访谈' ){
       type = 0;
-    }else if( $('#TalkScene').text() == '图文直播' ){
+    }else if( $('#TalkScene').text() == '图文访谈' ){
       type = 1;
     }
 
@@ -682,18 +715,18 @@ $(function () {
 
     var files = e.currentTarget.files[0].name;
 
-    var talktype = $('.radio_item').children('.check_out');
+    // var talktype = $('.radio_item').children('.check_out');
 
-    var type;
-    for(var i = 0; i < talktype.length; i ++){
+    // var type;
+    // for(var i = 0; i < talktype.length; i ++){
 
-      if(talktype.eq(i).hasClass('image')){
-        type = i;
-      }
+    //   if(talktype.eq(i).hasClass('image')){
+    //     type = i;
+    //   }
 
-    }
+    // }
     console.log(files);
-    console.log(type);
+    //console.log(type);
 
     $('#formfile').ajaxSubmit({
       forceSync: false,
@@ -703,7 +736,7 @@ $(function () {
       data: {
 
         interviewId: talkNum,
-        type: type,
+        //type: type,
         file: files
 
       },
@@ -712,8 +745,11 @@ $(function () {
       success: function(res) {
           console.log(res);
         DirectSeedingDetails();
+        layer.msg("上传成功")
       },
       error: function(data){
+
+        layer.msg(data)
 
       },
 
