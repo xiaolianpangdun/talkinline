@@ -8,8 +8,8 @@ $(function () {
    * 访谈状态
    * 
    */
-  var TheServer = 'http://192.168.0.125:8080';
- // var TheServer = localStorage.getItem('backstage');
+  //var TheServer = 'http://192.168.0.125:8080';
+  var TheServer = localStorage.getItem('backstage');
 
   var talkNum = localStorage.getItem("interviewId");
 
@@ -715,18 +715,21 @@ $(function () {
 
     var files = e.currentTarget.files[0].name;
 
-    // var talktype = $('.radio_item').children('.check_out');
+    //var filepath = files.value;
 
-    // var type;
-    // for(var i = 0; i < talktype.length; i ++){
+    var filetypes = ['jpg','jpeg','png','gif','bpm','mp4','mvp','mpeg','3gp','mov'];
+    
+    var filetype = files.substring(files.lastIndexOf(".")+1);
+    filetype = filetype.toLowerCase();
 
-    //   if(talktype.eq(i).hasClass('image')){
-    //     type = i;
-    //   }
-
-    // }
     console.log(files);
-    //console.log(type);
+    console.log(filetype);
+
+   // if(filetypes && filetypes.length > 0){
+
+   if(filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm" && filetype != "mp4" && filetype != "mvp" && filetype != "mpeg" && filetype != "3gp" && filetype != "mov"){
+    layer.msg('请上传正确格式的文件')
+   }else{
 
     $('#formfile').ajaxSubmit({
       forceSync: false,
@@ -755,6 +758,46 @@ $(function () {
 
     })
 
+   }
+      // var isnext = false;
+      // for (var i = 0; i < filetypes.length; i++) {
+
+      //   if (filetypes[i] != filetype) {
+      //     isnext = true;
+      //     //
+      //     break;
+
+      //   } 
+      // }
+
+      // if(isnext == false){
+      //   layer.msg('请上传正确格式的文件')
+      //   return false;
+      // }else if(isnext == true){
+
+        
+
+      //   return true
+
+      // }
+   // }
+
+    //if(fileend){}
+
+    // var talktype = $('.radio_item').children('.check_out');
+
+    // var type;
+    // for(var i = 0; i < talktype.length; i ++){
+
+    //   if(talktype.eq(i).hasClass('image')){
+    //     type = i;
+    //   }
+
+    // }
+    console.log(files);
+    //console.log(type);
+
+    
     
     
 
@@ -899,6 +942,67 @@ $(function () {
     document.execCommand('Copy');
 
     layer.msg('复制成功');
+
+  });
+
+  // 查看预告视频或者图片
+  $('#See').click(function(){
+
+    $('.see').css("display", "block");
+
+    var FileLink = $('.vedio_link').text();
+
+    var SuffixName = FileLink.split(".")
+
+    var aa = SuffixName[SuffixName.length- 1];
+
+    console.log('预告链接 ======= ',FileLink);
+    console.log('链接后缀名 ======== ',SuffixName);
+    console.log('链接后缀名 ======== ',aa);
+
+    var img = ['jpg','jpeg','png','gif','bpm'];
+    var vedio = ['mp4','mvp','mpeg','3gp','mov'];
+
+    var index= $.inArray(aa,vedio);
+
+    console.log(index)
+
+    if(index >= 0){
+
+      console.log('视频')
+
+      $('#seeVedioBox').attr('src',FileLink);
+
+      $('.see_image').hide();
+
+      $('.see_vedio').show();
+
+    }else{
+
+      console.log('图片')
+
+      $('.see_image img').attr('src',FileLink);
+
+      $('.see_vedio').hide();
+
+      $('.see_image').show();
+
+    }
+    
+
+    layer.open({
+      type: 1,
+      area: ['800px', '600px'],
+      title: ['', 'background: #fff;border:0'],
+      //btn: ['确定', '取消'],
+      // shade: 0,
+      skin: 'my-skin',
+      btnAlign: 'c',
+      content: $('.see'),
+      cancel: function (index, layero) {
+        $('.see').css("display", "none");
+      }
+    });
 
   });
 

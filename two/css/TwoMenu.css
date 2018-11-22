@@ -176,6 +176,16 @@ body{
   filter:"alpha(opacity=0)";
 }
 
+.see_image,.see_vedio{
+  /* text-align: center; */
+  padding-top: 40px;
+}
+
+/* .layui-layer{
+  background-color: #fff;
+  opacity: 0.3;
+  filter:"alpha(opacity=30)";
+} */
 
 /* 用户管理 */
 .title span{
@@ -505,7 +515,7 @@ body{
 }
 
 /* 弹框 */
-.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response,.interaction_delete_2,.conversion{
+.modify_name,.modify_scene,#add_guest,.brief_introduction,.interaction_delete,.interaction_shield,.review_response,.picture_delece,.text_delece,.text_record_edit,.real_time,.ReplyEditor,.response,.interaction_delete_2,.conversion,.see{
   display: none;
 }
 .modify_name,.modify_scene,#add_guest,.brief_introduction,.text_record_edit{
