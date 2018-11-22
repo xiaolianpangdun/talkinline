@@ -713,77 +713,63 @@ $(function () {
 
     console.log('执行了')
 
-    var files = e.currentTarget.files[0].name;
+    var val = $(this).val();
 
-    //var filepath = files.value;
+    var files = val.substring(val.lastIndexOf("\\") + 1);
+
+    var Name = files.split(".")
+
+    var NameName = Name[Name.length- 1];
 
     var filetypes = ['jpg','jpeg','png','gif','bpm','mp4','mvp','mpeg','3gp','mov'];
     
-    var filetype = files.substring(files.lastIndexOf(".")+1);
-    filetype = filetype.toLowerCase();
+     //var filetype = files.substring(files.lastIndexOf(".")+1);
+     //filetype = filetype.toLowerCase();
+    console.log('选择的文件名 ====== ',files);
+    console.log('选择的文件后缀名 ========== ',NameName)
 
-    console.log(files);
-    console.log(filetype);
+    
+    //console.log(filetype);
 
-   // if(filetypes && filetypes.length > 0){
+    var index= $.inArray(NameName,filetypes);
 
-   if(filetype != "jpg" && filetype != "jpeg" && filetype != "png" && filetype != "gif" && filetype != "bpm" && filetype != "mp4" && filetype != "mvp" && filetype != "mpeg" && filetype != "3gp" && filetype != "mov"){
-    layer.msg('请上传正确格式的文件')
-   }else{
+    console.log(index)
 
-    $('#formfile').ajaxSubmit({
-      forceSync: false,
-      url: TheServer + '/interview/edit',
-      type: 'post',
-      dataType: 'json',
-      data: {
+    if(index >= 0){
 
-        interviewId: talkNum,
-        //type: type,
-        file: files
+      $('#formfile').ajaxSubmit({
+        forceSync: false,
+        url: TheServer + '/interview/edit',
+        type: 'post',
+        dataType: 'json',
+        data: {
+  
+          interviewId: talkNum,
+          //type: type,
+          file: files
+  
+        },
+        restForm: true,
+        clearForm: true,
+        success: function(res) {
+            console.log(res);
+          DirectSeedingDetails();
+          layer.msg("上传成功")
+        },
+        error: function(data){
+  
+          layer.msg(data)
+  
+        },
+  
+      })
+  
 
-      },
-      restForm: true,
-      clearForm: true,
-      success: function(res) {
-          console.log(res);
-        DirectSeedingDetails();
-        layer.msg("上传成功")
-      },
-      error: function(data){
+    }else if(index < 0){
 
-        layer.msg(data)
+      layer.msg('请上传正确格式的文件')
 
-      },
-
-    })
-
-   }
-      // var isnext = false;
-      // for (var i = 0; i < filetypes.length; i++) {
-
-      //   if (filetypes[i] != filetype) {
-      //     isnext = true;
-      //     //
-      //     break;
-
-      //   } 
-      // }
-
-      // if(isnext == false){
-      //   layer.msg('请上传正确格式的文件')
-      //   return false;
-      // }else if(isnext == true){
-
-        
-
-      //   return true
-
-      // }
-   // }
-
-    //if(fileend){}
-
+    }
     // var talktype = $('.radio_item').children('.check_out');
 
     // var type;
@@ -794,7 +780,7 @@ $(function () {
     //   }
 
     // }
-    console.log(files);
+    //console.log(files);
     //console.log(type);
 
     
@@ -973,6 +959,8 @@ $(function () {
 
       $('#seeVedioBox').attr('src',FileLink);
 
+      $('#IEIE').attr('src',FileLink);
+
       $('.see_image').hide();
 
       $('.see_vedio').show();
@@ -992,7 +980,7 @@ $(function () {
 
     layer.open({
       type: 1,
-      area: ['800px', '600px'],
+      area: ['600px', '400px'],
       title: ['', 'background: #fff;border:0'],
       //btn: ['确定', '取消'],
       // shade: 0,
@@ -1001,6 +989,8 @@ $(function () {
       content: $('.see'),
       cancel: function (index, layero) {
         $('.see').css("display", "none");
+        $('.see_image').hide();
+        $('.see_vedio').hide();
       }
     });
 

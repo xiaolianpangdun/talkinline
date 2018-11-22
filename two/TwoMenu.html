@@ -468,18 +468,6 @@
     <p class="tips" style="display: none">提示：最多只能输入25个字符</p>
   </div>
 
-  <!-- <div class="modify_scene">
-    <p class="name_title">修改会议场景</p>
-    <div class="radio">
-      <div class="radio_item radio_item1" style="margin-right: 60px;">
-        <p class="check_out"></p><span>视频直播</span>
-      </div>
-      <div class="radio_item radio_item2">
-        <p class="check_out"></p><span>图文直播</span>
-      </div>
-    </div>
-  </div> -->
-
   <div id="add_guest">
     <p class="name_title">添加嘉宾</p>
     <input type="text" placeholder="请输入嘉宾姓名" id="Adds">
@@ -494,13 +482,18 @@
 
   <div class="see">
 
-    <div class="see_image" style="width: 300px;height: 300px;">
-      <img src="" alt="" style="height: 100%">
+    <div class="see_image">
+      <img src="" alt="">
     </div>
 
     <div class="see_vedio">
-      <video id="see_vedio" style="width: 100%;height: 100%;" controls data-setup="{}">
+      <video id="see_vedio" controls data-setup="{}">
         <source id='seeVedioBox' type="" src="">
+        <!--[if IE 8]>
+<embed id="IEIE" src="" height="100%" type="" />
+<![endif]-->
+
+        
       </video>
     </div>
 
