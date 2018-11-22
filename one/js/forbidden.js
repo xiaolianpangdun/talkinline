@@ -11,9 +11,14 @@
     // 数据渲染
     var update = function(num, keyWord) {
         $.ajax({
-            type: "get",
+            type: "post",
             cache: false,
-            url: url + '/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
+            url: url + '/prohibit/list',
+            data: {
+                pageNum: num,
+                pageSize: 50,
+                keyWord: keyWord
+            },
             success: function(data) {
                 console.log(data);
                 var lists = data.data.list;
@@ -46,9 +51,14 @@
     // 分页器
     var laypage = function(pagenm, keyWord) {
         $.ajax({
-            type: "get",
+            type: "post",
             cache: false,
-            url: url + '/prohibit/list?pageNum=' + pagenm + '&pageSize=50&keyWord=' + keyWord + '',
+            url: url + '/prohibit/list',
+            data: {
+                pageNum: pagenm,
+                pageSize: 50,
+                keyWord: keyWord
+            },
             success: function(data) {
                 var count = data.data.total;
                 var laypage = layui.laypage;

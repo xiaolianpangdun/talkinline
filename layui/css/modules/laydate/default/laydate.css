@@ -201,7 +201,9 @@ html #layuicss-laydate {
     margin-right: 15px;
     display: inline-block;
     cursor: pointer;
-    font-size: 12px
+    font-size: 14px;
+    font-weight: bold;
+    color: #3199F7;
 }
 
 .layui-laydate-footer span:hover {
@@ -328,7 +330,7 @@ html #layuicss-laydate {
 
 .layui-laydate-header i:hover,
 .layui-laydate-header span:hover {
-    color: #5FB878
+    color: #3199F7;
 }
 
 .layui-laydate-content {
@@ -346,11 +348,11 @@ html #layuicss-laydate {
 }
 
 .layui-laydate-content td.laydate-selected {
-    background-color: #00F7DE
+    background-color: #3199F7;
 }
 
 .laydate-selected:hover {
-    background-color: #00F7DE!important
+    background-color: #3199F7!important
 }
 
 .layui-laydate-content td:hover,
@@ -433,7 +435,7 @@ html #layuicss-laydate {
 
 .laydate-theme-molv .layui-laydate-header {
     border: none;
-    background-color: #009688
+    background-color: #3199F7;
 }
 
 .laydate-theme-molv .layui-laydate-header i,
@@ -467,7 +469,7 @@ html #layuicss-laydate {
 .laydate-theme-grid .laydate-selected,
 .laydate-theme-grid .laydate-selected:hover {
     background-color: #f2f2f2!important;
-    color: #009688!important
+    color: #3199F7!important
 }
 
 .laydate-theme-grid .laydate-selected.laydate-day-next,
