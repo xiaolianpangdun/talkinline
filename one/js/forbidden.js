@@ -14,7 +14,7 @@
             type: "get",
             url: url + '/prohibit/list?pageNum=' + num + '&pageSize=50&keyWord=' + keyWord + '',
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 var lists = data.data.list;
                 if (lists.length > 0) {
                     $(".none").hide();
@@ -23,7 +23,7 @@
                     for (var i = 0; i < lists.length; i++) {
                         if (keyWord) {
                             var array = lists[i].word.split(keyWord);
-                            console.log(array);
+                            // console.log(array);
                             var word = array.join("<span class='keyword'>" + keyWord + "</span>");
                             // var word = array[0] + kw + array[1];
                         } else { word = lists[i].word }
@@ -51,7 +51,7 @@
                 var count = data.data.total;
                 var laypage = layui.laypage;
                 //执行一个laypage实例
-                console.log(data);
+                // console.log(data);
                 laypage.render({
                     elem: 'forbidpage',
                     count: count,
@@ -149,7 +149,7 @@
                     success: function(res, textStatus, jqXHR) {
                         $(".content").val("");
                         var pagenm = window.localStorage.getItem("pagenm");
-                        update(pagenm, keyWord);
+                        // update(pagenm, keyWord);
                         laypage(pagenm, keyWord);
                         layer.msg(res.msg);
                         // window.location.reload();
@@ -170,7 +170,6 @@
     // 关键词搜索违禁词
     var searchforbid = function() {
         keyWord = $("input.search").val();
-        // update(8, keyWord);
         laypage(1, keyWord);
     }
     $("button.search").click(function() {
@@ -182,23 +181,29 @@
         }
     });
     // 批量导入违禁词
-    $("input[type='file']").click(function(e) {
-        // alert("请上传txt格式的文件,每个违禁词为一行！！！");
-        layer.msg("请上传txt格式的文件,每个违禁词为一行！！！");
+    $("#leadfile").click(function(e) {
+        alert("请上传txt格式的文件,每个违禁词为一行！！！");
     });
-    upload.render({
-        elem: '#leadfile',
-        url: url + '/prohibit/batchImport',
-        multiple: true,
-        accept: 'file', //普通文件
-        exts: 'txt',
-        size: 10,
-        before: function(obj) {},
-        done: function(res) {
-            // console.log(res);
-            layer.msg(res.msg);
-            laypage(1, "");
-            // console.log(res);
-        }
+    // jquery.form.js上传文件
+    $("#leadfile").change(function() {
+        $('#forbidfile').ajaxSubmit({
+            forceSync: false,
+            url: url + '/prohibit/batchImport',
+            type: 'post',
+            dataType: 'json',
+            // data: reqServer,
+            restForm: true,
+            clearForm: true,
+            success: function(res) {
+                laypage(1, "");
+                layer.msg(res.msg);
+            },
+            error: function(res) {
+                laypage(1, "");
+                // layer.msg("");   //ie8文件成功上传但进入error
+            }
+
+        })
+        return false;
     });
 }();

@@ -317,6 +317,7 @@ input[type='file'] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 100px;
     opacity: 0;
     filter: alpha(opacity=0);
     cursor: pointer;

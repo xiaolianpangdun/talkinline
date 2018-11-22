@@ -6,8 +6,9 @@
         <span>违禁词设置</span>
         <div class="lead right">
             <span>导入</span>
-            <input type="file" id="leadfile" name="file" class="leadfile">
-
+            <form action="" method="post" id="forbidfile" enctype="multipart/form-data">
+                <input type="file" id="leadfile" name="file" class="leadfile">
+            </form>
         </div>
         <button class="right addforbidword">新增违禁词</button>
         <button class="search right">搜索</button>
@@ -54,5 +55,6 @@
 </div>
 <script src="../../layui/layui.all.js"></script>
 <script src="../js/jquery.1.8.3.min.js"></script>
+<script src="../js/jquery.form.js"></script>
 <script src="../js/forbidden.js"></script>
 <script src="../js/placeholder.js"></script>

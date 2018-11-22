@@ -84,7 +84,7 @@
                         window.localStorage.setItem("tkilname", username);
                         window.localStorage.setItem("tkilupwd", "");
                     }
-                    window.localStorage.setItem("isLogin", true);
+                    window.sessionStorage.setItem("isLogin", true);
                     window.localStorage.setItem("link", "talkmanage");
                     window.localStorage.setItem("adminname", data.data.name);
                     window.location.href = "./one/index.html";

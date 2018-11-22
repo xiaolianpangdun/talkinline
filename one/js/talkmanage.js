@@ -166,8 +166,8 @@
                     return false;
                 }
                 if (file[0].files)
-                    if (file[0].files[0].size / 1024 / 1024 > 10) {
-                        layer.msg("您的视频文件超过10兆！");
+                    if (file[0].files[0].size / 1024 / 1024 > 300) {
+                        layer.msg("您的视频文件超过300兆！");
                         return false;
                     }
             } else {
@@ -230,12 +230,12 @@
         var description = $("#addinlinetalk .talkintro").val();
         var file = $("#addinlinetalk input[id='beforefileUp0']");
         var filename = file.val();
-        // if (!name) { layer.msg("请输入访谈名称"); return false; }
-        // if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
-        // if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
-        // if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
-        // if (!compere) { layer.msg("请输入访谈主持人"); return false; }
-        // if (!description) { layer.msg("请输入访谈简介"); return false; }
+        if (!name) { layer.msg("请输入访谈名称"); return false; }
+        if (!beginTime) { layer.msg("请选择访谈开始时间"); return false; }
+        if (!endTime) { layer.msg("请选择访谈结束时间"); return false; }
+        if (length < 1) { layer.msg("请选择访谈嘉宾"); return false; }
+        if (!compere) { layer.msg("请输入访谈主持人"); return false; }
+        if (!description) { layer.msg("请输入访谈简介"); return false; }
         // console.log(type);
         if (!typecheck) { layer.msg("请选择访谈场景"); return false; }
         // if (type == 0 && (!file)) { layer.msg("请上传访谈视频"); return false; }

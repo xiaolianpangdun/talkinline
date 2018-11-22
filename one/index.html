@@ -51,7 +51,7 @@
 
             <!-- 内容头部 -->
             <div class="header">
-                <div class="return">&lt&nbsp;返回</div>
+                <div class="return">&lt;&nbsp;返回</div>
                 <div class="right exit">
                     <span>退出</span>
                 </div>
@@ -86,7 +86,7 @@
                     layer = layui.layer,
                     // $ = layui.$,
                     link = window.localStorage.getItem("link"),
-                    isLogin = window.localStorage.getItem("isLogin");
+                    isLogin = window.sessionStorage.getItem("isLogin");
                 $.support.cors = true;
 
                 (function() {
