@@ -202,7 +202,18 @@ $(function () {
             // 如果 preFileUrl 没有数据  或者  有数据的判断
             if(data.data.preFileUrl != null){
 
-              $('.vedio_link').text(data.data.preFileUrl);
+              // 把链接绑定在查看按钮上
+              $('#See').attr('data-link',data.data.preFileUrl)
+
+              var Url = data.data.preFileUrl;
+
+
+
+              var AddUrl = Url.slice(26);
+              console.log(Url);
+              console.log(AddUrl);
+
+              $('.vedio_link').text(AddUrl);
 
               $('.uplink_text').text('重新上传');
 
@@ -936,7 +947,9 @@ $(function () {
 
     $('.see').css("display", "block");
 
-    var FileLink = $('.vedio_link').text();
+    //var FileLink = $('.vedio_link').text();
+
+    var FileLink = this.getAttribute('data-link');
 
     var SuffixName = FileLink.split(".")
 
