@@ -584,8 +584,8 @@ $(function () {
    var ModifyTheRequest = function(){
 
     var talkname = $('#TalkName').text();
-    var begintime = $('#time1').text();
-    var endtime = $('#time2').text();
+    var begintime = $('.time1').text();
+    var endtime = $('.time2').text();
     var talkbrief = $('#text_brief').text();
 
     // var talktype = $('.radio_item').children('.check_out');
