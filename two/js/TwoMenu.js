@@ -2461,7 +2461,9 @@ $(function () {
           ImagePage(ImageCurr);
 
           layer.msg('上传成功');
-        };
+        }else{
+					layer.msg(res.msg);
+				};
 
 
       },
