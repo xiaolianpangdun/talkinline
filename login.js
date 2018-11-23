@@ -3,7 +3,7 @@
     var form = layui.form;
     var name = window.localStorage.getItem("tkilname");
     var upwd = window.localStorage.getItem("tkilupwd");
-    window.localStorage.setItem("backstage", "http://192.168.0.125:8080");
+    window.localStorage.setItem("backstage", "http://192.168.0.76:8080");
     $(".uname").focus().css({
         "border-bottom": "1px solid #4F93FE"
     });;
