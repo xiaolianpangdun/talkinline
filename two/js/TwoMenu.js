@@ -124,195 +124,203 @@ $(function () {
 
         if(data.code == 0){
 
-          // 把获取到的数据保存到本地
-          localStorage.setItem('Details',JSON.stringify(data.data));
+          if(data.data != null){
 
-          // 把访谈预告保存到本地，当切换场景的时候就切换数据
-          // localStorage.setItem('preVideoUrl',data.data.preVideoUrl);
+            // 把获取到的数据保存到本地
+            localStorage.setItem('Details',JSON.stringify(data.data));
 
-          // localStorage.setItem('prePicUrl',data.data.prePicUrl);
+            // 把访谈预告保存到本地，当切换场景的时候就切换数据
+            // localStorage.setItem('preVideoUrl',data.data.preVideoUrl);
 
-          // 直播详情的数据渲染
-          $('#TalkName').text(data.data.name);
-          $('#TalkNumber').text(data.data.interviewId);
+            // localStorage.setItem('prePicUrl',data.data.prePicUrl);
 
-          console.log('上传的文件', data.data.preFileUrl);
+            // 直播详情的数据渲染
+            $('#TalkName').text(data.data.name);
+            $('#TalkNumber').text(data.data.interviewId);
 
-          // 是什么类型就选中什么类型
-          if(data.data.type == 0){
-            $('.radio_item').eq(0).children('.check_out').addClass('image');
-            $('#TalkScene').text('视频访谈')
-            // $('.radio_item').eq(0).children('.check_out').css('border','0');
-            //$('.video_0').text('视频');
-          }else if(data.data.type == 1){
-            $('.radio_item').eq(1).children('.check_out').addClass('image');
-            $('#TalkScene').text('图文访谈')
-            // $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
-            //$('.video_0').text('图片');
-          };
+            console.log('上传的文件', data.data.preFileUrl);
 
-          // 访谈场景得渲染
-          if (data.data.status == 0) {
-
+            // 是什么类型就选中什么类型
             if(data.data.type == 0){
-
-              $('#conversion').text('转为在线视频访谈');
-
-              // if(data.data.preVideoUrl != null){
-
-              //   $('.vedio_link').text(data.data.preVideoUrl);
-  
-              //   $('.uplink_text').text('重新上传');
-
-              //   $('#See').css('display','block');
-  
-              // }else if(data.data.preVideoUrl == null){
-  
-              //   $('.vedio_link').text('无文件');
-  
-              //   $('.uplink_text').text('请上传文件');
-
-              //   $('#See').css('display','none');
-  
-              // }
-
+              $('.radio_item').eq(0).children('.check_out').addClass('image');
+              $('#TalkScene').text('视频访谈')
+              // $('.radio_item').eq(0).children('.check_out').css('border','0');
+              //$('.video_0').text('视频');
             }else if(data.data.type == 1){
+              $('.radio_item').eq(1).children('.check_out').addClass('image');
+              $('#TalkScene').text('图文访谈')
+              // $('.radio_item').eq(0).children('.check_out').css('border','1px solid #3199F7');
+              //$('.video_0').text('图片');
+            };
 
-              $('#conversion').text('转为在线图文访谈');
+            // 访谈场景得渲染
+            if (data.data.status == 0) {
 
-              // if(data.data.prePicUrl != null){
+              if(data.data.type == 0){
 
-              //   $('.vedio_link').text(data.data.prePicUrl);
-  
-              //   $('.uplink_text').text('重新上传');
+                $('#conversion').text('转为在线视频访谈');
 
-              //   $('#See').css('display','block');
-  
-              // }else if(data.data.prePicUrl == null){
-  
-              //   $('.vedio_link').text('无文件');
-  
-              //   $('.uplink_text').text('请上传文件');
+                // if(data.data.preVideoUrl != null){
 
-              //   $('#See').css('display','none');
-  
-              // }
-            }
+                //   $('.vedio_link').text(data.data.preVideoUrl);
+    
+                //   $('.uplink_text').text('重新上传');
 
-            // 如果 preFileUrl 没有数据  或者  有数据的判断
-            if(data.data.preFileUrl != null){
+                //   $('#See').css('display','block');
+    
+                // }else if(data.data.preVideoUrl == null){
+    
+                //   $('.vedio_link').text('无文件');
+    
+                //   $('.uplink_text').text('请上传文件');
 
-              // 把链接绑定在查看按钮上
-              $('#See').attr('data-link',data.data.preFileUrl)
+                //   $('#See').css('display','none');
+    
+                // }
 
-              var Url = data.data.preFileUrl;
+              }else if(data.data.type == 1){
+
+                $('#conversion').text('转为在线图文访谈');
+
+                // if(data.data.prePicUrl != null){
+
+                //   $('.vedio_link').text(data.data.prePicUrl);
+    
+                //   $('.uplink_text').text('重新上传');
+
+                //   $('#See').css('display','block');
+    
+                // }else if(data.data.prePicUrl == null){
+    
+                //   $('.vedio_link').text('无文件');
+    
+                //   $('.uplink_text').text('请上传文件');
+
+                //   $('#See').css('display','none');
+    
+                // }
+              }
+
+              // 如果 preFileUrl 没有数据  或者  有数据的判断
+              if(data.data.preFileUrl != null){
+
+                // 把链接绑定在查看按钮上
+                $('#See').attr('data-link',data.data.preFileUrl)
+
+                var Url = data.data.preFileUrl;
 
 
 
-              var AddUrl = Url.slice(26);
-              console.log(Url);
-              console.log(AddUrl);
+                var AddUrl = Url.slice(26);
+                console.log(Url);
+                console.log(AddUrl);
 
-              $('.vedio_link').text(AddUrl);
+                $('.vedio_link').text(AddUrl);
 
-              $('.uplink_text').text('重新上传');
+                $('.uplink_text').text('重新上传');
 
-              $('#See').css('display','block');
+                $('#See').css('display','block');
 
-            }else if(data.data.preFileUrl == null){
+              }else if(data.data.preFileUrl == null){
 
-              $('.vedio_link').text('无文件');
+                $('.vedio_link').text('无文件');
 
-              $('.uplink_text').text('请上传文件');
+                $('.uplink_text').text('请上传文件');
 
-              $('#See').css('display','none');
+                $('#See').css('display','none');
+
+              }
+              
+            } else if (data.data.status == 1) {
+
+              // 转为在线直播，要修改的一系列东西
+              $('#conversion').css('display','none');
+
+              $('.nav li.status_0').removeClass('status_0').css('display','block');
+
+              $('.ddd').css('display','none');
+
+              $('.status_0_li').text("访谈详情");
+
+              $('.title_0').text("访谈详情");
+
+              $('.radio').css('display','none');
+
+              $('#TalkScene').css('display','block');
+
+              $('.linkss').css('display','block');
+
+              $('.video_linkss').css('display','none');
+
+            }else if(data.data.status == 2){
+
+              if(data.data.type == 1){
+
+                $('.ddd').css('display','none')
+
+              }
+
 
             }
             
-          } else if (data.data.status == 1) {
+            $('#compere').text(data.data.compere);
+            $('.time1').text(data.data.beginTime);
+            $('.time2').text(data.data.endTime);
+            $('#text_brief').text(data.data.description);
 
-            // 转为在线直播，要修改的一系列东西
-            $('#conversion').css('display','none');
+            // 视频回放
+            if(data.data.videoUrl != null){
 
-            $('.nav li.status_0').removeClass('status_0').css('display','block');
+              var vedio = data.data.videoUrl;
 
-            $('.ddd').css('display','none');
-
-            $('.status_0_li').text("访谈详情");
-
-            $('.title_0').text("访谈详情");
-
-            $('.radio').css('display','none');
-
-            $('#TalkScene').css('display','block');
-
-            $('.linkss').css('display','block');
-
-            $('.video_linkss').css('display','none');
-
-          }else if(data.data.status == 2){
-
-            if(data.data.type == 1){
-
-              $('.ddd').css('display','none')
+              $('#vedioBox').attr("src",vedio);
 
             }
-
-
-          }
           
-          $('#compere').text(data.data.compere);
-          $('.time1').text(data.data.beginTime);
-          $('.time2').text(data.data.endTime);
-          $('#text_brief').text(data.data.description);
 
-          // 视频回放
-          if(data.data.videoUrl != null){
 
-            var vedio = data.data.videoUrl;
+            // 视频下载
+            // console.log($('#vedio'))
+            //if(data.data.videoUrl != null){
 
-            $('#vedioBox').attr("src",vedio);
+              
 
+              //$('#vedioBox').src('')
+
+              // var size = data.data.videoSize/1024/1024;
+              // var lastsize = size.toFixed(2)
+
+              // console.log(size)
+              // console.log(lastsize)
+
+              // var VedioStr = [];
+
+              // VedioStr += '<video id="vedio" style="width: 100%;height: 100%;" controls="controls">';
+              // VedioStr += '<source src="'+'http://192.168.0.71:8090/17093e0b-c1f2-451a-a8c5-a7ef27779708.mp4'+'" type="rtmp/flv">';
+              // VedioStr += '</video>'
+        
+              // VedioStr += '<div class="vedio">';
+              // VedioStr += '<P style="margin: 0;width: 42%">';
+              // VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
+              // VedioStr += '<span class="vedio_title">'+data.data.name+'</span>';
+              // VedioStr += '</p>';
+              // VedioStr += '<p class="vedio_size">'+data.data.updateTime+'</p>';
+              // VedioStr += '<p style="width: 28%" class="vedio_time">'+lastsize+'M'+'</p>';
+              // VedioStr += '<a href="'+data.data.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
+              // VedioStr += '</div>';
+
+              //console.log(VedioStr);
+        
+              //$('.vedio').html(VedioStr);
+              //$(".download").attr("download",data.data.videoUrl); 
+          // }
+
+
+          }else{
+            layer.msg('没有数据')
           }
-         
 
-
-          // 视频下载
-          // console.log($('#vedio'))
-          //if(data.data.videoUrl != null){
-
-            
-
-            //$('#vedioBox').src('')
-
-            // var size = data.data.videoSize/1024/1024;
-            // var lastsize = size.toFixed(2)
-
-            // console.log(size)
-            // console.log(lastsize)
-
-            // var VedioStr = [];
-
-            // VedioStr += '<video id="vedio" style="width: 100%;height: 100%;" controls="controls">';
-            // VedioStr += '<source src="'+'http://192.168.0.71:8090/17093e0b-c1f2-451a-a8c5-a7ef27779708.mp4'+'" type="rtmp/flv">';
-            // VedioStr += '</video>'
-      
-            // VedioStr += '<div class="vedio">';
-            // VedioStr += '<P style="margin: 0;width: 42%">';
-            // VedioStr += '<img src="'+'../img/vedio.png'+'" alt="">';
-            // VedioStr += '<span class="vedio_title">'+data.data.name+'</span>';
-            // VedioStr += '</p>';
-            // VedioStr += '<p class="vedio_size">'+data.data.updateTime+'</p>';
-            // VedioStr += '<p style="width: 28%" class="vedio_time">'+lastsize+'M'+'</p>';
-            // VedioStr += '<a href="'+data.data.videoUrl+'" class="download" style="width: 10%;cursor: pointer;">'+'下载视频'+'</a>';
-            // VedioStr += '</div>';
-
-            //console.log(VedioStr);
-      
-            //$('.vedio').html(VedioStr);
-            //$(".download").attr("download",data.data.videoUrl); 
-         // }
-
+          
         }
   
         
@@ -1044,7 +1052,7 @@ $(function () {
   
           var UserList = data.data.list;
   
-          console.log('用户列表 ======== ', UserList);
+          console.log('用户列表 ======== ', data.data);
   
           var users = '';
           // 循环遍历把数据渲染到html
@@ -2521,148 +2529,157 @@ $(function () {
         pageSize: 5,
       },
       success: function (data, textStatus, jqXHR) {
-        console.log(data.data.list);
 
-        localStorage.setItem("TextTotal",data.data.total);
+        if(data.code == 0){
 
-        var TextList = data.data.list;
+          if(data.data != null){
 
-        var Texts = '';
+            console.log(data);
 
-        $.each(TextList,function(i,obj){
+            localStorage.setItem("TextTotal",data.data.total);
 
-          Texts += '<div class="record">';
-          Texts += '<div class="text_chexbox" data-ids="'+obj.opinionId+'"></div>';
-          Texts += '<div class="record_right">';
-          Texts += '<p class="record_name">'+obj.speakerName+'</p>';
-          Texts += '<p class="record_time">'+obj.createTime+'</p>';
-          Texts += '<p class="record_comtent">'+obj.content+'</p>';
-          Texts += '<p class="record_edit">';
-          Texts += '<img src="'+'../img/edit.png'+'" alt="">'+'编辑';
-          Texts += '</p>';
-          Texts += '</div>';
-          Texts += '</div>';
+            var TextList = data.data.list;
 
-        });
-        $('#TextList').html(Texts);
+            var Texts = '';
 
-        // 滚动条
-        //console.log($('.record').innerHeight());
+            $.each(TextList,function(i,obj){
 
-        if( $('.text_tool').css("display") == 'none'){
+              Texts += '<div class="record">';
+              Texts += '<div class="text_chexbox" data-ids="'+obj.opinionId+'"></div>';
+              Texts += '<div class="record_right">';
+              Texts += '<p class="record_name">'+obj.speakerName+'</p>';
+              Texts += '<p class="record_time">'+obj.createTime+'</p>';
+              Texts += '<p class="record_comtent">'+obj.content+'</p>';
+              Texts += '<p class="record_edit">';
+              Texts += '<img src="'+'../img/edit.png'+'" alt="">'+'编辑';
+              Texts += '</p>';
+              Texts += '</div>';
+              Texts += '</div>';
 
-          $('.text_chexbox').css('display','none')
+            });
+            $('#TextList').html(Texts);
 
-        }else if( $('.text_tool').css("display") == 'block' ){
+            // 滚动条
+            //console.log($('.record').innerHeight());
 
-          $('.text_chexbox').css('display','block')
+            if( $('.text_tool').css("display") == 'none'){
 
-        };
+              $('.text_chexbox').css('display','none')
 
-        // 复选框
-        $('.text_chexbox').click(function () {
+            }else if( $('.text_tool').css("display") == 'block' ){
 
-          if ($(this).hasClass('chexbox_img')) {
-      
-            $(this).removeClass('chexbox_img');
-      
-          } else {
-      
-            $(this).addClass('chexbox_img');
-          }
-        });
+              $('.text_chexbox').css('display','block')
 
-        // 点击编辑
-        $('.record_edit').click(function () {
+            };
 
-          var NowText = $(this).parent().parent().index();
+            // 复选框
+            $('.text_chexbox').click(function () {
 
-          console.log('当前选中编辑的下标 ========= ',NowText);
+              if ($(this).hasClass('chexbox_img')) {
+          
+                $(this).removeClass('chexbox_img');
+          
+              } else {
+          
+                $(this).addClass('chexbox_img');
+              }
+            });
 
-          var record_comtent = $('.record').eq(NowText).children('.record_right').children('.record_comtent').text();
+            // 点击编辑
+            $('.record_edit').click(function () {
 
-          console.log('文字 ======' ,record_comtent);
-      
-          $('#TextSelect').val(record_comtent);
-      
-      
-          $('.text_record_edit').css("display", "block");
-          layer.open({
-            type: 1,
-            area: ['700px', '520px'],
-            title: ['', 'background: #fff;border:0'],
-            btn: ['完成'],
-            skin: 'my-skin',
-            btnAlign: 'c',
-            content: $('.text_record_edit'),
-            cancel: function (index, layero) {
-              $('.text_record_edit').css("display", "none");
-            },
-            yes: function (index, layero) {
+              var NowText = $(this).parent().parent().index();
 
-              var content = $('#TextSelect').val();
-              var speakerId = $('#text_ss option:selected').val();
-              var opinionId = TextList[NowText].opinionId;
+              console.log('当前选中编辑的下标 ========= ',NowText);
 
-              console.log('修改的内容 ========',content);
-              console.log('修改的嘉宾 ========',speakerId);
-              console.log('修改的ID ========',opinionId);
+              var record_comtent = $('.record').eq(NowText).children('.record_right').children('.record_comtent').text();
 
-              $.ajax({
-                url: TheServer + '/speakerOpinion/edit',
-                type: 'POST',
-                async: true,
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify({
-                  interviewId: talkNum,
-                  speakerId: speakerId,
-                  content: content,
-                  opinionId: opinionId
-                }),
-                success: function (data, textStatus, jqXHR) {
-                  console.log(data);
+              console.log('文字 ======' ,record_comtent);
+          
+              $('#TextSelect').val(record_comtent);
+          
+          
+              $('.text_record_edit').css("display", "block");
+              layer.open({
+                type: 1,
+                area: ['700px', '520px'],
+                title: ['', 'background: #fff;border:0'],
+                btn: ['完成'],
+                skin: 'my-skin',
+                btnAlign: 'c',
+                content: $('.text_record_edit'),
+                cancel: function (index, layero) {
+                  $('.text_record_edit').css("display", "none");
+                },
+                yes: function (index, layero) {
 
-                  if(data.code == 0){
+                  var content = $('#TextSelect').val();
+                  var speakerId = $('#text_ss option:selected').val();
+                  var opinionId = TextList[NowText].opinionId;
 
-                    // 从本地储存里面拿出嘉宾列表
-                    var speak = localStorage.getItem("Speak");
-                    var speaker = JSON.parse(speak);
+                  console.log('修改的内容 ========',content);
+                  console.log('修改的嘉宾 ========',speakerId);
+                  console.log('修改的ID ========',opinionId);
 
-                    //console.log(speaker);
+                  $.ajax({
+                    url: TheServer + '/speakerOpinion/edit',
+                    type: 'POST',
+                    async: true,
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({
+                      interviewId: talkNum,
+                      speakerId: speakerId,
+                      content: content,
+                      opinionId: opinionId
+                    }),
+                    success: function (data, textStatus, jqXHR) {
+                      console.log(data);
 
-                    var now = [];
+                      if(data.code == 0){
 
-                    // 循环嘉宾列表把id相等的数据的名字拿出来
-                    for(var c = 0; c < speaker.length; c ++){
-                      //console.log(speaker[c].speakerId)
-                      if(speaker[c].speakerId == speakerId){
+                        // 从本地储存里面拿出嘉宾列表
+                        var speak = localStorage.getItem("Speak");
+                        var speaker = JSON.parse(speak);
 
-                        now.push(speaker[c].name);
+                        //console.log(speaker);
 
-                      }
+                        var now = [];
+
+                        // 循环嘉宾列表把id相等的数据的名字拿出来
+                        for(var c = 0; c < speaker.length; c ++){
+                          //console.log(speaker[c].speakerId)
+                          if(speaker[c].speakerId == speakerId){
+
+                            now.push(speaker[c].name);
+
+                          }
+                        }
+
+                        // 把修改了的数据渲染到页面上面
+                        $('.record').eq(NowText).children('.record_right').children('.record_comtent').text(content);
+                        $('.record').eq(NowText).children('.record_right').children('.record_name').text(now);
+
+
+                      };
+                    },
+                    error: function (xhr, textStatus) {
+                    },
+                    complete: function () {
                     }
-
-                    // 把修改了的数据渲染到页面上面
-                    $('.record').eq(NowText).children('.record_right').children('.record_comtent').text(content);
-                    $('.record').eq(NowText).children('.record_right').children('.record_name').text(now);
+                  })
 
 
-                  };
-                },
-                error: function (xhr, textStatus) {
-                },
-                complete: function () {
+
+                  layer.close(index);
+                  $('.text_record_edit').css("display", "none");
                 }
-              })
+              });
+          
+            });
 
+          }
 
-
-              layer.close(index);
-              $('.text_record_edit').css("display", "none");
-            }
-          });
-      
-        });
+        }
 
       },
       error: function (xhr, textStatus) {
@@ -2690,30 +2707,36 @@ $(function () {
 
         if(data.code == 0){
 
-          layui.use('laypage', function(){
+          if(data.data != null){
 
-            var laypage = layui.laypage;
-            
-            //执行一个laypage实例
-            laypage.render({
-              elem: 'TextPage'
-              ,count: data.data.total//数据总数，从服务端得到
-              ,theme: '#4597E0'
-              ,limit: 5
-              ,curr: location.hash.replace('#!TextCurr=', TextCurr)
-              ,hash: 'TextCurr'
-              ,prev: '<< 上一页'
-              ,next: '下一页 >>'
-              ,jump: function(obj, first){
+            layui.use('laypage', function(){
 
-                localStorage.setItem("TextCurr",obj.curr);
-                
-               
-                GetText(obj.curr)
-                
-              }
+              var laypage = layui.laypage;
+              
+              //执行一个laypage实例
+              laypage.render({
+                elem: 'TextPage'
+                ,count: data.data.total//数据总数，从服务端得到
+                ,theme: '#4597E0'
+                ,limit: 5
+                ,curr: location.hash.replace('#!TextCurr=', TextCurr)
+                ,hash: 'TextCurr'
+                ,prev: '<< 上一页'
+                ,next: '下一页 >>'
+                ,jump: function(obj, first){
+  
+                  localStorage.setItem("TextCurr",obj.curr);
+                  
+                 
+                  GetText(obj.curr)
+                  
+                }
+              });
             });
-          });
+
+          }
+
+          
 
         }
 
