@@ -1098,7 +1098,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR){
 
-        console.log(data)
+        console.log('用户列表 =========== ',data)
 
         layui.use('laypage', function(){
 
@@ -1220,7 +1220,7 @@ $(function () {
       },
       success: function (data, textStatus, jqXHR) {
 
-        console.log(data);
+        console.log('网友提问 ====== ',data);
         
         // 如果成功的话，就执行下面的代码
         if (data.code == 0) {
@@ -1366,7 +1366,7 @@ $(function () {
         if(data.code == 0){
 
           var replyList = data.data.list;
-          console.log('审核回复列表 ============ ',replyList);
+          console.log('审核回复列表 ============ ',data);
 
 
          var replys = '';
@@ -1604,7 +1604,7 @@ $(function () {
             //执行一个laypage实例
             laypage.render({
               elem: 'ReplyPage'
-              ,count: data.total//数据总数，从服务端得到
+              ,count: data.data.total//数据总数，从服务端得到
               ,theme: '#4597E0'
               ,curr: location.hash.replace('#!ReplyCurr=', ReplyCurr)
               ,hash: 'ReplyCurr'
@@ -2315,11 +2315,13 @@ $(function () {
         layui.use('laypage', function(){
 
           var laypage = layui.laypage;
+
+          console.log(data.total)
     
           //执行一个laypage实例
           laypage.render({
             elem: 'ImagePage'
-            ,count: data.total//数据总数，从服务端得到
+            ,count: data.data.total//数据总数，从服务端得到
             ,theme: '#4597E0'
             ,curr: location.hash.replace('#!ImageCurr=', ImageCurr)
             ,hash: 'ImageCurr'
